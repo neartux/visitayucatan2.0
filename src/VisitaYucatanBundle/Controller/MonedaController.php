@@ -32,6 +32,7 @@ class MonedaController extends Controller{
         return new Response($serializer->serialize($currency, Generalkeys::JSON_STRING));
     }
 
+
     /**
      * @Route("/moneda/create", name="moneda_crear")
      * @Method("POST")
@@ -98,5 +99,6 @@ class MonedaController extends Controller{
         }
 
     }
+
 }
 
