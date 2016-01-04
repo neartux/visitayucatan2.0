@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %} {% trans %}website.admin.general.label.title{% endtrans %} {% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+    {% include 'Lib_CSS.html.twig' %}
+
+</head>
+
+<body class="animated-content">
+
+    {% block body %}
+
+        {% include 'header.html.twig' %}
+
+        <div id="wrapper">
+            <div id="layout-static">
+
+                {% include 'sidebar.html.twig' %}
+
+                <div class="static-content-wrapper">
+                    <div class="static-content">
+                        <div class="page-content">
+
+                            {% block breadcrumb %}
+
+                                <ol class="breadcrumb">
+
+                                    <li class=""><a href="index.html">Home</a></li>
+                                    <li class="active"><a href="index.html">Dashboard</a></li>
+
+                                </ol>
+
+                            {% endblock %}
+
+                            <div class="container-fluid">
+
+                                {% block content %}
+                                    <!-- AQUI EL CONTENIDO DE LAS DEMAS PAGINAS-->
+                                {% endblock %}
+
+                            </div> <!-- .container-fluid -->
+                        </div> <!-- #page-content -->
+                    </div>
+
+                    {% include 'footer.html.twig' %}
+
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+
+    {% block scripts %} {% include 'Lib_JS.html.twig' %} {% endblock %}
+
+
+</body>
+</html>

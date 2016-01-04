@@ -1,0 +1,188 @@
+{% extends '::BaseTemplate.html.twig' %}
+
+{% block breadcrumb %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="info-tile tile-orange" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                <div class="tile-icon"><i class="ti ti-shopping-cart-full"></i></div>
+                <div class="tile-heading"><span>Orders</span></div>
+                <div class="tile-body"><span>2,150</span></div>
+                <div class="tile-footer"><span class="text-success">22.5% <i class="fa fa-level-up"></i></span></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="info-tile tile-success" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                <div class="tile-icon"><i class="ti ti-bar-chart"></i></div>
+                <div class="tile-heading"><span>Revenues</span></div>
+                <div class="tile-body"><span>$75,100</span></div>
+                <div class="tile-footer"><span class="text-danger">12.7% <i class="fa fa-level-down"></i></span></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="info-tile tile-info" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                <div class="tile-icon"><i class="ti ti-stats-up"></i></div>
+                <div class="tile-heading"><span>Earnings</span></div>
+                <div class="tile-body"><span>$40,150</span></div>
+                <div class="tile-footer"><span class="text-success">5.2% <i class="fa fa-level-up"></i></span></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="info-tile tile-danger" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                <div class="tile-icon"><i class="ti ti-bar-chart-alt"></i></div>
+                <div class="tile-heading"><span>Visitors</span></div>
+                <div class="tile-body"><span>12,600</span></div>
+                <div class="tile-footer"><span class="text-danger">10.5% <i class="fa fa-level-down"></i></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div data-widget-group="group1" class="ui-sortable">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-info" data-widget="{&quot;id&quot; : &quot;wiget9&quot;, &quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                    <div class="panel-heading">
+                        <h2>Social Stats</h2>
+                        <div class="panel-ctrls button-icon-bg" data-actions-container="" data-action-collapse="{&quot;target&quot;: &quot;.panel-body&quot;}" data-action-colorpicker="" data-action-refresh-demo="{&quot;type&quot;: &quot;circular&quot;}">
+                            <span class="button-icon has-bg"><i class="ti ti-angle-down"></i></span><div class="dropdown"><span class="button-icon has-bg dropdown-toggle" data-toggle="dropdown"><i class="ti ti-palette"></i></span><ul class="panel-color-list dropdown-menu arrow" role="menu"><li><span data-style="panel-info"></span></li><li><span data-style="panel-primary"></span></li><li><span data-style="panel-blue"></span></li><li><span data-style="panel-indigo"></span></li><li><span data-style="panel-deeppurple"></span></li><li><span data-style="panel-purple"></span></li><li><span data-style="panel-pink"></span></li><li><span data-style="panel-danger"></span></li><li><span data-style="panel-teal"></span></li><li><span data-style="panel-green"></span></li><li><span data-style="panel-success"></span></li><li><span data-style="panel-lime"></span></li><li><span data-style="panel-yellow"></span></li><li><span data-style="panel-warning"></span></li><li><span data-style="panel-orange"></span></li><li><span data-style="panel-deeporange"></span></li><li><span data-style="panel-midnightblue"></span></li><li><span data-style="panel-bluegray"></span></li><li><span data-style="panel-bluegraylight"></span></li><li><span data-style="panel-black"></span></li><li><span data-style="panel-gray"></span></li><li><span data-style="panel-default"></span></li><li><span data-style="panel-white"></span></li><li><span data-style="panel-brown"></span></li></ul></div><span class="button-icon"><i class="ti ti-reload"></i></span></div>
+                    </div>
+                    <div class="panel-editbox" data-widget-controls=""></div>
+                    <div class="panel-body">
+                        <div id="socialstats" style="height: 272px; padding: 0px; position: relative;" class="mt-sm mb-sm"><canvas class="flot-base" width="451" height="272" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 451px; height: 272px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 25px; text-align: center;">1</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 94px; text-align: center;">2</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 163px; text-align: center;">3</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 232px; text-align: center;">4</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 301px; text-align: center;">5</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 370px; text-align: center;">6</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 440px; text-align: center;">7</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; top: 246px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 13px; text-align: right;">0</div><div style="position: absolute; top: 197px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 7px; text-align: right;">20</div><div style="position: absolute; top: 148px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 7px; text-align: right;">40</div><div style="position: absolute; top: 100px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 7px; text-align: right;">60</div><div style="position: absolute; top: 51px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 7px; text-align: right;">80</div><div style="position: absolute; top: 2px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 0px; text-align: right;">100</div></div></div><canvas class="flot-overlay" width="451" height="272" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 451px; height: 272px;"></canvas><div class="legend"><div style="position: absolute; width: 74px; height: 34px; top: 16px; right: 16px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div><table style="position:absolute;top:16px;right:16px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(159,168,218);overflow:hidden"></div></div></td><td class="legendLabel">Facebook</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(128,222,234);overflow:hidden"></div></div></td><td class="legendLabel">Twitter</td></tr></tbody></table></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-bluegray" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                    <div class="panel-heading">
+                        <h2>Earnings Stats</h2>
+                        <div class="panel-ctrls button-icon-bg" data-actions-container="" data-action-collapse="{&quot;target&quot;: &quot;.panel-body&quot;}" data-action-colorpicker="" data-action-refresh-demo="{&quot;type&quot;: &quot;circular&quot;}">
+                            <span class="button-icon has-bg"><i class="ti ti-angle-down"></i></span><div class="dropdown"><span class="button-icon has-bg dropdown-toggle" data-toggle="dropdown"><i class="ti ti-palette"></i></span><ul class="panel-color-list dropdown-menu arrow" role="menu"><li><span data-style="panel-info"></span></li><li><span data-style="panel-primary"></span></li><li><span data-style="panel-blue"></span></li><li><span data-style="panel-indigo"></span></li><li><span data-style="panel-deeppurple"></span></li><li><span data-style="panel-purple"></span></li><li><span data-style="panel-pink"></span></li><li><span data-style="panel-danger"></span></li><li><span data-style="panel-teal"></span></li><li><span data-style="panel-green"></span></li><li><span data-style="panel-success"></span></li><li><span data-style="panel-lime"></span></li><li><span data-style="panel-yellow"></span></li><li><span data-style="panel-warning"></span></li><li><span data-style="panel-orange"></span></li><li><span data-style="panel-deeporange"></span></li><li><span data-style="panel-midnightblue"></span></li><li><span data-style="panel-bluegray"></span></li><li><span data-style="panel-bluegraylight"></span></li><li><span data-style="panel-black"></span></li><li><span data-style="panel-gray"></span></li><li><span data-style="panel-default"></span></li><li><span data-style="panel-white"></span></li><li><span data-style="panel-brown"></span></li></ul></div><span class="button-icon"><i class="ti ti-reload"></i></span></div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="earnings" style="height: 272px; padding: 0px; position: relative;" class="mt-sm mb-sm"><canvas class="flot-base" width="451" height="272" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 451px; height: 272px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 66px; text-align: center;">1</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 121px; text-align: center;">2</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 177px; text-align: center;">3</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 232px; text-align: center;">4</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 287px; text-align: center;">5</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 343px; text-align: center;">6</div><div style="position: absolute; max-width: 64px; top: 260px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 398px; text-align: center;">7</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; top: 246px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 0px; text-align: right;">$0K</div><div style="position: absolute; top: 197px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 0px; text-align: right;">$1K</div><div style="position: absolute; top: 148px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 0px; text-align: right;">$2K</div><div style="position: absolute; top: 100px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 0px; text-align: right;">$3K</div><div style="position: absolute; top: 51px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 0px; text-align: right;">$4K</div><div style="position: absolute; top: 2px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 12.65px; font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif; color: rgb(189, 189, 189); left: 0px; text-align: right;">$5K</div></div></div><canvas class="flot-overlay" width="451" height="272" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 451px; height: 272px;"></canvas><div class="legend"><div style="position: absolute; width: 75px; height: 51px; top: 16px; right: 16px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div><table style="position:absolute;top:16px;right:16px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(207,216,220);overflow:hidden"></div></div></td><td class="legendLabel">Revenues</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(120,144,156);overflow:hidden"></div></div></td><td class="legendLabel">Earnings</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(255,87,34);overflow:hidden"></div></div></td><td class="legendLabel">Referrals</td></tr></tbody></table></div></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-gray" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                    <div class="panel-heading">
+                        <h2>Recent Activities</h2>
+                        <div class="panel-ctrls button-icon-bg" data-actions-container="" data-action-collapse="{&quot;target&quot;: &quot;.panel-body&quot;}" data-action-colorpicker="" data-action-refresh-demo="{&quot;type&quot;: &quot;circular&quot;}">
+                            <span class="button-icon has-bg"><i class="ti ti-angle-down"></i></span><div class="dropdown"><span class="button-icon has-bg dropdown-toggle" data-toggle="dropdown"><i class="ti ti-palette"></i></span><ul class="panel-color-list dropdown-menu arrow" role="menu"><li><span data-style="panel-info"></span></li><li><span data-style="panel-primary"></span></li><li><span data-style="panel-blue"></span></li><li><span data-style="panel-indigo"></span></li><li><span data-style="panel-deeppurple"></span></li><li><span data-style="panel-purple"></span></li><li><span data-style="panel-pink"></span></li><li><span data-style="panel-danger"></span></li><li><span data-style="panel-teal"></span></li><li><span data-style="panel-green"></span></li><li><span data-style="panel-success"></span></li><li><span data-style="panel-lime"></span></li><li><span data-style="panel-yellow"></span></li><li><span data-style="panel-warning"></span></li><li><span data-style="panel-orange"></span></li><li><span data-style="panel-deeporange"></span></li><li><span data-style="panel-midnightblue"></span></li><li><span data-style="panel-bluegray"></span></li><li><span data-style="panel-bluegraylight"></span></li><li><span data-style="panel-black"></span></li><li><span data-style="panel-gray"></span></li><li><span data-style="panel-default"></span></li><li><span data-style="panel-white"></span></li><li><span data-style="panel-brown"></span></li></ul></div><span class="button-icon"><i class="ti ti-reload"></i></span></div>
+                    </div>
+                    <div class="panel-body scroll-pane has-scrollbar" style="height: 320px;">
+                        <div class="scroll-content" tabindex="0" style="right: -15px;">
+                            <ul class="mini-timeline">
+                                <li class="mini-timeline-lime">
+                                    <div class="timeline-icon"></div>
+                                    <div class="timeline-body">
+                                        <div class="timeline-content">
+                                            <a href="#/" class="name">Vincent Keller</a> added new task <a href="#/">Admin Dashboard UI</a>
+                                            <span class="time">4 mins ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="mini-timeline-deeporange">
+                                    <div class="timeline-icon"></div>
+                                    <div class="timeline-body">
+                                        <div class="timeline-content">
+                                            <a href="#/" class="name">Shawna Owen</a> added <a href="#/" class="name">Alonzo Keller</a> and <a href="#/" class="name">Mario Bailey</a> to project <a href="#/">Wordpress eCommerce Template</a>
+                                            <span class="time">6 mins ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="mini-timeline-info">
+                                    <div class="timeline-icon"></div>
+                                    <div class="timeline-body">
+                                        <div class="timeline-content">
+                                            <a href="#/" class="name">Christian Delgado</a> commented on thread <a href="#/">Frontend Template PSD</a>
+                                            <span class="time">12 mins ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="mini-timeline-indigo">
+                                    <div class="timeline-icon"></div>
+                                    <div class="timeline-body">
+                                        <div class="timeline-content">
+                                            <a href="#/" class="name">Jonathan Smith</a> added <a href="#/" class="name">Frend Pratt</a> and <a href="#/" class="name">Robin Horton</a> to project <a href="#/">Material Design Admin Template</a>
+                                            <span class="time">6 hours ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mini-timeline-lime">
+                                    <div class="timeline-icon"></div>
+                                    <div class="timeline-body">
+                                        <div class="timeline-content">
+                                            <a href="#/" class="name">Vincent Keller</a> added new task <a href="#/">Admin Dashboard UI</a>
+                                            <span class="time">4 mins ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="mini-timeline-deeporange">
+                                    <div class="timeline-icon"></div>
+                                    <div class="timeline-body">
+                                        <div class="timeline-content">
+                                            <a href="#/" class="name">Shawna Owen</a> added <a href="#/" class="name">Alonzo Keller</a> and <a href="#/" class="name">Mario Bailey</a> to project <a href="#/">Wordpress eCommerce Template</a>
+                                            <span class="time">6 mins ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="mini-timeline-info">
+                                    <div class="timeline-icon"></div>
+                                    <div class="timeline-body">
+                                        <div class="timeline-content">
+                                            <a href="#/" class="name">Christian Delgado</a> commented on thread <a href="#/">Frontend Template PSD</a>
+                                            <span class="time">12 mins ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="mini-timeline-indigo">
+                                    <div class="timeline-icon"></div>
+                                    <div class="timeline-body">
+                                        <div class="timeline-content">
+                                            <a href="#/" class="name">Jonathan Smith</a> added <a href="#/" class="name">Frend Pratt</a> and <a href="#/" class="name">Robin Horton</a> to project <a href="#/">Material Design Admin Template</a>
+                                            <span class="time">6 hours ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mini-timeline-default">
+                                    <div class="timeline-body ml-n">
+                                        <div class="timeline-content">
+                                            <button type="button" data-loading-text="Loading..." class="loading-example-btn btn btn-sm btn-default">See more</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="scroll-track"><div class="scroll-thumb" style="height: 171px; transform: translate(0px, 0px);"></div></div></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+{% endblock %}

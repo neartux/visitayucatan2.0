@@ -1,0 +1,74 @@
+{% extends '::BaseTemplate.html.twig' %}
+
+{% block breadcrumb %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="content-main" data-ng-app="Currency" data-ng-controller="CurrencyController as ctrlCurrency"
+         ng-init="ctrlCurrency.init('{% trans %}catalog.currency.report.message.new.currency{% endtrans %}', '{% trans %}catalog.currency.report.message.edit.currency{% endtrans %}',
+         '{% trans %}general.message.loading{% endtrans %}','{% trans %}catalog.currency.report.message.confirm.delete{% endtrans %}')">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-bluegray" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                    <div class="panel-heading">
+                        <h2>
+                            {% trans %}catalog.currency.report.label.title{% endtrans %}
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <input type="button" data-ng-click="ctrlCurrency.displayNewCurrency()" value="{% trans %}catalog.currency.report.label.new{% endtrans %}" class="btn btn-primary"/>
+                        </div>
+                        <br><br>
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead class="text-uppercase text-bold">
+                                    <tr>
+                                        <th width="10%">{%trans%}catalog.currency.report.label.id{% endtrans %}</th>
+                                        <th>{%trans%}catalog.currency.report.label.description{% endtrans %}</th>
+                                        <th width="15%">{%trans%}catalog.currency.report.label.symbol{% endtrans %}</th>
+                                        <th width="15%">{%trans%}catalog.currency.report.label.change.type{% endtrans %}</th>
+                                        <th width="25%">{% trans %}general.message.panel{% endtrans %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="currency in ctrlCurrency.listCurrency.data">
+                                        <td>[[ currency.id ]]</td>
+                                        <td>[[ currency.descripcion ]]</td>
+                                        <td>[[ currency.simbolo ]]</td>
+                                        <td>[[ currency.tipoCambio ]]</td>
+                                        <td>
+                                            <a class="btn btn-success-alt" data-ng-click="ctrlCurrency.displayEditCurrency(currency)" href="javascript:;"><i class="ti ti-pencil"></i>&nbsp;{% trans %}button.label.edit{% endtrans %}</a>
+                                            <a class="btn btn-danger-alt" data-ng-click="ctrlCurrency.deleteCurrency(currency.id)" href="javascript:;"><i class="ti ti-trash"></i>&nbsp;{% trans %}button.label.delete{% endtrans %}</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {% include '@VisitaYucatan/admin/catalogs/currency/ModalCurrency.html.twig' %}
+
+        <!--Paths-->
+        <input type="hidden" id="pathListCurrency" value="{{ path('moneda_find_list') }}"/>
+        <input type="hidden" id="pathCreateCurrency" value="{{ path('moneda_crear') }}"/>
+        <input type="hidden" id="pathUpdateCurrency" value="{{ path('moneda_editar') }}"/>
+        <input type="hidden" id="pathDeleteCurrency" value="{{ path('moneda_delete') }}"/>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/VisitaYucatanBundle/js/catalogs/currency/CurrencyProvider.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/VisitaYucatanBundle/js/catalogs/currency/CurrencyController.js') }}" type="text/javascript"></script>
+{% endblock %}

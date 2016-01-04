@@ -1,0 +1,41 @@
+# MESSAGES PROPERTIES TO LENGUAJE IN ENGLISH
+
+#*** Properties to title web admin
+website.admin.general.label.title : Visita Yucatán
+
+#** Properties generals
+general.message.loading : Cargando
+general.message.panel : Panel
+
+#** Properties to buttons
+button.label.save : Guardar
+button.label.delete : Eliminar
+button.label.search : Buscar
+button.label.cancel : Cancelar
+button.label.close : Cerrar
+button.label.go.back : Regresar
+button.label.edit : Editar
+
+#** Properties to menu sidebar
+menu.sidebar.label.title.catalogs : Catalogos
+menu.sidebar.label.title.catalogs.currency : Monedas
+menu.sidebar.label.title.catalogs.languages : Idiomas
+
+#** Properties to catalog currency
+catalog.currency.report.label.title : Monedas
+catalog.currency.report.label.new : Nueva Moneda
+catalog.currency.report.label.id : Id
+catalog.currency.report.label.description : Descripción
+catalog.currency.report.label.symbol : Symbolo
+catalog.currency.report.label.change.type : Tipo Cambio
+catalog.currency.report.message.error.description : Descripción es requerido
+catalog.currency.report.message.error.symbol : Symbolo es requerido
+catalog.currency.report.message.error.length.symbol : El máximo de caracteres es 10
+catalog.currency.report.message.error.change.type : Tipo cambio es requerido
+catalog.currency.report.message.new.currency : Nueva moneda
+catalog.currency.report.message.edit.currency : Actualizar moneda
+catalog.currency.report.message.success.create : Moneda Creada
+catalog.currency.report.message.success.update : Moneda Actualizada
+catalog.currency.report.message.error : Ocurrio un error, no se pudo realizar la accion
+catalog.currency.report.message.delete : Moneda eliminada
+catalog.currency.report.message.confirm.delete : ¿Esta seguro de eliminar la moneda?

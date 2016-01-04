@@ -1,0 +1,7 @@
+visita_yucatan:
+    resource: "@VisitaYucatanBundle/Resources/config/routing.yml"
+    prefix:   annotation
+
+app:
+    resource: "@VisitaYucatanBundle/Controller/"
+    type:     annotation

@@ -1,0 +1,3 @@
+visita_yucatan_homepage:
+    path:     /
+    defaults: { _controller: VisitaYucatanBundle:Default:index }

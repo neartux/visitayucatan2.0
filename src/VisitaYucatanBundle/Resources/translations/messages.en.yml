@@ -1,0 +1,41 @@
+# MESSAGES PROPERTIES TO LENGUAJE IN ENGLISH
+
+#*** Properties to title web admin
+website.admin.general.label.title : Visit Yucatan
+
+#** Properties generals
+general.message.loading : Loading
+general.message.panel : Panel
+
+#** Properties to buttons
+button.label.save : Save
+button.label.delete : Delete
+button.label.search : Search
+button.label.cancel : Cancel
+button.label.close : Close
+button.label.go.back : Go Back
+button.label.edit : Edit
+
+#** Properties to menu sidebar
+menu.sidebar.label.title.catalogs : Catalogs
+menu.sidebar.label.title.catalogs.currency : Currency
+menu.sidebar.label.title.catalogs.languages : Languages
+
+#** Properties to catalog currency
+catalog.currency.report.label.title : Currency
+catalog.currency.report.label.new : New Currency
+catalog.currency.report.label.id : Id
+catalog.currency.report.label.description : Description
+catalog.currency.report.label.symbol : Symbol
+catalog.currency.report.label.change.type : Change Type
+catalog.currency.report.message.error.description : Description is required
+catalog.currency.report.message.error.symbol : Symbol is required
+catalog.currency.report.message.error.length.symbol : The maximum characters is 10
+catalog.currency.report.message.error.change.type : Change type is required
+catalog.currency.report.message.new.currency : New currency
+catalog.currency.report.message.edit.currency : Edit Currency
+catalog.currency.report.message.success.create : Currency created
+catalog.currency.report.message.success.update : Currency updated
+catalog.currency.report.message.error : An error has occurred, unable to perform the action
+catalog.currency.report.message.delete : Currency deleted
+catalog.currency.report.message.confirm.delete : Do you want delete currency ?
