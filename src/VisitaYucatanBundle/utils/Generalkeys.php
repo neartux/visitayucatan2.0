@@ -16,5 +16,7 @@ class Generalkeys{
     const RESPONSE_SUCCESS = "success";
     const RESPONSE_ERROR = "error";
     const RESPONSE_CODE_OK = "OK";
+    const USER_IN_SESSION = true;
+    const LABEL_STATUS = "status";
 
 }

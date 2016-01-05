@@ -23,6 +23,7 @@ class ResponseTO{
         $this->code = $code;
     }
 
+
     /**
      * @return mixed
      */
