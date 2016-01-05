@@ -14,15 +14,18 @@ use VisitaYucatanBundle\utils\ResponseTO;
 class MonedaController extends Controller{
 
     /**
-     * @Route("/moneda/list", name="moneda_display_list")
+     * @Route("/admin/moneda/list", name="moneda_display_list")
      * @Method("GET")
      */
-    public function displayCurrencyAction(){
+    public function displayCurrencyAction(Request $request){
+        if(! $request->getSession()->get(Generalkeys::LABEL_STATUS)){
+            return $this->redirectToRoute('admin_login');
+        }
         return $this->render('VisitaYucatanBundle:admin/catalogs/currency:Currency.html.twig');
     }
 
     /**
-     * @Route("/moneda/find/list", name="moneda_find_list")
+     * @Route("/admin/moneda/find/list", name="moneda_find_list")
      * @Method("GET")
      */
     public function findAllCurrencyAction(){
@@ -34,7 +37,7 @@ class MonedaController extends Controller{
 
 
     /**
-     * @Route("/moneda/create", name="moneda_crear")
+     * @Route("/admin/moneda/create", name="moneda_crear")
      * @Method("POST")
      */
     public function createCurrencyAction(Request $request){
@@ -56,7 +59,7 @@ class MonedaController extends Controller{
     }
 
     /**
-     * @Route("/moneda/update", name="moneda_editar")
+     * @Route("/admin/moneda/update", name="moneda_editar")
      * @Method("POST")
      */
     public function udpateCurrencyAction(Request $request){
@@ -78,7 +81,7 @@ class MonedaController extends Controller{
     }
 
     /**
-     * @Route("/moneda/delete", name="moneda_delete")
+     * @Route("/admin/moneda/delete", name="moneda_delete")
      * @Method("POST")
      */
     public function deleteCurrencyAction(Request $request){
