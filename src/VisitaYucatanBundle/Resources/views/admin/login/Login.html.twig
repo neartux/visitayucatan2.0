@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" class="coming-soon">
+<head>
+    <meta charset="utf-8">
+    <title>{% trans %}website.admin.general.label.title{% endtrans %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="author" content="RDzul">
+
+    {% include 'Lib_CSS.html.twig' %}
+
+</head>
+
+<body class="focused-form">
+
+
+<div class="container" id="login-form">
+    <a href="{{ path ('admin_login') }}" class="login-logo" style="margin-bottom: 0px;">
+        <img src="{{ asset('bundles/VisitaYucatanBundle/img/logos/logo.png') }}">
+    </a>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Login Form</h2>
+                </div>
+                <div class="panel-body">
+
+                    <form action="{{ path('admin_login_check') }}" class="form-horizontal" id="validate-form">
+                        <div class="form-group mb-md">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+										<span class="input-group-addon">
+											<i class="ti ti-user"></i>
+										</span>
+                                    <input type="text" class="form-control" placeholder="Username" data-parsley-minlength="6" required id="username"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-md">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+										<span class="input-group-addon">
+											<i class="ti ti-key"></i>
+										</span>
+                                    <input type="password" class="form-control" id="password" placeholder="Password"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div class="clearfix">
+                        <a href="javascript:;" onclick="checkLogin();" class="btn btn-primary pull-right">{% trans %}button.label.login{% endtrans %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% include 'Lib_JS.html.twig' %}
+
+<script>
+    $(document).ready(function() {
+        setTimeout(function(){
+            $("#username").val('').focus();
+            $("#password").val('');
+        }, 1000);
+
+        $("input").on("keydown",function search(e) {
+            if(e.keyCode == 13) {
+                checkLogin();
+            }
+        });
+
+    });
+
+    function checkLogin(){
+        var user = $("#username");
+        var password = $("#password");
+        if(user.val() != "" || password.val() != ""){
+            if(user.val() != ""){
+                if(password.val() != ""){
+                    startLoading('{% trans %}general.message.loading{% endtrans %}');
+                    validateInfo(user.val(), password.val());
+                }else{
+                    pNotifyView('{% trans %}login.validate.message.pass.isrequired{% endtrans %}', 'info');
+                    $("#password").focus();
+                }
+            }else{
+                pNotifyView('{% trans %}login.validate.message.user.isrequired{% endtrans %}', 'info');
+                $("#username").focus();
+            }
+        }else{
+            pNotifyView('{% trans %}login.validate.message.user.and.pass.isrequired{% endtrans %}', 'info');
+            $("#username").focus();
+        }
+    }
+    function validateInfo(user, password){
+        $.ajax({
+            url: $("#validate-form").attr("action"),
+            type: 'get',
+            dataType: 'json',
+            data: {user: user, pass: password}
+        }).done(function(response) {
+            if(response.status){
+                window.location.href = '{{ path('page_home_admin') }}';
+            }else{
+                pNotifyView(response.message, response.typeStatus);
+                stopLoading();
+            }
+        }).fail(function() {
+            pNotifyView('{% trans %}catalog.currency.report.message.error{% endtrans %}', 'error');
+            stopLoading();
+        });
+    }
+</script>
+
+</body>
+</html>

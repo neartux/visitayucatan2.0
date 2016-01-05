@@ -35,11 +35,17 @@ class Estatus
     private $moneda;
 
     /**
+     * @ORM\OneToMany(targetEntity="Usuario", mappedBy="estatus")
+     */
+    private $usuario;
+
+
+    /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct(){
         $this->moneda = new ArrayCollection();
+        $this->usuario = new ArrayCollection();
     }
 
     /**
@@ -108,5 +114,39 @@ class Estatus
     public function getMoneda()
     {
         return $this->moneda;
+    }
+
+    /**
+     * Add usuario
+     *
+     * @param \VisitaYucatanBundle\Entity\Usuario $usuario
+     *
+     * @return Estatus
+     */
+    public function addUsuario(\VisitaYucatanBundle\Entity\Usuario $usuario)
+    {
+        $this->usuario[] = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuario
+     *
+     * @param \VisitaYucatanBundle\Entity\Usuario $usuario
+     */
+    public function removeUsuario(\VisitaYucatanBundle\Entity\Usuario $usuario)
+    {
+        $this->usuario->removeElement($usuario);
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }

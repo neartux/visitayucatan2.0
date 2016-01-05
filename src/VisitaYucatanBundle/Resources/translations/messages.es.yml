@@ -15,6 +15,7 @@ button.label.cancel : Cancelar
 button.label.close : Cerrar
 button.label.go.back : Regresar
 button.label.edit : Editar
+button.label.login : Login
 
 #** Properties to menu sidebar
 menu.sidebar.label.title.catalogs : Catalogos
@@ -39,3 +40,10 @@ catalog.currency.report.message.success.update : Moneda Actualizada
 catalog.currency.report.message.error : Ocurrio un error, no se pudo realizar la accion
 catalog.currency.report.message.delete : Moneda eliminada
 catalog.currency.report.message.confirm.delete : ¿Esta seguro de eliminar la moneda?
+
+#** Properties to login
+login.validate.message.user.not.exist : El usuario no existe en el sistema
+login.validate.message.pass.not.coincidence : La contraseña no coincide con el usuario
+login.validate.message.user.and.pass.isrequired : Usuario y contraseña son requeridos
+login.validate.message.user.isrequired : El usuario es requerido
+login.validate.message.pass.isrequired : La contraseña es requerido

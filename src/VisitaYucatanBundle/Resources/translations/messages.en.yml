@@ -15,6 +15,7 @@ button.label.cancel : Cancel
 button.label.close : Close
 button.label.go.back : Go Back
 button.label.edit : Edit
+button.label.login : Login
 
 #** Properties to menu sidebar
 menu.sidebar.label.title.catalogs : Catalogs
@@ -39,3 +40,10 @@ catalog.currency.report.message.success.update : Currency updated
 catalog.currency.report.message.error : An error has occurred, unable to perform the action
 catalog.currency.report.message.delete : Currency deleted
 catalog.currency.report.message.confirm.delete : Do you want delete currency ?
+
+#** Properties to login
+login.validate.message.user.not.exist : User not exist
+login.validate.message.pass.not.coincidence : The password does not match the user
+login.validate.message.user.and.pass.isrequired : User and Pass is required
+login.validate.message.user.isrequired : User is required
+login.validate.message.pass.isrequired : Password is required
