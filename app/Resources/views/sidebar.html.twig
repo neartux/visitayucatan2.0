@@ -4,12 +4,12 @@
             <div class="widget">
                 <div class="widget-body">
                     <div class="userinfo">
-                        <div class="avatar">
-                            <img src="http://placehold.it/300&text=Placeholder" class="img-responsive img-circle">
+                        <div class="avatar" style="font-size: 45px;">
+                            <span class="ti ti-user img-responsive img-circle"></span>
                         </div>
                         <div class="info">
-                            <span class="username">Jonathan Smith</span>
-                            <span class="useremail">jon@avenxo.com</span>
+                            <span class="username">{{ app.session.get('nombre') }}</span>
+                            <span class="useremail">{{ app.session.get('user') }}</span>
                         </div>
                     </div>
                 </div>
@@ -19,6 +19,7 @@
                     <ul class="acc-menu">
                         <li><a href="javascript:;"><i class="ti ti-layout"></i><span>{%trans%}menu.sidebar.label.title.catalogs{% endtrans %}</span></a>
                             <ul class="acc-menu">
+                                <li><a href="{{ path('user_display_list') }}">{%trans%}menu.sidebar.label.title.catalogs.users{% endtrans %}</a></li>
                                 <li><a href="{{ path('moneda_display_list') }}">{%trans%}menu.sidebar.label.title.catalogs.currency{% endtrans %}</a></li>
                                 <li><a href="layout-static-leftbar.html">{%trans%}menu.sidebar.label.title.catalogs.languages{% endtrans %}</a></li>
                             </ul>

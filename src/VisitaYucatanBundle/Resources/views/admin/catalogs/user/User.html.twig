@@ -1,0 +1,82 @@
+{% extends '::BaseTemplate.html.twig' %}
+
+{% block breadcrumb %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="content-main" data-ng-app="User" data-ng-controller="UserController as ctrlUser"
+         ng-init="ctrlUser.init('{% trans %}catalog.currency.report.message.new.currency{% endtrans %}', '{% trans %}catalog.currency.report.message.edit.currency{% endtrans %}',
+         '{% trans %}general.message.loading{% endtrans %}','{% trans %}catalog.currency.report.message.confirm.delete{% endtrans %}')">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-bluegray" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                    <div class="panel-heading">
+                        <h2>
+                            Usuarios
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <input type="button" data-ng-click="ctrlUser.displayNewUser()" value="nuevo usuario" class="btn btn-primary"/>
+                        </div>
+                        <br><br><br>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead class="text-uppercase text-bold">
+                                    <tr>
+                                        <th width="10%">username</th>
+                                        <th>nombres</th>
+                                        <th width="15%">apellidos</th>
+                                        <th width="15%">direccion</th>
+                                        <th width="25%">telefono</th>
+                                        <th width="25%">celular</th>
+                                        <th width="25%">email</th>
+                                        <th width="25%">&nbsp;</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr data-ng-repeat="user in ctrlUser.listUser.data">
+                                        <td>[[ user.username ]]</td>
+                                        <td>[[ user.nombres ]]</td>
+                                        <td>[[ user.apellidos ]]</td>
+                                        <td>[[ user.direccion ]]</td>
+                                        <td>[[ user.telefono ]]</td>
+                                        <td>[[ user.celular ]]</td>
+                                        <td>[[ user.email ]]</td>
+                                        <td>
+                                            <a class="btn btn-success-alt" data-ng-click="ctrlUser.displayEditUser(user)" href="javascript:;"><i class="ti ti-pencil"></i>&nbsp;{% trans %}button.label.edit{% endtrans %}</a>
+                                            <a class="btn btn-danger-alt" data-ng-click="ctrlUser.deleteUser(user.id)" href="javascript:;"><i class="ti ti-trash"></i>&nbsp;{% trans %}button.label.delete{% endtrans %}</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {% include '@VisitaYucatan/admin/catalogs/user/ModalUser.html.twig' %}
+
+        <!--Paths-->
+        <input type="hidden" id="pathListUser" value="{{ path('user_find_list') }}"/>
+        <input type="hidden" id="pathCreateUser" value="{{ path('user_create') }}"/>
+        <input type="hidden" id="pathUpdateCurrency" value="{{ path('moneda_editar') }}"/>
+        <input type="hidden" id="pathDeleteCurrency" value="{{ path('moneda_delete') }}"/>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/VisitaYucatanBundle/js/catalogs/user/UserProvider.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/VisitaYucatanBundle/js/catalogs/user/UserController.js') }}" type="text/javascript"></script>
+{% endblock %}

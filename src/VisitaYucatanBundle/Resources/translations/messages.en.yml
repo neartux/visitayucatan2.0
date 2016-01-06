@@ -19,6 +19,7 @@ button.label.login : Login
 
 #** Properties to menu sidebar
 menu.sidebar.label.title.catalogs : Catalogs
+menu.sidebar.label.title.catalogs.users : Users
 menu.sidebar.label.title.catalogs.currency : Currency
 menu.sidebar.label.title.catalogs.languages : Languages
 

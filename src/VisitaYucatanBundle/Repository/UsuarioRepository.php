@@ -12,6 +12,21 @@ use VisitaYucatanBundle\utils\Generalkeys;
  */
 class UsuarioRepository extends \Doctrine\ORM\EntityRepository{
 
+    public function findAllUsers(){
+        $em = $this->getEntityManager();
+        $sql = "SELECT usuario.id, usuario.username, usuario.password,
+                datos_personales.id AS iddatospersonales, datos_personales.nombres, datos_personales.apellidos,
+                datos_ubicacion.direccion,datos_ubicacion.telefono,datos_ubicacion.celular,datos_ubicacion.email
+                FROM usuario
+                INNER JOIN datos_personales ON datos_personales.id = usuario.id_datospersonales
+                INNER JOIN datos_ubicacion ON datos_ubicacion.id = usuario.id_datosubicacion
+                WHERE usuario.id_estatus = :estatus";
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
+
     public function existUser($user){
         $user = $this->findOneBy(array('username' => $user,'estatus' => Estatuskeys::ESTATUS_ACTIVO));
         if($user){

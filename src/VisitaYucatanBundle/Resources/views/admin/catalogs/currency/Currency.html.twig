@@ -26,8 +26,9 @@
                         </div>
                         <br><br><br>
                         <div class="col-md-12">
-                            <table class="table table-bordered table-striped table-hover">
-                                <thead class="text-uppercase text-bold">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead class="text-uppercase text-bold">
                                     <tr>
                                         <th width="10%">{%trans%}catalog.currency.report.label.id{% endtrans %}</th>
                                         <th>{%trans%}catalog.currency.report.label.description{% endtrans %}</th>
@@ -35,8 +36,8 @@
                                         <th width="15%">{%trans%}catalog.currency.report.label.change.type{% endtrans %}</th>
                                         <th width="25%">{% trans %}general.message.panel{% endtrans %}</th>
                                     </tr>
-                                </thead>
-                                <tbody>
+                                    </thead>
+                                    <tbody>
                                     <tr data-ng-repeat="currency in ctrlCurrency.listCurrency.data">
                                         <td>[[ currency.id ]]</td>
                                         <td>[[ currency.descripcion ]]</td>
@@ -47,8 +48,9 @@
                                             <a class="btn btn-danger-alt" data-ng-click="ctrlCurrency.deleteCurrency(currency.id)" href="javascript:;"><i class="ti ti-trash"></i>&nbsp;{% trans %}button.label.delete{% endtrans %}</a>
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

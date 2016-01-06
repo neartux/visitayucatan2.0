@@ -39,6 +39,11 @@ class Estatus
      */
     private $usuario;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Tour", mappedBy="estatus")
+     */
+    private $tour;
+
 
     /**
      * Constructor
@@ -46,6 +51,7 @@ class Estatus
     public function __construct(){
         $this->moneda = new ArrayCollection();
         $this->usuario = new ArrayCollection();
+        $this->tour = new ArrayCollection();
     }
 
     /**
@@ -148,5 +154,39 @@ class Estatus
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * Add tour
+     *
+     * @param \VisitaYucatanBundle\Entity\Tour $tour
+     *
+     * @return Estatus
+     */
+    public function addTour(\VisitaYucatanBundle\Entity\Tour $tour)
+    {
+        $this->tour[] = $tour;
+
+        return $this;
+    }
+
+    /**
+     * Remove tour
+     *
+     * @param \VisitaYucatanBundle\Entity\Tour $tour
+     */
+    public function removeTour(\VisitaYucatanBundle\Entity\Tour $tour)
+    {
+        $this->tour->removeElement($tour);
+    }
+
+    /**
+     * Get tour
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTour()
+    {
+        return $this->tour;
     }
 }

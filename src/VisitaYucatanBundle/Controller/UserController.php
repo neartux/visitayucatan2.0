@@ -7,44 +7,44 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Serializer;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\ResponseTO;
 
-class MonedaController extends Controller{
+class UserController extends Controller{
 
     /**
-     * @Route("/admin/moneda/list", name="moneda_display_list")
+     * @Route("/admin/user/list", name="user_display_list")
      * @Method("GET")
      */
-    public function displayCurrencyAction(Request $request){
+    public function displayUserAction(Request $request){
         if(! $request->getSession()->get(Generalkeys::LABEL_STATUS)){
             return $this->redirectToRoute('admin_login');
         }
-        return $this->render('VisitaYucatanBundle:admin/catalogs/currency:Currency.html.twig');
+        return $this->render('VisitaYucatanBundle:admin/catalogs/user:User.html.twig');
     }
 
     /**
-     * @Route("/admin/moneda/find/list", name="moneda_find_list")
+     * @Route("/admin/user/find/list", name="user_find_list")
      * @Method("GET")
      */
-    public function findAllCurrencyAction(){
+    public function findAllUsersAction(){
         $em = $this->getDoctrine()->getEntityManager();
-        $currency = $em->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
+        $currency = $em->getRepository('VisitaYucatanBundle:Usuario')->findAllUsers();
         return new Response($this->get('serializer')->serialize($currency, Generalkeys::JSON_STRING));
     }
 
-
     /**
-     * @Route("/admin/moneda/create", name="moneda_crear")
+     * @Route("/admin/user/create", name="user_create")
      * @Method("POST")
      */
-    public function createCurrencyAction(Request $request){
+    public function createUserAction(Request $request){
         $serializer = $this->get('serializer');
         try {
-            $monedaJson = $request->get('currency');
-            $moneda = $serializer->deserialize($monedaJson, 'VisitaYucatanBundle\Entity\Moneda', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Moneda')->createCurrency($moneda);
+            $userJson = $request->get('user');
+            print_r($userJson);
+            $user = $serializer->deserialize($userJson, 'VisitaYucatanBundle\Entity\Usuario', Generalkeys::JSON_STRING);
+            print_r($user);
+            //$this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Usuario')->createUser($user);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.success.create"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
@@ -58,15 +58,15 @@ class MonedaController extends Controller{
     }
 
     /**
-     * @Route("/admin/moneda/update", name="moneda_editar")
+     * @Route("/admin/user/update", name="user_update")
      * @Method("POST")
      */
-    public function udpateCurrencyAction(Request $request){
+    public function udpateUserAction(Request $request){
         $serializer = $this->get('serializer');
         try {
-            $monedaJson = $request->get('currency');
-            $moneda = $serializer->deserialize($monedaJson, 'VisitaYucatanBundle\Entity\Moneda', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Moneda')->updateCurrency($moneda);
+            $userJson = $request->get('user');
+            $user = $serializer->deserialize($userJson, 'VisitaYucatanBundle\Entity\Usuario', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Usuario')->updateUser($user);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.success.update"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
@@ -80,15 +80,15 @@ class MonedaController extends Controller{
     }
 
     /**
-     * @Route("/admin/moneda/delete", name="moneda_delete")
+     * @Route("/admin/user/delete", name="user_delete")
      * @Method("POST")
      */
-    public function deleteCurrencyAction(Request $request){
+    public function deleteUserAction(Request $request){
         $serializer = $this->get('serializer');
         try{
-            $idCurrency = $request->get('idCurrency');
+            $idUser = $request->get('idUser');
             $em = $this->getDoctrine()->getEntityManager();
-            $em->getRepository('VisitaYucatanBundle:Moneda')->deleteCurrency($idCurrency);
+            $em->getRepository('VisitaYucatanBundle:Usuario')->deleteUser($idUser);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.delete"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
@@ -101,6 +101,4 @@ class MonedaController extends Controller{
         }
 
     }
-
 }
-
