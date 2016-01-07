@@ -9,20 +9,20 @@
 
 {% block content %}
     <div class="content-main" data-ng-app="User" data-ng-controller="UserController as ctrlUser"
-         ng-init="ctrlUser.init('{% trans %}catalog.currency.report.message.new.currency{% endtrans %}', '{% trans %}catalog.currency.report.message.edit.currency{% endtrans %}',
-         '{% trans %}general.message.loading{% endtrans %}','{% trans %}catalog.currency.report.message.confirm.delete{% endtrans %}')">
+         ng-init="ctrlUser.init('{% trans %}catalog.user.report.label.new{% endtrans %}', '{% trans %}catalog.user.report.message.edit.user{% endtrans %}',
+         '{% trans %}general.message.loading{% endtrans %}','{% trans %}catalog.user.report.message.confirm.delete{% endtrans %}')">
         <div class="row">
             <div class="col-md-12">
 
                 <div class="panel panel-bluegray" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
                     <div class="panel-heading">
                         <h2>
-                            Usuarios
+                            {% trans %}catalog.user.report.label.title{% endtrans %}
                         </h2>
                     </div>
                     <div class="panel-body">
                         <div class="col-md-12">
-                            <input type="button" data-ng-click="ctrlUser.displayNewUser()" value="nuevo usuario" class="btn btn-primary"/>
+                            <input type="button" data-ng-click="ctrlUser.displayNewUser()" value="{% trans %}catalog.user.report.label.new{% endtrans %}" class="btn btn-primary"/>
                         </div>
                         <br><br><br>
                         <div class="col-md-12">
@@ -30,14 +30,14 @@
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead class="text-uppercase text-bold">
                                     <tr>
-                                        <th width="10%">username</th>
-                                        <th>nombres</th>
-                                        <th width="15%">apellidos</th>
-                                        <th width="15%">direccion</th>
-                                        <th width="25%">telefono</th>
-                                        <th width="25%">celular</th>
-                                        <th width="25%">email</th>
-                                        <th width="25%">&nbsp;</th>
+                                        <th width="10%">{% trans %}catalog.user.report.label.username{% endtrans %}</th>
+                                        <th width="10%">{% trans %}catalog.user.report.label.names{% endtrans %}</th>
+                                        <th width="10%">{% trans %}catalog.user.report.label.last.names{% endtrans %}</th>
+                                        <th>{% trans %}catalog.user.report.label.address{% endtrans %}</th>
+                                        <th width="10%">{% trans %}catalog.user.report.label.phone{% endtrans %}</th>
+                                        <th width="10%">{% trans %}catalog.user.report.label.movil{% endtrans %}</th>
+                                        <th width="15%">{% trans %}catalog.user.report.label.email{% endtrans %}</th>
+                                        <th width="15%">{% trans %}general.message.panel{% endtrans %}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -50,8 +50,8 @@
                                         <td>[[ user.celular ]]</td>
                                         <td>[[ user.email ]]</td>
                                         <td>
-                                            <a class="btn btn-success-alt" data-ng-click="ctrlUser.displayEditUser(user)" href="javascript:;"><i class="ti ti-pencil"></i>&nbsp;{% trans %}button.label.edit{% endtrans %}</a>
-                                            <a class="btn btn-danger-alt" data-ng-click="ctrlUser.deleteUser(user.id)" href="javascript:;"><i class="ti ti-trash"></i>&nbsp;{% trans %}button.label.delete{% endtrans %}</a>
+                                            <a class="btn btn-success-alt" data-ng-click="ctrlUser.displayEditUser(user)" href="javascript:;"><i class="ti ti-pencil"></i></a>
+                                            <a class="btn btn-danger-alt" data-ng-click="ctrlUser.deleteUser(user.id)" href="javascript:;"><i class="ti ti-trash"></i></a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -69,8 +69,8 @@
         <!--Paths-->
         <input type="hidden" id="pathListUser" value="{{ path('user_find_list') }}"/>
         <input type="hidden" id="pathCreateUser" value="{{ path('user_create') }}"/>
-        <input type="hidden" id="pathUpdateCurrency" value="{{ path('moneda_editar') }}"/>
-        <input type="hidden" id="pathDeleteCurrency" value="{{ path('moneda_delete') }}"/>
+        <input type="hidden" id="pathUpdateUser" value="{{ path('user_update') }}"/>
+        <input type="hidden" id="pathDeleteUser" value="{{ path('user_delete') }}"/>
     </div>
 
 {% endblock %}

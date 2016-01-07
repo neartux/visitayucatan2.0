@@ -48,7 +48,8 @@ class Estatus
     /**
      * Constructor
      */
-    public function __construct(){
+    public function __construct($idEstatus){
+        $this->id = $idEstatus;
         $this->moneda = new ArrayCollection();
         $this->usuario = new ArrayCollection();
         $this->tour = new ArrayCollection();

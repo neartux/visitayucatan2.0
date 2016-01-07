@@ -48,3 +48,25 @@ login.validate.message.pass.not.coincidence : La contraseña no coincide con el 
 login.validate.message.user.and.pass.isrequired : Usuario y contraseña son requeridos
 login.validate.message.user.isrequired : El usuario es requerido
 login.validate.message.pass.isrequired : La contraseña es requerido
+
+#** Properties to catalog users
+catalog.user.report.label.title : Usuarios
+catalog.user.report.label.new : Nuevo Usuario
+catalog.user.report.label.username : Usuario
+catalog.user.report.label.password : Contraseña
+catalog.user.report.label.names : Nombres
+catalog.user.report.label.last.names : Apellidos
+catalog.user.report.label.address : Dirección
+catalog.user.report.label.phone : Teléfono
+catalog.user.report.label.movil : Celular
+catalog.user.report.label.email : Correo Electr.
+catalog.user.report.message.error.username : El usuario es requerido
+catalog.user.report.message.error.names : El nombre es requerido
+catalog.user.report.message.error.last.names : Los apellidos son requeridos
+catalog.user.report.message.error.password : La contraseña es requerido
+catalog.user.report.message.edit.user : Edita Usuario
+catalog.user.report.message.success.create : Usuario Creado
+catalog.user.report.message.success.update : Usuario Actualizado
+catalog.user.report.message.error : Ocurrio un error, no se pudo realizar el proceso
+catalog.user.report.message.delete : Usuario eliminado
+catalog.user.report.message.confirm.delete : ¿Esta seguro de eliminar el usuario?

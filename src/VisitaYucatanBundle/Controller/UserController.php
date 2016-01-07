@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\Generalkeys;
-use VisitaYucatanBundle\utils\ResponseTO;
+use VisitaYucatanBundle\utils\to\ResponseTO;
 
 class UserController extends Controller{
 
@@ -41,13 +41,13 @@ class UserController extends Controller{
         $serializer = $this->get('serializer');
         try {
             $userJson = $request->get('user');
-            print_r($userJson);
-            $user = $serializer->deserialize($userJson, 'VisitaYucatanBundle\Entity\Usuario', Generalkeys::JSON_STRING);
-            print_r($user);
-            //$this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Usuario')->createUser($user);
+            //print_r($userJson);
+            $user = $serializer->deserialize($userJson, 'VisitaYucatanBundle\utils\to\UsuarioTO', Generalkeys::JSON_STRING);
+            //print_r($user);
+            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Usuario')->createUser($user);
 
             $translator = $this->get('translator');
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.success.create"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.success.create"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch( \Exception $e){
@@ -65,11 +65,11 @@ class UserController extends Controller{
         $serializer = $this->get('serializer');
         try {
             $userJson = $request->get('user');
-            $user = $serializer->deserialize($userJson, 'VisitaYucatanBundle\Entity\Usuario', Generalkeys::JSON_STRING);
+            $user = $serializer->deserialize($userJson, 'VisitaYucatanBundle\utils\to\UsuarioTO', Generalkeys::JSON_STRING);
             $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Usuario')->updateUser($user);
 
             $translator = $this->get('translator');
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.success.update"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.success.update"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch( \Exception $e){
@@ -91,7 +91,7 @@ class UserController extends Controller{
             $em->getRepository('VisitaYucatanBundle:Usuario')->deleteUser($idUser);
 
             $translator = $this->get('translator');
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.delete"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.delete"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         }catch (\Exception $e){
@@ -102,3 +102,12 @@ class UserController extends Controller{
 
     }
 }
+
+
+/*TODO AQUI LA SECCION QUE FALTA VALIDAR O AGREGAR PERO NO ES NECESARIO A PRIMERA INSTANCIA
+
+1.- Validar que si un usuario elimino o edito su proprio usuario redireccionar a la pagina de login
+2.- Agregar imagen a perfil de usuario
+3.- Hacer aplicacion para cambiar la contraseña de usuario
+
+*/

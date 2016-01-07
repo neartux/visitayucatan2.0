@@ -36,7 +36,7 @@ class MonedaRepository extends \Doctrine\ORM\EntityRepository{
         $em = $this->getEntityManager();
         $currencyUpdate = $em->getRepository("VisitaYucatanBundle:Moneda")->find($currency->getId());
         if(! $currencyUpdate){
-            throw new EntityNotFoundException('The currency does not exist');
+            throw new EntityNotFoundException('La moneda con id '.$currency->getId()." no se encontro");
         }
         // Actualiza la informacion de la moneda
         $currencyUpdate->setDescripcion($currency->getDescripcion());
@@ -51,7 +51,7 @@ class MonedaRepository extends \Doctrine\ORM\EntityRepository{
         $em = $this->getEntityManager();
         $currency = $em->getRepository('VisitaYucatanBundle:Moneda')->find($idCurrency);
         if(! $currency){
-
+            throw new EntityNotFoundException('La moneda con id '.$idCurrency." no se encontro");
         }
         $currency->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
         $em->persist($currency);

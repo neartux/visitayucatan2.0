@@ -48,3 +48,25 @@ login.validate.message.pass.not.coincidence : The password does not match the us
 login.validate.message.user.and.pass.isrequired : User and Pass is required
 login.validate.message.user.isrequired : User is required
 login.validate.message.pass.isrequired : Password is required
+
+#** Properties to catalog users
+catalog.user.report.label.title : Users
+catalog.user.report.label.new : New User
+catalog.user.report.label.username : User name
+catalog.user.report.label.password : Password
+catalog.user.report.label.names : Name
+catalog.user.report.label.last.names : Last name
+catalog.user.report.label.address : Address
+catalog.user.report.label.phone : Phone
+catalog.user.report.label.movil : Movil
+catalog.user.report.label.email : Email
+catalog.user.report.message.error.username : Username is required
+catalog.user.report.message.error.names : Name is required
+catalog.user.report.message.error.last.names : Last name is required
+catalog.user.report.message.error.password : Password is required
+catalog.user.report.message.edit.user : Edit User
+catalog.user.report.message.success.create : User created
+catalog.user.report.message.success.update : User updated
+catalog.user.report.message.error : An error has occurred, unable to perform the action
+catalog.user.report.message.delete : User deleted
+catalog.user.report.message.confirm.delete : Do you want delete user?

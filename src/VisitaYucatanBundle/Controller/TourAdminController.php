@@ -7,47 +7,45 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Serializer;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\to\ResponseTO;
 
-class MonedaController extends Controller{
+class TourAdminController extends Controller{
 
     /**
-     * @Route("/admin/moneda/list", name="moneda_display_list")
+     * @Route("/admin/tour/list", name="tour_display_list")
      * @Method("GET")
      */
-    public function displayCurrencyAction(Request $request){
+    public function displayToursAction(Request $request){
         if(! $request->getSession()->get(Generalkeys::LABEL_STATUS)){
             return $this->redirectToRoute('admin_login');
         }
-        return $this->render('VisitaYucatanBundle:admin/catalogs/currency:Currency.html.twig');
+        return $this->render('VisitaYucatanBundle:admin/tours:Tours.html.twig');
     }
 
     /**
-     * @Route("/admin/moneda/find/list", name="moneda_find_list")
+     * @Route("/admin/tour/find/list", name="tour_find_list")
      * @Method("GET")
      */
-    public function findAllCurrencyAction(){
+    public function findAllToursAction(){
         $em = $this->getDoctrine()->getEntityManager();
-        $currency = $em->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
-        return new Response($this->get('serializer')->serialize($currency, Generalkeys::JSON_STRING));
+        $tours = $em->getRepository('VisitaYucatanBundle:Tour')->findAllTours();
+        return new Response($this->get('serializer')->serialize($tours, Generalkeys::JSON_STRING));
     }
 
-
     /**
-     * @Route("/admin/moneda/create", name="moneda_crear")
+     * @Route("/admin/tour/create", name="tour_create")
      * @Method("POST")
      */
-    public function createCurrencyAction(Request $request){
+    public function createTourAction(Request $request){
         $serializer = $this->get('serializer');
         try {
-            $monedaJson = $request->get('currency');
-            $moneda = $serializer->deserialize($monedaJson, 'VisitaYucatanBundle\Entity\Moneda', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Moneda')->createCurrency($moneda);
+            $tourJson = $request->get('tour');
+            $tour = $serializer->deserialize($tourJson, 'VisitaYucatanBundle\Entity\Tour', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Tour')->createTour($tour);
 
             $translator = $this->get('translator');
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.success.create"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.success.create"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch( \Exception $e){
@@ -58,18 +56,18 @@ class MonedaController extends Controller{
     }
 
     /**
-     * @Route("/admin/moneda/update", name="moneda_editar")
+     * @Route("/admin/tour/update", name="tour_update")
      * @Method("POST")
      */
-    public function udpateCurrencyAction(Request $request){
+    public function udpateTourAction(Request $request){
         $serializer = $this->get('serializer');
         try {
-            $monedaJson = $request->get('currency');
-            $moneda = $serializer->deserialize($monedaJson, 'VisitaYucatanBundle\Entity\Moneda', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Moneda')->updateCurrency($moneda);
+            $tourJson = $request->get('tour');
+            $tour = $serializer->deserialize($tourJson, 'VisitaYucatanBundle\Entity\Tour', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Tour')->updateTour($tour);
 
             $translator = $this->get('translator');
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.success.update"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.success.update"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch( \Exception $e){
@@ -80,18 +78,18 @@ class MonedaController extends Controller{
     }
 
     /**
-     * @Route("/admin/moneda/delete", name="moneda_delete")
+     * @Route("/admin/tour/delete", name="tour_delete")
      * @Method("POST")
      */
-    public function deleteCurrencyAction(Request $request){
+    public function deleteTourAction(Request $request){
         $serializer = $this->get('serializer');
         try{
-            $idCurrency = $request->get('idCurrency');
+            $idTour = $request->get('idTour');
             $em = $this->getDoctrine()->getEntityManager();
-            $em->getRepository('VisitaYucatanBundle:Moneda')->deleteCurrency($idCurrency);
+            $em->getRepository('VisitaYucatanBundle:Tour')->deleteTour($idTour);
 
             $translator = $this->get('translator');
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.delete"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.delete"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         }catch (\Exception $e){
@@ -101,6 +99,4 @@ class MonedaController extends Controller{
         }
 
     }
-
 }
-

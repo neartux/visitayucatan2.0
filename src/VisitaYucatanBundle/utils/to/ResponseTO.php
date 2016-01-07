@@ -4,7 +4,7 @@
  * Date: 4/01/16
  */
 
-namespace VisitaYucatanBundle\utils;
+namespace VisitaYucatanBundle\utils\to;
 
 
 class ResponseTO{

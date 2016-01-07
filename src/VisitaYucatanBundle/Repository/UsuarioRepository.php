@@ -1,6 +1,9 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use VisitaYucatanBundle\Entity\Datospersonales;
+use VisitaYucatanBundle\Entity\Datosubicacion;
+use VisitaYucatanBundle\Entity\Usuario;
 use VisitaYucatanBundle\utils\Estatuskeys;
 use VisitaYucatanBundle\utils\Generalkeys;
 
@@ -25,6 +28,93 @@ class UsuarioRepository extends \Doctrine\ORM\EntityRepository{
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();
+    }
+
+    public function createUser($usuarioTO){
+        // Valida que el usuario no exista en la base de datos
+        if($this->existUser($usuarioTO->getUsername())){
+            throw new \Exception('No se pudo crear, el usuario ya existe en el sistema');
+        }
+        $em = $this->getEntityManager();
+
+        // Crea los datos personales
+        $datosPersonales = new Datospersonales();
+        $datosPersonales->setNombres($usuarioTO->getNombres());
+        $datosPersonales->setApellidos($usuarioTO->getApellidos());
+        $em->persist($datosPersonales);
+
+        // Crea los datos ubicacion
+        $datosUbicacion = new Datosubicacion();
+        $datosUbicacion->setDireccion($usuarioTO->getDireccion());
+        $datosUbicacion->setTelefono($usuarioTO->getTelefono());
+        $datosUbicacion->setCelular($usuarioTO->getCelular());
+        $datosUbicacion->setEmail($usuarioTO->getEmail());
+        $em->persist($datosUbicacion);
+
+        // Crea al usuario
+        $usuario = new Usuario();
+        $usuario->setUsername($usuarioTO->getUsername());
+        $usuario->setPassword(md5($usuarioTO->getPassword()));
+        $usuario->setDatosPersonales($datosPersonales);
+        $usuario->setDatosUbicacion($datosUbicacion);
+        $usuario->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+        $em->persist($usuario);
+
+        $em->flush();
+
+    }
+
+    public function updateUser($usuarioTO){
+        if($this->existUserDifIdUser($usuarioTO->getUsername(), $usuarioTO->getId()) >= Generalkeys::NUMBER_ONE){
+            throw new \Exception('No se pudo crear, el usuario ya existe en el sistema');
+        }
+        $em = $this->getEntityManager();
+        $usuarioUpdate = $em->getRepository("VisitaYucatanBundle:Usuario")->find($usuarioTO->getId());
+        if(! $usuarioUpdate){
+            throw new EntityNotFoundException('No se pudo encontrar al usuario con id '.$usuarioTO->getId());
+        }
+        // Actualiza los datos personales
+        $usuarioUpdate->getDatosPersonales()->setNombres($usuarioTO->getNombres());
+        $usuarioUpdate->getDatosPersonales()->setApellidos($usuarioTO->getApellidos());
+
+        // Actualiza los datos de ubicacion
+        $usuarioUpdate->getDatosUbicacion()->setDireccion($usuarioTO->getDireccion());
+        $usuarioUpdate->getDatosUbicacion()->setTelefono($usuarioTO->getTelefono());
+        $usuarioUpdate->getDatosUbicacion()->setCelular($usuarioTO->getCelular());
+        $usuarioUpdate->getDatosUbicacion()->setEmail($usuarioTO->getEmail());
+
+        // Actualiza informacion de usuario
+        $usuarioUpdate->setUsername($usuarioTO->getUsername());
+        $usuarioUpdate->setPassword(md5($usuarioTO->getPassword()));
+
+        $em->persist($usuarioUpdate);
+        $em->flush();
+    }
+
+    public function deleteUser($idUsuario){
+        $em = $this->getEntityManager();
+        $usuario = $em->getRepository('VisitaYucatanBundle:Usuario')->find($idUsuario);
+        if(! $usuario){
+            throw new EntityNotFoundException('No se pudo encontrar al usuario con id '.$idUsuario);
+        }
+        $usuario->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
+        $em->persist($usuario);
+        $em->flush();
+    }
+
+    public function existUserDifIdUser($user, $idUser){
+        $em = $this->getEntityManager();
+        $sql = "SELECT usuario.id
+                FROM usuario
+                WHERE usuario.id_estatus = :estatus
+                AND usuario.id != :idusuario
+                AND usuario.username = :username";
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+        $params['idusuario'] = $idUser;
+        $params['username'] = $user;
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->rowCount();
     }
 
     public function existUser($user){

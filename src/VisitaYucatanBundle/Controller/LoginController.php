@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\Generalkeys;
-use VisitaYucatanBundle\utils\ResponseTO;
+use VisitaYucatanBundle\utils\to\ResponseTO;
 
 class LoginController extends Controller {
 
