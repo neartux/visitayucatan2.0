@@ -13,7 +13,7 @@ use VisitaYucatanBundle\utils\to\ResponseTO;
 class UserController extends Controller{
 
     /**
-     * @Route("/admin/user/list", name="user_display_list")
+     * @Route("/admin/users", name="user_display_list")
      * @Method("GET")
      */
     public function displayUserAction(Request $request){

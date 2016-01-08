@@ -13,13 +13,14 @@ use VisitaYucatanBundle\utils\to\ResponseTO;
 class TourAdminController extends Controller{
 
     /**
-     * @Route("/admin/tour/list", name="tour_display_list")
+     * @Route("/admin/tours", name="tour_display_list")
      * @Method("GET")
      */
     public function displayToursAction(Request $request){
         if(! $request->getSession()->get(Generalkeys::LABEL_STATUS)){
             return $this->redirectToRoute('admin_login');
         }
+        $this->get('session')->set('_locale', 'es');
         return $this->render('VisitaYucatanBundle:admin/tours:Tours.html.twig');
     }
 
@@ -45,7 +46,7 @@ class TourAdminController extends Controller{
             $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Tour')->createTour($tour);
 
             $translator = $this->get('translator');
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.success.create"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.created"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch( \Exception $e){
@@ -67,7 +68,7 @@ class TourAdminController extends Controller{
             $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Tour')->updateTour($tour);
 
             $translator = $this->get('translator');
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.success.update"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.updated"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch( \Exception $e){
@@ -89,7 +90,7 @@ class TourAdminController extends Controller{
             $em->getRepository('VisitaYucatanBundle:Tour')->deleteTour($idTour);
 
             $translator = $this->get('translator');
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.delete"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.deleted"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         }catch (\Exception $e){

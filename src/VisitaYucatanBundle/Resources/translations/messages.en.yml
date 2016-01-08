@@ -70,3 +70,23 @@ catalog.user.report.message.success.update : User updated
 catalog.user.report.message.error : An error has occurred, unable to perform the action
 catalog.user.report.message.delete : User deleted
 catalog.user.report.message.confirm.delete : Do you want delete user?
+
+#** Properties to Tours
+tour.report.label.title : Tours
+tour.report.label.new : New Tour
+tour.report.label.edit : Edit Tour
+tour.report.label.message.confirm.delete : Do you want delete tour?
+tour.report.label.num : Id
+tour.report.label.description : Description
+tour.report.label.adult.rate : Adult Rate
+tour.report.label.adult.rate.required : Adult Rate is required
+tour.report.label.lower.rate : Lower Rated
+tour.report.label.lower.rate.required : Lower Rated is required
+tour.report.label.minimum.people : Minimum People
+tour.report.label.minimum.people.required : Minimum people is required
+tour.report.label.sold : Sold
+tour.report.label.circuit : Circuit
+tour.report.label.circuit.required : Circuit is required
+tour.report.label.tour.created : Tour Created
+tour.report.label.tour.updated : Tour Updated
+tour.report.label.tour.deleted : Tour Deleted

@@ -14,7 +14,7 @@ use VisitaYucatanBundle\utils\to\ResponseTO;
 class MonedaController extends Controller{
 
     /**
-     * @Route("/admin/moneda/list", name="moneda_display_list")
+     * @Route("/admin/monedas", name="moneda_display_list")
      * @Method("GET")
      */
     public function displayCurrencyAction(Request $request){
