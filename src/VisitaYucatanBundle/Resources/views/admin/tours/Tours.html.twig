@@ -49,7 +49,9 @@
                                                     <th>{% trans %}tour.report.label.minimum.people{% endtrans %}</th>
                                                     <th>{% trans %}tour.report.label.sold{% endtrans %}</th>
                                                     <th>{% trans %}tour.report.label.circuit{% endtrans %}</th>
-                                                    <th>{% trans %}general.message.panel{% endtrans %}</th>
+                                                    <th width="15%">{% trans %}general.message.panel{% endtrans %}</th>
+                                                    <!--Columna para promover o remover promover, (0) es no promovido, (1) es promovido-->
+                                                    <th>&nbsp;</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -63,7 +65,16 @@
                                                     <td>[[ tour.circuito ]]</td>
                                                     <td>
                                                         <a class="btn btn-success-alt" data-ng-click="ctrlTour.displayEditTour(tour)" href="javascript:;"><i class="ti ti-pencil"></i></a>
+                                                        <a class="btn btn-success-alt" data-ng-click="ctrlTour.displayEditTour(tour)" href="javascript:;"><i class="fa  fa-gears"></i></a>
                                                         <a class="btn btn-danger-alt" data-ng-click="ctrlTour.deleteTour(tour.id)" href="javascript:;"><i class="ti ti-trash"></i></a>
+                                                    </td>
+                                                    <td>
+                                                        <span data-ng-if="tour.promovido == 0">
+                                                            <input type="checkbox" data-ng-click="ctrlTour.promovedTour(tour.id);" class="form-control"/>
+                                                        </span>
+                                                        <span data-ng-if="tour.promovido == 1">
+                                                            <input type="checkbox" checked data-ng-click="ctrlTour.removePromovedTour(tour.id);" class="form-control"/>
+                                                        </span>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -75,12 +86,15 @@
                             </div>
                         </div>
 
+                        <!--Seccion de configuracion de tour-->
+
                     </div>
                 </div>
 
             </div>
         </div>
 
+        <!--Modal creacion y modificacion de tour-->
         {% include '@VisitaYucatan/admin/tours/ModalTour.html.twig' %}
 
         <!--Paths-->
@@ -88,6 +102,8 @@
         <input type="hidden" id="pathCreateTour" value="{{ path('tour_create') }}"/>
         <input type="hidden" id="pathUpdateTour" value="{{ path('tour_update') }}"/>
         <input type="hidden" id="pathDeleteTour" value="{{ path('tour_delete') }}"/>
+        <input type="hidden" id="pathPromoveTour" value="{{ path('tour_promove') }}"/>
+        <input type="hidden" id="pathRemovePromoveTour" value="{{ path('tour_remove_promove') }}"/>
     </div>
 
 {% endblock %}

@@ -90,3 +90,5 @@ tour.report.label.circuit.required : Circuit is required
 tour.report.label.tour.created : Tour Created
 tour.report.label.tour.updated : Tour Updated
 tour.report.label.tour.deleted : Tour Deleted
+tour.report.label.tour.promoved : Tour Promoved
+tour.report.label.tour.removed.promoved : Not promoved tour

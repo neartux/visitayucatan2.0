@@ -85,7 +85,10 @@ class UsuarioRepository extends \Doctrine\ORM\EntityRepository{
 
         // Actualiza informacion de usuario
         $usuarioUpdate->setUsername($usuarioTO->getUsername());
-        $usuarioUpdate->setPassword(md5($usuarioTO->getPassword()));
+        // todo queda pendiente, Valida si hay cambio de contraseña la actualiza, de lo contrario no realiza nada
+        //if(md5($usuarioTO->getPassword()) != $usuarioUpdate->getPassword()){
+        //    $usuarioUpdate->setPassword(md5($usuarioTO->getPassword()));
+        //}
 
         $em->persist($usuarioUpdate);
         $em->flush();

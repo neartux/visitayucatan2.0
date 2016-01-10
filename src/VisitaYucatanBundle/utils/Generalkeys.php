@@ -20,5 +20,7 @@ class Generalkeys{
     const LABEL_STATUS = "status";
     const NUMBER_ZERO = 0;
     const NUMBER_ONE = 1;
+    const BOOLEAN_TRUE = true;
+    const BOOLEAN_FALSE = false;
 
 }

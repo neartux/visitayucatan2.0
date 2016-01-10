@@ -29,8 +29,7 @@ class MonedaController extends Controller{
      * @Method("GET")
      */
     public function findAllCurrencyAction(){
-        $em = $this->getDoctrine()->getEntityManager();
-        $currency = $em->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
+        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
         return new Response($this->get('serializer')->serialize($currency, Generalkeys::JSON_STRING));
     }
 
@@ -44,7 +43,7 @@ class MonedaController extends Controller{
         try {
             $monedaJson = $request->get('currency');
             $moneda = $serializer->deserialize($monedaJson, 'VisitaYucatanBundle\Entity\Moneda', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Moneda')->createCurrency($moneda);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->createCurrency($moneda);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.success.create"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
@@ -66,7 +65,7 @@ class MonedaController extends Controller{
         try {
             $monedaJson = $request->get('currency');
             $moneda = $serializer->deserialize($monedaJson, 'VisitaYucatanBundle\Entity\Moneda', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Moneda')->updateCurrency($moneda);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->updateCurrency($moneda);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.success.update"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
@@ -87,8 +86,7 @@ class MonedaController extends Controller{
         $serializer = $this->get('serializer');
         try{
             $idCurrency = $request->get('idCurrency');
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->getRepository('VisitaYucatanBundle:Moneda')->deleteCurrency($idCurrency);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->deleteCurrency($idCurrency);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.currency.report.message.delete"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);

@@ -28,9 +28,8 @@ class UserController extends Controller{
      * @Method("GET")
      */
     public function findAllUsersAction(){
-        $em = $this->getDoctrine()->getEntityManager();
-        $currency = $em->getRepository('VisitaYucatanBundle:Usuario')->findAllUsers();
-        return new Response($this->get('serializer')->serialize($currency, Generalkeys::JSON_STRING));
+        $users = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Usuario')->findAllUsers();
+        return new Response($this->get('serializer')->serialize($users, Generalkeys::JSON_STRING));
     }
 
     /**
@@ -44,7 +43,7 @@ class UserController extends Controller{
             //print_r($userJson);
             $user = $serializer->deserialize($userJson, 'VisitaYucatanBundle\utils\to\UsuarioTO', Generalkeys::JSON_STRING);
             //print_r($user);
-            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Usuario')->createUser($user);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Usuario')->createUser($user);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.success.create"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
@@ -66,7 +65,7 @@ class UserController extends Controller{
         try {
             $userJson = $request->get('user');
             $user = $serializer->deserialize($userJson, 'VisitaYucatanBundle\utils\to\UsuarioTO', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Usuario')->updateUser($user);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Usuario')->updateUser($user);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.success.update"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
@@ -87,8 +86,7 @@ class UserController extends Controller{
         $serializer = $this->get('serializer');
         try{
             $idUser = $request->get('idUser');
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->getRepository('VisitaYucatanBundle:Usuario')->deleteUser($idUser);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Usuario')->deleteUser($idUser);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("catalog.user.report.message.delete"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);

@@ -29,8 +29,7 @@ class TourAdminController extends Controller{
      * @Method("GET")
      */
     public function findAllToursAction(){
-        $em = $this->getDoctrine()->getEntityManager();
-        $tours = $em->getRepository('VisitaYucatanBundle:Tour')->findAllTours();
+        $tours = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->findAllTours();
         return new Response($this->get('serializer')->serialize($tours, Generalkeys::JSON_STRING));
     }
 
@@ -43,7 +42,7 @@ class TourAdminController extends Controller{
         try {
             $tourJson = $request->get('tour');
             $tour = $serializer->deserialize($tourJson, 'VisitaYucatanBundle\Entity\Tour', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Tour')->createTour($tour);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->createTour($tour);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.created"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
@@ -65,7 +64,7 @@ class TourAdminController extends Controller{
         try {
             $tourJson = $request->get('tour');
             $tour = $serializer->deserialize($tourJson, 'VisitaYucatanBundle\Entity\Tour', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getEntityManager()->getRepository('VisitaYucatanBundle:Tour')->updateTour($tour);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->updateTour($tour);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.updated"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
@@ -86,11 +85,54 @@ class TourAdminController extends Controller{
         $serializer = $this->get('serializer');
         try{
             $idTour = $request->get('idTour');
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->getRepository('VisitaYucatanBundle:Tour')->deleteTour($idTour);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->deleteTour($idTour);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.deleted"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        }catch (\Exception $e){
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
+
+    }
+
+    /**
+     * @Route("/admin/tour/promove", name="tour_promove")
+     * @Method("POST")
+     */
+    public function promoveTourAction(Request $request){
+        $serializer = $this->get('serializer');
+        try{
+            $idTour = $request->get('idTour');
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->promoveOrNotPromoveTour($idTour, Generalkeys::BOOLEAN_TRUE);
+
+            $translator = $this->get('translator');
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.promoved"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        }catch (\Exception $e){
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
+
+    }
+
+    /**
+     * @Route("/admin/tour/remove/promove", name="tour_remove_promove")
+     * @Method("POST")
+     */
+    public function removePromoveTourAction(Request $request){
+        $serializer = $this->get('serializer');
+        try{
+            $idTour = $request->get('idTour');
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->promoveOrNotPromoveTour($idTour, Generalkeys::BOOLEAN_FALSE);
+
+            $translator = $this->get('translator');
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.removed.promoved"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         }catch (\Exception $e){
