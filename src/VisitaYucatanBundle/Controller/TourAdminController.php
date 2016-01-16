@@ -5,10 +5,12 @@ namespace VisitaYucatanBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\to\ResponseTO;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class TourAdminController extends Controller{
 
@@ -142,4 +144,36 @@ class TourAdminController extends Controller{
         }
 
     }
+
+    /**
+     * @Route("/admin/tour/upload/image", name="tour_upload_image")
+     * @Method("POST")
+     */
+    public function uploadImageTourAction(Request $request){
+
+            //$em = $this->getDoctrine()->getEntityManager();
+            $image = $request->files->get('file');
+        //print_r($image);
+        $idTour = $request->get('idTour');
+        //print_r($image);
+            //$msg = "Se ha subido el archivo correctamente";
+            if(($image instanceof UploadedFile) && ($image->getError() == '0')){
+                $originalName = $image->getClientOriginalName();
+                //$arrayName = explode('.',$originalName);
+                //$fileTipe = $arrayName[sizeof($arrayName) -1];
+
+                //$em = $this->getDoctrine()->getEntityManager();
+                //$nextFolio = $em->getRepository('SystemKratosBundle:Contenidopedido')->findNextFolioContenidoPedido();
+                //$idPedido = $request->get('idPedidoFile');
+                //$newNameFile = "pedido-".$idPedido."-folio-".$nextFolio.".".$fileTipe;
+                //$image->move(Keys::PATH_FILES_PEDIDOS,$newNameFile);
+                //$em->getRepository('SystemKratosBundle:Contenidopedido')->saveFileOfPedido($idPedido,$nextFolio,$newNameFile,Keys::PATH_FILES_PEDIDOS,$fileTipe,$originalName);
+
+            }
+        return new JsonResponse(array('answer' => 'File transfer completed'));
+
+        //$this->get('session')->getFlashBag()->add('notice', $msg);
+        //return new RedirectResponse($this->generateUrl('system_kratos_reporte_pedidos'));
+    }
+
 }

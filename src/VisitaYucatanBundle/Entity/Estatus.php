@@ -49,16 +49,21 @@ class Estatus
      */
     private $idioma;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Tourimagen", mappedBy="estatus")
+     */
+    private $tourImagen;
+
 
     /**
      * Constructor
      */
-    public function __construct($idEstatus){
-        $this->id = $idEstatus;
+    public function __construct(){
         $this->moneda = new ArrayCollection();
         $this->usuario = new ArrayCollection();
         $this->tour = new ArrayCollection();
         $this->idioma = new ArrayCollection();
+        $this->tourImagen = new ArrayCollection();
     }
 
     /**
@@ -229,5 +234,39 @@ class Estatus
     public function getIdioma()
     {
         return $this->idioma;
+    }
+
+    /**
+     * Add tourImagen
+     *
+     * @param \VisitaYucatanBundle\Entity\Tourimagen $tourImagen
+     *
+     * @return Estatus
+     */
+    public function addTourImagen(\VisitaYucatanBundle\Entity\Tourimagen $tourImagen)
+    {
+        $this->tourImagen[] = $tourImagen;
+
+        return $this;
+    }
+
+    /**
+     * Remove tourImagen
+     *
+     * @param \VisitaYucatanBundle\Entity\Tourimagen $tourImagen
+     */
+    public function removeTourImagen(\VisitaYucatanBundle\Entity\Tourimagen $tourImagen)
+    {
+        $this->tourImagen->removeElement($tourImagen);
+    }
+
+    /**
+     * Get tourImagen
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTourImagen()
+    {
+        return $this->tourImagen;
     }
 }
