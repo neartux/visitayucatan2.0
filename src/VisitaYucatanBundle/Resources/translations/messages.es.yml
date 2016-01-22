@@ -16,6 +16,7 @@ button.label.close : Cerrar
 button.label.go.back : Regresar
 button.label.edit : Editar
 button.label.login : Login
+button.label.upload : Subir
 
 #** Properties to menu sidebar
 menu.sidebar.label.title.catalogs : Catalogos
@@ -92,3 +93,17 @@ tour.report.label.tour.updated : Tour Actualizado
 tour.report.label.tour.deleted : Tour Eliminado
 tour.report.label.tour.promoved : Se ha promovido el tour
 tour.report.label.tour.removed.promoved : El tour ya no esta promovido
+tour.report.label.upload.image.select.files : Selecciona Los Archivos
+tour.report.label.upload.image.drag.image : Arrastra las imagenes
+tour.report.label.upload.image.select.file : Selecciona Imagen
+tour.report.label.upload.image.change.file : Cambiar
+tour.report.label.upload.image.image.list : Lista de imagenes
+tour.report.label.upload.image.name : Nombre
+tour.report.label.upload.image.size : Tamaño
+tour.report.label.upload.image.progress : Progreso
+tour.report.label.upload.image.status : Estatus
+tour.report.label.upload.image.actions : Acciones
+tour.report.label.upload.image.upload.all : Subir Todos
+tour.report.label.upload.image.cancel.all : Cancelar Todos
+tour.report.label.upload.image.delete.all : Remover Todos
+tour.report.label.upload.image.loading.progress : Progreso de Carga

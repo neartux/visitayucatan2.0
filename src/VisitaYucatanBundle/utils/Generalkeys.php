@@ -22,5 +22,6 @@ class Generalkeys{
     const NUMBER_ONE = 1;
     const BOOLEAN_TRUE = true;
     const BOOLEAN_FALSE = false;
+    const PATH_TOURS_IMAGE = "bundles/VisitaYucatanBundle/images/tours";
 
 }
