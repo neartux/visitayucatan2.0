@@ -35,13 +35,21 @@
         };
 
         ctrlTour.findAllLanguages = function () {
-            console.log("en el metodo para buscar los lenguajes")
+            console.log("en el metodo para buscar los lenguajes");
             return TourService.findLanguagesActives();
         };
 
         ctrlTour.findTourByIdAndLanguage = function(){
             console.log("si funciona el select con onchange");
             return TourService.findTourByIdAndLanguaje(ctrlTour.idTourGlobal, ctrlTour.idIdiomaGlobal);
+        };
+
+        ctrlTour.configurateTour = function(tour){
+            ctrlTour.findAllLanguages().then(function(){
+                ctrlTour.findTourByIdAndLanguage();
+            });
+            ctrlTour.idTourGlobal = tour.id;
+            ctrlTour.configTour = true;
         };
 
         ctrlTour.displayNewTour = function () {
@@ -121,11 +129,6 @@
             return TourService.removePromovedTour(idTour).then(function (data) {
                 pNotifyView(data.data.message, data.data.typeStatus);
             });
-        };
-
-        ctrlTour.configurateTour = function(tour){
-            ctrlTour.idTourGlobal = tour.id;
-            ctrlTour.configTour = true;
         };
 
         ctrlTour.cleanForm = function () {

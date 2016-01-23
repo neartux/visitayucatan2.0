@@ -8,6 +8,9 @@
 
 
 {% block content %}
+
+    <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/summernote/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
+
     <div class="content-main" data-ng-app="AppTour" data-ng-controller="TourController as ctrlTour"
          ng-init="ctrlTour.init('{% trans %}tour.report.label.new{% endtrans %}', '{% trans %}tour.report.label.edit{% endtrans %}',
          '{% trans %}tour.report.label.message.confirm.delete{% endtrans %}', '{% trans %}general.message.loading{% endtrans %}')">
@@ -87,8 +90,9 @@
                         </div>
 
                         <!--Seccion de configuracion de tour-->
-
-                        {% include '@VisitaYucatan/admin/tours/ConfigurationTour.html.twig' %}
+                        <div data-widget-group="group1" data-ng-show="ctrlTour.configTour">
+                            {% include '@VisitaYucatan/admin/tours/ConfigurationTour.html.twig' %}
+                        </div>
 
                     </div>
                 </div>
@@ -122,4 +126,5 @@
     <script src="{{ asset('bundles/VisitaYucatanBundle/js/tour/AppTour.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/VisitaYucatanBundle/js/angularjs/angular-file-upload/directives.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-jasnyupload/fileinput.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/summernote/dist/summernote.min.js') }}" type="text/javascript"></script>
 {% endblock %}

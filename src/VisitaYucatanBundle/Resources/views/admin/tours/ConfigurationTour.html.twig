@@ -2,7 +2,7 @@
 
     <div class="col-md-12">
 
-        <div class="panel panel-midnightblue" data-widget='{"draggable": "false"}'>
+        <div class="panel panel-gray" data-widget='{"draggable": "false"}'>
             <div class="panel-heading">
                 <h2>Form Layout</h2>
                 <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
@@ -27,6 +27,27 @@
                                     <select name="idioma" id="idiomaSelect" class="form-control" ng-model="ctrlTour.idIdiomaGlobal" ng-change="ctrlTour.findTourByIdAndLanguage()">
                                         <option data-ng-repeat="idioma in ctrlTour.listLanguage.data" value="[[ idioma.id ]]">[[ idioma.descripcion ]]</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="idiomaSelect" class="col-sm-2 control-label">Nombre</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="idiomaSelect" class="col-sm-2 control-label">Circuito</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="idiomaSelect" class="col-sm-2 control-label">Descripcion</label>
+                                <div class="col-sm-8">
+                                    <textarea name="" class="summernote" id="" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
 
@@ -138,14 +159,6 @@
 
                         </div>
 
-                    </div>
-                </div>
-            </div>
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <button class="btn-primary btn">Submit</button>
-                        <button class="btn-default btn">Cancel</button>
                     </div>
                 </div>
             </div>

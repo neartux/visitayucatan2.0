@@ -2,6 +2,11 @@
  * Created by ricardo on 26/12/15.
  */
 $(document).ready(function() {
+
+    $('.summernote').summernote({
+        height: 200
+    });
+
     $('.data-table').dataTable({
         "language": {
             "lengthMenu": "_MENU_"
