@@ -8,21 +8,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use VisitaYucatanBundle\Entity\Tourimagen;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\to\ResponseTO;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class TourAdminController extends Controller{
+class TourAdminController extends Controller
+{
 
     /**
      * @Route("/admin/tours", name="tour_display_list")
      * @Method("GET")
      */
-    public function displayToursAction(Request $request){
-        if(! $request->getSession()->get(Generalkeys::LABEL_STATUS)){
+    public function displayToursAction(Request $request)
+    {
+        if (!$request->getSession()->get(Generalkeys::LABEL_STATUS)) {
             return $this->redirectToRoute('admin_login');
         }
-        $this->get('session')->set('_locale', 'es');
         return $this->render('VisitaYucatanBundle:admin/tours:Tours.html.twig');
     }
 
@@ -30,7 +32,8 @@ class TourAdminController extends Controller{
      * @Route("/admin/tour/find/list", name="tour_find_list")
      * @Method("GET")
      */
-    public function findAllToursAction(){
+    public function findAllToursAction()
+    {
         $tours = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->findAllTours();
         return new Response($this->get('serializer')->serialize($tours, Generalkeys::JSON_STRING));
     }
@@ -39,7 +42,8 @@ class TourAdminController extends Controller{
      * @Route("/admin/tour/create", name="tour_create")
      * @Method("POST")
      */
-    public function createTourAction(Request $request){
+    public function createTourAction(Request $request)
+    {
         $serializer = $this->get('serializer');
         try {
             $tourJson = $request->get('tour');
@@ -50,7 +54,7 @@ class TourAdminController extends Controller{
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.created"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
-        } catch( \Exception $e){
+        } catch (\Exception $e) {
 
             $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
@@ -61,7 +65,8 @@ class TourAdminController extends Controller{
      * @Route("/admin/tour/update", name="tour_update")
      * @Method("POST")
      */
-    public function udpateTourAction(Request $request){
+    public function udpateTourAction(Request $request)
+    {
         $serializer = $this->get('serializer');
         try {
             $tourJson = $request->get('tour');
@@ -72,7 +77,7 @@ class TourAdminController extends Controller{
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.updated"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
-        } catch( \Exception $e){
+        } catch (\Exception $e) {
 
             $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
@@ -83,9 +88,10 @@ class TourAdminController extends Controller{
      * @Route("/admin/tour/delete", name="tour_delete")
      * @Method("POST")
      */
-    public function deleteTourAction(Request $request){
+    public function deleteTourAction(Request $request)
+    {
         $serializer = $this->get('serializer');
-        try{
+        try {
             $idTour = $request->get('idTour');
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->deleteTour($idTour);
 
@@ -93,7 +99,7 @@ class TourAdminController extends Controller{
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.deleted"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
 
             $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
@@ -105,9 +111,10 @@ class TourAdminController extends Controller{
      * @Route("/admin/tour/promove", name="tour_promove")
      * @Method("POST")
      */
-    public function promoveTourAction(Request $request){
+    public function promoveTourAction(Request $request)
+    {
         $serializer = $this->get('serializer');
-        try{
+        try {
             $idTour = $request->get('idTour');
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->promoveOrNotPromoveTour($idTour, Generalkeys::BOOLEAN_TRUE);
 
@@ -115,7 +122,7 @@ class TourAdminController extends Controller{
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.promoved"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
 
             $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
@@ -127,9 +134,10 @@ class TourAdminController extends Controller{
      * @Route("/admin/tour/remove/promove", name="tour_remove_promove")
      * @Method("POST")
      */
-    public function removePromoveTourAction(Request $request){
+    public function removePromoveTourAction(Request $request)
+    {
         $serializer = $this->get('serializer');
-        try{
+        try {
             $idTour = $request->get('idTour');
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->promoveOrNotPromoveTour($idTour, Generalkeys::BOOLEAN_FALSE);
 
@@ -137,7 +145,7 @@ class TourAdminController extends Controller{
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.removed.promoved"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
 
             $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
@@ -149,26 +157,35 @@ class TourAdminController extends Controller{
      * @Route("/admin/tour/upload/image", name="tour_upload_image")
      * @Method("POST")
      */
-    public function uploadImageTourAction(Request $request){
+    public function uploadImageTourAction(Request $request) {
         $em = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen');
+        // Obtiene los datos enviados, imagen y el id del tour
         $image = $request->files->get('file');
         $idTour = $request->get('idTour');
-        if(($image instanceof UploadedFile) && ($image->getError() == Generalkeys::NUMBER_ZERO)){
-            print_r($image);
-                $originalName = $image->getClientOriginalName();
-
-                //$em = $this->getDoctrine()->getEntityManager();
-                //$nextFolio = $em->getRepository('SystemKratosBundle:Contenidopedido')->findNextFolioContenidoPedido();
-                //$idPedido = $request->get('idPedidoFile');
-                //$newNameFile = "pedido-".$idPedido."-folio-".$nextFolio.".".$fileTipe;
-                //$image->move(Keys::PATH_FILES_PEDIDOS,$newNameFile);
-                //$em->getRepository('SystemKratosBundle:Contenidopedido')->saveFileOfPedido($idPedido,$nextFolio,$newNameFile,Keys::PATH_FILES_PEDIDOS,$fileTipe,$originalName);
-
+        // Instancia el archivo al un objeto
+        if (($image instanceof UploadedFile) && ($image->getError() == Generalkeys::NUMBER_ZERO)) {
+            // Busca el folio siguiente
+            $folio = $em->findNextFolio();
+            // Si no se pudo encontrar el folio regresa mensaje error
+            if ($folio == Generalkeys::NOT_FOUND_FOLIO) {
+                return new JsonResponse(array('answer' => 'No se pudo encontrar folio, intentar de nuevo'));
+            }
+            // Arma un nuevo nombre para la imagen, esto es por si se sube diferentes imagenes con el mismo nombre
+            $newName = Generalkeys::PART_NAME_TOUR . $idTour . Generalkeys::PART_NAME_FOLIO . $folio . "." . $image->getClientOriginalExtension();
+            // Mueve la imagen a su carpeta
+            $image->move(Generalkeys::PATH_TOURS_IMAGE, $newName);
+            // Guarda el registro de la imagen tour
+            $em->uploadTourImage($image->getClientOriginalName(), $newName, $folio, Generalkeys::PATH_TOURS_IMAGE . $newName, $image->getClientOriginalExtension(), $idTour);
+            return new JsonResponse(array('answer' => 'Se ha cargado la imagen correctamente'));
         }
-        return new JsonResponse(array('answer' => 'File transfer completed'));
-
-        //$this->get('session')->getFlashBag()->add('notice', $msg);
-        //return new RedirectResponse($this->generateUrl('system_kratos_reporte_pedidos'));
+        return new JsonResponse(array('answer' => 'Ocurrio algun error, intenta de nuevo'));
     }
 
 }
+
+/*TODO AQUI LA SECCION QUE FALTA VALIDAR O AGREGAR PERO NO ES NECESARIO A PRIMERA INSTANCIA
+
+1.- Validar que si es una imagen u otro tipo de archivo
+2.- Cambiar los mensajes por messages_properties por idiomas
+
+*/

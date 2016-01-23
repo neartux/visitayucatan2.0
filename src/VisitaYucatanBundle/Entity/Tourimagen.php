@@ -71,7 +71,7 @@ class Tourimagen
     private $principal;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tour", inversedBy="tour")
+     * @ORM\ManyToOne(targetEntity="Tour", inversedBy="tourImagen")
      * @ORM\JoinColumn(name="id_tour", referencedColumnName="id", nullable=false)
      */
     private $tour;

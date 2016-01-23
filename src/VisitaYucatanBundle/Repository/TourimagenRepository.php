@@ -2,6 +2,8 @@
 
 namespace VisitaYucatanBundle\Repository;
 use VisitaYucatanBundle\Entity\Tourimagen;
+use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 
 /**
  * TourimagenRepository
@@ -10,9 +12,51 @@ use VisitaYucatanBundle\Entity\Tourimagen;
  * repository methods below.
  */
 class TourimagenRepository extends \Doctrine\ORM\EntityRepository{
-    public function uploadTourImage($originalName, $nameImage){
+    public function uploadTourImage($originalName, $nameImage, $folio, $path, $tipoArchivo, $idTour){
+        $em = $this->getEntityManager();
+
         $tourImage = new Tourimagen();
         $tourImage->setNombre($nameImage);
         $tourImage->setNombreoriginal($originalName);
+        $tourImage->setFolio($folio);
+        $tourImage->setPath($path);
+        $tourImage->setTipoarchivo($tipoArchivo);
+        $tourImage->setPrincipal(Generalkeys::BOOLEAN_FALSE);
+        $tourImage->setFechacreacion(new \DateTime());
+        $tourImage->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+        $tourImage->setTour($em->getReference('VisitaYucatanBundle:Tour', $idTour));
+
+        $em->persist($tourImage);
+        $em->flush();
+    }
+
+    public function existTour($id){
+        $em = $this->getEntityManager();
+        if($em->getRepository('VisitaYucatanBundle:Tour')->find($id)){
+            return Generalkeys::BOOLEAN_TRUE;
+        }
+        return Generalkeys::BOOLEAN_FALSE;
+    }
+
+    public function findNextFolio(){
+
+        $sql = "SELECT MAX(tour_imagen.folio) AS folio
+				FROM tour_imagen
+				WHERE tour_imagen.id_estatus=:estatusActivo LIMIT ".Generalkeys::NUMBER_ONE;
+        try{
+
+            $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute($params);
+            $result = $stmt->fetch();
+            $folio = (int)$result['folio'];
+
+            return ($folio + Generalkeys::NUMBER_ONE);
+
+        } catch(\Doctrine\ORM\NoResultException $e){
+
+            return Generalkeys::NOT_FOUND_FOLIO;
+        }
     }
 }

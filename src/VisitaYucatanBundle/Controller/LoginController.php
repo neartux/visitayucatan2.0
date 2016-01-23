@@ -75,3 +75,10 @@ class LoginController extends Controller {
     }
 
 }
+
+
+/*TODO AQUI LA SECCION QUE FALTA VALIDAR O AGREGAR PERO NO ES NECESARIO A PRIMERA INSTANCIA
+
+1.- Agregar fecha login y logout de usuario
+
+*/

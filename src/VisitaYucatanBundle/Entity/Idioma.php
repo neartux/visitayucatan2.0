@@ -2,6 +2,7 @@
 
 namespace VisitaYucatanBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,10 +44,25 @@ class Idioma
     private $imagen;
 
     /**
+     * @ORM\OneToMany(targetEntity="Touridioma", mappedBy="idioma")
+     */
+    private $tourIdioma;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="idioma")
      * @ORM\JoinColumn(name="id_estatus", referencedColumnName="id", nullable=false)
      */
     private $estatus;
+
+    /**
+     * Idioma constructor.
+     * @param $tourIdioma
+     */
+    public function __construct()
+    {
+        $this->tourIdioma = new ArrayCollection();
+    }
+
 
     /**
      * Get id
@@ -152,5 +168,39 @@ class Idioma
     public function getEstatus()
     {
         return $this->estatus;
+    }
+
+    /**
+     * Add tourIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\Touridioma $tourIdioma
+     *
+     * @return Idioma
+     */
+    public function addTourIdioma(\VisitaYucatanBundle\Entity\Touridioma $tourIdioma)
+    {
+        $this->tourIdioma[] = $tourIdioma;
+
+        return $this;
+    }
+
+    /**
+     * Remove tourIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\Touridioma $tourIdioma
+     */
+    public function removeTourIdioma(\VisitaYucatanBundle\Entity\Touridioma $tourIdioma)
+    {
+        $this->tourIdioma->removeElement($tourIdioma);
+    }
+
+    /**
+     * Get tourIdioma
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTourIdioma()
+    {
+        return $this->tourIdioma;
     }
 }
