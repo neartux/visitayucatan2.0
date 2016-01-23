@@ -8,8 +8,12 @@
                 <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
                 <div class="options">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#information-tour" data-toggle="tab"><i class="fa fa-info text-warning"></i>&nbsp;&nbsp;Información</a></li>
-                        <li><a href="#images-tour" data-toggle="tab"><i class="fa fa-image text-warning"></i>&nbsp;&nbsp;Fotografías</a></li>
+                        <li class="active"><a href="#information-tour" data-toggle="tab" data-ng-click="ctrlTour.findAllLanguages();">
+                                <i class="fa fa-info text-warning"></i>&nbsp;&nbsp;Información</a>
+                        </li>
+                        <li><a href="#images-tour" data-toggle="tab">
+                                <i class="fa fa-image text-warning"></i>&nbsp;&nbsp;Fotografías</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -18,117 +22,122 @@
                     <div class="tab-pane active" id="information-tour">
                         <form class="form-horizontal">
                             <div class="form-group">
-                                <label for="focusedinput" class="col-sm-2 control-label">Focused Input</label>
+                                <label for="idiomaSelect" class="col-sm-2 control-label">Selecciona Idioma</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="focusedinput" placeholder="Default Input">
-                                </div>
-                                <div class="col-sm-2">
-                                    <p class="help-block">Your help text!</p>
+                                    <select name="idioma" id="idiomaSelect" class="form-control" ng-model="ctrlTour.idIdiomaGlobal" ng-change="ctrlTour.findTourByIdAndLanguage()">
+                                        <option data-ng-repeat="idioma in ctrlTour.listLanguage.data" value="[[ idioma.id ]]">[[ idioma.descripcion ]]</option>
+                                    </select>
                                 </div>
                             </div>
 
                         </form>
                     </div>
                     <div class="tab-pane" id="images-tour">
-                        <div class="col-md-3">
 
-                            <h3>{% trans %}tour.report.label.upload.image.select.files{% endtrans %}</h3>
+                        <div nv-file-drop="" uploader="uploader" id="ng-app" data-ng-controller="AngularFileUploadController as ctrlFile">
 
-                            <div ng-show="uploader.isHTML5">
-                                <!-- 3. nv-file-over uploader="link" over-class="className" -->
-                                <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
-                                    {% trans %}tour.report.label.upload.image.drag.image{% endtrans %}
+                            <div class="col-md-3">
+
+                                <h3>{% trans %}tour.report.label.upload.image.select.files{% endtrans %}</h3>
+
+                                <div ng-show="uploader.isHTML5">
+                                    <!-- 3. nv-file-over uploader="link" over-class="className" -->
+                                    <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
+                                        {% trans %}tour.report.label.upload.image.drag.image{% endtrans %}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                            <div class="form-group">
-                                <div class="col-sm-8">
-                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
 							<span class="btn btn-default btn-file">
 								<span class="fileinput-new">{% trans %}tour.report.label.upload.image.select.file{% endtrans %}</span>
 								<span class="fileinput-exists">{% trans %}tour.report.label.upload.image.change.file{% endtrans %}</span>
 								<input type="file" nv-file-select="" uploader="uploader" multiple  />
 							</span>
-                                        <span class="fileinput-filename"></span>
-                                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-9" style="margin-bottom: 40px">
-                            <h3>{% trans %}tour.report.label.upload.image.image.list{% endtrans %}</h3>
-                            <p>Num. [[ uploader.queue.length ]]</p>
-
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th width="50%">{% trans %}tour.report.label.upload.image.name{% endtrans %}</th>
-                                    <th ng-show="uploader.isHTML5">{% trans %}tour.report.label.upload.image.size{% endtrans %}</th>
-                                    <th ng-show="uploader.isHTML5">{% trans %}tour.report.label.upload.image.progress{% endtrans %}</th>
-                                    <th>{% trans %}tour.report.label.upload.image.status{% endtrans %}</th>
-                                    <th>{% trans %}tour.report.label.upload.image.actions{% endtrans %}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="item in uploader.queue">
-                                    <td>
-                                        <strong>[[ item.file.name ]]</strong>
-                                        <!-- Image preview -->
-                                        <!--auto height-->
-                                        <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
-                                        <!--auto width-->
-                                        <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
-                                        <!--fixed width and height -->
-                                        <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
-                                    </td>
-                                    <td ng-show="uploader.isHTML5" nowrap>[[ item.file.size/1024/1024|number:2 ]] MB</td>
-                                    <td ng-show="uploader.isHTML5">
-                                        <div class="progress" style="margin-bottom: 0;">
-                                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                            <span class="fileinput-filename"></span>
+                                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                         </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                                    </td>
-                                    <td nowrap>
-                                        <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                                            <span class="glyphicon glyphicon-upload"></span> {% trans %}button.label.upload{% endtrans %}
-                                        </button>
-                                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                                            <span class="glyphicon glyphicon-ban-circle"></span> {% trans %}button.label.cancel{% endtrans %}
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                                            <span class="glyphicon glyphicon-trash"></span> {% trans %}button.label.delete{% endtrans %}
-                                        </button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-                            <div>
-                                <div>
-                                    {% trans %}tour.report.label.upload.image.loading.progress{% endtrans %}:
-                                    <div class="progress" style="">
-                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                                    <span class="glyphicon glyphicon-upload"></span> {% trans %}tour.report.label.upload.image.upload.all{% endtrans %}
-                                </button>
-                                <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-                                    <span class="glyphicon glyphicon-ban-circle"></span> {% trans %}tour.report.label.upload.image.cancel.all{% endtrans %}
-                                </button>
-                                <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-                                    <span class="glyphicon glyphicon-trash"></span> {% trans %}tour.report.label.upload.image.delete.all{% endtrans %}
-                                </button>
+
+                            </div>
+
+                            <div class="col-md-9" style="margin-bottom: 40px">
+                                <h3>{% trans %}tour.report.label.upload.image.image.list{% endtrans %}</h3>
+                                <p>Num. [[ uploader.queue.length ]]</p>
+
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">{% trans %}tour.report.label.upload.image.name{% endtrans %}</th>
+                                        <th ng-show="uploader.isHTML5">{% trans %}tour.report.label.upload.image.size{% endtrans %}</th>
+                                        <th ng-show="uploader.isHTML5">{% trans %}tour.report.label.upload.image.progress{% endtrans %}</th>
+                                        <th>{% trans %}tour.report.label.upload.image.status{% endtrans %}</th>
+                                        <th>{% trans %}tour.report.label.upload.image.actions{% endtrans %}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in uploader.queue">
+                                        <td>
+                                            <strong>[[ item.file.name ]]</strong>
+                                            <!-- Image preview -->
+                                            <!--auto height-->
+                                            <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                                            <!--auto width-->
+                                            <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+                                            <!--fixed width and height -->
+                                            <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                                        </td>
+                                        <td ng-show="uploader.isHTML5" nowrap>[[ item.file.size/1024/1024|number:2 ]] MB</td>
+                                        <td ng-show="uploader.isHTML5">
+                                            <div class="progress" style="margin-bottom: 0;">
+                                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                        </td>
+                                        <td nowrap>
+                                            <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                                <span class="glyphicon glyphicon-upload"></span> {% trans %}button.label.upload{% endtrans %}
+                                            </button>
+                                            <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                                <span class="glyphicon glyphicon-ban-circle"></span> {% trans %}button.label.cancel{% endtrans %}
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                                <span class="glyphicon glyphicon-trash"></span> {% trans %}button.label.delete{% endtrans %}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <div>
+                                    <div>
+                                        {% trans %}tour.report.label.upload.image.loading.progress{% endtrans %}:
+                                        <div class="progress" style="">
+                                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                                        <span class="glyphicon glyphicon-upload"></span> {% trans %}tour.report.label.upload.image.upload.all{% endtrans %}
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> {% trans %}tour.report.label.upload.image.cancel.all{% endtrans %}
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                                        <span class="glyphicon glyphicon-trash"></span> {% trans %}tour.report.label.upload.image.delete.all{% endtrans %}
+                                    </button>
+                                </div>
+
                             </div>
 
                         </div>
+
                     </div>
                 </div>
             </div>

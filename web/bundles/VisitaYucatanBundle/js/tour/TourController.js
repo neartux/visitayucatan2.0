@@ -11,12 +11,15 @@
         var ctrlTour = this;
         ctrlTour.tour = undefined;
         ctrlTour.listTour = TourService.listTour;
+        ctrlTour.listLanguage = TourService.listLanguage;
         ctrlTour.titleCreate = '';
         ctrlTour.titleEdit = '';
         ctrlTour.msjLoading = '';
         ctrlTour.titleModal = '';
         ctrlTour.isNewTour = true;
         ctrlTour.configTour = false;
+        ctrlTour.idTourGlobal = 0;
+        ctrlTour.idIdiomaGlobal = 1; //Todo cambiar si cambia en la base de datos, id
 
         ctrlTour.init = function (titleCreate, titleEdit, confirmDelete, msjLoading) {
             ctrlTour.titleCreate = titleCreate;
@@ -29,6 +32,16 @@
 
         ctrlTour.findAllTours = function () {
             return TourService.findToursActives();
+        };
+
+        ctrlTour.findAllLanguages = function () {
+            console.log("en el metodo para buscar los lenguajes")
+            return TourService.findLanguagesActives();
+        };
+
+        ctrlTour.findTourByIdAndLanguage = function(){
+            console.log("si funciona el select con onchange");
+            return TourService.findTourByIdAndLanguaje(ctrlTour.idTourGlobal, ctrlTour.idIdiomaGlobal);
         };
 
         ctrlTour.displayNewTour = function () {
@@ -111,7 +124,8 @@
         };
 
         ctrlTour.configurateTour = function(tour){
-          ctrlTour.configTour = true;
+            ctrlTour.idTourGlobal = tour.id;
+            ctrlTour.configTour = true;
         };
 
         ctrlTour.cleanForm = function () {

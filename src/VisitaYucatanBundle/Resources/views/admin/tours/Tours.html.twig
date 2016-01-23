@@ -87,11 +87,8 @@
                         </div>
 
                         <!--Seccion de configuracion de tour-->
-                        <div nv-file-drop="" uploader="uploader" id="ng-app" data-ng-controller="AngularFileUploadController as ctrlFile">
 
-                            {% include '@VisitaYucatan/admin/tours/ConfigurationTour.html.twig' %}
-
-                        </div>
+                        {% include '@VisitaYucatan/admin/tours/ConfigurationTour.html.twig' %}
 
                     </div>
                 </div>
@@ -110,6 +107,8 @@
         <input type="hidden" id="pathPromoveTour" value="{{ path('tour_promove') }}"/>
         <input type="hidden" id="pathRemovePromoveTour" value="{{ path('tour_remove_promove') }}"/>
         <input type="hidden" id="pathUploadImageTour" value="{{ path('tour_upload_image') }}"/>
+        <input type="hidden" id="pathAllLanguages" value="{{ path('language_find_all') }}"/>
+        <input type="hidden" id="pathTourByLanguage" value="{{ path('tour_find_by_language') }}"/>
     </div>
 
 {% endblock %}

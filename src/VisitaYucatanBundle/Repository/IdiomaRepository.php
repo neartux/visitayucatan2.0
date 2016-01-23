@@ -2,6 +2,8 @@
 
 namespace VisitaYucatanBundle\Repository;
 
+use VisitaYucatanBundle\utils\Estatuskeys;
+
 /**
  * IdiomaRepository
  *

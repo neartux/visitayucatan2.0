@@ -10,12 +10,34 @@
         service.listTour = {
             data:undefined
         };
+        service.listLanguage = {
+            data:undefined
+        };
 
         service.findToursActives= function(){
             var path = $("#pathListTour").val();
             service.listTour.data = [];
             return $http.get(path).then(function(data){
                 service.listTour.data = data.data;
+            });
+        };
+
+        service.findLanguagesActives= function(){
+            var path = $("#pathAllLanguages").val();
+            service.listLanguage.data = [];
+            return $http.get(path).then(function(data){
+                console.info("idiomas = "+JSON.stringify(data.data));
+                service.listLanguage.data = data.data;
+            });
+        };
+
+        service.findTourByIdAndLanguaje = function(idTour, idLanguage){
+            console.info(idTour, idLanguage);
+            var path = $("#pathTourByLanguage").val();
+            return $http.post(path, $.param({idTour : idTour, idLanguage : idLanguage}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                console.log("datos = "+JSON.stringify(data.data));
             });
         };
 

@@ -12,6 +12,7 @@ use VisitaYucatanBundle\Entity\Tourimagen;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\to\ResponseTO;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use VisitaYucatanBundle\utils\TourUtils;
 
 class TourAdminController extends Controller
 {
@@ -151,6 +152,17 @@ class TourAdminController extends Controller
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
         }
 
+    }
+
+    /**
+     * @Route("/admin/tour/find/tour/by/idtour/idlanguage", name="tour_find_by_language")
+     * @Method("POST")
+     */
+    public function findTourByIdAndLanguageAction(Request $request) {
+        $idTour = $request->get('idTour');
+        $idLanguage = $request->get('idLanguage');
+        $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Touridioma')->findTourByIdAndIdLanguage($idTour, $idLanguage);
+        return new Response($this->get('serializer')->serialize(TourUtils::convertEntityTouriomaToTouridiomaTO($tour), Generalkeys::JSON_STRING));
     }
 
     /**
