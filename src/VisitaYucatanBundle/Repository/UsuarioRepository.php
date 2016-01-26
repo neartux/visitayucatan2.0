@@ -76,6 +76,10 @@ class UsuarioRepository extends \Doctrine\ORM\EntityRepository{
         // Actualiza los datos personales
         $usuarioUpdate->getDatosPersonales()->setNombres($usuarioTO->getNombres());
         $usuarioUpdate->getDatosPersonales()->setApellidos($usuarioTO->getApellidos());
+        // Si se capturo contrasena, quiere decir que se fue cambiada
+        if(! empty($usuarioTO->getPassword())){
+            $usuarioUpdate->setPassword(md5($usuarioTO->getPassword()));
+        }
 
         // Actualiza los datos de ubicacion
         $usuarioUpdate->getDatosUbicacion()->setDireccion($usuarioTO->getDireccion());
