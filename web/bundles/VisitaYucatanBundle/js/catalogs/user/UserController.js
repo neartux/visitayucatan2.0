@@ -44,6 +44,7 @@
             ctrlUser.titleModal = ctrlUser.titleEdit;
             ctrlUser.user = JSON.parse(JSON.stringify(User));
             ctrlUser.isNewUser = false;
+            ctrlUser.user.password = '';
             $("#modalUser").modal();
             setTimeout(function(){
                 $("#username").trigger('focus');
@@ -51,7 +52,6 @@
         };
 
         ctrlUser.saveformUser = function(isValid) {
-            console.log("en controller =) "+JSON.stringify(ctrlUser.user));
             // check to make sure the form is completely valid
             if (isValid && ctrlUser.user != undefined) {
                 startLoading(ctrlUser.msjLoading);

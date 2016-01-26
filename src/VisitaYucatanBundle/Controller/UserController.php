@@ -106,6 +106,6 @@ class UserController extends Controller{
 
 1.- Validar que si un usuario elimino o edito su proprio usuario redireccionar a la pagina de login
 2.- Agregar imagen a perfil de usuario
-3.- Hacer aplicacion para cambiar la contraseña de usuario
+3.- Hacer aplicacion para cambiar la contraseña de usuario // todo verificar que funcione bien, ya se agrego..
 
 */

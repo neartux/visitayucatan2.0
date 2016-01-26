@@ -119,6 +119,13 @@
 
 {% block scripts %}
     {{ parent() }}
+    <script>
+        $(function(){
+            $('.summernote').summernote({
+                height: 200
+            });
+        });
+    </script>
     <script src="{{ asset('bundles/VisitaYucatanBundle/js/angularjs/angular-file-upload/angular-file-upload.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/VisitaYucatanBundle/js/tour/TourProvider.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/VisitaYucatanBundle/js/angularjs/angular-file-upload/AngularFileUploadController.js') }}" type="text/javascript"></script>

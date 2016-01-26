@@ -15,7 +15,6 @@
             var path = $("#pathListUser").val();
             service.listUser.data = [];
             return $http.get(path).then(function(data){
-                console.log(JSON.stringify(data.data));
                 service.listUser.data = data.data;
             });
         };
