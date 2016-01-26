@@ -1,6 +1,5 @@
 /build/
 /composer.phar
-/app/bootstrap.php.cache
 /app/cache/*
 !app/cache/.gitkeep
 /app/logs/*

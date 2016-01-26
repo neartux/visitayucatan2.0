@@ -76,10 +76,6 @@ class UsuarioRepository extends \Doctrine\ORM\EntityRepository{
         // Actualiza los datos personales
         $usuarioUpdate->getDatosPersonales()->setNombres($usuarioTO->getNombres());
         $usuarioUpdate->getDatosPersonales()->setApellidos($usuarioTO->getApellidos());
-        // Si se capturo contrasena, quiere decir que se fue cambiada
-        if(! empty($usuarioTO->getPassword())){
-            $usuarioUpdate->setPassword(md5($usuarioTO->getPassword()));
-        }
 
         // Actualiza los datos de ubicacion
         $usuarioUpdate->getDatosUbicacion()->setDireccion($usuarioTO->getDireccion());
@@ -90,9 +86,10 @@ class UsuarioRepository extends \Doctrine\ORM\EntityRepository{
         // Actualiza informacion de usuario
         $usuarioUpdate->setUsername($usuarioTO->getUsername());
         // todo queda pendiente, Valida si hay cambio de contraseña la actualiza, de lo contrario no realiza nada
-        //if(md5($usuarioTO->getPassword()) != $usuarioUpdate->getPassword()){
-        //    $usuarioUpdate->setPassword(md5($usuarioTO->getPassword()));
-        //}
+        // Si se capturo contrasena, quiere decir que se fue cambiada
+        if(! empty($usuarioTO->getPassword())){
+            $usuarioUpdate->setPassword(md5($usuarioTO->getPassword()));
+        }
 
         $em->persist($usuarioUpdate);
         $em->flush();
