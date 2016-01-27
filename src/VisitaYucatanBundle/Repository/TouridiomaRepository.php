@@ -13,6 +13,10 @@ use VisitaYucatanBundle\utils\Estatuskeys;
 class TouridiomaRepository extends \Doctrine\ORM\EntityRepository
 {
 
+    public function findTourImagesByIdTour($idTour){
+        return $this->findBy(array('tour' => $idTour, 'estatus' => Estatuskeys::ESTATUS_ACTIVO));
+    }
+
     public function findTourByIdAndIdLanguage($idTour, $idIdioma)
     {
         $em = $this->getEntityManager();
