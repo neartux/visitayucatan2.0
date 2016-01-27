@@ -5,6 +5,8 @@
  */
 
 namespace VisitaYucatanBundle\utils;
+use Doctrine\Common\Collections\ArrayCollection;
+use VisitaYucatanBundle\utils\to\ImagenTO;
 use VisitaYucatanBundle\utils\to\TouridiomaTO;
 
 class TourUtils {
@@ -22,5 +24,20 @@ class TourUtils {
         }
 
         return $tourIdioma;
+    }
+
+    public function getListImagenTO($imagesApp){
+        $imageList = new ArrayCollection();
+        if(count($imagesApp) > Generalkeys::NUMBER_ZERO){
+            foreach($imagesApp as $imageApp)
+            $image = new ImagenTO();
+            $image->setId($imageApp->getId());
+            $image->setNombreOriginal($imageApp->getNombreoriginal());
+            $image->setNombre($imageApp->getNombre());
+
+            $imageList->add($image);
+        }
+        return $imageList;
+
     }
 }
