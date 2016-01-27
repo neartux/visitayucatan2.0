@@ -26,14 +26,18 @@ class TourUtils {
         return $tourIdioma;
     }
 
-    public function getListImagenTO($imagesApp){
+    public static function getListImagenTO($imagesApp){
         $imageList = new ArrayCollection();
         if(count($imagesApp) > Generalkeys::NUMBER_ZERO){
             foreach($imagesApp as $imageApp)
             $image = new ImagenTO();
             $image->setId($imageApp->getId());
+            $image->setIdTour($imageApp->getTour()->getId());
             $image->setNombreOriginal($imageApp->getNombreoriginal());
             $image->setNombre($imageApp->getNombre());
+            $image->setPath($imageApp->getPath());
+            $image->setTipoArchivo($imageApp->getTipoarchivo());
+            $image->setPrincipal($imageApp->getPrincipal());
 
             $imageList->add($image);
         }

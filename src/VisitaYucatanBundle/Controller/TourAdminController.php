@@ -166,6 +166,16 @@ class TourAdminController extends Controller
     }
 
     /**
+     * @Route("/admin/tour/find/images", name="tour_find_images")
+     * @Method("GET")
+     */
+    public function findImagesTourByIdAction(Request $request) {
+        $idTour = $request->get('idTour');
+        $images = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->findTourImagesByIdTour($idTour);
+        return new Response($this->get('serializer')->serialize(TourUtils::getListImagenTO($images), Generalkeys::JSON_STRING));
+    }
+
+    /**
      * @Route("/admin/tour/upload/image", name="tour_upload_image")
      * @Method("POST")
      */

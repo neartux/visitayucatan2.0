@@ -12,6 +12,8 @@
         ctrlTour.tour = undefined;
         ctrlTour.listTour = TourService.listTour;
         ctrlTour.listLanguage = TourService.listLanguage;
+        ctrlTour.tourIdiomaTo = TourService.tourIdiomaTO;
+        ctrlTour.imagesTour = TourService.imagesTourList;
         ctrlTour.titleCreate = '';
         ctrlTour.titleEdit = '';
         ctrlTour.msjLoading = '';
@@ -19,7 +21,7 @@
         ctrlTour.isNewTour = true;
         ctrlTour.configTour = false;
         ctrlTour.idTourGlobal = 0;
-        ctrlTour.idIdiomaGlobal = 1; //Todo cambiar si cambia en la base de datos, id
+        ctrlTour.idIdiomaGlobal = 1; // Todo Español, cambiar si cambia en la base de datos, id
 
         ctrlTour.init = function (titleCreate, titleEdit, confirmDelete, msjLoading) {
             ctrlTour.titleCreate = titleCreate;
@@ -42,6 +44,10 @@
         ctrlTour.findTourByIdAndLanguage = function(){
             console.log("si funciona el select con onchange");
             return TourService.findTourByIdAndLanguaje(ctrlTour.idTourGlobal, ctrlTour.idIdiomaGlobal);
+        };
+
+        ctrlTour.findImagesByTour = function (){
+            return TourService.findImagesTourByIdTour(ctrlTour.idTourGlobal);
         };
 
         ctrlTour.configurateTour = function(tour){

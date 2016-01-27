@@ -8,10 +8,16 @@
         var service = {};
 
         service.listTour = {
-            data:undefined
+            data: undefined
         };
         service.listLanguage = {
-            data:undefined
+            data: undefined
+        };
+        service.tourIdiomaTO = {
+            data: undefined
+        };
+        service.imagesTourList = {
+            data: undefined
         };
 
         service.findToursActives= function(){
@@ -38,6 +44,18 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
                 console.log("datos = "+JSON.stringify(data.data));
+                service.tourIdiomaTO.data = data.data;
+            });
+        };
+
+        service.findImagesTourByIdTour = function (idTour){
+            console.info(idTour);
+            var path = $("#pathImagesTour").val();
+            return $http.post(path, $.param({idTour : idTour}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                console.log("images = "+JSON.stringify(data.data));
+                service.imagesTourList.data = data.data;
             });
         };
 

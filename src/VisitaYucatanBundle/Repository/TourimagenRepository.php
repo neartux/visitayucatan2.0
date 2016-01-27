@@ -12,6 +12,11 @@ use VisitaYucatanBundle\utils\Generalkeys;
  * repository methods below.
  */
 class TourimagenRepository extends \Doctrine\ORM\EntityRepository{
+
+    public function findTourImagesByIdTour($idTour){
+        return $this->findBy(array('tour' => $idTour, 'estatus' => Estatuskeys::ESTATUS_ACTIVO));
+    }
+
     public function uploadTourImage($originalName, $nameImage, $folio, $path, $tipoArchivo, $idTour){
         $em = $this->getEntityManager();
 
