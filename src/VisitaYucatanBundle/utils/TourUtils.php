@@ -13,7 +13,7 @@ class TourUtils {
 
     public static function convertEntityTouriomaToTouridiomaTO($tourEntity) {
         $tourIdioma = new TouridiomaTO();
-        if(! is_null($tourIdioma)){
+        if(! is_null($tourEntity)){
             $tourIdioma->setId($tourEntity->getId());
             $tourIdioma->setIdIdioma($tourEntity->getIdioma()->getId());
             $tourIdioma->setIdTour($tourEntity->getTour()->getId());

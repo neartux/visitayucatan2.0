@@ -7,7 +7,7 @@
         $interpolateProvider.endSymbol(']]');
     }]);
 
-    app.controller('TourController', function($scope, $http, TourService) {
+    app.controller('TourController', function ($scope, $http, TourService) {
         var ctrlTour = this;
         ctrlTour.tour = undefined;
         ctrlTour.listTour = TourService.listTour;
@@ -30,6 +30,7 @@
             ctrlTour.titleModal = titleCreate;
             ctrlTour.confirmDelete = confirmDelete;
             ctrlTour.findAllTours();
+            ctrlTour.findAllLanguages();
         };
 
         ctrlTour.findAllTours = function () {
@@ -41,21 +42,26 @@
             return TourService.findLanguagesActives();
         };
 
-        ctrlTour.findTourByIdAndLanguage = function(){
-            console.log("si funciona el select con onchange");
-            return TourService.findTourByIdAndLanguaje(ctrlTour.idTourGlobal, ctrlTour.idIdiomaGlobal);
+        ctrlTour.findTourByIdAndLanguage = function () {
+            console.info("BUSCANDO TOUR POR ID E IDIOMA tour = " + ctrlTour.idTourGlobal + " idioma = " + ctrlTour.idIdiomaGlobal);
+            return TourService.findTourByIdAndLanguaje(ctrlTour.idTourGlobal, ctrlTour.idIdiomaGlobal).then(function(){
+                if(! ctrlTour.tourIdiomaTo.data.status){
+                    pNotifyView(ctrlTour.tourIdiomaTo.data.message, ctrlTour.tourIdiomaTo.data.typeStatus);
+                }
+            });
         };
 
-        ctrlTour.findImagesByTour = function (){
+        ctrlTour.findImagesByTour = function () {
+            console.info("BUSCANDO IMAGENES tour = " + ctrlTour.idTourGlobal + " idioma = " + ctrlTour.idIdiomaGlobal);
             return TourService.findImagesTourByIdTour(ctrlTour.idTourGlobal);
         };
 
-        ctrlTour.configurateTour = function(tour){
-            ctrlTour.findAllLanguages().then(function(){
-                ctrlTour.findTourByIdAndLanguage();
-            });
+        ctrlTour.configurateTour = function (tour) {
             ctrlTour.idTourGlobal = tour.id;
             ctrlTour.configTour = true;
+            ctrlTour.findTourByIdAndLanguage().then(function () {
+                ctrlTour.findImagesByTour();
+            });
         };
 
         ctrlTour.displayNewTour = function () {

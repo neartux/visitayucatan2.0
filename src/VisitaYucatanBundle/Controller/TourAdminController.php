@@ -159,15 +159,20 @@ class TourAdminController extends Controller
      * @Method("POST")
      */
     public function findTourByIdAndLanguageAction(Request $request) {
-        $idTour = $request->get('idTour');
-        $idLanguage = $request->get('idLanguage');
-        $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Touridioma')->findTourByIdAndIdLanguage($idTour, $idLanguage);
-        return new Response($this->get('serializer')->serialize(TourUtils::convertEntityTouriomaToTouridiomaTO($tour), Generalkeys::JSON_STRING));
+        try {
+            $idTour = $request->get('idTour');
+            $idLanguage = $request->get('idLanguage');
+            $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Touridioma')->findTourByIdAndIdLanguage($idTour, $idLanguage);
+            return new Response($this->get('serializer')->serialize(TourUtils::convertEntityTouriomaToTouridiomaTO($tour), Generalkeys::JSON_STRING));
+        } catch (\Exception $e){
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        }
     }
 
     /**
      * @Route("/admin/tour/find/images", name="tour_find_images")
-     * @Method("GET")
+     * @Method("POST")
      */
     public function findImagesTourByIdAction(Request $request) {
         $idTour = $request->get('idTour');
