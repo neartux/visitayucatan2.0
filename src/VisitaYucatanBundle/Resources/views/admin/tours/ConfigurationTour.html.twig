@@ -20,40 +20,89 @@
             <div class="panel-body">
                 <div class="tab-content">
                     <div class="tab-pane active" id="information-tour">
-                        <form class="form-horizontal">
+
+                        <form class="form-horizontal" name="formTourLanguage" novalidate>
+
                             <div class="form-group">
                                 <label for="idiomaSelect" class="col-sm-2 control-label">Selecciona Idioma</label>
                                 <div class="col-sm-8">
-                                    <select name="idioma" id="idiomaSelect" class="form-control" ng-model="ctrlTour.idIdiomaGlobal" ng-change="ctrlTour.findTourByIdAndLanguage()">
-                                        <option data-ng-repeat="idioma in ctrlTour.listLanguage.data" value="[[ idioma.id ]]">[[ idioma.descripcion ]]</option>
+                                    <select name="idioma" id="idiomaSelect" class="form-control" ng-model="ctrlTour.idIdiomaGlobal"
+                                            ng-change="ctrlTour.findTourByIdAndLanguage()"
+                                            ng-options="idioma as idioma.descripcion for idioma in ctrlTour.listLanguage.data track by idioma.id">
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="idiomaSelect" class="col-sm-2 control-label">Nombre</label>
+                            <div class="form-group"
+                                 ng-class="{ 'has-error' : formTourLanguage.nombreTour.$invalid && !formTourLanguage.nombreTour.$pristine }">
+                                <label class="col-sm-4 control-label text-bold text-uppercase">
+                                    Nombre
+                                    <span class="required">*</span>
+                                </label>
+
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control"/>
+                                    <input type="text" id="nombreTour" ng-model="ctrlTour.tourIdiomaTo.nombretour"
+                                           name="nombreTour" class="form-control" required/>
+                                        <span ng-show="formTourLanguage.nombreTour.$invalid && !formTourLanguage.nombreTour.$pristine"
+                                              class="help-block">
+                                            Nombre tour requerido
+                                        </span>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="idiomaSelect" class="col-sm-2 control-label">Circuito</label>
+                            <div class="form-group"
+                                 ng-class="{ 'has-error' : formTourLanguage.circuitoTour.$invalid && !formTourLanguage.circuitoTour.$pristine }">
+                                <label class="col-sm-4 control-label text-bold text-uppercase">
+                                    Circuito
+                                    <span class="required">*</span>
+                                </label>
+
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control"/>
+                                    <input type="text" id="circuitoTour" ng-model="ctrlTour.tourIdiomaTo.circuito"
+                                           name="circuitoTour" class="form-control" required/>
+                                        <span ng-show="formTourLanguage.circuitoTour.$invalid && !formTourLanguage.circuitoTour.$pristine"
+                                              class="help-block">
+                                            Circuito tour requerido
+                                        </span>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="idiomaSelect" class="col-sm-2 control-label">Descripcion</label>
+                            <div class="form-group"
+                                 ng-class="{ 'has-error' : formTourLanguage.descripcionTour.$invalid && !formTourLanguage.descripcionTour.$pristine }">
+                                <label class="col-sm-4 control-label text-bold text-uppercase">
+                                    Descripcion
+                                    <span class="required">*</span>
+                                </label>
+
                                 <div class="col-sm-8">
-                                    <textarea name="" class="summernote" id="" cols="30" rows="10"></textarea>
+                                    <textarea name="descripcionTour" class="summernote" id="descripcionTour"
+                                              ng-model="ctrlTour.tourIdiomaTo.descripcion"
+                                              name="descripcionTour"
+                                              required
+                                              cols="30" rows="10">
+
+                                    </textarea>
+                                        <span ng-show="formTourLanguage.descripcionTour.$invalid && !formTourLanguage.descripcionTour.$pristine"
+                                              class="help-block">
+                                            Descripcion tour requerido
+                                        </span>
                                 </div>
                             </div>
 
                         </form>
+
                     </div>
                     <div class="tab-pane" id="images-tour">
+
+                        <div class="row" data-ng-show="ctrlTour.imagesTour.data">
+                            <div class="col-sm-12">
+                                <div class="col-md-2" data-ng-repeat="image in ctrlTour.imagesTour.data">
+                                    <img data-ng-src="image.path" class="img-rounded img-responsive">
+                                    <address class="label-success">[[ image.nombreoriginal ]]</address>
+                                    <span data-ng-if="image.principal == 1" class="badge badge-primary">Principal</span>
+                                </div>
+                            </div>
+                        </div>
 
                         <div nv-file-drop="" uploader="uploader" id="ng-app" data-ng-controller="AngularFileUploadController as ctrlFile">
 
