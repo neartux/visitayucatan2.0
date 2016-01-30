@@ -18,6 +18,9 @@ class TourimagenRepository extends \Doctrine\ORM\EntityRepository{
     }
 
     public function uploadTourImage($originalName, $nameImage, $folio, $path, $tipoArchivo, $idTour){
+        if(! $this->existTour($idTour)){
+            throw new EntityNotFoundException('El tour con id ' . $idTour . " no se encontro");
+        }
         $em = $this->getEntityManager();
 
         $tourImage = new Tourimagen();
