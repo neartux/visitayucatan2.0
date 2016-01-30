@@ -13,7 +13,8 @@
 
     <div class="content-main" data-ng-app="AppTour" data-ng-controller="TourController as ctrlTour"
          ng-init="ctrlTour.init('{% trans %}tour.report.label.new{% endtrans %}', '{% trans %}tour.report.label.edit{% endtrans %}',
-         '{% trans %}tour.report.label.message.confirm.delete{% endtrans %}', '{% trans %}general.message.loading{% endtrans %}')">
+         '{% trans %}tour.report.label.message.confirm.delete{% endtrans %}', '{% trans %}general.message.loading{% endtrans %}',
+         '{% trans %}tour.report.label.message.confirm.delete.image{% endtrans %}')">
         <div class="row">
             <div class="col-md-12">
 
@@ -114,7 +115,8 @@
         <input type="hidden" id="pathAllLanguages" value="{{ path('language_find_all') }}"/>
         <input type="hidden" id="pathTourByLanguage" value="{{ path('tour_find_by_language') }}"/>
         <input type="hidden" id="pathImagesTour" value="{{ path('tour_find_images') }}"/>
-        <input type="hidden" id="idTourGlobalImageTour"/>
+        <input type="hidden" id="pathSetPrincipalImage" value="{{ path('tour_principal_image') }}"/>
+        <input type="hidden" id="pathDeleteImageTour" value="{{ path('tour_delete_image') }}"/>
     </div>
 
 {% endblock %}

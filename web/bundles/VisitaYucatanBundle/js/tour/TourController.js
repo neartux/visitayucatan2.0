@@ -17,18 +17,20 @@
         ctrlTour.titleCreate = '';
         ctrlTour.titleEdit = '';
         ctrlTour.msjLoading = '';
+        ctrlTour.msjDeleteImage = '';
         ctrlTour.titleModal = '';
         ctrlTour.isNewTour = true;
         ctrlTour.configTour = false;
         ctrlTour.idTourGlobal = 0;
-        ctrlTour.idIdiomaGlobal = 1; // Todo Español, cambiar si cambia en la base de datos, id
 
-        ctrlTour.init = function (titleCreate, titleEdit, confirmDelete, msjLoading) {
+        ctrlTour.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
             ctrlTour.titleCreate = titleCreate;
             ctrlTour.titleEdit = titleEdit;
             ctrlTour.msjLoading = msjLoading;
             ctrlTour.titleModal = titleCreate;
             ctrlTour.confirmDelete = confirmDelete;
+            ctrlTour.msjDeleteImage = msjDeleteImg;
+            ctrlTour.idIdiomaGlobal = 1; // Todo Español, cambiar si cambia en la base de datos, id
             ctrlTour.findAllTours();
             ctrlTour.findAllLanguages();
         };
@@ -53,16 +55,39 @@
 
         ctrlTour.findImagesByTour = function () {
             console.info("BUSCANDO IMAGENES tour = " + ctrlTour.idTourGlobal + " idioma = " + ctrlTour.idIdiomaGlobal);
-            return TourService.findImagesTourByIdTour(ctrlTour.idTourGlobal);
+            setTimeout(function(){
+                return TourService.findImagesTourByIdTour(ctrlTour.idTourGlobal);
+            }, 1000);
+        };
+
+        ctrlTour.setPrincipalImageTour = function(idTour, idImageTour){
+            console.info("idtour = "+idTour+" imagen = "+idImageTour);
+            return TourService.setPrincipalImage(idTour, idImageTour).then(function(data){
+                pNotifyView(data.data.message, data.data.typeStatus);
+            });
+        };
+
+        ctrlTour.deleteImageTour = function(idImageTour){
+            if(confirm(ctrlTour.msjDeleteImage)){
+                return TourService.deleteImageTour(idImageTour).then(function(data){
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                    if(data.data.status){
+                        ctrlTour.findImagesByTour();
+                    }
+                });
+            }
         };
 
         ctrlTour.configurateTour = function (tour) {
             ctrlTour.idTourGlobal = tour.id;
-            $("#idTourGlobalImageTour").val(tour.id);
             ctrlTour.configTour = true;
             ctrlTour.findTourByIdAndLanguage().then(function () {
                 ctrlTour.findImagesByTour();
             });
+        };
+
+        ctrlTour.returnListTour = function(){
+            ctrlTour.configTour = false;
         };
 
         ctrlTour.displayNewTour = function () {

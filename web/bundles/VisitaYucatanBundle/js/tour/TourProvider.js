@@ -59,6 +59,20 @@
             });
         };
 
+        service.setPrincipalImage = function(idTour, idImageTour){
+            var path = $("#pathSetPrincipalImage").val();
+            return $http.post(path, $.param({idTour : idTour, idImageTour: idImageTour}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.deleteImageTour = function(idImageTour){
+            var path = $("#pathDeleteImageTour").val();
+            return $http.post(path, $.param({idImageTour : idImageTour}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
         service.createTour = function(tour){
             var path = $("#pathCreateTour").val();
             return $http.post(path, $.param({tour : JSON.stringify(tour)}), {

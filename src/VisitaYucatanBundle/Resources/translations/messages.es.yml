@@ -77,6 +77,7 @@ tour.report.label.title : Tours
 tour.report.label.new : Nuevo Tour
 tour.report.label.edit : Editar Tour
 tour.report.label.message.confirm.delete : ¿Seguro que desea eliminar el tour?
+tour.report.label.message.confirm.delete.image : ¿Seguro que desea eliminar la image?
 tour.report.label.num : Id
 tour.report.label.description : Descripcion
 tour.report.label.adult.rate : Tarifa Adulto

@@ -7,8 +7,9 @@
         </label>
         <div class="col-sm-8">
             <select name="idioma" id="idiomaSelect" class="form-control" ng-model="ctrlTour.idIdiomaGlobal"
-                    ng-change="ctrlTour.findTourByIdAndLanguage()"
-                    ng-options="idioma as idioma.descripcion for idioma in ctrlTour.listLanguage.data track by idioma.id">
+                    ng-change="ctrlTour.findTourByIdAndLanguage()">
+                <option value="0">Select Caste....</option>
+                <option data-ng-repeat="idioma in ctrlTour.listLanguage.data" value="[[ idioma.id ]]">[[ idioma.descripcion ]]</option>
             </select>
         </div>
     </div>

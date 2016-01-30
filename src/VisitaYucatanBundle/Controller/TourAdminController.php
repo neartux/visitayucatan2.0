@@ -211,11 +211,43 @@ class TourAdminController extends Controller
         }
     }
 
+    /**
+     * @Route("/admin/tour/delete/image", name="tour_delete_image")
+     * @Method("POST")
+     */
+    public function deleteImageTourAction(Request $request){
+        try{
+            $idImageTour = $request->get('idImageTour');
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->deleteImageTour($idImageTour);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha eliminado correctamente la imagen con id '.$idImageTour, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e){
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
+     * @Route("/admin/tour/principal/image", name="tour_principal_image")
+     * @Method("POST")
+     */
+    public function setPrincipalImageTourAction(Request $request){
+        try{
+            $idImageTour = $request->get('idImageTour');
+            $idTour = $request->get('idTour');
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->setPrincipalImageTour($idTour, $idImageTour);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Nueva imagen principal asignada', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e){
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
 }
 
 /*TODO AQUI LA SECCION QUE FALTA VALIDAR O AGREGAR PERO NO ES NECESARIO A PRIMERA INSTANCIA
 
 1.- Validar que si es una imagen u otro tipo de archivo
 2.- Cambiar los mensajes por messages_properties por idiomas
+3.- Agregar plugin para visualizacion previa de imagen, y mejor presentacion
 
 */

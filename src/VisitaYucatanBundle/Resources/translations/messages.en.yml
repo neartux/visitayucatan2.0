@@ -77,6 +77,7 @@ tour.report.label.title : Tours
 tour.report.label.new : New Tour
 tour.report.label.edit : Edit Tour
 tour.report.label.message.confirm.delete : Do you want delete tour?
+tour.report.label.message.confirm.delete.image : Do you want delete image?
 tour.report.label.num : Id
 tour.report.label.description : Description
 tour.report.label.adult.rate : Adult Rate

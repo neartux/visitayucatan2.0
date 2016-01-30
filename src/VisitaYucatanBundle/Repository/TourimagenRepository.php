@@ -1,6 +1,8 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use VisitaYucatanBundle\Entity\Tourimagen;
 use VisitaYucatanBundle\utils\Estatuskeys;
 use VisitaYucatanBundle\utils\Generalkeys;
@@ -36,6 +38,39 @@ class TourimagenRepository extends \Doctrine\ORM\EntityRepository{
 
         $em->persist($tourImage);
         $em->flush();
+    }
+
+    public function deleteImageTour($idImageTour){
+        $em = $this->getEntityManager();
+        $imageTour = $this->find($idImageTour);
+        if(! $imageTour){
+            throw new EntityNotFoundException('El La imagen con id ' . $idImageTour . " no se encontro");
+        }
+        if(! unlink($imageTour->getPath())){
+            throw new FileException('No se pudo eliminar la imagen '.$imageTour->getNombreoriginal());
+        }
+        $imageTour->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
+        $em->persist($imageTour);
+        $em->flush();
+    }
+
+    public function setPrincipalImageTour($idTour, $idImageTour){
+        $imagesTour =$this->findTourImagesByIdTour($idTour);
+
+        if(count($imagesTour) <= Generalkeys::NUMBER_ZERO){
+            throw new \Exception('No se encontraron imagenes para el tour '.$idTour);
+        }
+        $em = $this->getEntityManager();
+
+        foreach($imagesTour as $image){
+            if($image->getId() == $idImageTour){
+                $image->setPrincipal(Generalkeys::BOOLEAN_TRUE);
+            }else{
+                $image->setPrincipal(Generalkeys::BOOLEAN_FALSE);
+            }
+            $em->persist($image);
+            $em->flush();
+        }
     }
 
     public function existTour($id){

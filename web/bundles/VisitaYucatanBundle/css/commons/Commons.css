@@ -13,6 +13,10 @@
     padding: 15px;
 }
 
+.fntsz-18 {
+    font-size: 18px;
+}
+
 /* CSS image upload drag and drop */
 .my-drop-zone { border: dotted 3px lightgray; }
 .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
@@ -30,3 +34,11 @@ canvas {
     margin: 6px 0 0 6px;
 }
 /* CSS image upload drag and drop */
+
+.badge-delete-image-tour {
+    float: right;
+    margin-top: -136px;
+    margin-right: -2px;
+    position: relative;
+    font-size: 18px;
+}
