@@ -5,12 +5,18 @@
     var app = angular.module('AppAngularFileUpload', ['angularFileUpload']);
 
     app.controller('AngularFileUploadController', ['$scope', 'FileUploader', function($scope, FileUploader) {
-        var pathImage = $("#pathUploadImageTour").val();
+        var pathImage = $("#pathUploadImage").val();
+
+        this.setIdApplication = function(idTour){
+            // Reasigna el id id de la aplicacion
+            uploader.formData[0].idApplication = idTour;
+        };
+
         var uploader = $scope.uploader = new FileUploader({
             url: pathImage,
             removeAfterUpload: true,
             formData: [
-                { "idTour": 1 }
+                { "idApplication": undefined }
             ]
         });
 

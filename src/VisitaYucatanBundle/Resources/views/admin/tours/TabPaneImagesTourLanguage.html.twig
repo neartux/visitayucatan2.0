@@ -1,14 +1,14 @@
 <div class="row" data-ng-show="ctrlTour.imagesTour.data">
     <div class="col-sm-12">
         <div class="col-md-2" data-ng-repeat="image in ctrlTour.imagesTour.data">
-            <img data-ng-src="[[ image.path ]]" class="img-rounded img-responsive">
-            <address class="label-success">[[ image.nombreoriginal ]]</address>
+            <img ng-src="../[[ image.path ]]" class="img-rounded img-responsive">
+            <address class="text-success">[[ image.nombreOriginal ]]</address>
             <span data-ng-if="image.principal == 1" class="badge badge-primary">Principal</span>
         </div>
     </div>
 </div>
 
-<div nv-file-drop="" uploader="uploader" id="ng-app" data-ng-controller="AngularFileUploadController as ctrlFile">
+<div>
 
     <div class="col-md-3">
 
@@ -54,6 +54,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="item in uploader.queue">
+                [[ item |json ]]
                 <td>
                     <strong>[[ item.file.name ]]</strong>
                     <!-- Image preview -->

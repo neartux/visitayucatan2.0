@@ -58,6 +58,7 @@
 
         ctrlTour.configurateTour = function (tour) {
             ctrlTour.idTourGlobal = tour.id;
+            $("#idTourGlobalImageTour").val(tour.id);
             ctrlTour.configTour = true;
             ctrlTour.findTourByIdAndLanguage().then(function () {
                 ctrlTour.findImagesByTour();

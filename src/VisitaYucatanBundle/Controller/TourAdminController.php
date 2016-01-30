@@ -185,27 +185,30 @@ class TourAdminController extends Controller
      * @Method("POST")
      */
     public function uploadImageTourAction(Request $request) {
-        $em = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen');
-        // Obtiene los datos enviados, imagen y el id del tour
-        $image = $request->files->get('file');
-        $idTour = $request->get('idTour');
-        // Instancia el archivo al un objeto
-        if (($image instanceof UploadedFile) && ($image->getError() == Generalkeys::NUMBER_ZERO)) {
-            // Busca el folio siguiente
-            $folio = $em->findNextFolio();
-            // Si no se pudo encontrar el folio regresa mensaje error
-            if ($folio == Generalkeys::NOT_FOUND_FOLIO) {
-                return new JsonResponse(array('answer' => 'No se pudo encontrar folio, intentar de nuevo'));
+        try {
+            $em = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen');
+            // Obtiene los datos enviados, imagen y el id del tour
+            $image = $request->files->get('file');
+            $idTour = $request->get('idApplication');
+            // Instancia el archivo al un objeto
+            if (($image instanceof UploadedFile) && ($image->getError() == Generalkeys::NUMBER_ZERO)) {
+                // Busca el folio siguiente
+                $folio = $em->findNextFolio();
+                // Si no se pudo encontrar el folio regresa mensaje error
+                if ($folio == Generalkeys::NOT_FOUND_FOLIO) {
+                    return new JsonResponse(array('answer' => 'No se pudo encontrar folio, intentar de nuevo'));
+                }
+                // Arma un nuevo nombre para la imagen, esto es por si se sube diferentes imagenes con el mismo nombre
+                $newName = Generalkeys::PART_NAME_TOUR . $idTour . Generalkeys::PART_NAME_FOLIO . $folio . "." . $image->getClientOriginalExtension();
+                // Mueve la imagen a su carpeta
+                $image->move(Generalkeys::PATH_TOURS_IMAGE, $newName);
+                // Guarda el registro de la imagen tour
+                $em->uploadTourImage($image->getClientOriginalName(), $newName, $folio, Generalkeys::PATH_TOURS_IMAGE . $newName, $image->getClientOriginalExtension(), $idTour);
+                return new JsonResponse(array('answer' => 'Se ha cargado la imagen correctamente'));
             }
-            // Arma un nuevo nombre para la imagen, esto es por si se sube diferentes imagenes con el mismo nombre
-            $newName = Generalkeys::PART_NAME_TOUR . $idTour . Generalkeys::PART_NAME_FOLIO . $folio . "." . $image->getClientOriginalExtension();
-            // Mueve la imagen a su carpeta
-            $image->move(Generalkeys::PATH_TOURS_IMAGE, $newName);
-            // Guarda el registro de la imagen tour
-            $em->uploadTourImage($image->getClientOriginalName(), $newName, $folio, Generalkeys::PATH_TOURS_IMAGE . $newName, $image->getClientOriginalExtension(), $idTour);
-            return new JsonResponse(array('answer' => 'Se ha cargado la imagen correctamente'));
+        }catch (\Exception $e){
+            return new JsonResponse(array('answer' => $e->getMessage()));
         }
-        return new JsonResponse(array('answer' => 'Ocurrio algun error, intenta de nuevo'));
     }
 
 }

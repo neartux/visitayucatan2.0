@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" nv-file-drop="" uploader="uploader" id="ng-app" data-ng-controller="AngularFileUploadController as ctrlFile">
 
     <div class="col-md-12">
 
@@ -8,10 +8,10 @@
                 <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
                 <div class="options">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#information-tour" data-toggle="tab" data-ng-click="ctrlTour.findAllLanguages();">
+                        <li class="active"><a href="#information-tour" data-toggle="tab">
                                 <i class="fa fa-info text-info"></i>&nbsp;&nbsp;Información</a>
                         </li>
-                        <li><a href="#images-tour" data-toggle="tab">
+                        <li><a href="#images-tour" data-toggle="tab" data-ng-click="ctrlFile.setIdApplication(ctrlTour.idTourGlobal)">
                                 <i class="fa fa-image text-info"></i>&nbsp;&nbsp;Fotografías</a>
                         </li>
                     </ul>
