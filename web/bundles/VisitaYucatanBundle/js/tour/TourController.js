@@ -30,7 +30,6 @@
             ctrlTour.titleModal = titleCreate;
             ctrlTour.confirmDelete = confirmDelete;
             ctrlTour.msjDeleteImage = msjDeleteImg;
-            ctrlTour.idIdiomaGlobal = 1; // Todo Español, cambiar si cambia en la base de datos, id
             ctrlTour.findAllTours();
             ctrlTour.findAllLanguages();
         };
@@ -40,28 +39,30 @@
         };
 
         ctrlTour.findAllLanguages = function () {
-            console.log("en el metodo para buscar los lenguajes");
             return TourService.findLanguagesActives();
         };
 
         ctrlTour.findTourByIdAndLanguage = function () {
-            console.info("BUSCANDO TOUR POR ID E IDIOMA tour = " + ctrlTour.idTourGlobal + " idioma = " + ctrlTour.idIdiomaGlobal);
-            return TourService.findTourByIdAndLanguaje(ctrlTour.idTourGlobal, ctrlTour.idIdiomaGlobal).then(function(){
-                if(! ctrlTour.tourIdiomaTo.data.status){
-                    pNotifyView(ctrlTour.tourIdiomaTo.data.message, ctrlTour.tourIdiomaTo.data.typeStatus);
-                }
-            });
+            if(ctrlTour.tourIdiomaTo.data != undefined){
+                var idiomaTmp = ctrlTour.tourIdiomaTo.data.idIdioma;
+                return TourService.findTourByIdAndLanguaje(ctrlTour.idTourGlobal, ctrlTour.tourIdiomaTo.data.idIdioma).then(function(){
+                    ctrlTour.tourIdiomaTo.data.idIdioma = idiomaTmp;
+                    if(! ctrlTour.tourIdiomaTo.data.status){
+                        pNotifyView(ctrlTour.tourIdiomaTo.data.message, ctrlTour.tourIdiomaTo.data.typeStatus);
+                    }
+                    // El siguiente codigo para colocar el texto en el summernote, no se coloca de manera normal con el ng-model
+                    $(".summernote").code(ctrlTour.tourIdiomaTo.data.descripcion);
+                });
+            }
         };
 
         ctrlTour.findImagesByTour = function () {
-            console.info("BUSCANDO IMAGENES tour = " + ctrlTour.idTourGlobal + " idioma = " + ctrlTour.idIdiomaGlobal);
             setTimeout(function(){
                 return TourService.findImagesTourByIdTour(ctrlTour.idTourGlobal);
             }, 1000);
         };
 
         ctrlTour.setPrincipalImageTour = function(idTour, idImageTour){
-            console.info("idtour = "+idTour+" imagen = "+idImageTour);
             return TourService.setPrincipalImage(idTour, idImageTour).then(function(data){
                 pNotifyView(data.data.message, data.data.typeStatus);
             });
@@ -81,9 +82,10 @@
         ctrlTour.configurateTour = function (tour) {
             ctrlTour.idTourGlobal = tour.id;
             ctrlTour.configTour = true;
-            ctrlTour.findTourByIdAndLanguage().then(function () {
-                ctrlTour.findImagesByTour();
-            });
+            ctrlTour.findImagesByTour();
+            //ctrlTour.findTourByIdAndLanguage().then(function () {
+
+            //});
         };
 
         ctrlTour.returnListTour = function(){

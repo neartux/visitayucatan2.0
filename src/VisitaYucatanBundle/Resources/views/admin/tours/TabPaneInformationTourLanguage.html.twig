@@ -1,15 +1,14 @@
 <form class="form-horizontal" name="formTourLanguage" novalidate>
 
     <div class="form-group">
-        <label for="idiomaSelect" class="col-sm-2 control-label text-bold text-uppercase">
+        <label for="idiomaTour" class="col-sm-2 control-label text-bold text-uppercase">
             Selecciona Idioma
             <span class="required">*</span>
         </label>
         <div class="col-sm-8">
-            <select name="idioma" id="idiomaSelect" class="form-control" ng-model="ctrlTour.idIdiomaGlobal"
-                    ng-change="ctrlTour.findTourByIdAndLanguage()">
-                <option value="0">Select Caste....</option>
-                <option data-ng-repeat="idioma in ctrlTour.listLanguage.data" value="[[ idioma.id ]]">[[ idioma.descripcion ]]</option>
+            <select name="idiomaTour" id="idiomaTour" class="form-control" data-ng-model="ctrlTour.tourIdiomaTo.data.idIdioma" ng-change="ctrlTour.findTourByIdAndLanguage()">
+                <option value="">SELECCIONA</option>
+                <option value="[[ idioma.id ]]" ng-repeat="idioma in ctrlTour.listLanguage.data">[[ idioma.descripcion | uppercase ]]</option>
             </select>
         </div>
     </div>
@@ -57,7 +56,7 @@
             <textarea name="descripcionTour" class="summernote" id="descripcionTour"
                       ng-model="ctrlTour.tourIdiomaTo.data.descripcion"
                       name="descripcionTour"
-                      required cols="30" rows="10">
+                      required>
 
             </textarea>
             <span ng-show="formTourLanguage.descripcionTour.$invalid && !formTourLanguage.descripcionTour.$pristine"

@@ -32,29 +32,25 @@
             var path = $("#pathAllLanguages").val();
             service.listLanguage.data = [];
             return $http.get(path).then(function(data){
-                console.info("idiomas = "+JSON.stringify(data.data));
                 service.listLanguage.data = data.data;
             });
         };
 
         service.findTourByIdAndLanguaje = function(idTour, idLanguage){
-            console.info(idTour, idLanguage);
             var path = $("#pathTourByLanguage").val();
             return $http.post(path, $.param({idTour : idTour, idLanguage : idLanguage}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
-                console.log("datos = "+JSON.stringify(data.data));
+                console.log("Tour idioma = "+JSON.stringify(data.data));
                 service.tourIdiomaTO.data = data.data;
             });
         };
 
         service.findImagesTourByIdTour = function (idTour){
-            console.info(idTour);
             var path = $("#pathImagesTour").val();
             return $http.post(path, $.param({idTour : idTour}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
-                console.log("images = "+JSON.stringify(data.data));
                 service.imagesTourList.data = data.data;
             });
         };
