@@ -181,6 +181,26 @@ class TourAdminController extends Controller
     }
 
     /**
+     * @Route("/admin/tour/save/tourlanguage", name="tour_save_tourlanguage")
+     * @Method("POST")
+     */
+    public function saveTourLanguageAction(Request $request){
+        $serializer = $this->get('serializer');
+        try {
+            $tourLanguageJson = $request->get('tourLanguage');
+            $tourIdiomaTO = $serializer->deserialize($tourLanguageJson, 'VisitaYucatanBundle\utils\to\TouridiomaTO', Generalkeys::JSON_STRING);
+            $isNew = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Touridioma')->saveTourLanguage($tourIdiomaTO);
+            $message = 'Se ha modificado la información para el tour '.$tourIdiomaTO->getNombretour();
+            if($isNew){
+                $message = 'Se ha agregado la informacion para un nuevo idioma del tour '.$tourIdiomaTO->getNombretour();
+            }
+            return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_TRUE, $message, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK), Generalkeys::JSON_STRING));
+        } catch (\Exception $e){
+            return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
      * @Route("/admin/tour/upload/image", name="tour_upload_image")
      * @Method("POST")
      */

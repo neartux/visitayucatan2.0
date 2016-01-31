@@ -2,7 +2,9 @@
 
 namespace VisitaYucatanBundle\Repository;
 
+use VisitaYucatanBundle\Entity\Touridioma;
 use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 
 /**
  * TouridiomaRepository
@@ -12,8 +14,7 @@ use VisitaYucatanBundle\utils\Estatuskeys;
  */
 class TouridiomaRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function findTourByIdAndIdLanguage($idTour, $idIdioma)
-    {
+    public function findTourByIdAndIdLanguage($idTour, $idIdioma) {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
             'SELECT touridioma
@@ -26,31 +27,31 @@ class TouridiomaRepository extends \Doctrine\ORM\EntityRepository {
         return $query->getOneOrNullResult();
     }
 
-    public function create($tourIdioma, $idTour, $idLanguage)
-    {
-        $em = $this->getEntityManager();
-        $tourIdioma->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
-        $tourIdioma->setTour($em->getReference('VisitaYucatanBundle:Tour', $idTour));
-        $tourIdioma->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', $idLanguage));
-
-        $em->persist($tourIdioma);
-        $em->flush();
-    }
-
-    public function update($tourIdiomaTO)
-    {
+    public function saveTourLanguage($tourIdiomaTO) {
         $em = $this->getEntityManager();
         $tourIdioma = $this->findTourByIdAndIdLanguage($tourIdiomaTO->getIdTour(), $tourIdiomaTO->getIdIdioma());
+        $isNew = Generalkeys::BOOLEAN_FALSE;
         if (is_null($tourIdioma)) {
-            throw new EntityNotFoundException('No se pudo encontrar el tour con id el ' . $tourIdiomaTO->getIdTour() . ' y el idioma ' . $tourIdiomaTO->getIdIdioma());
+            $isNew = Generalkeys::BOOLEAN_TRUE;
+            $tourIdioma = new Touridioma();
+            $tourIdioma->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+            $tourIdioma->setTour($em->getReference('VisitaYucatanBundle:Tour', $tourIdiomaTO->getIdTour()));
+            $tourIdioma->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', $tourIdiomaTO->getIdIdioma()));
         }
         $tourIdioma->setNombretour($tourIdiomaTO->getNombretour());
         $tourIdioma->setCircuito($tourIdiomaTO->getCircuito());
         $tourIdioma->setDescripcion($tourIdiomaTO->getDescripcion());
-        $tourIdioma->setSoloadultos($tourIdiomaTO->getSoloadultos());
+        // Valida que slo adultos no sea null
+        if(is_null($tourIdiomaTO->getSoloadultos())){
+            $tourIdioma->setSoloadultos(Generalkeys::BOOLEAN_FALSE);
+        }else{
+            $tourIdioma->setSoloadultos(Generalkeys::BOOLEAN_TRUE);
+        }
 
         $em->persist($tourIdioma);
         $em->flush();
+
+        return $isNew;
     }
 
 }

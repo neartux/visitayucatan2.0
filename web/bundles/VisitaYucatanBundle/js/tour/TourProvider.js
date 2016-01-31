@@ -41,7 +41,6 @@
             return $http.post(path, $.param({idTour : idTour, idLanguage : idLanguage}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
-                console.log("Tour idioma = "+JSON.stringify(data.data));
                 service.tourIdiomaTO.data = data.data;
             });
         };
@@ -65,6 +64,13 @@
         service.deleteImageTour = function(idImageTour){
             var path = $("#pathDeleteImageTour").val();
             return $http.post(path, $.param({idImageTour : idImageTour}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.saveTourLanguage = function(tourIdiomaTO){
+            var path = $("#pathSaveTourLanguage").val();
+            return $http.post(path, $.param({tourLanguage : JSON.stringify(tourIdiomaTO)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };

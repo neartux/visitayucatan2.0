@@ -38,24 +38,23 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="panel panel-gray">
-                                        <div class="panel-heading">
-                                            <div class="panel-ctrls"></div>
-                                        </div>
+
+                                    <div class="panel panel-primary" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                                        <div class="panel-heading"></div>
                                         <div class="panel-body no-padding">
-                                            <table class="table table-striped table-bordered data-table" cellspacing="0" width="100%">
+                                            <table class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                 <thead class="text-uppercase">
                                                 <tr>
-                                                    <th>{% trans %}tour.report.label.num{% endtrans %}</th>
+                                                    <th width="3%">{% trans %}tour.report.label.num{% endtrans %}</th>
                                                     <th>{% trans %}tour.report.label.description{% endtrans %}</th>
-                                                    <th>{% trans %}tour.report.label.adult.rate{% endtrans %}</th>
-                                                    <th>{% trans %}tour.report.label.lower.rate{% endtrans %}</th>
-                                                    <th>{% trans %}tour.report.label.minimum.people{% endtrans %}</th>
-                                                    <th>{% trans %}tour.report.label.sold{% endtrans %}</th>
+                                                    <th width="10%">{% trans %}tour.report.label.adult.rate{% endtrans %}</th>
+                                                    <th width="10%">{% trans %}tour.report.label.lower.rate{% endtrans %}</th>
+                                                    <th width="5%">{% trans %}tour.report.label.minimum.people{% endtrans %}</th>
+                                                    <th width="5%">{% trans %}tour.report.label.sold{% endtrans %}</th>
                                                     <th>{% trans %}tour.report.label.circuit{% endtrans %}</th>
-                                                    <th width="15%">{% trans %}general.message.panel{% endtrans %}</th>
+                                                    <th width="12%">{% trans %}general.message.panel{% endtrans %}</th>
                                                     <!--Columna para promover o remover promover, (0) es no promovido, (1) es promovido-->
-                                                    <th>&nbsp;</th>
+                                                    <th width="3%">&nbsp;</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -84,7 +83,6 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="panel-footer"></div>
                                     </div>
                                 </div>
                             </div>
@@ -117,6 +115,7 @@
         <input type="hidden" id="pathImagesTour" value="{{ path('tour_find_images') }}"/>
         <input type="hidden" id="pathSetPrincipalImage" value="{{ path('tour_principal_image') }}"/>
         <input type="hidden" id="pathDeleteImageTour" value="{{ path('tour_delete_image') }}"/>
+        <input type="hidden" id="pathSaveTourLanguage" value="{{ path('tour_save_tourlanguage') }}"/>
     </div>
 
 {% endblock %}

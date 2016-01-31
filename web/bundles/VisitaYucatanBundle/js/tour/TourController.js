@@ -22,6 +22,7 @@
         ctrlTour.isNewTour = true;
         ctrlTour.configTour = false;
         ctrlTour.idTourGlobal = 0;
+        ctrlTour.nameTourTitle = '';
 
         ctrlTour.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
             ctrlTour.titleCreate = titleCreate;
@@ -79,13 +80,26 @@
             }
         };
 
+        ctrlTour.saveTourLanguage = function(isValid){
+            if(isValid){
+                startLoading(ctrlTour.msjLoading);
+                // Asignasiones
+                ctrlTour.tourIdiomaTo.data.descripcion = $(".summernote").code();
+                ctrlTour.tourIdiomaTo.data.idTour = ctrlTour.idTourGlobal;
+                return TourService.saveTourLanguage(ctrlTour.tourIdiomaTo.data).then(function (data) {
+                    stopLoading();
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
+        };
+
         ctrlTour.configurateTour = function (tour) {
+            ctrlTour.nameTourTitle = tour.descripcion;
             ctrlTour.idTourGlobal = tour.id;
             ctrlTour.configTour = true;
+            ctrlTour.tourIdiomaTo.data = undefined;
+            $(".summernote").code('');
             ctrlTour.findImagesByTour();
-            //ctrlTour.findTourByIdAndLanguage().then(function () {
-
-            //});
         };
 
         ctrlTour.returnListTour = function(){
