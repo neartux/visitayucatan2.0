@@ -89,8 +89,7 @@ class TourAdminController extends Controller
      * @Route("/admin/tour/delete", name="tour_delete")
      * @Method("POST")
      */
-    public function deleteTourAction(Request $request)
-    {
+    public function deleteTourAction(Request $request) {
         $serializer = $this->get('serializer');
         try {
             $idTour = $request->get('idTour');
@@ -112,8 +111,7 @@ class TourAdminController extends Controller
      * @Route("/admin/tour/promove", name="tour_promove")
      * @Method("POST")
      */
-    public function promoveTourAction(Request $request)
-    {
+    public function promoveTourAction(Request $request) {
         $serializer = $this->get('serializer');
         try {
             $idTour = $request->get('idTour');
