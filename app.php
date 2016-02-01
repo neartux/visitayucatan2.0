@@ -18,8 +18,8 @@ $loader->unregister();
 $apcLoader->register(true);
 */
 
-//require_once __DIR__.'/../app/AppCache.php';
-
+require_once __DIR__.'/app/AppCache.php';
+// prod y desaparece la barra de symfony
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
 //$kernel = new AppCache($kernel);
