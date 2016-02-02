@@ -59,6 +59,11 @@ class Estatus
      */
     private $tourIdioma;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Destino", mappedBy="estatus")
+     */
+    private $destino;
+
 
     /**
      * Constructor
@@ -70,6 +75,7 @@ class Estatus
         $this->idioma = new ArrayCollection();
         $this->tourImagen = new ArrayCollection();
         $this->tourIdioma = new ArrayCollection();
+        $this->destino = new ArrayCollection();
     }
 
     /**
@@ -308,5 +314,39 @@ class Estatus
     public function getTourIdioma()
     {
         return $this->tourIdioma;
+    }
+
+    /**
+     * Add destino
+     *
+     * @param \VisitaYucatanBundle\Entity\Destino $destino
+     *
+     * @return Estatus
+     */
+    public function addDestino(\VisitaYucatanBundle\Entity\Destino $destino)
+    {
+        $this->destino[] = $destino;
+
+        return $this;
+    }
+
+    /**
+     * Remove destino
+     *
+     * @param \VisitaYucatanBundle\Entity\Destino $destino
+     */
+    public function removeDestino(\VisitaYucatanBundle\Entity\Destino $destino)
+    {
+        $this->destino->removeElement($destino);
+    }
+
+    /**
+     * Get destino
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDestino()
+    {
+        return $this->destino;
     }
 }
