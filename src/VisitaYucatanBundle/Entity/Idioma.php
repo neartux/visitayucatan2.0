@@ -44,23 +44,28 @@ class Idioma
     private $imagen;
 
     /**
-     * @ORM\OneToMany(targetEntity="Touridioma", mappedBy="idioma")
-     */
-    private $tourIdioma;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="idioma")
      * @ORM\JoinColumn(name="id_estatus", referencedColumnName="id", nullable=false)
      */
     private $estatus;
 
     /**
+     * @ORM\OneToMany(targetEntity="Touridioma", mappedBy="idioma")
+     */
+    private $tourIdioma;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Hotelidioma", mappedBy="idioma")
+     */
+    private $hotelIdioma;
+
+    /**
      * Idioma constructor.
      * @param $tourIdioma
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->tourIdioma = new ArrayCollection();
+        $this->hotelIdioma = new ArrayCollection();
     }
 
 
@@ -202,5 +207,39 @@ class Idioma
     public function getTourIdioma()
     {
         return $this->tourIdioma;
+    }
+
+    /**
+     * Add hotelIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotelidioma $hotelIdioma
+     *
+     * @return Idioma
+     */
+    public function addHotelIdioma(\VisitaYucatanBundle\Entity\Hotelidioma $hotelIdioma)
+    {
+        $this->hotelIdioma[] = $hotelIdioma;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotelidioma $hotelIdioma
+     */
+    public function removeHotelIdioma(\VisitaYucatanBundle\Entity\Hotelidioma $hotelIdioma)
+    {
+        $this->hotelIdioma->removeElement($hotelIdioma);
+    }
+
+    /**
+     * Get hotelIdioma
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelIdioma()
+    {
+        return $this->hotelIdioma;
     }
 }

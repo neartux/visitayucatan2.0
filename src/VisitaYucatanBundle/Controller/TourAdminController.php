@@ -267,5 +267,6 @@ class TourAdminController extends Controller
 1.- Validar que si es una imagen u otro tipo de archivo
 2.- Cambiar los mensajes por messages_properties por idiomas
 3.- Agregar plugin para visualizacion previa de imagen, y mejor presentacion
+4.- Agregar campo fechacreacion a base de datos en tour y touridioma
 
 */

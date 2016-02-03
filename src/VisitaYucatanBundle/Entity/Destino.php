@@ -34,6 +34,11 @@ class Destino
      */
     private $estatus;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Hotel", mappedBy="destino")
+     */
+    private $hotel;
+
 
     /**
      * Get id
@@ -91,5 +96,46 @@ class Destino
     public function getEstatus()
     {
         return $this->estatus;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->hotel = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add hotel
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
+     *
+     * @return Destino
+     */
+    public function addHotel(\VisitaYucatanBundle\Entity\Hotel $hotel)
+    {
+        $this->hotel[] = $hotel;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotel
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
+     */
+    public function removeHotel(\VisitaYucatanBundle\Entity\Hotel $hotel)
+    {
+        $this->hotel->removeElement($hotel);
+    }
+
+    /**
+     * Get hotel
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotel()
+    {
+        return $this->hotel;
     }
 }

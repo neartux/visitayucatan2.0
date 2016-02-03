@@ -5,12 +5,12 @@ namespace VisitaYucatanBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tourimagen
+ * Hotelimagen
  *
- * @ORM\Table(name="tour_imagen")
- * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\TourimagenRepository")
+ * @ORM\Table(name="hotel_imagen")
+ * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\HotelimagenRepository")
  */
-class Tourimagen
+class Hotelimagen
 {
     /**
      * @var int
@@ -45,7 +45,7 @@ class Tourimagen
     /**
      * @var string
      *
-     * @ORM\Column(name="tipoarchivo", type="string", length=20)
+     * @ORM\Column(name="tipoarchivo", type="string", length=50)
      */
     private $tipoarchivo;
 
@@ -59,7 +59,7 @@ class Tourimagen
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechacreacion", type="datetimetz")
+     * @ORM\Column(name="fechacreacion", type="datetime")
      */
     private $fechacreacion;
 
@@ -71,24 +71,17 @@ class Tourimagen
     private $principal;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tour", inversedBy="tourImagen")
-     * @ORM\JoinColumn(name="id_tour", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Hotel", inversedBy="hotelImagen")
+     * @ORM\JoinColumn(name="id_hotel", referencedColumnName="id", nullable=false)
      */
-    private $tour;
+    private $hotel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="tourImagen")
+     * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="hotelImagen")
      * @ORM\JoinColumn(name="id_estatus", referencedColumnName="id", nullable=false)
      */
     private $estatus;
 
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * Get id
@@ -105,7 +98,7 @@ class Tourimagen
      *
      * @param string $nombreoriginal
      *
-     * @return Tourimagen
+     * @return Hotelimagen
      */
     public function setNombreoriginal($nombreoriginal)
     {
@@ -129,7 +122,7 @@ class Tourimagen
      *
      * @param string $nombre
      *
-     * @return Tourimagen
+     * @return Hotelimagen
      */
     public function setNombre($nombre)
     {
@@ -153,7 +146,7 @@ class Tourimagen
      *
      * @param string $path
      *
-     * @return Tourimagen
+     * @return Hotelimagen
      */
     public function setPath($path)
     {
@@ -177,7 +170,7 @@ class Tourimagen
      *
      * @param string $tipoarchivo
      *
-     * @return Tourimagen
+     * @return Hotelimagen
      */
     public function setTipoarchivo($tipoarchivo)
     {
@@ -201,7 +194,7 @@ class Tourimagen
      *
      * @param integer $folio
      *
-     * @return Tourimagen
+     * @return Hotelimagen
      */
     public function setFolio($folio)
     {
@@ -221,11 +214,35 @@ class Tourimagen
     }
 
     /**
+     * Set fechacreacion
+     *
+     * @param \DateTime $fechacreacion
+     *
+     * @return Hotelimagen
+     */
+    public function setFechacreacion($fechacreacion)
+    {
+        $this->fechacreacion = $fechacreacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechacreacion
+     *
+     * @return \DateTime
+     */
+    public function getFechacreacion()
+    {
+        return $this->fechacreacion;
+    }
+
+    /**
      * Set principal
      *
      * @param boolean $principal
      *
-     * @return Tourimagen
+     * @return Hotelimagen
      */
     public function setPrincipal($principal)
     {
@@ -245,27 +262,27 @@ class Tourimagen
     }
 
     /**
-     * Set tour
+     * Set hotel
      *
-     * @param \VisitaYucatanBundle\Entity\Tour $tour
+     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
      *
-     * @return Tourimagen
+     * @return Hotelimagen
      */
-    public function setTour(\VisitaYucatanBundle\Entity\Tour $tour)
+    public function setHotel(\VisitaYucatanBundle\Entity\Hotel $hotel)
     {
-        $this->tour = $tour;
+        $this->hotel = $hotel;
 
         return $this;
     }
 
     /**
-     * Get tour
+     * Get hotel
      *
-     * @return \VisitaYucatanBundle\Entity\Tour
+     * @return \VisitaYucatanBundle\Entity\Hotel
      */
-    public function getTour()
+    public function getHotel()
     {
-        return $this->tour;
+        return $this->hotel;
     }
 
     /**
@@ -273,7 +290,7 @@ class Tourimagen
      *
      * @param \VisitaYucatanBundle\Entity\Estatus $estatus
      *
-     * @return Tourimagen
+     * @return Hotelimagen
      */
     public function setEstatus(\VisitaYucatanBundle\Entity\Estatus $estatus)
     {
@@ -290,29 +307,5 @@ class Tourimagen
     public function getEstatus()
     {
         return $this->estatus;
-    }
-
-    /**
-     * Set fechacreacion
-     *
-     * @param \DateTime $fechacreacion
-     *
-     * @return Tourimagen
-     */
-    public function setFechacreacion($fechacreacion)
-    {
-        $this->fechacreacion = $fechacreacion;
-
-        return $this;
-    }
-
-    /**
-     * Get fechacreacion
-     *
-     * @return \DateTime
-     */
-    public function getFechacreacion()
-    {
-        return $this->fechacreacion;
     }
 }

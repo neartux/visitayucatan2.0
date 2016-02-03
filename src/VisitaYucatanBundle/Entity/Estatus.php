@@ -64,6 +64,16 @@ class Estatus
      */
     private $destino;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Hotel", mappedBy="estatus")
+     */
+    private $hotel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Hotelimagen", mappedBy="estatus")
+     */
+    private $hotelImagen;
+
 
     /**
      * Constructor
@@ -76,6 +86,8 @@ class Estatus
         $this->tourImagen = new ArrayCollection();
         $this->tourIdioma = new ArrayCollection();
         $this->destino = new ArrayCollection();
+        $this->hotel = new ArrayCollection();
+        $this->hotelImagen = new ArrayCollection();
     }
 
     /**
@@ -348,5 +360,73 @@ class Estatus
     public function getDestino()
     {
         return $this->destino;
+    }
+
+    /**
+     * Add hotel
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
+     *
+     * @return Estatus
+     */
+    public function addHotel(\VisitaYucatanBundle\Entity\Hotel $hotel)
+    {
+        $this->hotel[] = $hotel;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotel
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
+     */
+    public function removeHotel(\VisitaYucatanBundle\Entity\Hotel $hotel)
+    {
+        $this->hotel->removeElement($hotel);
+    }
+
+    /**
+     * Get hotel
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotel()
+    {
+        return $this->hotel;
+    }
+
+    /**
+     * Add hotelImagen
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotelimagen $hotelImagen
+     *
+     * @return Estatus
+     */
+    public function addHotelImagen(\VisitaYucatanBundle\Entity\Hotelimagen $hotelImagen)
+    {
+        $this->hotelImagen[] = $hotelImagen;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelImagen
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotelimagen $hotelImagen
+     */
+    public function removeHotelImagen(\VisitaYucatanBundle\Entity\Hotelimagen $hotelImagen)
+    {
+        $this->hotelImagen->removeElement($hotelImagen);
+    }
+
+    /**
+     * Get hotelImagen
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelImagen()
+    {
+        return $this->hotelImagen;
     }
 }
