@@ -6,7 +6,7 @@
 
 namespace VisitaYucatanBundle\utils;
 
-
 class HotelUtils {
+
 
 }

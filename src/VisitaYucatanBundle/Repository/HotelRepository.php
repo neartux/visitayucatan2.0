@@ -1,6 +1,9 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use Doctrine\ORM\EntityNotFoundException;
+use VisitaYucatanBundle\Entity\Datosubicacion;
+use VisitaYucatanBundle\Entity\Hotel;
 use VisitaYucatanBundle\utils\Estatuskeys;
 use VisitaYucatanBundle\utils\Generalkeys;
 
@@ -23,52 +26,62 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
         return $stmt->fetchAll();
     }
 
-    public function createHotel($hotel) {
+    public function createHotel($hotelTO) {
         $em = $this->getEntityManager();
+
+        $datosUbicacion = new Datosubicacion();
+        $datosUbicacion->setDireccion($hotelTO->getDireccion());
+        $datosUbicacion->setTelefono($hotelTO->getTelefono());
+        $em->persist($datosUbicacion);
+
+        $hotel = new Hotel();
+        $hotel->setDescripcion($hotelTO->getDescripcion());
+        $hotel->setEstrellas($hotelTO->getEstrellas());
         $hotel->setPromovido(Generalkeys::BOOLEAN_FALSE);
+        $hotel->setDatosUbicacion($datosUbicacion);
+        $hotel->setDestino($em->getReference('VisitaYucatanBundle:Destino', $hotelTO->getIdDestino()));
         $hotel->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
 
         $em->persist($hotel);
         $em->flush();
     }
 
-    public function updateHotel($tour) {
+    public function updateHotel($hotelTO) {
         $em = $this->getEntityManager();
-        $tourUpdate = $em->getRepository('VisitaYucatanBundle:Tour')->find($tour->getId());
-        if (!$tourUpdate) {
-            throw new EntityNotFoundException('El tour con id ' . $tour->getId() . " no se encontro");
+        $hotelUpdate = $this->find($hotelTO->getId());
+        if (!$hotelUpdate) {
+            throw new EntityNotFoundException('El hotel con id ' . $hotelTO->getId() . " no se encontro");
         }
         // Actualiza la informacion del tour
-        $tourUpdate->setDescripcion($tour->getDescripcion());
-        $tourUpdate->setCircuito($tour->getCircuito());
-        $tourUpdate->setTarifaadulto($tour->getTarifaadulto());
-        $tourUpdate->setTarifamenor($tour->getTarifamenor());
-        $tourUpdate->setMinimopersonas($tour->getMinimopersonas());
+        $hotelUpdate->setDescripcion($hotelTO->getDescripcion());
+        $hotelUpdate->setEstrellas($hotelTO->getEstrellas());
+        $hotelUpdate->getDatosUbicacion()->setDireccion($hotelTO->getDireccion());
+        $hotelUpdate->getDatosUbicacion()->setTelefono($hotelTO->getTelefono());
 
-        $em->persist($tourUpdate);
+        $em->persist($hotelUpdate);
         $em->flush();
     }
 
-    public function deleteHotel($idTour) {
+    public function deleteHotel($idHotel) {
         $em = $this->getEntityManager();
-        $tour = $em->getRepository('VisitaYucatanBundle:Tour')->find($idTour);
-        if (!$tour) {
-            throw new EntityNotFoundException('La moneda con id ' . $idTour . " no se encontro");
+        $hotel = $this->find($idHotel);
+        if (!$hotel) {
+            throw new EntityNotFoundException('El Hotel con id ' . $idHotel . " no se encontro");
         }
-        $tour->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
-        $em->persist($tour);
+        $hotel->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
+        $em->persist($hotel);
         $em->flush();
     }
 
-    public function promoveOrNotPromoveHotel($idTour, $boobleanPromove) {
+    public function promoveOrNotPromoveHotel($idHotel, $boobleanPromove) {
         $em = $this->getEntityManager();
-        $tour = $em->getRepository('VisitaYucatanBundle:Tour')->find($idTour);
-        if (!$tour) {
-            throw new EntityNotFoundException('El tour con id ' . $idTour . " no se encontro");
+        $hotel = $this->find($idHotel);
+        if (!$hotel) {
+            throw new EntityNotFoundException('El Hotel con id ' . $idHotel . " no se encontro");
         }
-        $tour->setPromovido($boobleanPromove);
+        $hotel->setPromovido($boobleanPromove);
 
-        $em->persist($tour);
+        $em->persist($hotel);
         $em->flush();
     }
 }

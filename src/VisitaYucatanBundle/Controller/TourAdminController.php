@@ -33,8 +33,7 @@ class TourAdminController extends Controller
      * @Route("/admin/tour/find/list", name="tour_find_list")
      * @Method("GET")
      */
-    public function findAllToursAction()
-    {
+    public function findAllToursAction() {
         $tours = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->findAllTours();
         return new Response($this->get('serializer')->serialize($tours, Generalkeys::JSON_STRING));
     }
@@ -43,8 +42,7 @@ class TourAdminController extends Controller
      * @Route("/admin/tour/create", name="tour_create")
      * @Method("POST")
      */
-    public function createTourAction(Request $request)
-    {
+    public function createTourAction(Request $request) {
         $serializer = $this->get('serializer');
         try {
             $tourJson = $request->get('tour');
@@ -66,8 +64,7 @@ class TourAdminController extends Controller
      * @Route("/admin/tour/update", name="tour_update")
      * @Method("POST")
      */
-    public function udpateTourAction(Request $request)
-    {
+    public function udpateTourAction(Request $request) {
         $serializer = $this->get('serializer');
         try {
             $tourJson = $request->get('tour');
@@ -133,8 +130,7 @@ class TourAdminController extends Controller
      * @Route("/admin/tour/remove/promove", name="tour_remove_promove")
      * @Method("POST")
      */
-    public function removePromoveTourAction(Request $request)
-    {
+    public function removePromoveTourAction(Request $request) {
         $serializer = $this->get('serializer');
         try {
             $idTour = $request->get('idTour');
@@ -162,7 +158,7 @@ class TourAdminController extends Controller
             $idLanguage = $request->get('idLanguage');
             $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Touridioma')->findTourByIdAndIdLanguage($idTour, $idLanguage);
             return new Response($this->get('serializer')->serialize(TourUtils::convertEntityTouriomaToTouridiomaTO($tour), Generalkeys::JSON_STRING));
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
         }
@@ -182,18 +178,18 @@ class TourAdminController extends Controller
      * @Route("/admin/tour/save/tourlanguage", name="tour_save_tourlanguage")
      * @Method("POST")
      */
-    public function saveTourLanguageAction(Request $request){
+    public function saveTourLanguageAction(Request $request) {
         $serializer = $this->get('serializer');
         try {
             $tourLanguageJson = $request->get('tourLanguage');
             $tourIdiomaTO = $serializer->deserialize($tourLanguageJson, 'VisitaYucatanBundle\utils\to\TouridiomaTO', Generalkeys::JSON_STRING);
             $isNew = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Touridioma')->saveTourLanguage($tourIdiomaTO);
-            $message = 'Se ha modificado la información para el tour '.$tourIdiomaTO->getNombretour();
-            if($isNew){
-                $message = 'Se ha agregado la informacion para un nuevo idioma del tour '.$tourIdiomaTO->getNombretour();
+            $message = 'Se ha modificado la información para el tour ' . $tourIdiomaTO->getNombretour();
+            if ($isNew) {
+                $message = 'Se ha agregado la informacion para un nuevo idioma del tour ' . $tourIdiomaTO->getNombretour();
             }
             return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_TRUE, $message, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK), Generalkeys::JSON_STRING));
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
         }
     }
@@ -224,7 +220,7 @@ class TourAdminController extends Controller
                 $em->uploadTourImage($image->getClientOriginalName(), $newName, $folio, Generalkeys::PATH_TOURS_IMAGE . $newName, $image->getClientOriginalExtension(), $idTour);
                 return new JsonResponse(array('answer' => 'Se ha cargado la imagen correctamente'));
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return new JsonResponse(array('answer' => $e->getMessage()));
         }
     }
@@ -233,13 +229,13 @@ class TourAdminController extends Controller
      * @Route("/admin/tour/delete/image", name="tour_delete_image")
      * @Method("POST")
      */
-    public function deleteImageTourAction(Request $request){
-        try{
+    public function deleteImageTourAction(Request $request) {
+        try {
             $idImageTour = $request->get('idImageTour');
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->deleteImageTour($idImageTour);
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha eliminado correctamente la imagen con id '.$idImageTour, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha eliminado correctamente la imagen con id ' . $idImageTour, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
         }
     }
@@ -248,14 +244,14 @@ class TourAdminController extends Controller
      * @Route("/admin/tour/principal/image", name="tour_principal_image")
      * @Method("POST")
      */
-    public function setPrincipalImageTourAction(Request $request){
-        try{
+    public function setPrincipalImageTourAction(Request $request) {
+        try {
             $idImageTour = $request->get('idImageTour');
             $idTour = $request->get('idTour');
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->setPrincipalImageTour($idTour, $idImageTour);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Nueva imagen principal asignada', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
         }
     }

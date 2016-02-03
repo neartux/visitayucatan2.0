@@ -2,6 +2,7 @@
 
 namespace VisitaYucatanBundle\Repository;
 
+use Doctrine\ORM\EntityNotFoundException;
 use VisitaYucatanBundle\utils\Estatuskeys;
 use VisitaYucatanBundle\utils\Generalkeys;
 

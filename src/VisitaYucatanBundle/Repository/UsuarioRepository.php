@@ -2,6 +2,7 @@
 
 namespace VisitaYucatanBundle\Repository;
 
+use Doctrine\ORM\EntityNotFoundException;
 use VisitaYucatanBundle\Entity\Datospersonales;
 use VisitaYucatanBundle\Entity\Datosubicacion;
 use VisitaYucatanBundle\Entity\Usuario;
