@@ -14,8 +14,7 @@ use VisitaYucatanBundle\utils\Generalkeys;
 class TourRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function findAllTours()
-    {
+    public function findAllTours() {
         $em = $this->getEntityManager();
         $sql = "SELECT *
                 FROM tour
@@ -26,8 +25,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository
         return $stmt->fetchAll();
     }
 
-    public function createTour($tour)
-    {
+    public function createTour($tour) {
         $em = $this->getEntityManager();
         $tour->setPromovido(Generalkeys::BOOLEAN_FALSE);
         $tour->setVendido(Generalkeys::NUMBER_ZERO);
@@ -37,8 +35,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository
         $em->flush();
     }
 
-    public function updateTour($tour)
-    {
+    public function updateTour($tour) {
         $em = $this->getEntityManager();
         $tourUpdate = $em->getRepository('VisitaYucatanBundle:Tour')->find($tour->getId());
         if (!$tourUpdate) {
@@ -55,8 +52,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository
         $em->flush();
     }
 
-    public function deleteTour($idTour)
-    {
+    public function deleteTour($idTour) {
         $em = $this->getEntityManager();
         $tour = $em->getRepository('VisitaYucatanBundle:Tour')->find($idTour);
         if (!$tour) {
@@ -67,8 +63,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository
         $em->flush();
     }
 
-    public function promoveOrNotPromoveTour($idTour, $boobleanPromove)
-    {
+    public function promoveOrNotPromoveTour($idTour, $boobleanPromove) {
         $em = $this->getEntityManager();
         $tour = $em->getRepository('VisitaYucatanBundle:Tour')->find($idTour);
         if (!$tour) {
