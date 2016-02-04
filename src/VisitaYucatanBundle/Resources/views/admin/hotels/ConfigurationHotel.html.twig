@@ -1,0 +1,46 @@
+<div class="row" nv-file-drop="" uploader="uploader" id="ng-app" data-ng-controller="AngularFileUploadController as ctrlFile">
+    <div class="col-md-12 text-left">
+        <button class="btn btn-success" data-ng-click="ctrlHotel.returnListTour()">
+            <span class="fa fa-mail-reply"></span>&nbsp;Regresar
+        </button>
+    </div>
+    <br>
+    <br>
+    <div class="col-md-12">
+
+        <div class="panel panel-gray" data-widget='{"draggable": "false"}'>
+            <div class="panel-heading">
+                <h2>
+                    [[ ctrlHotel.idHotelGlobal ]]&nbsp;[[ ctrlHotel.nameHotelTitle ]]
+                </h2>
+                <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
+                <div class="options">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#information-tour" data-toggle="tab">
+                                <i class="fa fa-info text-info"></i>&nbsp;&nbsp;Información</a>
+                        </li>
+                        <li><a href="#images-tour" data-toggle="tab" data-ng-click="ctrlFile.setIdApplication(ctrlHotel.idHotelGlobal)">
+                                <i class="fa fa-image text-info"></i>&nbsp;&nbsp;Fotografías</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="information-tour">
+
+                        {% include '@VisitaYucatan/admin/tours/TabPaneInformationTourLanguage.html.twig' %}
+
+                    </div>
+                    <div class="tab-pane" id="images-tour">
+
+                        {% include '@VisitaYucatan/admin/tours/TabPaneImagesTourLanguage.html.twig' %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

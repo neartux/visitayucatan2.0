@@ -1,4 +1,5 @@
 /**
+ * Controller para app de hoteles
  * Created by ricardo on 3/02/16.
  */
 (function () {
