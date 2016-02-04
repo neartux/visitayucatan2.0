@@ -10,6 +10,7 @@ namespace VisitaYucatanBundle\utils\to;
 class ImagenTO {
     private $id;
     private $idTour;
+    private $idHotel;
     private $nombreOriginal;
     private $nombre;
     private $path;
@@ -33,6 +34,24 @@ class ImagenTO {
     {
         $this->id = $id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdHotel()
+    {
+        return $this->idHotel;
+    }
+
+    /**
+     * @param mixed $idHotel
+     */
+    public function setIdHotel($idHotel)
+    {
+        $this->idHotel = $idHotel;
+    }
+
+
 
     /**
      * @return mixed
