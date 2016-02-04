@@ -14,15 +14,13 @@ use VisitaYucatanBundle\utils\to\ResponseTO;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use VisitaYucatanBundle\utils\TourUtils;
 
-class TourAdminController extends Controller
-{
+class TourAdminController extends Controller {
 
     /**
      * @Route("/admin/tours", name="tour_display_list")
      * @Method("GET")
      */
-    public function displayToursAction(Request $request)
-    {
+    public function displayToursAction(Request $request) {
         if (!$request->getSession()->get(Generalkeys::LABEL_STATUS)) {
             return $this->redirectToRoute('admin_login');
         }

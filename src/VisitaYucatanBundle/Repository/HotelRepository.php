@@ -17,8 +17,11 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
 
     public function findAllHotels() {
         $em = $this->getEntityManager();
-        $sql = "SELECT *
+        $sql = "SELECT hotel.id, hotel.descripcion, hotel.estrellas, hotel.promovido,
+                destino.descripcion AS destino, datos_ubicacion.direccion, datos_ubicacion.telefono
                 FROM hotel
+                INNER JOIN datos_ubicacion ON datos_ubicacion.id = hotel.id_datosubicacion
+                INNER JOIN destino ON destino.id = hotel.id_destino AND destino.id_estatus = :estatus
                 WHERE hotel.id_estatus = :estatus";
         $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
         $stmt = $em->getConnection()->prepare($sql);
