@@ -8,132 +8,132 @@
     }]);
 
     app.controller('HotelController', function ($scope, $http, HotelService) {
-        var ctrlTour = this;
-        ctrlTour.hotel = undefined;
-        ctrlTour.listHotel = HotelService.listHotel;
-        ctrlTour.listLanguage = HotelService.listLanguage;
-        ctrlTour.hotelIdiomaTo = HotelService.hotelIdiomaTO;
-        ctrlTour.imagesHotel = HotelService.imagesHotelList;
-        ctrlTour.titleCreate = '';
-        ctrlTour.titleEdit = '';
-        ctrlTour.msjLoading = '';
-        ctrlTour.msjDeleteImage = '';
-        ctrlTour.titleModal = '';
-        ctrlTour.isNewHotel = true;
-        ctrlTour.configHotel = false;
-        ctrlTour.idHotelGlobal = 0;
-        ctrlTour.nameHotelTitle = '';
+        var ctrlHotel = this;
+        ctrlHotel.hotel = undefined;
+        ctrlHotel.listHotel = HotelService.listHotel;
+        ctrlHotel.listLanguage = HotelService.listLanguage;
+        ctrlHotel.hotelIdiomaTo = HotelService.hotelIdiomaTO;
+        ctrlHotel.imagesHotel = HotelService.imagesHotelList;
+        ctrlHotel.titleCreate = '';
+        ctrlHotel.titleEdit = '';
+        ctrlHotel.msjLoading = '';
+        ctrlHotel.msjDeleteImage = '';
+        ctrlHotel.titleModal = '';
+        ctrlHotel.isNewHotel = true;
+        ctrlHotel.configHotel = false;
+        ctrlHotel.idHotelGlobal = 0;
+        ctrlHotel.nameHotelTitle = '';
 
-        ctrlTour.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
-            ctrlTour.titleCreate = titleCreate;
-            ctrlTour.titleEdit = titleEdit;
-            ctrlTour.msjLoading = msjLoading;
-            ctrlTour.titleModal = titleCreate;
-            ctrlTour.confirmDelete = confirmDelete;
-            ctrlTour.msjDeleteImage = msjDeleteImg;
-            ctrlTour.findAllHotels();
-            ctrlTour.findAllLanguages();
+        ctrlHotel.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
+            ctrlHotel.titleCreate = titleCreate;
+            ctrlHotel.titleEdit = titleEdit;
+            ctrlHotel.msjLoading = msjLoading;
+            ctrlHotel.titleModal = titleCreate;
+            ctrlHotel.confirmDelete = confirmDelete;
+            ctrlHotel.msjDeleteImage = msjDeleteImg;
+            ctrlHotel.findAllHotels();
+            ctrlHotel.findAllLanguages();
         };
 
-        ctrlTour.findAllHotels = function () {
+        ctrlHotel.findAllHotels = function () {
             return HotelService.findHotelsActives();
         };
 
-        ctrlTour.findAllLanguages = function () {
+        ctrlHotel.findAllLanguages = function () {
             return HotelService.findLanguagesActives();
         };
 
-        ctrlTour.findHotelByIdAndLanguage = function () {
-            if(ctrlTour.hotelIdiomaTo.data != undefined){
-                var idiomaTmp = ctrlTour.hotelIdiomaTo.data.idIdioma;
-                return HotelService.findHotelByIdAndLanguaje(ctrlTour.idHotelGlobal, ctrlTour.hotelIdiomaTo.data.idIdioma).then(function(){
-                    ctrlTour.hotelIdiomaTo.data.idIdioma = idiomaTmp;
-                    if(! ctrlTour.hotelIdiomaTo.data.status){
-                        pNotifyView(ctrlTour.hotelIdiomaTo.data.message, ctrlTour.hotelIdiomaTo.data.typeStatus);
+        ctrlHotel.findHotelByIdAndLanguage = function () {
+            if(ctrlHotel.hotelIdiomaTo.data != undefined){
+                var idiomaTmp = ctrlHotel.hotelIdiomaTo.data.idIdioma;
+                return HotelService.findHotelByIdAndLanguaje(ctrlHotel.idHotelGlobal, ctrlHotel.hotelIdiomaTo.data.idIdioma).then(function(){
+                    ctrlHotel.hotelIdiomaTo.data.idIdioma = idiomaTmp;
+                    if(! ctrlHotel.hotelIdiomaTo.data.status){
+                        pNotifyView(ctrlHotel.hotelIdiomaTo.data.message, ctrlHotel.hotelIdiomaTo.data.typeStatus);
                     }
                     // El siguiente codigo para colocar el texto en el summernote, no se coloca de manera normal con el ng-model
-                    $(".summernote").code(ctrlTour.hotelIdiomaTo.data.descripcion);
+                    $(".summernote").code(ctrlHotel.hotelIdiomaTo.data.descripcion);
                 });
             }
         };
 
-        ctrlTour.findImagesByHotel = function () {
+        ctrlHotel.findImagesByHotel = function () {
             setTimeout(function(){
-                return HotelService.findImagesHotelByIdHotel(ctrlTour.idHotelGlobal);
+                return HotelService.findImagesHotelByIdHotel(ctrlHotel.idHotelGlobal);
             }, 1000);
         };
 
-        ctrlTour.setPrincipalImageHotel = function(idHotel, idImageHotel){
+        ctrlHotel.setPrincipalImageHotel = function(idHotel, idImageHotel){
             return HotelService.setPrincipalImage(idHotel, idImageHotel).then(function(data){
                 pNotifyView(data.data.message, data.data.typeStatus);
             });
         };
 
-        ctrlTour.deleteImageHotel = function(idImageHotel){
-            if(confirm(ctrlTour.msjDeleteImage)){
+        ctrlHotel.deleteImageHotel = function(idImageHotel){
+            if(confirm(ctrlHotel.msjDeleteImage)){
                 return HotelService.deleteImageHotel(idImageHotel).then(function(data){
                     pNotifyView(data.data.message, data.data.typeStatus);
                     if(data.data.status){
-                        ctrlTour.findImagesByHotel();
+                        ctrlHotel.findImagesByHotel();
                     }
                 });
             }
         };
 
-        ctrlTour.saveHotelLanguage = function(isValid){
+        ctrlHotel.saveHotelLanguage = function(isValid){
             if(isValid){
-                startLoading(ctrlTour.msjLoading);
+                startLoading(ctrlHotel.msjLoading);
                 // Asignasiones
-                ctrlTour.hotelIdiomaTo.data.descripcion = $(".summernote").code();
-                ctrlTour.hotelIdiomaTo.data.idHotel = ctrlTour.idHotelGlobal;
-                return HotelService.saveHotelLanguage(ctrlTour.hotelIdiomaTo.data).then(function (data) {
+                ctrlHotel.hotelIdiomaTo.data.descripcion = $(".summernote").code();
+                ctrlHotel.hotelIdiomaTo.data.idHotel = ctrlHotel.idHotelGlobal;
+                return HotelService.saveHotelLanguage(ctrlHotel.hotelIdiomaTo.data).then(function (data) {
                     stopLoading();
                     pNotifyView(data.data.message, data.data.typeStatus);
                 });
             }
         };
 
-        ctrlTour.configurateHotel = function (hotel) {
-            ctrlTour.nameHotelTitle = hotel.descripcion;
-            ctrlTour.idHotelGlobal = hotel.id;
-            ctrlTour.configTour = true;
-            ctrlTour.hotelIdiomaTo.data = undefined;
+        ctrlHotel.configurateHotel = function (hotel) {
+            ctrlHotel.nameHotelTitle = hotel.descripcion;
+            ctrlHotel.idHotelGlobal = hotel.id;
+            ctrlHotel.configTour = true;
+            ctrlHotel.hotelIdiomaTo.data = undefined;
             $(".summernote").code('');
-            ctrlTour.findImagesByHotel();
+            ctrlHotel.findImagesByHotel();
         };
 
-        ctrlTour.returnListTour = function(){
-            ctrlTour.configHotel = false;
+        ctrlHotel.returnListTour = function(){
+            ctrlHotel.configHotel = false;
         };
 
-        ctrlTour.displayNewHotel = function () {
-            ctrlTour.cleanForm();
-            ctrlTour.titleModal = ctrlTour.titleCreate;
-            ctrlTour.isNewHotel = true;
+        ctrlHotel.displayNewHotel = function () {
+            ctrlHotel.cleanForm();
+            ctrlHotel.titleModal = ctrlHotel.titleCreate;
+            ctrlHotel.isNewHotel = true;
             $("#modalHotel").modal();
             setTimeout(function () {
                 $("#description").trigger('focus');
             }, 1000);
         };
 
-        ctrlTour.displayEditHotel = function (hotel) {
-            ctrlTour.titleModal = ctrlTour.titleEdit;
-            ctrlTour.hotel = JSON.parse(JSON.stringify(hotel));
-            ctrlTour.isNewHotel = false;
+        ctrlHotel.displayEditHotel = function (hotel) {
+            ctrlHotel.titleModal = ctrlHotel.titleEdit;
+            ctrlHotel.hotel = JSON.parse(JSON.stringify(hotel));
+            ctrlHotel.isNewHotel = false;
             $("#modalHotel").modal();
             setTimeout(function () {
                 $("#description").trigger('focus');
             }, 1000);
         };
 
-        ctrlTour.saveFormHotel = function (isValid) {
+        ctrlHotel.saveFormHotel = function (isValid) {
             // check to make sure the form is completely valid
-            if (isValid && ctrlTour.hotel != undefined) {
-                startLoading(ctrlTour.msjLoading);
-                return HotelService.createHotel(ctrlTour.hotel).then(function (data) {
+            if (isValid && ctrlHotel.hotel != undefined) {
+                startLoading(ctrlHotel.msjLoading);
+                return HotelService.createHotel(ctrlHotel.hotel).then(function (data) {
                     stopLoading();
                     if (data.data.status) {
-                        ctrlTour.findAllHotels();
+                        ctrlHotel.findAllHotels();
                     }
                     pNotifyView(data.data.message, data.data.typeStatus);
                     $("#modalHotel").modal("hide");
@@ -142,14 +142,14 @@
 
         };
 
-        ctrlTour.updateHotel = function (isValid) {
+        ctrlHotel.updateHotel = function (isValid) {
             // check to make sure the form is completely valid
-            if (isValid && ctrlTour.hotel != undefined) {
-                startLoading(ctrlTour.msjLoading);
-                return HotelService.updateHotel(ctrlTour.hotel).then(function (data) {
+            if (isValid && ctrlHotel.hotel != undefined) {
+                startLoading(ctrlHotel.msjLoading);
+                return HotelService.updateHotel(ctrlHotel.hotel).then(function (data) {
                     stopLoading();
                     if (data.data.status) {
-                        ctrlTour.findAllHotels();
+                        ctrlHotel.findAllHotels();
                     }
                     pNotifyView(data.data.message, data.data.typeStatus);
                     $("#modalHotel").modal("hide");
@@ -158,30 +158,30 @@
 
         };
 
-        ctrlTour.deleteHotel = function (idHotel) {
-            if (confirm(ctrlTour.confirmDelete)) {
+        ctrlHotel.deleteHotel = function (idHotel) {
+            if (confirm(ctrlHotel.confirmDelete)) {
                 return HotelService.deleteHotelById(idHotel).then(function (data) {
                     if (data.data.status) {
-                        ctrlTour.findAllHotels();
+                        ctrlHotel.findAllHotels();
                     }
                     pNotifyView(data.data.message, data.data.typeStatus);
                 });
             }
         };
 
-        ctrlTour.promovedHotel = function (idHotel) {
+        ctrlHotel.promovedHotel = function (idHotel) {
             return HotelService.promovedHotel(idHotel).then(function (data) {
                 pNotifyView(data.data.message, data.data.typeStatus);
             });
         };
 
-        ctrlTour.removePromovedHotel = function (idHotel) {
+        ctrlHotel.removePromovedHotel = function (idHotel) {
             return HotelService.removePromovedHotel(idHotel).then(function (data) {
                 pNotifyView(data.data.message, data.data.typeStatus);
             });
         };
 
-        ctrlTour.cleanForm = function () {
+        ctrlHotel.cleanForm = function () {
             $("#description").val("");
         };
 
