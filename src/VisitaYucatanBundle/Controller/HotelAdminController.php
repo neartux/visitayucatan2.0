@@ -26,6 +26,15 @@ class HotelAdminController extends Controller {
     }
 
     /**
+     * @Route("/admin/hotel/find/destinos", name="hotel_find_list_destinos")
+     * @Method("GET")
+     */
+    public function findAllDestinosAction() {
+        $hotels = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Destino')->findAllDestinos();
+        return new Response($this->get('serializer')->serialize($hotels, Generalkeys::JSON_STRING));
+    }
+
+    /**
      * @Route("/admin/hotel/find/list", name="hotel_find_list")
      * @Method("GET")
      */

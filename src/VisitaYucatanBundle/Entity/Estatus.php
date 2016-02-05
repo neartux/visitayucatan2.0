@@ -74,6 +74,11 @@ class Estatus
      */
     private $hotelImagen;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Hotelcontacto", mappedBy="estatus")
+     */
+    private $hotelContacto;
+
 
     /**
      * Constructor
@@ -88,6 +93,7 @@ class Estatus
         $this->destino = new ArrayCollection();
         $this->hotel = new ArrayCollection();
         $this->hotelImagen = new ArrayCollection();
+        $this->hotelContacto = new ArrayCollection();
     }
 
     /**
@@ -428,5 +434,39 @@ class Estatus
     public function getHotelImagen()
     {
         return $this->hotelImagen;
+    }
+
+    /**
+     * Add hotelContacto
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotelcontacto $hotelContacto
+     *
+     * @return Estatus
+     */
+    public function addHotelContacto(\VisitaYucatanBundle\Entity\Hotelcontacto $hotelContacto)
+    {
+        $this->hotelContacto[] = $hotelContacto;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelContacto
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotelcontacto $hotelContacto
+     */
+    public function removeHotelContacto(\VisitaYucatanBundle\Entity\Hotelcontacto $hotelContacto)
+    {
+        $this->hotelContacto->removeElement($hotelContacto);
+    }
+
+    /**
+     * Get hotelContacto
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelContacto()
+    {
+        return $this->hotelContacto;
     }
 }

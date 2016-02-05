@@ -10,11 +10,12 @@
 
     app.controller('HotelController', function ($scope, $http, HotelService) {
         var ctrlHotel = this;
-        ctrlHotel.hotel = undefined;
+        ctrlHotel.hotelTO = undefined;
         ctrlHotel.listHotel = HotelService.listHotel;
         ctrlHotel.listLanguage = HotelService.listLanguage;
         ctrlHotel.hotelIdiomaTo = HotelService.hotelIdiomaTO;
         ctrlHotel.imagesHotel = HotelService.imagesHotelList;
+        ctrlHotel.listDestino = HotelService.listDestino;
         ctrlHotel.titleCreate = '';
         ctrlHotel.titleEdit = '';
         ctrlHotel.msjLoading = '';
@@ -25,15 +26,19 @@
         ctrlHotel.idHotelGlobal = 0;
         ctrlHotel.nameHotelTitle = '';
 
-        ctrlHotel.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
-            ctrlHotel.titleCreate = titleCreate;
-            ctrlHotel.titleEdit = titleEdit;
-            ctrlHotel.msjLoading = msjLoading;
-            ctrlHotel.titleModal = titleCreate;
-            ctrlHotel.confirmDelete = confirmDelete;
-            ctrlHotel.msjDeleteImage = msjDeleteImg;
+        ctrlHotel.init = function () {
+            ctrlHotel.titleCreate = 'Nuevo Hotel';
+            ctrlHotel.titleEdit = 'Editar Hotel';
+            ctrlHotel.msjLoading = 'Cargando';
+            ctrlHotel.titleModal = 'Nuevo Hotel';
+            ctrlHotel.confirmDelete = '¿ Seguro que desea eliminar el hotel ?';
+            ctrlHotel.msjDeleteImage = '¿ Desea eliminar la imagen ? ';
+            ctrlHotel.hotelTO = {
+                estrellas: '1'
+            };
             ctrlHotel.findAllHotels();
             ctrlHotel.findAllLanguages();
+            HotelService.findDestinos();
         };
 
         ctrlHotel.findAllHotels = function () {
@@ -113,25 +118,25 @@
             ctrlHotel.isNewHotel = true;
             $("#modalHotel").modal();
             setTimeout(function () {
-                $("#description").trigger('focus');
+                $("#destinoHotel").trigger('focus');
             }, 1000);
         };
 
         ctrlHotel.displayEditHotel = function (hotel) {
             ctrlHotel.titleModal = ctrlHotel.titleEdit;
-            ctrlHotel.hotel = JSON.parse(JSON.stringify(hotel));
+            ctrlHotel.hotelTO = JSON.parse(JSON.stringify(hotel));
             ctrlHotel.isNewHotel = false;
             $("#modalHotel").modal();
             setTimeout(function () {
-                $("#description").trigger('focus');
+                $("#destinoHotel").trigger('focus');
             }, 1000);
         };
 
         ctrlHotel.saveFormHotel = function (isValid) {
             // check to make sure the form is completely valid
-            if (isValid && ctrlHotel.hotel != undefined) {
+            if (isValid && ctrlHotel.hotelTO != undefined) {
                 startLoading(ctrlHotel.msjLoading);
-                return HotelService.createHotel(ctrlHotel.hotel).then(function (data) {
+                return HotelService.createHotel(ctrlHotel.hotelTO).then(function (data) {
                     stopLoading();
                     if (data.data.status) {
                         ctrlHotel.findAllHotels();
@@ -145,9 +150,9 @@
 
         ctrlHotel.updateHotel = function (isValid) {
             // check to make sure the form is completely valid
-            if (isValid && ctrlHotel.hotel != undefined) {
+            if (isValid && ctrlHotel.hotelTO != undefined) {
                 startLoading(ctrlHotel.msjLoading);
-                return HotelService.updateHotel(ctrlHotel.hotel).then(function (data) {
+                return HotelService.updateHotel(ctrlHotel.hotelTO).then(function (data) {
                     stopLoading();
                     if (data.data.status) {
                         ctrlHotel.findAllHotels();
@@ -183,7 +188,10 @@
         };
 
         ctrlHotel.cleanForm = function () {
-            $("#description").val("");
+            ctrlHotel.hotelTO = undefined;
+            ctrlHotel.hotelTO = {
+                estrellas: '1'
+            };
         };
 
     });

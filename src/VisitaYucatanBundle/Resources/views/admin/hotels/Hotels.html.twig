@@ -11,10 +11,7 @@
 
     <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/summernote/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
 
-    <div class="content-main" data-ng-app="AppHotel" data-ng-controller="HotelController as ctrlHotel"
-         ng-init="ctrlHotel.init('{% trans %}tour.report.label.new{% endtrans %}', '{% trans %}tour.report.label.edit{% endtrans %}',
-         '{% trans %}tour.report.label.message.confirm.delete{% endtrans %}', '{% trans %}general.message.loading{% endtrans %}',
-         '{% trans %}tour.report.label.message.confirm.delete.image{% endtrans %}')">
+    <div class="content-main" data-ng-app="AppHotel" data-ng-controller="HotelController as ctrlHotel" ng-init="ctrlHotel.init()">
         <div class="row">
             <div class="col-md-12">
 
@@ -51,9 +48,9 @@
                                                     <th width="10%">Destino</th>
                                                     <th width="5%">Dirección</th>
                                                     <th width="5%">Télefono</th>
-                                                    <th>Promovido</th>
                                                     <!--Columna para promover o remover promover, (0) es no promovido, (1) es promovido-->
-                                                    <th width="3%">&nbsp;</th>
+                                                    <th width="15%">&nbsp;</th>
+                                                    <th width="5%">Promover</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -64,18 +61,18 @@
                                                     <td>[[ hotel.destino ]]</td>
                                                     <td>[[ hotel.direccion ]]</td>
                                                     <td>[[ hotel.telefono ]]</td>
-                                                    <td>[[ hotel.promovido ]]</td>
                                                     <td>
+                                                        <a class="btn btn-info-alt" data-ng-click="ctrlHotel.displayContacts(hotel.id)" href="javascript:;"><i class="fa fa-book"></i></a>
                                                         <a class="btn btn-success-alt" data-ng-click="ctrlHotel.displayEditHotel(hotel)" href="javascript:;"><i class="fa fa-pencil"></i></a>
                                                         <a class="btn btn-success-alt" data-ng-click="ctrlHotel.configurateHotel(hotel)" href="javascript:;"><i class="fa  fa-gears"></i></a>
                                                         <a class="btn btn-danger-alt" data-ng-click="ctrlHotel.deleteHotel(hotel.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
                                                     </td>
                                                     <td>
                                                         <span data-ng-if="hotel.promovido == 0">
-                                                            <input type="checkbox" data-ng-click="ctrlHotel.promovedHotel(hotel.id);" class="form-control"/>
+                                                            <input type="checkbox" data-ng-click="ctrlHotel.promovedHotel(hotel.id);"/>
                                                         </span>
                                                         <span data-ng-if="hotel.promovido == 1">
-                                                            <input type="checkbox" checked data-ng-click="ctrlHotel.removePromovedHotel(hotel.id);" class="form-control"/>
+                                                            <input type="checkbox" checked data-ng-click="ctrlHotel.removePromovedHotel(hotel.id);"/>
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -108,13 +105,14 @@
         <input type="hidden" id="pathDeleteHotel" value="{{ path('hotel_delete') }}"/>
         <input type="hidden" id="pathPromoveHotel" value="{{ path('hotel_promove') }}"/>
         <input type="hidden" id="pathRemovePromoveHotel" value="{{ path('hotel_remove_promove') }}"/>
-        <input type="hidden" id="pathUploadImage" value="{{ path('hotel_upload_image') }}"/>
+        {#<input type="hidden" id="pathUploadImage" value="{{ path('hotel_upload_image') }}"/>#}
         <input type="hidden" id="pathAllLanguages" value="{{ path('language_find_all') }}"/>
-        <input type="hidden" id="pathHotelByLanguage" value="{{ path('hotel_find_by_language') }}"/>
+        {#<input type="hidden" id="pathHotelByLanguage" value="{{ path('hotel_find_by_language') }}"/>
         <input type="hidden" id="pathImagesHotel" value="{{ path('hotel_find_images') }}"/>
         <input type="hidden" id="pathSetPrincipalImage" value="{{ path('hotel_principal_image') }}"/>
         <input type="hidden" id="pathDeleteImageHotel" value="{{ path('hotel_delete_image') }}"/>
-        <input type="hidden" id="pathSaveHotelLanguage" value="{{ path('hotel_save_tourlanguage') }}"/>
+        <input type="hidden" id="pathSaveHotelLanguage" value="{{ path('hotel_save_tourlanguage') }}"/>#}
+        <input type="hidden" id="pathDestinos" value="{{ path('hotel_find_list_destinos') }}"/>
     </div>
 
 {% endblock %}

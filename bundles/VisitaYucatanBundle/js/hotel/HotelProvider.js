@@ -14,6 +14,9 @@
         service.listLanguage = {
             data: undefined
         };
+        service.listDestino = {
+            data: undefined
+        };
         service.hotelIdiomaTO = {
             data: undefined
         };
@@ -26,6 +29,14 @@
             service.listHotel.data = [];
             return $http.get(path).then(function(data){
                 service.listHotel.data = data.data;
+            });
+        };
+
+        service.findDestinos = function(){
+            var path = $("#pathDestinos").val();
+            service.listDestino.data = [];
+            return $http.get(path).then(function(data){
+                service.listDestino.data = data.data;
             });
         };
 
@@ -46,7 +57,7 @@
             });
         };
 
-        service.findImagesHotelByIdTour = function (idHotel){
+        service.findImagesHotelByIdHotel = function (idHotel){
             var path = $("#pathImagesHotel").val();
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -84,6 +95,7 @@
         };
 
         service.updateHotel = function(hotel){
+            //alert(JSON.stringify(hotel));
             var path = $("#pathUpdateHotel").val();
             return $http.post(path, $.param({hotel : JSON.stringify(hotel)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -97,7 +109,7 @@
             });
         };
 
-        service.promovedTour = function(idHotel){
+        service.promovedHotel = function(idHotel){
             var path = $("#pathPromoveHotel").val();
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

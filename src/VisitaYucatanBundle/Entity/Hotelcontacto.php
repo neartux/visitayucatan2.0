@@ -39,6 +39,12 @@ class Hotelcontacto
      */
     private $hotel;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="hotelContacto")
+     * @ORM\JoinColumn(name="id_estatus", referencedColumnName="id", nullable=false)
+     */
+    private $estatus;
+
 
     /**
      * Get id
@@ -120,5 +126,29 @@ class Hotelcontacto
     public function getHotel()
     {
         return $this->hotel;
+    }
+
+    /**
+     * Set estatus
+     *
+     * @param \VisitaYucatanBundle\Entity\Estatus $estatus
+     *
+     * @return Hotelcontacto
+     */
+    public function setEstatus(\VisitaYucatanBundle\Entity\Estatus $estatus)
+    {
+        $this->estatus = $estatus;
+
+        return $this;
+    }
+
+    /**
+     * Get estatus
+     *
+     * @return \VisitaYucatanBundle\Entity\Estatus
+     */
+    public function getEstatus()
+    {
+        return $this->estatus;
     }
 }

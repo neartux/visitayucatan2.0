@@ -17,7 +17,7 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
 
     public function findAllHotels() {
         $em = $this->getEntityManager();
-        $sql = "SELECT hotel.id, hotel.descripcion, hotel.estrellas, hotel.promovido,
+        $sql = "SELECT hotel.id, hotel.descripcion, hotel.estrellas, hotel.promovido, destino.id AS idDestino,
                 destino.descripcion AS destino, datos_ubicacion.direccion, datos_ubicacion.telefono
                 FROM hotel
                 INNER JOIN datos_ubicacion ON datos_ubicacion.id = hotel.id_datosubicacion
