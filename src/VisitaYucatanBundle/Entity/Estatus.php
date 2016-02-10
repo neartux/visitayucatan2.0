@@ -79,6 +79,21 @@ class Estatus
      */
     private $hotelContacto;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Pagina", mappedBy="estatus")
+     */
+    private $pagina;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Paginaimagen", mappedBy="estatus")
+     */
+    private $paginaImagen;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Paginadescripcion", mappedBy="estatus")
+     */
+    private $paginaDescripcion;
+
 
     /**
      * Constructor
@@ -94,6 +109,7 @@ class Estatus
         $this->hotel = new ArrayCollection();
         $this->hotelImagen = new ArrayCollection();
         $this->hotelContacto = new ArrayCollection();
+        $this->pagina = new ArrayCollection();
     }
 
     /**
@@ -468,5 +484,107 @@ class Estatus
     public function getHotelContacto()
     {
         return $this->hotelContacto;
+    }
+
+    /**
+     * Add pagina
+     *
+     * @param \VisitaYucatanBundle\Entity\Pagina $pagina
+     *
+     * @return Estatus
+     */
+    public function addPagina(\VisitaYucatanBundle\Entity\Pagina $pagina)
+    {
+        $this->pagina[] = $pagina;
+
+        return $this;
+    }
+
+    /**
+     * Remove pagina
+     *
+     * @param \VisitaYucatanBundle\Entity\Pagina $pagina
+     */
+    public function removePagina(\VisitaYucatanBundle\Entity\Pagina $pagina)
+    {
+        $this->pagina->removeElement($pagina);
+    }
+
+    /**
+     * Get pagina
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPagina()
+    {
+        return $this->pagina;
+    }
+
+    /**
+     * Add paginaImagen
+     *
+     * @param \VisitaYucatanBundle\Entity\Paginaimagen $paginaImagen
+     *
+     * @return Estatus
+     */
+    public function addPaginaImagen(\VisitaYucatanBundle\Entity\Paginaimagen $paginaImagen)
+    {
+        $this->paginaImagen[] = $paginaImagen;
+
+        return $this;
+    }
+
+    /**
+     * Remove paginaImagen
+     *
+     * @param \VisitaYucatanBundle\Entity\Paginaimagen $paginaImagen
+     */
+    public function removePaginaImagen(\VisitaYucatanBundle\Entity\Paginaimagen $paginaImagen)
+    {
+        $this->paginaImagen->removeElement($paginaImagen);
+    }
+
+    /**
+     * Get paginaImagen
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaginaImagen()
+    {
+        return $this->paginaImagen;
+    }
+
+    /**
+     * Add paginaDescripcion
+     *
+     * @param \VisitaYucatanBundle\Entity\Paginadescripcion $paginaDescripcion
+     *
+     * @return Estatus
+     */
+    public function addPaginaDescripcion(\VisitaYucatanBundle\Entity\Paginadescripcion $paginaDescripcion)
+    {
+        $this->paginaDescripcion[] = $paginaDescripcion;
+
+        return $this;
+    }
+
+    /**
+     * Remove paginaDescripcion
+     *
+     * @param \VisitaYucatanBundle\Entity\Paginadescripcion $paginaDescripcion
+     */
+    public function removePaginaDescripcion(\VisitaYucatanBundle\Entity\Paginadescripcion $paginaDescripcion)
+    {
+        $this->paginaDescripcion->removeElement($paginaDescripcion);
+    }
+
+    /**
+     * Get paginaDescripcion
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaginaDescripcion()
+    {
+        return $this->paginaDescripcion;
     }
 }
