@@ -44,6 +44,15 @@ class HotelAdminController extends Controller {
     }
 
     /**
+     * @Route("/admin/hotel/find/contacts", name="hotel_find_list_contacts")
+     * @Method("POST")
+     */
+    public function findContactsByHotelAction(Request $request) {
+        $contacts = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelcontacto')->findContactoByIdHotel($request->get('idHotel'));
+        return new Response($this->get('serializer')->serialize($contacts, Generalkeys::JSON_STRING));
+    }
+
+    /**
      * @Route("/admin/hotel/create", name="hotel_create")
      * @Method("POST")
      */

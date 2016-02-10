@@ -62,7 +62,7 @@
                                                     <td>[[ hotel.direccion ]]</td>
                                                     <td>[[ hotel.telefono ]]</td>
                                                     <td>
-                                                        <a class="btn btn-info-alt" data-ng-click="ctrlHotel.displayContacts(hotel.id)" href="javascript:;"><i class="fa fa-book"></i></a>
+                                                        <a class="btn btn-info-alt" data-ng-click="ctrlHotel.findContactsHotel(hotel.id)" href="javascript:;"><i class="fa fa-book"></i></a>
                                                         <a class="btn btn-success-alt" data-ng-click="ctrlHotel.displayEditHotel(hotel)" href="javascript:;"><i class="fa fa-pencil"></i></a>
                                                         <a class="btn btn-success-alt" data-ng-click="ctrlHotel.configurateHotel(hotel)" href="javascript:;"><i class="fa  fa-gears"></i></a>
                                                         <a class="btn btn-danger-alt" data-ng-click="ctrlHotel.deleteHotel(hotel.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
@@ -97,6 +97,8 @@
 
         <!--Modal creacion y modificacion de hotel-->
         {% include '@VisitaYucatan/admin/hotels/ModalHotel.html.twig' %}
+        <!--Modal creacion y modificacion de contactos-->
+        {% include '@VisitaYucatan/admin/hotels/ModalContactsHotel.html.twig' %}
 
         <!--Paths-->
         <input type="hidden" id="pathListHotel" value="{{ path('hotel_find_list') }}"/>
@@ -113,6 +115,7 @@
         <input type="hidden" id="pathDeleteImageHotel" value="{{ path('hotel_delete_image') }}"/>
         <input type="hidden" id="pathSaveHotelLanguage" value="{{ path('hotel_save_tourlanguage') }}"/>#}
         <input type="hidden" id="pathDestinos" value="{{ path('hotel_find_list_destinos') }}"/>
+        <input type="hidden" id="pathContacts" value="{{ path('hotel_find_list_contacts') }}"/>
     </div>
 
 {% endblock %}

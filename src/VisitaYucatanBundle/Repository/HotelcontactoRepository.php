@@ -25,4 +25,8 @@ class HotelcontactoRepository extends \Doctrine\ORM\EntityRepository {
         $stmt->execute($params);
         return $stmt->fetchAll();
     }
+
+    public function createHotelContacto($hotelContactoTO){
+
+    }
 }

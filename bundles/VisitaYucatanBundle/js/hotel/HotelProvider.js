@@ -23,12 +23,25 @@
         service.imagesHotelList = {
             data: undefined
         };
+        service.contactHotelList = {
+            data: undefined
+        };
 
         service.findHotelsActives= function(){
             var path = $("#pathListHotel").val();
             service.listHotel.data = [];
             return $http.get(path).then(function(data){
                 service.listHotel.data = data.data;
+            });
+        };
+
+        service.findContactsHotel = function(idHotel){
+            var path = $("#pathContacts").val();
+            service.contactHotelList.data = [];
+            return $http.post(path, $.param({idHotel : idHotel}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                service.contactHotelList.data = data.data;
             });
         };
 

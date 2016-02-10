@@ -45,6 +45,14 @@
             return HotelService.findHotelsActives();
         };
 
+        ctrlHotel.findContactsHotel = function (idHotel) {
+            console.info("idhotel = "+idHotel);
+            return HotelService.findContactsHotel(idHotel).then(function(){
+                $("#modalHotelContacts").modal();
+            });
+        };
+
+
         ctrlHotel.findAllLanguages = function () {
             return HotelService.findLanguagesActives();
         };
