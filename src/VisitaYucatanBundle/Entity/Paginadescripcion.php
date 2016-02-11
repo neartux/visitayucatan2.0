@@ -24,14 +24,14 @@ class Paginadescripcion
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion_corta", type="string", length=255)
+     * @ORM\Column(name="descripcion", type="text")
      */
     private $descripcionCorta;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=255)
+     * @ORM\Column(name="descripcion", type="text")
      */
     private $descripcion;
 

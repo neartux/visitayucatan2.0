@@ -23,7 +23,7 @@ class Pagina {
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=50)
+     * @ORM\Column(name="descripcion", type="text")
      */
     private $descripcion;
 
