@@ -64,10 +64,12 @@
                 ctrlHotel.hotelContacto.idHotel = ctrlHotel.idHotelGlobal;
                 console.log("infomacion del hotel contacto = "+JSON.stringify(ctrlHotel.hotelContacto));
                 return HotelService.createContactHotel(ctrlHotel.hotelContacto).then(function(data){
-                    if(data.status){
-                        HotelService.findContactsHotel(ctrlHotel.hotelContacto.idHotel);
-                    }
                     pNotifyView(data.data.message, data.data.typeStatus);
+                    if(data.data.status){
+                        HotelService.findContactsHotel(ctrlHotel.hotelContacto.idHotel);
+                        ctrlHotel.isNewContact = false;
+                        ctrlHotel.cleanFormContact();
+                    }
                 });
             }
         };
@@ -75,6 +77,7 @@
         ctrlHotel.deleteContactHotel = function(idContact){
             if(confirm('¿Seguro que desea eliminar el contacto?')){
                 return HotelService.deleteContactHotel(idContact).then(function(data){
+                    HotelService.findContactsHotel(ctrlHotel.idHotelGlobal);
                     pNotifyView(data.data.message, data.data.typeStatus);
                 });
             }
@@ -98,6 +101,12 @@
                 return false;
             }
             return true;
+        };
+
+        ctrlHotel.cleanFormContact = function() {
+            $("#nameContact").val();
+            $("#lastNameContac").val();
+            $("#emailContact").val();
         };
 
         ctrlHotel.findAllLanguages = function () {

@@ -1,6 +1,7 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use Doctrine\ORM\EntityNotFoundException;
 use VisitaYucatanBundle\Entity\Datospersonales;
 use VisitaYucatanBundle\Entity\Datosubicacion;
 use VisitaYucatanBundle\Entity\Hotelcontacto;
@@ -16,7 +17,7 @@ class HotelcontactoRepository extends \Doctrine\ORM\EntityRepository {
 
     public function findContactoByIdHotel($idHotel) {
         $em = $this->getEntityManager();
-        $sql = "SELECT datos_personales.nombres, datos_personales.apellidos, datos_ubicacion.email
+        $sql = "SELECT hotel_contacto.id, datos_personales.nombres, datos_personales.apellidos, datos_ubicacion.email
                 FROM hotel_contacto
                 INNER JOIN datos_personales ON datos_personales.id = hotel_contacto.id_datospersonales
                 INNER JOIN datos_ubicacion ON datos_ubicacion.id = hotel_contacto.id_datosubicacion
@@ -44,7 +45,7 @@ class HotelcontactoRepository extends \Doctrine\ORM\EntityRepository {
         $hotelContacto = new Hotelcontacto();
         $hotelContacto->setDatosPersonales($datosPersonales);
         $hotelContacto->setDatosUbicacion($datosUbicacion);
-        $hotelContacto->setHotel($em->getReference('VisitaYucatanBundle:Hotel', $contactoTO->getIdHote()));
+        $hotelContacto->setHotel($em->getReference('VisitaYucatanBundle:Hotel', $contactoTO->getIdHotel()));
         $hotelContacto->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
 
         $em->persist($hotelContacto);

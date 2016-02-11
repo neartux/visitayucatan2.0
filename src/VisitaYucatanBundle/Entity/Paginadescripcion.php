@@ -24,7 +24,7 @@ class Paginadescripcion
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="text")
+     * @ORM\Column(name="descripcion_corta", type="text")
      */
     private $descripcionCorta;
 

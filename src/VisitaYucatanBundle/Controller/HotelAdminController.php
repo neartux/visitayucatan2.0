@@ -119,11 +119,10 @@ class HotelAdminController extends Controller {
     public function createHotelContactAction(Request $request) {
         $serializer = $this->get('serializer');
         try {
-            print_r($request->get('hotelContacto'));
             $hotelContactoTO = $serializer->deserialize($request->get('hotelContacto'), 'VisitaYucatanBundle\utils\to\ContactoTO', Generalkeys::JSON_STRING);
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelcontacto')->createHotelContacto($hotelContactoTO);
 
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Contacto '.$hotelContactoTO->getNombres().' creado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Contacto creado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch (\Exception $e) {

@@ -109,7 +109,6 @@
         };
 
         service.updateHotel = function(hotel){
-            //alert(JSON.stringify(hotel));
             var path = $("#pathUpdateHotel").val();
             return $http.post(path, $.param({hotel : JSON.stringify(hotel)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -139,7 +138,7 @@
 
         service.createContactHotel = function(hotelContacto){
             var path = $("#pathContactCreate").val();
-            return $http.post(path, $.param({hotelContacto : hotelContacto}), {
+            return $http.post(path, $.param({hotelContacto : JSON.stringify(hotelContacto)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
