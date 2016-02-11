@@ -42,3 +42,10 @@ canvas {
     position: relative;
     font-size: 18px;
 }
+
+.borders-col-contacts {
+    border-top: 1px solid #BFF4FC;
+    padding-top: 5px;
+    border-bottom: 1px solid #BFF4FC;
+    padding-bottom: 5px;
+}

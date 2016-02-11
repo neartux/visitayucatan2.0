@@ -1,6 +1,9 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use VisitaYucatanBundle\Entity\Datospersonales;
+use VisitaYucatanBundle\Entity\Datosubicacion;
+use VisitaYucatanBundle\Entity\Hotelcontacto;
 use VisitaYucatanBundle\utils\Estatuskeys;
 
 /**
@@ -26,7 +29,37 @@ class HotelcontactoRepository extends \Doctrine\ORM\EntityRepository {
         return $stmt->fetchAll();
     }
 
-    public function createHotelContacto($hotelContactoTO){
+    public function createHotelContacto($contactoTO){
+        $em = $this->getEntityManager();
 
+        $datosPersonales = new Datospersonales();
+        $datosPersonales->setNombres($contactoTO->getNombres());
+        $datosPersonales->setApellidos($contactoTO->getApellidos());
+        $em->persist($datosPersonales);
+
+        $datosUbicacion = new Datosubicacion();
+        $datosUbicacion->setEmail($contactoTO->getEmail());
+        $em->persist($datosUbicacion);
+
+        $hotelContacto = new Hotelcontacto();
+        $hotelContacto->setDatosPersonales($datosPersonales);
+        $hotelContacto->setDatosUbicacion($datosUbicacion);
+        $hotelContacto->setHotel($em->getReference('VisitaYucatanBundle:Hotel', $contactoTO->getIdHote()));
+        $hotelContacto->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+
+        $em->persist($hotelContacto);
+        $em->flush();
+    }
+
+    public function deleteContactHotel($idContacto){
+        $contacto = $this->find($idContacto);
+        if (!$contacto) {
+            throw new EntityNotFoundException('El contacto con id ' . $idContacto . " no se encontro");
+        }
+        $em = $this->getEntityManager();
+
+        $contacto->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
+        $em->persist($contacto);
+        $em->flush();
     }
 }

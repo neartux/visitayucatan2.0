@@ -16,6 +16,7 @@
         ctrlHotel.hotelIdiomaTo = HotelService.hotelIdiomaTO;
         ctrlHotel.imagesHotel = HotelService.imagesHotelList;
         ctrlHotel.listDestino = HotelService.listDestino;
+        ctrlHotel.contactHotelList = HotelService.contactHotelList;
         ctrlHotel.titleCreate = '';
         ctrlHotel.titleEdit = '';
         ctrlHotel.msjLoading = '';
@@ -25,6 +26,8 @@
         ctrlHotel.configHotel = false;
         ctrlHotel.idHotelGlobal = 0;
         ctrlHotel.nameHotelTitle = '';
+        ctrlHotel.isNewContact = false;
+        ctrlHotel.hotelContacto = {};
 
         ctrlHotel.init = function () {
             ctrlHotel.titleCreate = 'Nuevo Hotel';
@@ -47,11 +50,55 @@
 
         ctrlHotel.findContactsHotel = function (idHotel) {
             console.info("idhotel = "+idHotel);
+            ctrlHotel.hotelContacto = {};
+            ctrlHotel.idHotelGlobal = idHotel;
             return HotelService.findContactsHotel(idHotel).then(function(){
+                ctrlHotel.isNewContact = false;
                 $("#modalHotelContacts").modal();
             });
         };
 
+
+        ctrlHotel.createContactHotel = function () {
+            if(ctrlHotel.validateContactHotel()){
+                ctrlHotel.hotelContacto.idHotel = ctrlHotel.idHotelGlobal;
+                console.log("infomacion del hotel contacto = "+JSON.stringify(ctrlHotel.hotelContacto));
+                return HotelService.createContactHotel(ctrlHotel.hotelContacto).then(function(data){
+                    if(data.status){
+                        HotelService.findContactsHotel(ctrlHotel.hotelContacto.idHotel);
+                    }
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
+        };
+
+        ctrlHotel.deleteContactHotel = function(idContact){
+            if(confirm('¿Seguro que desea eliminar el contacto?')){
+                return HotelService.deleteContactHotel(idContact).then(function(data){
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
+        };
+
+        ctrlHotel.validateContactHotel = function() {
+            var nameContact = $("#nameContact");
+            var lastNameContact = $("#lastNameContac");
+            var emailContact = $("#emailContact");
+            if(! $.trim(nameContact.val()).length){
+                pNotifyView('Captura Nombre de Contacto', 'info')
+                nameContact.trigger('focus');
+                return false;
+            }else if(! $.trim(lastNameContact.val()).length){
+                pNotifyView('Captura Apellidos de Contacto', 'info')
+                lastNameContact.trigger('focus');
+                return false;
+            }else if(! $.trim(emailContact.val()).length){
+                pNotifyView('Captura Correo de Contacto', 'info')
+                emailContact.trigger('focus');
+                return false;
+            }
+            return true;
+        };
 
         ctrlHotel.findAllLanguages = function () {
             return HotelService.findLanguagesActives();

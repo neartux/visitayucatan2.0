@@ -41,6 +41,7 @@
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
+                console.log("contactos = "+JSON.stringify(data.data));
                 service.contactHotelList.data = data.data;
             });
         };
@@ -132,6 +133,20 @@
         service.removePromovedHotel = function(idHotel){
             var path = $("#pathRemovePromoveHotel").val();
             return $http.post(path, $.param({idHotel : idHotel}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.createContactHotel = function(hotelContacto){
+            var path = $("#pathContactCreate").val();
+            return $http.post(path, $.param({hotelContacto : hotelContacto}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.deleteContactHotel = function(idHotelContacto){
+            var path = $("#pathContactDelete").val();
+            return $http.post(path, $.param({idHotelContacto : idHotelContacto}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };

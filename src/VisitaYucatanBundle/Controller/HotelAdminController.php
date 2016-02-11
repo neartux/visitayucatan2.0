@@ -113,6 +113,47 @@ class HotelAdminController extends Controller {
     }
 
     /**
+     * @Route("/admin/hotel/create/contact", name="hotel_contact_create")
+     * @Method("POST")
+     */
+    public function createHotelContactAction(Request $request) {
+        $serializer = $this->get('serializer');
+        try {
+            print_r($request->get('hotelContacto'));
+            $hotelContactoTO = $serializer->deserialize($request->get('hotelContacto'), 'VisitaYucatanBundle\utils\to\ContactoTO', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelcontacto')->createHotelContacto($hotelContactoTO);
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Contacto '.$hotelContactoTO->getNombres().' creado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        } catch (\Exception $e) {
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
+     * @Route("/admin/hotel/contacto/delete", name="hotel_contacto_delete")
+     * @Method("POST")
+     */
+    public function deleteHotelContactAction(Request $request) {
+        $serializer = $this->get('serializer');
+        try {
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelcontacto')->deleteContactHotel($request->get('idHotelContacto'));
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'El contacto del hotel se ha eliminado del sistema', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        } catch (\Exception $e) {
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
+
+    }
+
+    /**
      * @Route("/admin/hotel/promove", name="hotel_promove")
      * @Method("POST")
      */
