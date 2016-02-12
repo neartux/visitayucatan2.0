@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\Generalkeys;
+use VisitaYucatanBundle\utils\HotelUtils;
 use VisitaYucatanBundle\utils\to\ResponseTO;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -188,6 +189,114 @@ class HotelAdminController extends Controller {
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
         }
 
+    }
+
+    /**
+     * @Route("/admin/hotel/find/by/language", name="hotel_find_by_language")
+     * @Method("POST")
+     */
+    public function findHotelByIdAndLanguageAction(Request $request) {
+        try {
+            $idHotel = $request->get('idHotel');
+            $idLanguage = $request->get('idLanguage');
+            $hotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelidioma')->findHotelByIdAndIdLanguage($idHotel, $idLanguage);
+            return new Response($this->get('serializer')->serialize(HotelUtils::convertEntityHotelIdiomaToHotelidiomaTO($hotel), Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
+     * @Route("/admin/hotel/find/images", name="hotel_find_images")
+     * @Method("POST")
+     */
+    public function findImagesHotelByIdAction(Request $request) {
+        $idHotel = $request->get('idHote');
+        $images = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelimagen')->findHotelImagesByIdHotel($idHotel);
+        return new Response($this->get('serializer')->serialize(HotelUtils::getListImagenTO($images), Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/admin/hotel/save/hotellanguage", name="hotel_save_hotellanguage")
+     * @Method("POST")
+     */
+    public function saveHotelLanguageAction(Request $request) {
+        $serializer = $this->get('serializer');
+        try {
+            $hotelLanguageJson = $request->get('hotelLanguage');
+            $hotelIdiomaTO = $serializer->deserialize($hotelLanguageJson, 'VisitaYucatanBundle\utils\to\HotelidiomaTO', Generalkeys::JSON_STRING);
+            $isNew = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelidioma')->saveHotelLanguage($hotelIdiomaTO);
+            $message = 'Se ha modificado la información para el hotel ' . $hotelIdiomaTO->getNombreHotel();
+            if ($isNew) {
+                $message = 'Se ha agregado la informacion para un nuevo idioma del hotel ' . $hotelIdiomaTO->getNombreHotel();
+            }
+            return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_TRUE, $message, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK), Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
+     * @Route("/admin/hotel/upload/image", name="hotel_upload_image")
+     * @Method("POST")
+     */
+    public function uploadImageHotelAction(Request $request) {
+        try {
+            $em = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelimagen');
+            // Obtiene los datos enviados, imagen y el id del hotel
+            $image = $request->files->get('file');
+            $idHotel = $request->get('idApplication');
+            // Instancia el archivo al un objeto
+            if (($image instanceof UploadedFile) && ($image->getError() == Generalkeys::NUMBER_ZERO)) {
+                // Busca el folio siguiente
+                $folio = $em->findNextFolio();
+                // Si no se pudo encontrar el folio regresa mensaje error
+                if ($folio == Generalkeys::NOT_FOUND_FOLIO) {
+                    return new JsonResponse(array('answer' => 'No se pudo encontrar folio, intentar de nuevo'));
+                }
+                // Arma un nuevo nombre para la imagen, esto es por si se sube diferentes imagenes con el mismo nombre
+                $newName = Generalkeys::PART_NAME_HOTEL . $idHotel . Generalkeys::PART_NAME_FOLIO . $folio . "." . $image->getClientOriginalExtension();
+                // Mueve la imagen a su carpeta
+                $image->move(Generalkeys::PATH_HOTELES_IMAGE, $newName);
+                // Guarda el registro de la imagen hotel
+                $em->uploadHotelImage($image->getClientOriginalName(), $newName, $folio, Generalkeys::PATH_HOTELES_IMAGE . $newName, $image->getClientOriginalExtension(), $idHotel);
+                return new JsonResponse(array('answer' => 'Se ha cargado la imagen correctamente'));
+            }
+        } catch (\Exception $e) {
+            return new JsonResponse(array('answer' => $e->getMessage()));
+        }
+    }
+
+    /**
+     * @Route("/admin/hotel/delete/image", name="hotel_delete_image")
+     * @Method("POST")
+     */
+    public function deleteImageHotelAction(Request $request) {
+        try {
+            $idImageHotel = $request->get('idImageHotel');
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelimagen')->deleteImageHotel($idImageHotel);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha eliminado correctamente la imagen con id ' . $idImageHotel, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
+     * @Route("/admin/hotel/principal/image", name="hotel_principal_image")
+     * @Method("POST")
+     */
+    public function setPrincipalImageHotelAction(Request $request) {
+        try {
+            $idImageHotel = $request->get('idImageHotel');
+            $idHotel = $request->get('idHotel');
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelimagen')->setPrincipalImageHotel($idHotel, $idImageHotel);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Nueva imagen principal asignada', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
     }
 
 }
