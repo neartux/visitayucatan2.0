@@ -16,7 +16,7 @@ use VisitaYucatanBundle\utils\Generalkeys;
 class HotelimagenRepository extends \Doctrine\ORM\EntityRepository {
 
     public function findHotelImagesByIdHotel($idHotel){
-        return $this->findBy(array('tour' => $idHotel, 'estatus' => Estatuskeys::ESTATUS_ACTIVO));
+        return $this->findBy(array('hotel' => $idHotel, 'estatus' => Estatuskeys::ESTATUS_ACTIVO));
     }
 
     public function uploadHotelImage($originalName, $nameImage, $folio, $path, $tipoArchivo, $idHotel){
@@ -40,7 +40,7 @@ class HotelimagenRepository extends \Doctrine\ORM\EntityRepository {
         $em->flush();
     }
 
-    public function deleteImageTour($idImageHotel){
+    public function deleteImageHotel($idImageHotel){
         $em = $this->getEntityManager();
         $imageHoel = $this->find($idImageHotel);
         if(! $imageHoel){
@@ -55,7 +55,7 @@ class HotelimagenRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     public function setPrincipalImageHotel($idHotel, $idImageHotel){
-        $imagesHotel =$this->findTourImagesByIdTour($idHotel);
+        $imagesHotel =$this->findHotelImagesByIdHotel($idHotel);
 
         if(count($imagesHotel) <= Generalkeys::NUMBER_ZERO){
             throw new \Exception('No se encontraron imagenes para el hotel '.$idHotel);

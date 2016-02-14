@@ -72,10 +72,12 @@
         };
 
         service.findImagesHotelByIdHotel = function (idHotel){
+            console.log("idhotel imagens = "+idHotel);
             var path = $("#pathImagesHotel").val();
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
+                console.log("iamges = "+JSON.stringify(data.data));
                 service.imagesHotelList.data = data.data;
             });
         };

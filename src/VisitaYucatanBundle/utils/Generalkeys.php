@@ -23,7 +23,7 @@ class Generalkeys{
     const BOOLEAN_TRUE = true;
     const BOOLEAN_FALSE = false;
     const PATH_TOURS_IMAGE = "bundles/VisitaYucatanBundle/images/tours/";
-    const PATH_HOTELES_IMAGE = "bundles/VisitaYucatanBundle/images/tours/";
+    const PATH_HOTELES_IMAGE = "bundles/VisitaYucatanBundle/images/hoteles/";
     const NOT_FOUND_FOLIO = -1;
     const PART_NAME_TOUR = "tour-";
     const PART_NAME_FOLIO = "-folio-";

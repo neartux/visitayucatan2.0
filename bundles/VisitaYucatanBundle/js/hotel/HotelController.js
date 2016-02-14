@@ -166,10 +166,11 @@
         ctrlHotel.configurateHotel = function (hotel) {
             ctrlHotel.nameHotelTitle = hotel.descripcion;
             ctrlHotel.idHotelGlobal = hotel.id;
-            ctrlHotel.configTour = true;
             ctrlHotel.hotelIdiomaTo.data = undefined;
+            ctrlHotel.configHotel = true;
             $(".summernote").code('');
             ctrlHotel.findImagesByHotel();
+            console.log("bollean = "+ctrlHotel.configHotel);
         };
 
         ctrlHotel.returnListTour = function(){

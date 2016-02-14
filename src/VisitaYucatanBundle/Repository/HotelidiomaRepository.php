@@ -19,7 +19,7 @@ class HotelidiomaRepository extends \Doctrine\ORM\EntityRepository {
                         FROM VisitaYucatanBundle:Hotelidioma hotelidioma
                         WHERE hotelidioma.estatus = :estatusActivo
                         AND hotelidioma.hotel = :idHotel
-                        AND touridioma.idioma = :idIdioma'
+                        AND hotelidioma.idioma = :idIdioma'
         )->setParameter('estatusActivo', Estatuskeys::ESTATUS_ACTIVO)->setParameter('idHotel', $idHotel)->setParameter('idIdioma', $idIdioma);
 
         return $query->getOneOrNullResult();
@@ -36,7 +36,7 @@ class HotelidiomaRepository extends \Doctrine\ORM\EntityRepository {
             $hotelIdioma->setHotel($em->getReference('VisitaYucatanBundle:Hotel', $hotelIdiomaTO->getIdHotel()));
             $hotelIdioma->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', $hotelIdiomaTO->getIdIdioma()));
         }
-        $hotelIdioma->setNombretour($hotelIdiomaTO->getNombreHotel());
+        $hotelIdioma->setNombrehotel($hotelIdiomaTO->getNombreHotel());
         $hotelIdioma->setDescripcion($hotelIdiomaTO->getDescripcion());
 
         $em->persist($hotelIdioma);

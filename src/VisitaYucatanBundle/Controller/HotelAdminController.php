@@ -212,7 +212,7 @@ class HotelAdminController extends Controller {
      * @Method("POST")
      */
     public function findImagesHotelByIdAction(Request $request) {
-        $idHotel = $request->get('idHote');
+        $idHotel = $request->get('idHotel');
         $images = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelimagen')->findHotelImagesByIdHotel($idHotel);
         return new Response($this->get('serializer')->serialize(HotelUtils::getListImagenTO($images), Generalkeys::JSON_STRING));
     }
