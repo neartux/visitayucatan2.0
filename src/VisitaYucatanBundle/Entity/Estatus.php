@@ -114,6 +114,16 @@ class Estatus
      */
     private $paqueteCombinacionHotel;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Origen", mappedBy="estatus")
+     */
+    private $origen;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TourOrigen", mappedBy="estatus")
+     */
+    private $tourOrigen;
+
 
     /**
      * Constructor
@@ -746,5 +756,73 @@ class Estatus
     public function getPaqueteCombinacionHotel()
     {
         return $this->paqueteCombinacionHotel;
+    }
+
+    /**
+     * Add origen
+     *
+     * @param \VisitaYucatanBundle\Entity\Origen $origen
+     *
+     * @return Estatus
+     */
+    public function addOrigen(\VisitaYucatanBundle\Entity\Origen $origen)
+    {
+        $this->origen[] = $origen;
+
+        return $this;
+    }
+
+    /**
+     * Remove origen
+     *
+     * @param \VisitaYucatanBundle\Entity\Origen $origen
+     */
+    public function removeOrigen(\VisitaYucatanBundle\Entity\Origen $origen)
+    {
+        $this->origen->removeElement($origen);
+    }
+
+    /**
+     * Get origen
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrigen()
+    {
+        return $this->origen;
+    }
+
+    /**
+     * Add tourOrigen
+     *
+     * @param \VisitaYucatanBundle\Entity\TourOrigen $tourOrigen
+     *
+     * @return Estatus
+     */
+    public function addTourOrigen(\VisitaYucatanBundle\Entity\TourOrigen $tourOrigen)
+    {
+        $this->tourOrigen[] = $tourOrigen;
+
+        return $this;
+    }
+
+    /**
+     * Remove tourOrigen
+     *
+     * @param \VisitaYucatanBundle\Entity\TourOrigen $tourOrigen
+     */
+    public function removeTourOrigen(\VisitaYucatanBundle\Entity\TourOrigen $tourOrigen)
+    {
+        $this->tourOrigen->removeElement($tourOrigen);
+    }
+
+    /**
+     * Get tourOrigen
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTourOrigen()
+    {
+        return $this->tourOrigen;
     }
 }

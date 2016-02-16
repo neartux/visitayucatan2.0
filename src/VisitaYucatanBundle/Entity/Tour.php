@@ -88,11 +88,17 @@ class Tour
     private $tourIdioma;
 
     /**
+     * @ORM\OneToMany(targetEntity="TourOrigen", mappedBy="tour")
+     */
+    private $tourOrigen;
+
+    /**
      * Constructor
      */
     public function __construct(){
         $this->tourImagen = new ArrayCollection();
         $this->tourIdioma = new ArrayCollection();
+        $this->tourOrigen = new ArrayCollection();
     }
 
     /**
@@ -371,5 +377,39 @@ class Tour
     public function getTourIdioma()
     {
         return $this->tourIdioma;
+    }
+
+    /**
+     * Add tourOrigen
+     *
+     * @param \VisitaYucatanBundle\Entity\TourOrigen $tourOrigen
+     *
+     * @return Tour
+     */
+    public function addTourOrigen(\VisitaYucatanBundle\Entity\TourOrigen $tourOrigen)
+    {
+        $this->tourOrigen[] = $tourOrigen;
+
+        return $this;
+    }
+
+    /**
+     * Remove tourOrigen
+     *
+     * @param \VisitaYucatanBundle\Entity\TourOrigen $tourOrigen
+     */
+    public function removeTourOrigen(\VisitaYucatanBundle\Entity\TourOrigen $tourOrigen)
+    {
+        $this->tourOrigen->removeElement($tourOrigen);
+    }
+
+    /**
+     * Get tourOrigen
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTourOrigen()
+    {
+        return $this->tourOrigen;
     }
 }
