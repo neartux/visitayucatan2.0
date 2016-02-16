@@ -77,12 +77,18 @@ class Hotel
     private $hotelContacto;
 
     /**
+     * @ORM\OneToMany(targetEntity="PaqueteCombinacionHotel", mappedBy="hotel")
+     */
+    private $paqueteCombinacionHotel;
+
+    /**
      * Constructor
      */
     public function __construct(){
         $this->hotelImagen = new ArrayCollection();
         $this->hotelIdioma = new ArrayCollection();
         $this->hotelContacto = new ArrayCollection();
+        $this->paqueteCombinacionHotel = new ArrayCollection();
     }
 
 
@@ -340,5 +346,39 @@ class Hotel
     public function getHotelContacto()
     {
         return $this->hotelContacto;
+    }
+
+    /**
+     * Add paqueteCombinacionHotel
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteCombinacionHotel $paqueteCombinacionHotel
+     *
+     * @return Hotel
+     */
+    public function addPaqueteCombinacionHotel(\VisitaYucatanBundle\Entity\PaqueteCombinacionHotel $paqueteCombinacionHotel)
+    {
+        $this->paqueteCombinacionHotel[] = $paqueteCombinacionHotel;
+
+        return $this;
+    }
+
+    /**
+     * Remove paqueteCombinacionHotel
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteCombinacionHotel $paqueteCombinacionHotel
+     */
+    public function removePaqueteCombinacionHotel(\VisitaYucatanBundle\Entity\PaqueteCombinacionHotel $paqueteCombinacionHotel)
+    {
+        $this->paqueteCombinacionHotel->removeElement($paqueteCombinacionHotel);
+    }
+
+    /**
+     * Get paqueteCombinacionHotel
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaqueteCombinacionHotel()
+    {
+        return $this->paqueteCombinacionHotel;
     }
 }

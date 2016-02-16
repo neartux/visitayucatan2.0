@@ -44,5 +44,28 @@ class Paginaimagendescripcion {
     {
         return $this->id;
     }
-}
 
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     *
+     * @return Paginaimagendescripcion
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+}

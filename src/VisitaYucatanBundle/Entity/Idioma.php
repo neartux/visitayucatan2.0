@@ -60,12 +60,24 @@ class Idioma
     private $hotelIdioma;
 
     /**
+     * @ORM\OneToMany(targetEntity="PaqueteIdioma", mappedBy="idioma")
+     */
+    private $paqueteIdioma;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PaqueteItinerario", mappedBy="idioma")
+     */
+    private $paqueteItinerario;
+
+    /**
      * Idioma constructor.
      * @param $tourIdioma
      */
     public function __construct() {
         $this->tourIdioma = new ArrayCollection();
         $this->hotelIdioma = new ArrayCollection();
+        $this->paqueteIdioma = new ArrayCollection();
+        $this->paqueteItinerario = new ArrayCollection();
     }
 
 
@@ -241,5 +253,73 @@ class Idioma
     public function getHotelIdioma()
     {
         return $this->hotelIdioma;
+    }
+
+    /**
+     * Add paqueteIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteIdioma $paqueteIdioma
+     *
+     * @return Idioma
+     */
+    public function addPaqueteIdioma(\VisitaYucatanBundle\Entity\PaqueteIdioma $paqueteIdioma)
+    {
+        $this->paqueteIdioma[] = $paqueteIdioma;
+
+        return $this;
+    }
+
+    /**
+     * Remove paqueteIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteIdioma $paqueteIdioma
+     */
+    public function removePaqueteIdioma(\VisitaYucatanBundle\Entity\PaqueteIdioma $paqueteIdioma)
+    {
+        $this->paqueteIdioma->removeElement($paqueteIdioma);
+    }
+
+    /**
+     * Get paqueteIdioma
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaqueteIdioma()
+    {
+        return $this->paqueteIdioma;
+    }
+
+    /**
+     * Add paqueteItinerario
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteItinerario $paqueteItinerario
+     *
+     * @return Idioma
+     */
+    public function addPaqueteItinerario(\VisitaYucatanBundle\Entity\PaqueteItinerario $paqueteItinerario)
+    {
+        $this->paqueteItinerario[] = $paqueteItinerario;
+
+        return $this;
+    }
+
+    /**
+     * Remove paqueteItinerario
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteItinerario $paqueteItinerario
+     */
+    public function removePaqueteItinerario(\VisitaYucatanBundle\Entity\PaqueteItinerario $paqueteItinerario)
+    {
+        $this->paqueteItinerario->removeElement($paqueteItinerario);
+    }
+
+    /**
+     * Get paqueteItinerario
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaqueteItinerario()
+    {
+        return $this->paqueteItinerario;
     }
 }

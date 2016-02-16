@@ -94,6 +94,26 @@ class Estatus
      */
     private $paginaDescripcion;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Paquete", mappedBy="estatus")
+     */
+    private $paquete;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PaqueteIdioma", mappedBy="estatus")
+     */
+    private $paqueteIdioma;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PaqueteItinerario", mappedBy="estatus")
+     */
+    private $paqueteItinerario;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PaqueteCombinacionHotel", mappedBy="estatus")
+     */
+    private $paqueteCombinacionHotel;
+
 
     /**
      * Constructor
@@ -110,6 +130,10 @@ class Estatus
         $this->hotelImagen = new ArrayCollection();
         $this->hotelContacto = new ArrayCollection();
         $this->pagina = new ArrayCollection();
+        $this->paquete = new ArrayCollection();
+        $this->paqueteIdioma = new ArrayCollection();
+        $this->paqueteItinerario = new ArrayCollection();
+        $this->paqueteCombinacionHotel = new ArrayCollection();
     }
 
     /**
@@ -586,5 +610,141 @@ class Estatus
     public function getPaginaDescripcion()
     {
         return $this->paginaDescripcion;
+    }
+
+    /**
+     * Add paquete
+     *
+     * @param \VisitaYucatanBundle\Entity\Paquete $paquete
+     *
+     * @return Estatus
+     */
+    public function addPaquete(\VisitaYucatanBundle\Entity\Paquete $paquete)
+    {
+        $this->paquete[] = $paquete;
+
+        return $this;
+    }
+
+    /**
+     * Remove paquete
+     *
+     * @param \VisitaYucatanBundle\Entity\Paquete $paquete
+     */
+    public function removePaquete(\VisitaYucatanBundle\Entity\Paquete $paquete)
+    {
+        $this->paquete->removeElement($paquete);
+    }
+
+    /**
+     * Get paquete
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaquete()
+    {
+        return $this->paquete;
+    }
+
+    /**
+     * Add paqueteIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteIdioma $paqueteIdioma
+     *
+     * @return Estatus
+     */
+    public function addPaqueteIdioma(\VisitaYucatanBundle\Entity\PaqueteIdioma $paqueteIdioma)
+    {
+        $this->paqueteIdioma[] = $paqueteIdioma;
+
+        return $this;
+    }
+
+    /**
+     * Remove paqueteIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteIdioma $paqueteIdioma
+     */
+    public function removePaqueteIdioma(\VisitaYucatanBundle\Entity\PaqueteIdioma $paqueteIdioma)
+    {
+        $this->paqueteIdioma->removeElement($paqueteIdioma);
+    }
+
+    /**
+     * Get paqueteIdioma
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaqueteIdioma()
+    {
+        return $this->paqueteIdioma;
+    }
+
+    /**
+     * Add paqueteItinerario
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteItinerario $paqueteItinerario
+     *
+     * @return Estatus
+     */
+    public function addPaqueteItinerario(\VisitaYucatanBundle\Entity\PaqueteItinerario $paqueteItinerario)
+    {
+        $this->paqueteItinerario[] = $paqueteItinerario;
+
+        return $this;
+    }
+
+    /**
+     * Remove paqueteItinerario
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteItinerario $paqueteItinerario
+     */
+    public function removePaqueteItinerario(\VisitaYucatanBundle\Entity\PaqueteItinerario $paqueteItinerario)
+    {
+        $this->paqueteItinerario->removeElement($paqueteItinerario);
+    }
+
+    /**
+     * Get paqueteItinerario
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaqueteItinerario()
+    {
+        return $this->paqueteItinerario;
+    }
+
+    /**
+     * Add paqueteCombinacionHotel
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteCombinacionHotel $paqueteCombinacionHotel
+     *
+     * @return Estatus
+     */
+    public function addPaqueteCombinacionHotel(\VisitaYucatanBundle\Entity\PaqueteCombinacionHotel $paqueteCombinacionHotel)
+    {
+        $this->paqueteCombinacionHotel[] = $paqueteCombinacionHotel;
+
+        return $this;
+    }
+
+    /**
+     * Remove paqueteCombinacionHotel
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteCombinacionHotel $paqueteCombinacionHotel
+     */
+    public function removePaqueteCombinacionHotel(\VisitaYucatanBundle\Entity\PaqueteCombinacionHotel $paqueteCombinacionHotel)
+    {
+        $this->paqueteCombinacionHotel->removeElement($paqueteCombinacionHotel);
+    }
+
+    /**
+     * Get paqueteCombinacionHotel
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaqueteCombinacionHotel()
+    {
+        return $this->paqueteCombinacionHotel;
     }
 }
