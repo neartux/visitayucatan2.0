@@ -23,16 +23,16 @@ class TourOrigen {
     /**
      * @var float
      *
-     * @ORM\Column(name="costoAdulto", type="float")
+     * @ORM\Column(name="tarifaadulto", type="float")
      */
-    private $costoAdulto;
+    private $tarifaAdulto;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="costoMenor", type="float")
+     * @ORM\Column(name="tarifamenor", type="float")
      */
-    private $costoMenor;
+    private $tarifaMenor;
 
     /**
      * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="tourOrigen")
@@ -64,52 +64,38 @@ class TourOrigen {
     }
 
     /**
-     * Set costoAdulto
-     *
-     * @param float $costoAdulto
-     *
-     * @return TourOrigen
-     */
-    public function setCostoAdulto($costoAdulto)
-    {
-        $this->costoAdulto = $costoAdulto;
-
-        return $this;
-    }
-
-    /**
-     * Get costoAdulto
-     *
      * @return float
      */
-    public function getCostoAdulto()
+    public function getTarifaAdulto()
     {
-        return $this->costoAdulto;
+        return $this->tarifaAdulto;
     }
 
     /**
-     * Set costoMenor
-     *
-     * @param float $costoMenor
-     *
-     * @return TourOrigen
+     * @param float $tarifaAdulto
      */
-    public function setCostoMenor($costoMenor)
+    public function setTarifaAdulto($tarifaAdulto)
     {
-        $this->costoMenor = $costoMenor;
-
-        return $this;
+        $this->tarifaAdulto = $tarifaAdulto;
     }
 
     /**
-     * Get costoMenor
-     *
      * @return float
      */
-    public function getCostoMenor()
+    public function getTarifaMenor()
     {
-        return $this->costoMenor;
+        return $this->tarifaMenor;
     }
+
+    /**
+     * @param float $tarifaMenor
+     */
+    public function setTarifaMenor($tarifaMenor)
+    {
+        $this->tarifaMenor = $tarifaMenor;
+    }
+
+
 
     /**
      * Set estatus

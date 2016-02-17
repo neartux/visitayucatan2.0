@@ -45,12 +45,11 @@
                                             <table class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                 <thead class="text-uppercase">
                                                 <tr>
-                                                    <th width="3%">{% trans %}tour.report.label.num{% endtrans %}</th>
+                                                    <th width="3%">#</th>
                                                     <th>{% trans %}tour.report.label.description{% endtrans %}</th>
                                                     <th width="10%">{% trans %}tour.report.label.adult.rate{% endtrans %}</th>
                                                     <th width="10%">{% trans %}tour.report.label.lower.rate{% endtrans %}</th>
                                                     <th width="5%">{% trans %}tour.report.label.minimum.people{% endtrans %}</th>
-                                                    <th width="5%">{% trans %}tour.report.label.sold{% endtrans %}</th>
                                                     <th>{% trans %}tour.report.label.circuit{% endtrans %}</th>
                                                     <th width="12%">{% trans %}general.message.panel{% endtrans %}</th>
                                                     <!--Columna para promover o remover promover, (0) es no promovido, (1) es promovido-->
@@ -59,12 +58,11 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr class="odd gradeX" data-ng-repeat="tour in ctrlTour.listTour.data">
-                                                    <td>[[ tour.id ]]</td>
+                                                    <td>[[ $index + 1 ]]</td>
                                                     <td>[[ tour.descripcion ]]</td>
                                                     <td>[[ tour.tarifaadulto | currency ]]</td>
                                                     <td>[[ tour.tarifamenor | currency ]]</td>
                                                     <td>[[ tour.minimopersonas ]]</td>
-                                                    <td>[[ tour.vendido ]]</td>
                                                     <td>[[ tour.circuito ]]</td>
                                                     <td>
                                                         <a class="btn btn-success-alt" data-ng-click="ctrlTour.displayEditTour(tour)" href="javascript:;"><i class="fa fa-pencil"></i></a>

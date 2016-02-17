@@ -28,5 +28,7 @@ class Generalkeys{
     const PART_NAME_TOUR = "tour-";
     const PART_NAME_FOLIO = "-folio-";
     const PART_NAME_HOTEL = "hotel-";
+    const IDIOMA_ESPANOL = 1;
+    const ORIGEN_MERIDA = 1;
 
 }

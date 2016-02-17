@@ -11,8 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="tour")
  * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\TourRepository")
  */
-class Tour
-{
+class Tour {
     /**
      * @var int
      *
@@ -30,39 +29,11 @@ class Tour
     private $descripcion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="circuito", type="text", nullable=true)
-     */
-    private $circuito;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="tarifaadulto", type="float")
-     */
-    private $tarifaadulto;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="tarifamenor", type="float")
-     */
-    private $tarifamenor;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="minimopersonas", type="integer")
      */
     private $minimopersonas;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="vendido", type="integer", nullable=true)
-     */
-    private $vendido;
 
     /**
      * @var bool
@@ -101,18 +72,11 @@ class Tour
         $this->tourOrigen = new ArrayCollection();
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -144,78 +108,6 @@ class Tour
     }
 
     /**
-     * Set circuito
-     *
-     * @param string $circuito
-     *
-     * @return Tour
-     */
-    public function setCircuito($circuito)
-    {
-        $this->circuito = $circuito;
-
-        return $this;
-    }
-
-    /**
-     * Get circuito
-     *
-     * @return string
-     */
-    public function getCircuito()
-    {
-        return $this->circuito;
-    }
-
-    /**
-     * Set tarifaadulto
-     *
-     * @param float $tarifaadulto
-     *
-     * @return Tour
-     */
-    public function setTarifaadulto($tarifaadulto)
-    {
-        $this->tarifaadulto = $tarifaadulto;
-
-        return $this;
-    }
-
-    /**
-     * Get tarifaadulto
-     *
-     * @return float
-     */
-    public function getTarifaadulto()
-    {
-        return $this->tarifaadulto;
-    }
-
-    /**
-     * Set tarifamenor
-     *
-     * @param float $tarifamenor
-     *
-     * @return Tour
-     */
-    public function setTarifamenor($tarifamenor)
-    {
-        $this->tarifamenor = $tarifamenor;
-
-        return $this;
-    }
-
-    /**
-     * Get tarifamenor
-     *
-     * @return float
-     */
-    public function getTarifamenor()
-    {
-        return $this->tarifamenor;
-    }
-
-    /**
      * Set minimopersonas
      *
      * @param integer $minimopersonas
@@ -232,35 +124,11 @@ class Tour
     /**
      * Get minimopersonas
      *
-     * @return int
+     * @return integer
      */
     public function getMinimopersonas()
     {
         return $this->minimopersonas;
-    }
-
-    /**
-     * Set vendido
-     *
-     * @param integer $vendido
-     *
-     * @return Tour
-     */
-    public function setVendido($vendido)
-    {
-        $this->vendido = $vendido;
-
-        return $this;
-    }
-
-    /**
-     * Get vendido
-     *
-     * @return int
-     */
-    public function getVendido()
-    {
-        return $this->vendido;
     }
 
     /**
@@ -280,7 +148,7 @@ class Tour
     /**
      * Get promovido
      *
-     * @return bool
+     * @return boolean
      */
     public function getPromovido()
     {

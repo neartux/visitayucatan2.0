@@ -44,8 +44,8 @@ class TourAdminController extends Controller {
         $serializer = $this->get('serializer');
         try {
             $tourJson = $request->get('tour');
-            $tour = $serializer->deserialize($tourJson, 'VisitaYucatanBundle\Entity\Tour', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->createTour($tour);
+            $tourTO = $serializer->deserialize($tourJson, 'VisitaYucatanBundle\utils\to\TourTO', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->createTour($tourTO);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.created"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
@@ -66,8 +66,8 @@ class TourAdminController extends Controller {
         $serializer = $this->get('serializer');
         try {
             $tourJson = $request->get('tour');
-            $tour = $serializer->deserialize($tourJson, 'VisitaYucatanBundle\Entity\Tour', Generalkeys::JSON_STRING);
-            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->updateTour($tour);
+            $tourTO = $serializer->deserialize($tourJson, 'VisitaYucatanBundle\utils\to\TourTO', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->updateTour($tourTO);
 
             $translator = $this->get('translator');
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.updated"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);

@@ -3,6 +3,9 @@
 namespace VisitaYucatanBundle\Repository;
 
 use Doctrine\ORM\EntityNotFoundException;
+use VisitaYucatanBundle\Entity\Tour;
+use VisitaYucatanBundle\Entity\Touridioma;
+use VisitaYucatanBundle\Entity\TourOrigen;
 use VisitaYucatanBundle\utils\Estatuskeys;
 use VisitaYucatanBundle\utils\Generalkeys;
 
@@ -17,39 +20,73 @@ class TourRepository extends \Doctrine\ORM\EntityRepository
 
     public function findAllTours() {
         $em = $this->getEntityManager();
-        $sql = "SELECT *
+        $sql = "SELECT tour.id, tour.descripcion, tour.minimopersonas, tour.promovido,
+                tour_idioma.circuito,tour_origen.id AS idtourorigen,tour_origen.tarifaadulto,tour_origen.tarifamenor
                 FROM tour
-                WHERE tour.id_estatus = :estatus";
-        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+                INNER JOIN tour_idioma ON tour.id = tour_idioma.id_tour AND tour_idioma.id_idioma = :idiomaEspanol AND tour_idioma.id_estatus = :estatusActivo
+                INNER JOIN tour_origen ON tour.id = tour_origen.id_tour AND tour_origen.id_origen = :origenMerida AND tour_origen.id_estatus = :estatusActivo
+                WHERE tour.id_estatus = :estatusActivo
+                ORDER BY tour.id DESC";
+        $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+        $params['idiomaEspanol'] = Generalkeys::IDIOMA_ESPANOL;
+        $params['origenMerida'] = Generalkeys::ORIGEN_MERIDA;
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();
     }
 
-    public function createTour($tour) {
+    public function createTour($tourTO) {
         $em = $this->getEntityManager();
-        $tour->setPromovido(Generalkeys::BOOLEAN_FALSE);
-        $tour->setVendido(Generalkeys::NUMBER_ZERO);
-        $tour->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
 
+        // Crea el tour
+        $tour = new Tour();
+        $tour->setPromovido(Generalkeys::BOOLEAN_FALSE);
+        $tour->setMinimopersonas($tourTO->getMinimopersonas());
+        $tour->setDescripcion($tourTO->getDescripcion());
+        $tour->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
         $em->persist($tour);
+
+        // Crea un registro de idioma tour con el idioma español
+        $tourIdioma = new Touridioma();
+        $tourIdioma->setNombretour($tourTO->getDescripcion());
+        $tourIdioma->setCircuito($tourTO->getCircuito());
+        $tourIdioma->setTour($tour);
+        $tourIdioma->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', Generalkeys::IDIOMA_ESPANOL));
+        $tourIdioma->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+        $tourIdioma->setSoloadultos(Generalkeys::BOOLEAN_FALSE);
+        $em->persist($tourIdioma);
+
+        // Crea un origen de tour , con el origen merida
+        $tourOrigen = new TourOrigen();
+        $tourOrigen->setTarifaAdulto($tourTO->getTarifaadulto());
+        $tourOrigen->setTarifaMenor($tourTO->getTarifamenor());
+        $tourOrigen->setTour($tour);
+        $tourOrigen->setOrigen($em->getReference('VisitaYucatanBundle:Origen', Generalkeys::ORIGEN_MERIDA));
+        $tourOrigen->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+        $em->persist($tourOrigen);
+
         $em->flush();
     }
 
-    public function updateTour($tour) {
+    public function updateTour($tourTO) {
         $em = $this->getEntityManager();
-        $tourUpdate = $em->getRepository('VisitaYucatanBundle:Tour')->find($tour->getId());
+        $tourUpdate = $this->find($tourTO->getId());
         if (!$tourUpdate) {
-            throw new EntityNotFoundException('El tour con id ' . $tour->getId() . " no se encontro");
+            throw new EntityNotFoundException('El tour con id ' . $tourTO->getId() . " no se encontro");
         }
         // Actualiza la informacion del tour
-        $tourUpdate->setDescripcion($tour->getDescripcion());
-        $tourUpdate->setCircuito($tour->getCircuito());
-        $tourUpdate->setTarifaadulto($tour->getTarifaadulto());
-        $tourUpdate->setTarifamenor($tour->getTarifamenor());
-        $tourUpdate->setMinimopersonas($tour->getMinimopersonas());
-
+        $tourUpdate->setDescripcion($tourTO->getDescripcion());
+        $tourUpdate->setMinimopersonas($tourTO->getMinimopersonas());
         $em->persist($tourUpdate);
+
+        // Actualiza la informacion de tarigas para el origen seleccionado
+        $tourOrigen = $em->getRepository('VisitaYucatanBundle:TourOrigen')->find($tourTO->getIdtourorigen());
+        if (!$tourOrigen) {
+            throw new EntityNotFoundException('El tour origen ' . $tourTO->getIdtourorigen() . " no se encontro");
+        }
+        $tourOrigen->setTarifaAdulto($tourTO->getTarifaadulto());
+        $tourOrigen->setTarifaMenor($tourTO->getTarifamenor());
+
         $em->flush();
     }
 
@@ -57,7 +94,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository
         $em = $this->getEntityManager();
         $tour = $em->getRepository('VisitaYucatanBundle:Tour')->find($idTour);
         if (!$tour) {
-            throw new EntityNotFoundException('La moneda con id ' . $idTour . " no se encontro");
+            throw new EntityNotFoundException('El tour con id ' . $idTour . " no se encontro");
         }
         $tour->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
         $em->persist($tour);
