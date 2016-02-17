@@ -11,7 +11,7 @@ parameters:
 
 framework:
     #esi:             ~
-    translator:      { fallbacks: en } #fallbacks define el defecto si configuracion de idioma no disponible (en)
+    translator:      { fallbacks: "%locale%" } #fallbacks define el defecto si configuracion de idioma no disponible (en)
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"

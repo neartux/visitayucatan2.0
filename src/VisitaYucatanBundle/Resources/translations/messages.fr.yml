@@ -1,0 +1,110 @@
+# MESSAGES PROPERTIES TO LENGUAJE IN FRENCH
+
+#*** Properties to title web admin
+website.admin.general.label.title : Visite du Yucatan
+
+#** Properties generals
+general.message.loading : Traitement
+general.message.panel : Panneau
+
+#** Properties to buttons
+button.label.save : Garder
+button.label.delete : Éliminer
+button.label.search : Recherche
+button.label.cancel : Annuler
+button.label.close : Fermer
+button.label.go.back : Retourner
+button.label.edit : Éditer
+button.label.login : Commencer la session
+button.label.upload : Télécharger
+
+#** Properties to menu sidebar
+menu.sidebar.label.title.catalogs : Catalogues
+menu.sidebar.label.title.catalogs.users : Utilisateurs
+menu.sidebar.label.title.catalogs.currency : Pièces
+menu.sidebar.label.title.catalogs.languages : Langues
+
+#** Properties to catalog currency
+catalog.currency.report.label.title : Monnaie
+catalog.currency.report.label.new : Nouvelle Monnaie
+catalog.currency.report.label.id : Id
+catalog.currency.report.label.description : Description
+catalog.currency.report.label.symbol : Symbole
+catalog.currency.report.label.change.type : Taux de change
+catalog.currency.report.message.error.description : Le description est nécessaire
+catalog.currency.report.message.error.symbol : Symbole est nécessaire
+catalog.currency.report.message.error.length.symbol : Le maximum est de 10 caractères
+catalog.currency.report.message.error.change.type : Le taux de change est nécessaire
+catalog.currency.report.message.new.currency : Nouvelle Monnaie
+catalog.currency.report.message.edit.currency : Monnaie de Modifier
+catalog.currency.report.message.success.create : Monnaie Créée
+catalog.currency.report.message.success.update : Monnaie édité
+catalog.currency.report.message.error : Une erreur est survenue, ne pouvait pas effectuer l'actionon
+catalog.currency.report.message.delete : Monnaie Retirée
+catalog.currency.report.message.confirm.delete : Etes-vous sûr de retirer la pièce de monnaie?
+
+#** Properties to login
+login.validate.message.user.not.exist : N'existe pas l'utilisateur dans le système
+login.validate.message.pass.not.coincidence : Le mot de passe ne correspond pas à l'utilisateur
+login.validate.message.user.and.pass.isrequired : Nom d'utilisateur et mot de passe sont nécessaires
+login.validate.message.user.isrequired : L'utilisateur doit
+login.validate.message.pass.isrequired : Le mot de passe est nécessaire
+
+#** Properties to catalog users
+catalog.user.report.label.title : Utilisateurs
+catalog.user.report.label.new : Nouvelle Utilisateur
+catalog.user.report.label.username : Utilisateur
+catalog.user.report.label.password : Mot de passe
+catalog.user.report.label.names : Noms
+catalog.user.report.label.last.names : Noms
+catalog.user.report.label.address : Adresse
+catalog.user.report.label.phone : Téléphone
+catalog.user.report.label.movil : Cellulaire
+catalog.user.report.label.email : E Electr.
+catalog.user.report.message.error.username : L'utilisateur doit
+catalog.user.report.message.error.names : Le nom est requis
+catalog.user.report.message.error.last.names : Les noms de famille sont tenus
+catalog.user.report.message.error.password : Le mot de passe est nécessaire
+catalog.user.report.message.edit.user : Modifier l'utilisateur
+catalog.user.report.message.success.create : Utilisateur créé
+catalog.user.report.message.success.update : Utilisateur mise à jour
+catalog.user.report.message.error : Une erreur est survenue, ne pouvait pas rendre le processus
+catalog.user.report.message.delete : Utilisateur supprimé
+catalog.user.report.message.confirm.delete : Êtes-vous sûr de vouloir supprimer l'utilisateur?
+
+#** Properties to Tours
+tour.report.label.title : Tours
+tour.report.label.new : Nouvelle tournée
+tour.report.label.edit : Modifier Visite
+tour.report.label.message.confirm.delete : Êtes-vous sûr de vouloir supprimer la tournée?
+tour.report.label.message.confirm.delete.image : Êtes-vous sûr de vouloir supprimer l'image?
+tour.report.label.num : Id
+tour.report.label.description : Description
+tour.report.label.adult.rate : Tarif adulte
+tour.report.label.adult.rate.required : Taxe adulte est requise
+tour.report.label.lower.rate : Faible taux
+tour.report.label.lower.rate.required : Prix est nécessair
+tour.report.label.minimum.people : Minimum de personnes
+tour.report.label.minimum.people.required : Nombre de personnes requis
+tour.report.label.sold : Meilleures ventes
+tour.report.label.circuit : Circuit
+tour.report.label.circuit.required : Le circuit est nécessaire
+tour.report.label.tour.created : Visite Créé
+tour.report.label.tour.updated : Tour de mise à jour
+tour.report.label.tour.deleted : Visite Eliminé
+tour.report.label.tour.promoved : Il a favorisé la tournée
+tour.report.label.tour.removed.promoved : La visite est plus favorisée
+tour.report.label.upload.image.select.files : Sélectionnez les fichiers
+tour.report.label.upload.image.drag.image : Faites glisser les photos
+tour.report.label.upload.image.select.file : Sélectionner une image
+tour.report.label.upload.image.change.file : Changer
+tour.report.label.upload.image.image.list : Liste des images
+tour.report.label.upload.image.name : Nom
+tour.report.label.upload.image.size : Taille
+tour.report.label.upload.image.progress : Progrès
+tour.report.label.upload.image.status : Statut
+tour.report.label.upload.image.actions : Actes
+tour.report.label.upload.image.upload.all : Publier All
+tour.report.label.upload.image.cancel.all : Annuler tout
+tour.report.label.upload.image.delete.all : Retirez toutes les
+tour.report.label.upload.image.loading.progress : Progrès Cargo
