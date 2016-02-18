@@ -70,14 +70,14 @@ catalog.user.report.message.success.create : Creati dagli utenti
 catalog.user.report.message.success.update : Utente aggiornata
 catalog.user.report.message.error : Si è verificato un errore, non poteva rendere il processo
 catalog.user.report.message.delete : Utente eliminato
-catalog.user.report.message.confirm.delete : Sei sicuro di voler eliminare l'utente?
+catalog.user.report.message.confirm.delete : Sei sicuro di voler eliminare l utente?
 
 #** Properties to Tours
 tour.report.label.title : Tours
 tour.report.label.new : Nuovo Tour
 tour.report.label.edit : Modifica Tour
 tour.report.label.message.confirm.delete : Sei sicuro di voler eliminare il tour?
-tour.report.label.message.confirm.delete.image : Sei sicuro di voler eliminare l'immagine?
+tour.report.label.message.confirm.delete.image : Sei sicuro di voler eliminare l immagine?
 tour.report.label.num : Id
 tour.report.label.description : Descrizioneq
 tour.report.label.adult.rate : Tariffa adulti

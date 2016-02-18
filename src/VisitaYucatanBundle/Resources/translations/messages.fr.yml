@@ -65,19 +65,19 @@ catalog.user.report.message.error.username : L'utilisateur doit
 catalog.user.report.message.error.names : Le nom est requis
 catalog.user.report.message.error.last.names : Les noms de famille sont tenus
 catalog.user.report.message.error.password : Le mot de passe est nécessaire
-catalog.user.report.message.edit.user : Modifier l'utilisateur
+catalog.user.report.message.edit.user : Modifier l utilisateur
 catalog.user.report.message.success.create : Utilisateur créé
 catalog.user.report.message.success.update : Utilisateur mise à jour
 catalog.user.report.message.error : Une erreur est survenue, ne pouvait pas rendre le processus
 catalog.user.report.message.delete : Utilisateur supprimé
-catalog.user.report.message.confirm.delete : Êtes-vous sûr de vouloir supprimer l'utilisateur?
+catalog.user.report.message.confirm.delete : Êtes-vous sûr de vouloir supprimer l utilisateur?
 
 #** Properties to Tours
 tour.report.label.title : Tours
-tour.report.label.new : Nouvelle tournée
+tour.report.label.new : Nouvelle tournee
 tour.report.label.edit : Modifier Visite
-tour.report.label.message.confirm.delete : Êtes-vous sûr de vouloir supprimer la tournée?
-tour.report.label.message.confirm.delete.image : Êtes-vous sûr de vouloir supprimer l'image?
+tour.report.label.message.confirm.delete : Etes-vous sûr de vouloir supprimer la tournee?
+tour.report.label.message.confirm.delete.image : Etes-vous sur de vouloir supprimer l image?
 tour.report.label.num : Id
 tour.report.label.description : Description
 tour.report.label.adult.rate : Tarif adulte

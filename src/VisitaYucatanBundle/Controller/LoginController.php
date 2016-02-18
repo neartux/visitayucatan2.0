@@ -56,6 +56,8 @@ class LoginController extends Controller {
                 $session->set("user", $usuario->getUsername());
                 $session->set("nombre", $usuario->getDatosPersonales()->getNombres() . " " . $usuario->getDatosPersonales()->getApellidos());
                 $response->setStatus(Generalkeys::RESPONSE_TRUE);
+                // TODO coloca durante toda la sesion el idioma
+                $session->set('_locale', 'es');
             }
 
             $response->setMessage($translator->trans('login.validate.message.pass.not.coincidence'));
