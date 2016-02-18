@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - visitayucatandb@localhost" uuid="019a5f7e-485b-4fb4-b578-5f7e13774eef">
+    <database-info product="MySQL" version="5.6.26" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="visitayucatandb"/>
+    <table name="datos_personales" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nombres" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="apellidos" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_65209B4EBF6F2BE4" table="hotel_contacto" schema="" catalog="visitayucatandb" columns="id_datospersonales"/>
+      <exported-key name="FK_2265B05DBF6F2BE4" table="usuario" schema="" catalog="visitayucatandb" columns="id_datospersonales"/>
+    </table>
+    <table name="datos_ubicacion" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="direccion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="codigopostal" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="telefono" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="celular" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_3535ED969CBB9D0" table="hotel" schema="" catalog="visitayucatandb" columns="id_datosubicacion"/>
+      <exported-key name="FK_65209B4E69CBB9D0" table="hotel_contacto" schema="" catalog="visitayucatandb" columns="id_datosubicacion"/>
+      <exported-key name="FK_2265B05D69CBB9D0" table="usuario" schema="" catalog="visitayucatandb" columns="id_datosubicacion"/>
+    </table>
+    <table name="destino" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_81F64EFA50BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_3535ED95F6BE78A" table="hotel" schema="" catalog="visitayucatandb" columns="id_destino"/>
+      <index name="IDX_81F64EFA50BDD1F3" unique="false" columns="id_estatus"/>
+    </table>
+    <table name="estatus" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_81F64EFA50BDD1F3" table="destino" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_3535ED950BDD1F3" table="hotel" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_65209B4E50BDD1F3" table="hotel_contacto" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_81228C6B50BDD1F3" table="hotel_idioma" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_1FF300D450BDD1F3" table="hotel_imagen" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_1DC85E0C50BDD1F3" table="idioma" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_B00B2B2D50BDD1F3" table="moneda" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_7244191250BDD1F3" table="origen" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_3E8EDA6D50BDD1F3" table="pagina" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_BBA562D550BDD1F3" table="pagina_descripcion" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_3DCCA63D50BDD1F3" table="pagina_imagen" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_12686A9550BDD1F3" table="paquete" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_3BF48AA350BDD1F3" table="paquete_combinacion_hotel" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_A3366FB050BDD1F3" table="paquete_idioma" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_3DE7E30F50BDD1F3" table="paquete_imagen" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_C507D83950BDD1F3" table="paquete_itinerario" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_6AD1F96950BDD1F3" table="tour" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_2846B9E650BDD1F3" table="tour_idioma" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_B697355950BDD1F3" table="tour_imagen" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_47CAFEF850BDD1F3" table="tour_origen" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+      <exported-key name="FK_2265B05D50BDD1F3" table="usuario" schema="" catalog="visitayucatandb" columns="id_estatus"/>
+    </table>
+    <table name="hotel" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_datosubicacion" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_destino" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="estrellas" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="promovido" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_3535ED950BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_3535ED95F6BE78A" columns="id_destino" ref-table="destino" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_3535ED969CBB9D0" columns="id_datosubicacion" ref-table="datos_ubicacion" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_65209B4EEDD61FE9" table="hotel_contacto" schema="" catalog="visitayucatandb" columns="id_hotel"/>
+      <exported-key name="FK_81228C6BEDD61FE9" table="hotel_idioma" schema="" catalog="visitayucatandb" columns="id_hotel"/>
+      <exported-key name="FK_1FF300D4EDD61FE9" table="hotel_imagen" schema="" catalog="visitayucatandb" columns="id_hotel"/>
+      <exported-key name="FK_3BF48AA3EDD61FE9" table="paquete_combinacion_hotel" schema="" catalog="visitayucatandb" columns="id_hotel"/>
+      <index name="UNIQ_3535ED969CBB9D0" unique="true" columns="id_datosubicacion"/>
+      <index name="IDX_3535ED950BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_3535ED95F6BE78A" unique="false" columns="id_destino"/>
+    </table>
+    <table name="hotel_contacto" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_datospersonales" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_datosubicacion" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_hotel" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_65209B4E50BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_65209B4E69CBB9D0" columns="id_datosubicacion" ref-table="datos_ubicacion" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_65209B4EBF6F2BE4" columns="id_datospersonales" ref-table="datos_personales" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_65209B4EEDD61FE9" columns="id_hotel" ref-table="hotel" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="UNIQ_65209B4E69CBB9D0" unique="true" columns="id_datosubicacion"/>
+      <index name="UNIQ_65209B4EBF6F2BE4" unique="true" columns="id_datospersonales"/>
+      <index name="IDX_65209B4E50BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_65209B4EEDD61FE9" unique="false" columns="id_hotel"/>
+    </table>
+    <table name="hotel_idioma" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_hotel" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_idioma" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nombrehotel" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="descripcion" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_81228C6B3BFFEBE1" columns="id_idioma" ref-table="idioma" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_81228C6B50BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_81228C6BEDD61FE9" columns="id_hotel" ref-table="hotel" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_81228C6B3BFFEBE1" unique="false" columns="id_idioma"/>
+      <index name="IDX_81228C6B50BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_81228C6BEDD61FE9" unique="false" columns="id_hotel"/>
+    </table>
+    <table name="hotel_imagen" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_hotel" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nombreoriginal" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="path" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tipoarchivo" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="folio" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fechacreacion" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="principal" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_1FF300D450BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_1FF300D4EDD61FE9" columns="id_hotel" ref-table="hotel" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_1FF300D450BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_1FF300D4EDD61FE9" unique="false" columns="id_hotel"/>
+    </table>
+    <table name="idioma" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="abreviatura" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="imagen" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_1DC85E0C50BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_81228C6B3BFFEBE1" table="hotel_idioma" schema="" catalog="visitayucatandb" columns="id_idioma"/>
+      <exported-key name="FK_A3366FB03BFFEBE1" table="paquete_idioma" schema="" catalog="visitayucatandb" columns="id_idioma"/>
+      <exported-key name="FK_C507D8393BFFEBE1" table="paquete_itinerario" schema="" catalog="visitayucatandb" columns="id_idioma"/>
+      <exported-key name="FK_2846B9E63BFFEBE1" table="tour_idioma" schema="" catalog="visitayucatandb" columns="id_idioma"/>
+      <index name="IDX_1DC85E0C50BDD1F3" unique="false" columns="id_estatus"/>
+    </table>
+    <table name="moneda" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="simbolo" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tipo_cambio" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_B00B2B2D50BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_B00B2B2D50BDD1F3" unique="false" columns="id_estatus"/>
+    </table>
+    <table name="origen" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_7244191250BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_47CAFEF85473ACFF" table="tour_origen" schema="" catalog="visitayucatandb" columns="id_origen"/>
+      <index name="IDX_7244191250BDD1F3" unique="false" columns="id_estatus"/>
+    </table>
+    <table name="pagina" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_3E8EDA6D50BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_3E8EDA6D50BDD1F3" unique="false" columns="id_estatus"/>
+    </table>
+    <table name="pagina_descripcion" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion_corta" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="descripcion" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_BBA562D550BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_BBA562D550BDD1F3" unique="false" columns="id_estatus"/>
+    </table>
+    <table name="pagina_imagen" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nombre_original" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="path" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tipo_archivo" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="folio" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fecha_creacion" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_3DCCA63D50BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_3DCCA63D50BDD1F3" unique="false" columns="id_estatus"/>
+    </table>
+    <table name="pagina_imagen_descripcion" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="descripcion" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="paquete" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="circuito" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="promovido" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_12686A9550BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_3BF48AA3CCF5C3E5" table="paquete_combinacion_hotel" schema="" catalog="visitayucatandb" columns="id_paquete"/>
+      <exported-key name="FK_A3366FB0CCF5C3E5" table="paquete_idioma" schema="" catalog="visitayucatandb" columns="id_paquete"/>
+      <exported-key name="FK_3DE7E30FCCF5C3E5" table="paquete_imagen" schema="" catalog="visitayucatandb" columns="id_paquete"/>
+      <exported-key name="FK_C507D839CCF5C3E5" table="paquete_itinerario" schema="" catalog="visitayucatandb" columns="id_paquete"/>
+      <index name="IDX_12686A9550BDD1F3" unique="false" columns="id_estatus"/>
+    </table>
+    <table name="paquete_combinacion_hotel" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_paquete" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_hotel" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="noches" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="dias" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="costosencillo" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="costodoble" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="costotriple" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="costocuadruple" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="costomenor" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_3BF48AA350BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_3BF48AA3CCF5C3E5" columns="id_paquete" ref-table="paquete" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_3BF48AA3EDD61FE9" columns="id_hotel" ref-table="hotel" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_3BF48AA350BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_3BF48AA3CCF5C3E5" unique="false" columns="id_paquete"/>
+      <index name="IDX_3BF48AA3EDD61FE9" unique="false" columns="id_hotel"/>
+    </table>
+    <table name="paquete_idioma" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_paquete" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_idioma" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="descripcioncorta" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="descripcionlarga" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="incluye" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_A3366FB03BFFEBE1" columns="id_idioma" ref-table="idioma" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_A3366FB050BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_A3366FB0CCF5C3E5" columns="id_paquete" ref-table="paquete" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_A3366FB03BFFEBE1" unique="false" columns="id_idioma"/>
+      <index name="IDX_A3366FB050BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_A3366FB0CCF5C3E5" unique="false" columns="id_paquete"/>
+    </table>
+    <table name="paquete_imagen" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_paquete" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nombreoriginal" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="path" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tipoarchivo" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="folio" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fechacreacion" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="principal" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_3DE7E30F50BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_3DE7E30FCCF5C3E5" columns="id_paquete" ref-table="paquete" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_3DE7E30F50BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_3DE7E30FCCF5C3E5" unique="false" columns="id_paquete"/>
+    </table>
+    <table name="paquete_itinerario" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_paquete" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_idioma" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="itinerario" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="dias" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_C507D8393BFFEBE1" columns="id_idioma" ref-table="idioma" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_C507D83950BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_C507D839CCF5C3E5" columns="id_paquete" ref-table="paquete" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_C507D8393BFFEBE1" unique="false" columns="id_idioma"/>
+      <index name="IDX_C507D83950BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_C507D839CCF5C3E5" unique="false" columns="id_paquete"/>
+    </table>
+    <table name="tour" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="minimopersonas" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="promovido" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_6AD1F96950BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_2846B9E6E1F1E56B" table="tour_idioma" schema="" catalog="visitayucatandb" columns="id_tour"/>
+      <exported-key name="FK_B6973559E1F1E56B" table="tour_imagen" schema="" catalog="visitayucatandb" columns="id_tour"/>
+      <exported-key name="FK_47CAFEF8E1F1E56B" table="tour_origen" schema="" catalog="visitayucatandb" columns="id_tour"/>
+      <index name="IDX_6AD1F96950BDD1F3" unique="false" columns="id_estatus"/>
+    </table>
+    <table name="tour_idioma" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_tour" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_idioma" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nombretour" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="circuito" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="soloadultos" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="descripcion" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_2846B9E63BFFEBE1" columns="id_idioma" ref-table="idioma" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_2846B9E650BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_2846B9E6E1F1E56B" columns="id_tour" ref-table="tour" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_2846B9E63BFFEBE1" unique="false" columns="id_idioma"/>
+      <index name="IDX_2846B9E650BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_2846B9E6E1F1E56B" unique="false" columns="id_tour"/>
+    </table>
+    <table name="tour_imagen" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_tour" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nombreoriginal" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="path" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tipoarchivo" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="folio" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fechacreacion" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="principal" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_B697355950BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_B6973559E1F1E56B" columns="id_tour" ref-table="tour" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_B697355950BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_B6973559E1F1E56B" unique="false" columns="id_tour"/>
+    </table>
+    <table name="tour_origen" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_tour" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_origen" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="tarifaadulto" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="tarifamenor" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_47CAFEF850BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_47CAFEF85473ACFF" columns="id_origen" ref-table="origen" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_47CAFEF8E1F1E56B" columns="id_tour" ref-table="tour" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_47CAFEF850BDD1F3" unique="false" columns="id_estatus"/>
+      <index name="IDX_47CAFEF85473ACFF" unique="false" columns="id_origen"/>
+      <index name="IDX_47CAFEF8E1F1E56B" unique="false" columns="id_tour"/>
+    </table>
+    <table name="usuario" schema="" catalog="visitayucatandb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_estatus" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_datospersonales" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_datosubicacion" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="comentarios" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_2265B05D50BDD1F3" columns="id_estatus" ref-table="estatus" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_2265B05D69CBB9D0" columns="id_datosubicacion" ref-table="datos_ubicacion" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_2265B05DBF6F2BE4" columns="id_datospersonales" ref-table="datos_personales" ref-schema="" ref-catalog="visitayucatandb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="UNIQ_2265B05D69CBB9D0" unique="true" columns="id_datosubicacion"/>
+      <index name="UNIQ_2265B05DBF6F2BE4" unique="true" columns="id_datospersonales"/>
+      <index name="IDX_2265B05D50BDD1F3" unique="false" columns="id_estatus"/>
+    </table>
+  </data-source>
+</component>
