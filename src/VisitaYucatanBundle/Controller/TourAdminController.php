@@ -24,6 +24,7 @@ class TourAdminController extends Controller {
         if (!$request->getSession()->get(Generalkeys::LABEL_STATUS)) {
             return $this->redirectToRoute('admin_login');
         }
+        //echo "sadfsdf = ".$request->getSession()->get('_locale');exit;
         return $this->render('VisitaYucatanBundle:admin/tours:Tours.html.twig');
     }
 

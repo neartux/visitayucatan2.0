@@ -17,7 +17,10 @@ class TourTO {
     private $minimopersonas;
     private $vendido;
     private $promovido;
-
+    private $nombreTour;
+    private $descripcionTour;
+    private $principalImage;
+    private $simboloMoneda;
     /**
      * @return mixed
      */
@@ -160,6 +163,70 @@ class TourTO {
     public function setIdtourorigen($idtourorigen)
     {
         $this->idtourorigen = $idtourorigen;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNombreTour()
+    {
+        return $this->nombreTour;
+    }
+
+    /**
+     * @param mixed $nombreTour
+     */
+    public function setNombreTour($nombreTour)
+    {
+        $this->nombreTour = $nombreTour;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescripcionTour()
+    {
+        return $this->descripcionTour;
+    }
+
+    /**
+     * @param mixed $descripcionTour
+     */
+    public function setDescripcionTour($descripcionTour)
+    {
+        $this->descripcionTour = $descripcionTour;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrincipalImage()
+    {
+        return $this->principalImage;
+    }
+
+    /**
+     * @param mixed $principalImage
+     */
+    public function setPrincipalImage($principalImage)
+    {
+        $this->principalImage = $principalImage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSimboloMoneda()
+    {
+        return $this->simboloMoneda;
+    }
+
+    /**
+     * @param mixed $simboloMoneda
+     */
+    public function setSimboloMoneda($simboloMoneda)
+    {
+        $this->simboloMoneda = $simboloMoneda;
     }
 
 }

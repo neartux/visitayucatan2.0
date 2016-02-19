@@ -3,6 +3,7 @@
 namespace VisitaYucatanBundle\Repository;
 
 use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 
 /**
  * IdiomaRepository
@@ -20,5 +21,13 @@ class IdiomaRepository extends \Doctrine\ORM\EntityRepository{
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();
+    }
+
+    public function getIdIdiomaByAbreviatura($abreviatura){
+        $idioma = $this->findOneBy(array('abreviatura' => $abreviatura, 'estatus' => Estatuskeys::ESTATUS_ACTIVO));
+        if(is_null($idioma)){
+            return Generalkeys::IDIOMA_ESPANOL;
+        }
+        return $idioma->getId();
     }
 }
