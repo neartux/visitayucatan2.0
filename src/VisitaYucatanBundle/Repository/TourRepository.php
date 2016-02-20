@@ -30,6 +30,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository {
                 INNER JOIN moneda ON moneda.id = :moneda
                 LEFT JOIN tour_imagen ON tour.id = tour_imagen.id_tour AND tour_imagen.id_estatus = :estatusActivo AND tour_imagen.principal = TRUE
                 WHERE tour.id_estatus = :estatusActivo
+                AND tour.promovido = TRUE
                 ORDER BY tour_origen.tarifaadulto, tour.descripcion LIMIT ". $limit ." OFFSET ".$offset;
 
         $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
