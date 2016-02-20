@@ -11,19 +11,13 @@ namespace VisitaYucatanBundle\utils;
 class StringUtils {
 
     public static function cutText($texto, $start, $limit, $colilla, $cierre){
-        $index=stripos($texto, '>');
-        echo ("index adjfñasdkjfasdf = ".$index);
-        //$texto=substr($texto, 0, $limit);
-        $texto=substr($texto,$index, $limit);
-        $texto.=$colilla;
-        return $texto;
-
-        // Si el texto a recortar es menor o igual al limite de recorte regresamos el texto completo sin cortar
-        if(strlen($texto) <= $limit){
+        // Si la longitud del texto es menor a la del limite devuelve el texto completo
+        if (strlen($texto) <= $limit){
             return $texto;
         }
-        // si pasa el numero de limit
-        return substr($texto, $start, $limit).$colilla.$cierre;
+        // corta el texto al limite pasado le concatena la colilla y el cierre de etiqueta
+        $texto = substr($texto, $start, $limit).$colilla;
+        return strip_tags($texto, $cierre);
     }
 
 }

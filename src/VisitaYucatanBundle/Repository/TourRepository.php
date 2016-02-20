@@ -19,10 +19,6 @@ class TourRepository extends \Doctrine\ORM\EntityRepository {
 
     public function getTours($idioma, $idMoneda, $offset, $limit){
         $em = $this->getEntityManager();
-        //valida la moneda, si es null coloca la moneda mexicana
-        if(is_null($idMoneda)){
-            $idMoneda = Generalkeys::MEXICAN_CURRENCY;
-        }
 
         $sql = "SELECT tour.id, tour.descripcion AS nombre,tour_idioma.circuito,tour_idioma.descripcion,
                 (tour_origen.tarifaadulto/moneda.tipo_cambio) AS tarifaadulto,(tour_origen.tarifamenor/moneda.tipo_cambio) AS tarifamenor,

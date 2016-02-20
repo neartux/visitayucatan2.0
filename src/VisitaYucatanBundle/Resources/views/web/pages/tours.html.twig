@@ -1,0 +1,11 @@
+{% for tour in tours %}
+    id tour : {{ tour.id }} <br>
+    nombre tour : {{ tour.nombreTour }} <br>
+    circuito : {{ tour.circuito }} <br>
+    tarifa adulto : {{ tour.tarifaadulto }} <br>
+    tarifa menor : {{ tour.tarifamenor }} <br>
+    simbolo moneda : {{ tour.simboloMoneda }} <br>
+    imagen : {{ tour.principalImage }} <br>
+    descripcion : {{ tour.descripcionTour }} <br><br>
+    *************************************************************************************************** <br>
+{% endfor %}

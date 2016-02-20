@@ -25,7 +25,7 @@ class Generalkeys{
     const BOOLEAN_FALSE = false;
     const PATH_TOURS_IMAGE = "bundles/VisitaYucatanBundle/images/tours/";
     const PATH_HOTELES_IMAGE = "bundles/VisitaYucatanBundle/images/hoteles/";
-    const PATH_IMAGE_NOT_FOUND = "bundles/VisitaYucatanBundle/images/web/";
+    const PATH_IMAGE_NOT_FOUND = "bundles/VisitaYucatanBundle/images/web/image-not-found.png";
     const NOT_FOUND_FOLIO = -1;
     const PART_NAME_TOUR = "tour-";
     const PART_NAME_FOLIO = "-folio-";
@@ -36,5 +36,5 @@ class Generalkeys{
     const LIMIT_ROWS_TWENTY = 20;
     const OFFSET_ROWS_ZERO = 0;
     const COLILLA_TEXT = "...";
-    const CIERRE_HTML_P = "</p>";
+    const CIERRE_HTML_P = '</p>';
 }
