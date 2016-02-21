@@ -299,6 +299,68 @@ class HotelAdminController extends Controller {
         }
     }
 
+    /**
+     * @Route("/admin/hotel/find/fechas", name="hotel_find_fechas_cierre")
+     * @Method("POST")
+     */
+    public function findFechasCierreAction(Request $request) {
+        $idHotel = $request->get('idHotel');
+        $fechas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->findFechasCierreByHotel($idHotel);
+        return new Response($this->get('serializer')->serialize($fechas, Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/admin/hotel/create/fechacierre", name="hotel_create_fechacierre")
+     * @Method("POST")
+     */
+    public function createFechaCierreAction(Request $request) {
+        try {
+            date_default_timezone_set('America/Monterrey');
+            $idHotel = $request->get('idHotel');
+            $fechas = $this->getDates($request->get('fechaInicio'), $request->get('fechaFin'));
+
+            $fechaInicial = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ZERO]));
+            $fechaFinal = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ONE]));
+
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->createFechaCierre($idHotel, $fechaInicial, $fechaFinal);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
+    // Metodo que convierte las fechas de formato dd/mm/yyyy a formato mm/dd/yyyy parametros en string return array con nuevos strings de fechas
+    private function getDates($fechaInicio, $fechaFin){
+        // dd/mm/yyyy
+        $fechaInicioParts = explode('/', $fechaInicio);
+        $fechaFinParts = explode('/', $fechaFin);
+
+        // mm/dd/yy
+        $newInicio = $fechaInicioParts[Generalkeys::NUMBER_ONE] .Generalkeys::STRING_SLASH. $fechaInicioParts[Generalkeys::NUMBER_ZERO] .Generalkeys::STRING_SLASH. $fechaInicioParts[Generalkeys::NUMBER_TWO];
+        $newFin = $fechaFinParts[Generalkeys::NUMBER_ONE] .Generalkeys::STRING_SLASH. $fechaFinParts[Generalkeys::NUMBER_ZERO] .Generalkeys::STRING_SLASH. $fechaFinParts[Generalkeys::NUMBER_TWO];
+        $fechas = Array();
+        $fechas[Generalkeys::NUMBER_ZERO] = $newInicio;
+        $fechas[Generalkeys::NUMBER_ONE] = $newFin;
+
+        return $fechas;
+    }
+
+    /**
+     * @Route("/admin/hotel/delete/fechacierre", name="hotel_delete_fechacierre")
+     * @Method("POST")
+     */
+    public function deleteFechaCierreAction(Request $request) {
+        try {
+            $idFechaCierre = $request->get('idFechaCierre');
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->deleteFechaCierre($idFechaCierre);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha eliminado correctamente la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
 }
 
 /*TODO AQUI LA SECCION QUE FALTA VALIDAR O AGREGAR PERO NO ES NECESARIO A PRIMERA INSTANCIA

@@ -20,6 +20,8 @@ class Generalkeys{
     const LABEL_STATUS = "status";
     const NUMBER_ZERO = 0;
     const NUMBER_ONE = 1;
+    const NUMBER_TWO = 2;
+    const STRING_SLASH = '/';
     const NUMBER_TWO_HUNDRED = 200;
     const BOOLEAN_TRUE = true;
     const BOOLEAN_FALSE = false;

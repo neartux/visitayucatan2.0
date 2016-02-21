@@ -26,6 +26,9 @@
         service.contactHotelList = {
             data: undefined
         };
+        service.listaFechas = {
+            data: undefined
+        };
 
         service.findHotelsActives= function(){
             var path = $("#pathListHotel").val();
@@ -151,6 +154,30 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
+
+        service.deleteHotelFechaCierre = function(idFechaCierre){
+            var path = $("#pathFechaCierreDelete").val();
+            return $http.post(path, $.param({idFechaCierre : idFechaCierre}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.createFechaCierre = function(idHotel, fechaInicio, fechaFin){
+            var path = $("#pathFechaCierreCreate").val();
+            return $http.post(path, $.param({idHotel : idHotel, fechaInicio : fechaInicio, fechaFin : fechaFin}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+        service.findFechasByHotel = function (idHotel){
+            var path = $("#pathFechaCierreFind").val();
+            service.listaFechas.data = [];
+            return $http.post(path, $.param({idHotel : idHotel}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                service.listaFechas.data = data.data;
+            });
+        };
+
 
         return service;
     });

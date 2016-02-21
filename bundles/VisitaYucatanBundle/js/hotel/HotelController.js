@@ -17,6 +17,7 @@
         ctrlHotel.imagesHotel = HotelService.imagesHotelList;
         ctrlHotel.listDestino = HotelService.listDestino;
         ctrlHotel.contactHotelList = HotelService.contactHotelList;
+        ctrlHotel.listaFechas = HotelService.listaFechas;
         ctrlHotel.titleCreate = '';
         ctrlHotel.titleEdit = '';
         ctrlHotel.msjLoading = '';
@@ -28,6 +29,7 @@
         ctrlHotel.nameHotelTitle = '';
         ctrlHotel.isNewContact = false;
         ctrlHotel.hotelContacto = {};
+        ctrlHotel.fechaHotel = {};
 
         ctrlHotel.init = function () {
             ctrlHotel.titleCreate = 'Nuevo Hotel';
@@ -56,6 +58,10 @@
                 ctrlHotel.isNewContact = false;
                 $("#modalHotelContacts").modal();
             });
+        };
+
+        ctrlHotel.findFechasCierreByHotel = function () {
+            return HotelService.findFechasByHotel(ctrlHotel.idHotelGlobal);
         };
 
 
@@ -257,6 +263,50 @@
             ctrlHotel.hotelTO = {
                 estrellas: '1'
             };
+        };
+
+        ctrlHotel.deleteHotelFechaCierre = function(idFechaCierre){
+            if(confirm('¿Estas seguro de eliminar la fecha?')){
+                return HotelService.deleteHotelFechaCierre(idFechaCierre).then(function (data) {
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
+        };
+
+        ctrlHotel.createFechaCierre = function(){
+            var fecha = $("#daterangepicker").val();
+            if(fecha.length == 0){
+                pNotifyView('Captura la fecha', 'info');
+                $("#daterangepicker").trigger('focus');
+            }else{
+                var fechaArray = fecha.split('-');
+                return HotelService.createFechaCierre(ctrlHotel.idHotelGlobal, $.trim(fechaArray[0]), $.trim(fechaArray[1])).then(function (data) {
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
+        };
+
+        ctrlHotel.setFechaEdit = function(fecha) {
+            console.log(JSON.stringify(fecha));
+            var fechas = ctrlHotel.getDate(fecha.fechainicio, fecha.fechafin);
+            console.log("fechas array = "+fechas);
+            //$("#daterangepicker").val(fechas[0]+'-'+fechas[1]);
+            $('#daterangepicker').data('daterangepicker').setStartDate('2014-03-01');
+            $('#daterangepicker').data('daterangepicker').setEndDate('2014-03-31');
+
+            //$('#daterangepicker').data('daterangepicker').setStartDate(fechas[0]);
+            //$('#daterangepicker').data('daterangepicker').setEndDate(fechas[1]);
+            ctrlHotel.fechaHotel = fecha;
+        };
+
+        ctrlHotel.getDate = function(fechaInicio, fechaFin){
+            var fechaInicioParts = fechaInicio.split('-');
+            var fechaFinParts = fechaFin.split('-');
+            var fechas = [];
+            fechas[0] = $.trim(fechaInicioParts[2])+'/'+ $.trim(fechaInicioParts[1])+'/'+ $.trim(fechaInicioParts[0]);
+            fechas[1] = $.trim(fechaFinParts[2])+'/'+ $.trim(fechaFinParts[1])+'/'+ $.trim(fechaFinParts[0]);
+
+            return fechas;
         };
 
     });

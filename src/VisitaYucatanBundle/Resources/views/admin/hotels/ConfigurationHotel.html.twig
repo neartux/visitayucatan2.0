@@ -16,25 +16,33 @@
                 <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
                 <div class="options">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#information-tour" data-toggle="tab">
+                        <li class="active"><a href="#information-hotel" data-toggle="tab">
                                 <i class="fa fa-info text-info"></i>&nbsp;&nbsp;Información</a>
                         </li>
-                        <li><a href="#images-tour" data-toggle="tab" data-ng-click="ctrlFile.setIdApplication(ctrlHotel.idHotelGlobal)">
+                        <li><a href="#images-hotel" data-toggle="tab" data-ng-click="ctrlFile.setIdApplication(ctrlHotel.idHotelGlobal)">
                                 <i class="fa fa-image text-info"></i>&nbsp;&nbsp;Fotografías</a>
+                        </li>
+                        <li><a href="#fechas-cierre-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findFechasCierreByHotel()">
+                                <i class="fa fa-calendar text-info"></i>&nbsp;&nbsp;Fechas Cierre</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="information-tour">
+                    <div class="tab-pane active" id="information-hotel">
 
                         {% include '@VisitaYucatan/admin/hotels/TabPaneInformationHotelLanguage.html.twig' %}
 
                     </div>
-                    <div class="tab-pane" id="images-tour">
+                    <div class="tab-pane" id="images-hotel">
 
                         {% include '@VisitaYucatan/admin/hotels/TabPaneImagesHotelLanguage.html.twig' %}
+
+                    </div>
+                    <div class="tab-pane" id="fechas-cierre-hotel">
+
+                        {% include '@VisitaYucatan/admin/hotels/TabPanelFechasCierre.html.twig' %}
 
                     </div>
                 </div>

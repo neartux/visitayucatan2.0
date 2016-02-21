@@ -82,6 +82,11 @@ class Hotel
     private $paqueteCombinacionHotel;
 
     /**
+     * @ORM\OneToMany(targetEntity="HotelFechaCierre", mappedBy="hotel")
+     */
+    private $hotelFechaCierre;
+
+    /**
      * Constructor
      */
     public function __construct(){
@@ -89,6 +94,7 @@ class Hotel
         $this->hotelIdioma = new ArrayCollection();
         $this->hotelContacto = new ArrayCollection();
         $this->paqueteCombinacionHotel = new ArrayCollection();
+        $this->hotelFechaCierre = new ArrayCollection();
     }
 
 
@@ -380,5 +386,39 @@ class Hotel
     public function getPaqueteCombinacionHotel()
     {
         return $this->paqueteCombinacionHotel;
+    }
+
+    /**
+     * Add hotelFechaCierre
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelFechaCierre $hotelFechaCierre
+     *
+     * @return Hotel
+     */
+    public function addHotelFechaCierre(\VisitaYucatanBundle\Entity\HotelFechaCierre $hotelFechaCierre)
+    {
+        $this->hotelFechaCierre[] = $hotelFechaCierre;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelFechaCierre
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelFechaCierre $hotelFechaCierre
+     */
+    public function removeHotelFechaCierre(\VisitaYucatanBundle\Entity\HotelFechaCierre $hotelFechaCierre)
+    {
+        $this->hotelFechaCierre->removeElement($hotelFechaCierre);
+    }
+
+    /**
+     * Get hotelFechaCierre
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelFechaCierre()
+    {
+        return $this->hotelFechaCierre;
     }
 }

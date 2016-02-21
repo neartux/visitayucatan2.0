@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-md-6" style="border: 1px solid #3FAECE;padding: 15px;">
+            <span style="font-weight: bold;text-transform: uppercase;padding: 20px;">Crear o Modificar Fecha</span>
+            <br> <br>
+            <div class="form-horizontal row-border">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Fecha</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="ti ti-calendar"></i></span>
+                            <input type="text" class="form-control" id="daterangepicker" readonly/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">&nbsp;</label>
+                    <div class="col-sm-8">
+                        <button class="btn btn-primary" data-ng-click="ctrlHotel.createFechaCierre()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <table class="table table-striped table-bordered" width="100%">
+                <thead>
+                    <caption>Lista de Fechas Cierre</caption>
+                    <tr>
+                        <th>#</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Panel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="fecha in ctrlHotel.listaFechas.data">
+                        <td>[[ $index + 1 ]]</td>
+                        <td>[[ fecha.fechainicio | date : 'dd/MM/yyyy' ]]</td>
+                        <td>[[ fecha.fechafin | date : 'dd/MM/yyyy' ]]</td>
+                        <td>
+                            <a class="btn btn-success-alt" data-ng-click="ctrlHotel.setFechaEdit(fecha)" href="javascript:;"><i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-danger-alt" data-ng-click="ctrlHotel.deleteHotelFechaCierre(fecha.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
