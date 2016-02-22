@@ -291,11 +291,10 @@
             var fechas = ctrlHotel.getDate(fecha.fechainicio, fecha.fechafin);
             console.log("fechas array = "+fechas);
             //$("#daterangepicker").val(fechas[0]+'-'+fechas[1]);
-            $('#daterangepicker').data('daterangepicker').setStartDate('2014-03-01');
-            $('#daterangepicker').data('daterangepicker').setEndDate('2014-03-31');
+            $('#daterange').daterangepicker({ startDate: '2014-03-05', endDate: '2014-03-06' });
 
-            //$('#daterangepicker').data('daterangepicker').setStartDate(fechas[0]);
-            //$('#daterangepicker').data('daterangepicker').setEndDate(fechas[1]);
+            $('#daterangepicker').data('daterangepicker').setStartDate(fechas[0]);
+            $('#daterangepicker').data('daterangepicker').setEndDate(fechas[1]);
             ctrlHotel.fechaHotel = fecha;
         };
 
