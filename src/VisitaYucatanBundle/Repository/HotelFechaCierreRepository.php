@@ -1,6 +1,7 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use Doctrine\ORM\EntityNotFoundException;
 use VisitaYucatanBundle\Entity\HotelFechaCierre;
 use VisitaYucatanBundle\utils\Estatuskeys;
 
@@ -14,7 +15,7 @@ class HotelFechaCierreRepository extends \Doctrine\ORM\EntityRepository {
 
     public function findFechasCierreByHotel($idHotel) {
         $em = $this->getEntityManager();
-        $sql = "SELECT * FROM hotel_fecha_cierre WHERE hotel_fecha_cierre.id_hotel = :hotel AND hotel_fecha_cierre.id_estatus = :estatus";
+        $sql = "SELECT * FROM hotel_fecha_cierre WHERE hotel_fecha_cierre.id_hotel = :hotel AND hotel_fecha_cierre.id_estatus = :estatus ORDER BY hotel_fecha_cierre.id DESC";
         $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
         $params['hotel'] = $idHotel;
         $stmt = $em->getConnection()->prepare($sql);
@@ -42,8 +43,8 @@ class HotelFechaCierreRepository extends \Doctrine\ORM\EntityRepository {
         if(! $fechaCierre){
             throw new EntityNotFoundException('La fecha cierre ' . $idFechaCierre . " no se pudo actualizar");
         }
-        $fechaCierre->setFechaInicio($fechaInicio);
-        $fechaCierre->setFechaFin($fechaFin);
+        $fechaCierre->setFechaInicio(new \DateTime($fechaInicio));
+        $fechaCierre->setFechaFin(new \DateTime($fechaFin));
 
         $em->persist($fechaCierre);
         $em->flush();

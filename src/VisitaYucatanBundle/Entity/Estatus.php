@@ -130,6 +130,16 @@ class Estatus
     private $hotelFechaCierre;
 
     /**
+     * @ORM\OneToMany(targetEntity="HotelPlan", mappedBy="estatus")
+     */
+    private $hotelPlan;
+
+    /**
+     * @ORM\OneToMany(targetEntity="HotelContrato", mappedBy="estatus")
+     */
+    private $hotelContrato;
+
+    /**
      * Constructor
      */
     public function __construct(){
@@ -149,6 +159,8 @@ class Estatus
         $this->paqueteItinerario = new ArrayCollection();
         $this->paqueteCombinacionHotel = new ArrayCollection();
         $this->hotelFechaCierre = new ArrayCollection();
+        $this->hotelPlan = new ArrayCollection();
+        $this->hotelContrato = new ArrayCollection();
     }
 
     /**
@@ -863,5 +875,73 @@ class Estatus
     public function getHotelFechaCierre()
     {
         return $this->hotelFechaCierre;
+    }
+
+    /**
+     * Add hotelPlan
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelPlan $hotelPlan
+     *
+     * @return Estatus
+     */
+    public function addHotelPlan(\VisitaYucatanBundle\Entity\HotelPlan $hotelPlan)
+    {
+        $this->hotelPlan[] = $hotelPlan;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelPlan
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelPlan $hotelPlan
+     */
+    public function removeHotelPlan(\VisitaYucatanBundle\Entity\HotelPlan $hotelPlan)
+    {
+        $this->hotelPlan->removeElement($hotelPlan);
+    }
+
+    /**
+     * Get hotelPlan
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelPlan()
+    {
+        return $this->hotelPlan;
+    }
+
+    /**
+     * Add hotelContrato
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelContrato $hotelContrato
+     *
+     * @return Estatus
+     */
+    public function addHotelContrato(\VisitaYucatanBundle\Entity\HotelContrato $hotelContrato)
+    {
+        $this->hotelContrato[] = $hotelContrato;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelContrato
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelContrato $hotelContrato
+     */
+    public function removeHotelContrato(\VisitaYucatanBundle\Entity\HotelContrato $hotelContrato)
+    {
+        $this->hotelContrato->removeElement($hotelContrato);
+    }
+
+    /**
+     * Get hotelContrato
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelContrato()
+    {
+        return $this->hotelContrato;
     }
 }

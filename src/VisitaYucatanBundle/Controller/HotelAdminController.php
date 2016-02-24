@@ -315,7 +315,6 @@ class HotelAdminController extends Controller {
      */
     public function createFechaCierreAction(Request $request) {
         try {
-            date_default_timezone_set('America/Monterrey');
             $idHotel = $request->get('idHotel');
             $fechas = $this->getDates($request->get('fechaInicio'), $request->get('fechaFin'));
 
@@ -324,6 +323,26 @@ class HotelAdminController extends Controller {
 
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->createFechaCierre($idHotel, $fechaInicial, $fechaFinal);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
+     * @Route("/admin/hotel/update/fechacierre", name="hotel_update_fechacierre")
+     * @Method("POST")
+     */
+    public function updateFechaCierreAction(Request $request) {
+        try {
+            $idFechaCierre = $request->get('idFechaCierre');
+            $fechas = $this->getDates($request->get('fechaInicio'), $request->get('fechaFin'));
+
+            $fechaInicial = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ZERO]));
+            $fechaFinal = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ONE]));
+
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->updateFechaCierre($idFechaCierre, $fechaInicial, $fechaFinal);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha modificado la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
         } catch (\Exception $e) {
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));

@@ -29,7 +29,6 @@
         ctrlHotel.nameHotelTitle = '';
         ctrlHotel.isNewContact = false;
         ctrlHotel.hotelContacto = {};
-        ctrlHotel.fechaHotel = {};
 
         ctrlHotel.init = function () {
             ctrlHotel.titleCreate = 'Nuevo Hotel';
@@ -268,34 +267,35 @@
         ctrlHotel.deleteHotelFechaCierre = function(idFechaCierre){
             if(confirm('¿Estas seguro de eliminar la fecha?')){
                 return HotelService.deleteHotelFechaCierre(idFechaCierre).then(function (data) {
+                    ctrlHotel.findFechasCierreByHotel();
                     pNotifyView(data.data.message, data.data.typeStatus);
                 });
             }
         };
 
         ctrlHotel.createFechaCierre = function(){
+            var idFecha = $("#idFechaHotel");
             var fecha = $("#daterangepicker").val();
             if(fecha.length == 0){
                 pNotifyView('Captura la fecha', 'info');
                 $("#daterangepicker").trigger('focus');
             }else{
                 var fechaArray = fecha.split('-');
-                return HotelService.createFechaCierre(ctrlHotel.idHotelGlobal, $.trim(fechaArray[0]), $.trim(fechaArray[1])).then(function (data) {
+                return HotelService.createOrUpdateFechaCierre(idFecha.val(), ctrlHotel.idHotelGlobal, $.trim(fechaArray[0]), $.trim(fechaArray[1])).then(function (data) {
+                    ctrlHotel.findFechasCierreByHotel();
                     pNotifyView(data.data.message, data.data.typeStatus);
+                    idFecha.val(0);
                 });
             }
         };
 
         ctrlHotel.setFechaEdit = function(fecha) {
+            fecha.classDanger = 'danger';
             console.log(JSON.stringify(fecha));
             var fechas = ctrlHotel.getDate(fecha.fechainicio, fecha.fechafin);
-            console.log("fechas array = "+fechas);
-            //$("#daterangepicker").val(fechas[0]+'-'+fechas[1]);
-            $('#daterange').daterangepicker({ startDate: '2014-03-05', endDate: '2014-03-06' });
-
             $('#daterangepicker').data('daterangepicker').setStartDate(fechas[0]);
             $('#daterangepicker').data('daterangepicker').setEndDate(fechas[1]);
-            ctrlHotel.fechaHotel = fecha;
+            $("#idFechaHotel").val(fecha.id);
         };
 
         ctrlHotel.getDate = function(fechaInicio, fechaFin){

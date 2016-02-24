@@ -162,11 +162,19 @@
             });
         };
 
-        service.createFechaCierre = function(idHotel, fechaInicio, fechaFin){
-            var path = $("#pathFechaCierreCreate").val();
-            return $http.post(path, $.param({idHotel : idHotel, fechaInicio : fechaInicio, fechaFin : fechaFin}), {
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            });
+        service.createOrUpdateFechaCierre = function(idFecha, idHotel, fechaInicio, fechaFin){
+            console.log("id fecha = "+idFecha);
+            if(parseInt(idFecha) == 0){
+                console.log("es nuevo");
+                return $http.post($("#pathFechaCierreCreate").val(), $.param({idHotel : idHotel, fechaInicio : fechaInicio, fechaFin : fechaFin}), {
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }else{
+                console.log("es update");
+                return $http.post($("#pathFechaCierreUpdate").val(), $.param({idFechaCierre : idFecha, fechaInicio : fechaInicio, fechaFin : fechaFin}), {
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }
         };
         service.findFechasByHotel = function (idHotel){
             var path = $("#pathFechaCierreFind").val();
