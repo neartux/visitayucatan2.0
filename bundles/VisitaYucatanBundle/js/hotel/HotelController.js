@@ -18,6 +18,7 @@
         ctrlHotel.listDestino = HotelService.listDestino;
         ctrlHotel.contactHotelList = HotelService.contactHotelList;
         ctrlHotel.listaFechas = HotelService.listaFechas;
+        ctrlHotel.listaContratos = HotelService.listaContratos;
         ctrlHotel.titleCreate = '';
         ctrlHotel.titleEdit = '';
         ctrlHotel.msjLoading = '';

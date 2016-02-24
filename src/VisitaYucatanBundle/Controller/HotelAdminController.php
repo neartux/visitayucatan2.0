@@ -380,6 +380,50 @@ class HotelAdminController extends Controller {
         }
     }
 
+    /**
+     * @Route("/admin/hotel/find/contratos", name="hotel_find_contratos")
+     * @Method("POST")
+     */
+    public function findContractByHotelAction(Request $request) {
+        $idHotel = $request->get('idHotel');
+        $fechas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findContracts($idHotel);
+        return new Response($this->get('serializer')->serialize($fechas, Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/admin/hotel/create/contrato", name="hotel_create_contrato")
+     * @Method("POST")
+     */
+    public function createHotelContratoAction(Request $request) {
+        $serializer = $this->get('serializer');
+        try {
+            $hotelContratoJson = $request->get('hotelContrato');
+            $hotelContratoTO = $serializer->deserialize($hotelContratoJson, 'VisitaYucatanBundle\utils\to\ContratoTO', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->createContract($hotelContratoTO);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado el contrato correctamente ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
+     * @Route("/admin/hotel/update/contrato", name="hotel_update_contrato")
+     * @Method("POST")
+     */
+    public function updateHotelContratoAction(Request $request) {
+        $serializer = $this->get('serializer');
+        try {
+            $hotelContratoJson = $request->get('hotelContrato');
+            $hotelContratoTO = $serializer->deserialize($hotelContratoJson, 'VisitaYucatanBundle\utils\to\ContratoTO', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->updateContract($hotelContratoTO);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'El contrato se ha actualizado correctamente ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
 }
 
 /*TODO AQUI LA SECCION QUE FALTA VALIDAR O AGREGAR PERO NO ES NECESARIO A PRIMERA INSTANCIA

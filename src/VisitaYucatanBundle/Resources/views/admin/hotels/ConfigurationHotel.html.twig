@@ -25,6 +25,9 @@
                         <li><a href="#fechas-cierre-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findFechasCierreByHotel()">
                                 <i class="fa fa-calendar text-info"></i>&nbsp;&nbsp;Fechas Cierre</a>
                         </li>
+                        <li><a href="#contratos-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findFechasCierreByHotel()">
+                                <i class="fa fa-calendar text-info"></i>&nbsp;&nbsp;Contratos</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -43,6 +46,11 @@
                     <div class="tab-pane" id="fechas-cierre-hotel">
 
                         {% include '@VisitaYucatan/admin/hotels/TabPanelFechasCierre.html.twig' %}
+
+                    </div>
+                    <div class="tab-pane" id="contratos-hotel">
+
+                        {% include '@VisitaYucatan/admin/hotels/TabPanelContratos.html.twig' %}
 
                     </div>
                 </div>

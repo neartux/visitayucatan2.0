@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <select class="form-control" data-ng-model="ctrlHotel.hotelContratoTO.data.idIdioma" ng-change="ctrlHotel.findHotelByIdAndLanguage()" required>
+                <option value="">SELECCIONA CONTRATO</option>
+                <option value="[[ contrato.id ]]" ng-repeat="contrato in ctrlHotel.listaContratos.data">[[ contrato.descripcion | uppercase ]]</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="button" value="Nuevo Contrato" class="btn btn-primary"/>
+        </div>
+    </div>
+</div>

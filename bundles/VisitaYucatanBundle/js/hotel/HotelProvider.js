@@ -29,6 +29,9 @@
         service.listaFechas = {
             data: undefined
         };
+        service.listaContratos = {
+            data: undefined
+        };
 
         service.findHotelsActives= function(){
             var path = $("#pathListHotel").val();
