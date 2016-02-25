@@ -11,3 +11,104 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <form class="form-horizontal">
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                        Nombre Contrato
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" id="nombreContrato" ng-model="ctrlHotel.hotelContract.descripcion" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                        Fecha Inicial
+                    </label>
+                    <div class="col-sm-8">
+                        <div class="input-group date datepicker">
+                            <span class="input-group-addon"><i class="ti ti-calendar"></i></span>
+                            <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.fechaInicio"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                        Fecha Final
+                    </label>
+                    <div class="col-sm-8">
+                        <div class="input-group date datepicker">
+                            <span class="input-group-addon"><i class="ti ti-calendar"></i></span>
+                            <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.fechaFin"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                        Plan de Alimentos
+                    </label>
+                    <div class="col-sm-8">
+                        <select class="form-control" data-ng-model="ctrlHotel.hotelContract.idHotelPlan">
+                            <option value="">SELECCIONA</option>
+                            <option value="[[ plan.id ]]" ng-repeat="plan in ctrlHotel.listaPlanes.data">[[ plan.descripcion | uppercase ]]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                        Edad Maxima del Menor
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.edadMenor"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                        ISH(%)
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.ish"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                        Markup
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.markup"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                        Iva
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.iva"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                        Resort Fee
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.fee"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                        Marcar si ya incluye impuestos
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="checkbox" ng-model="ctrlHotel.hotelContract.aplicaImpuesto"/>
+                    </div>
+                </div>
+                <input type="button" class="btn btn-primary" value="Guardar" data-ng-click="ctrlHotel.createContractHotel()"/>
+            </div>
+        </div>
+    </form>
+</div>

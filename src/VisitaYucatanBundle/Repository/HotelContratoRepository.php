@@ -39,8 +39,9 @@ class HotelContratoRepository extends \Doctrine\ORM\EntityRepository {
         $em = $this->getEntityManager();
 
         $contrato = new HotelContrato();
-        $contrato->setFechaInicio($contractTO->getFechaInicio());
-        $contrato->setFechaFin($contractTO->getFechaFin());
+        $contrato->setDescripcion($contractTO->getDescripcion());
+        $contrato->setFechaInicio(new \DateTime($contractTO->getFechaInicio()));
+        $contrato->setFechaFin(new \DateTime($contractTO->getFechaFin()));
         $contrato->setEdadMenor($contractTO->getEdadMenor());
         $contrato->setAplicaImpuesto($contractTO->getAplicaImpuesto());
         $contrato->setIsh($contractTO->getIsh());

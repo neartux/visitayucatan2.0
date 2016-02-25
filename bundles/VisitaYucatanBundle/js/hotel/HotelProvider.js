@@ -32,6 +32,9 @@
         service.listaContratos = {
             data: undefined
         };
+        service.listaPlanes = {
+            data: undefined
+        };
 
         service.findHotelsActives= function(){
             var path = $("#pathListHotel").val();
@@ -78,7 +81,6 @@
         };
 
         service.findImagesHotelByIdHotel = function (idHotel){
-            console.log("idhotel imagens = "+idHotel);
             var path = $("#pathImagesHotel").val();
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -179,6 +181,7 @@
                 });
             }
         };
+
         service.findFechasByHotel = function (idHotel){
             var path = $("#pathFechaCierreFind").val();
             service.listaFechas.data = [];
@@ -186,6 +189,41 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
                 service.listaFechas.data = data.data;
+            });
+        };
+
+        service.findListContracts = function(idHotel){
+            var path = $("#pathContratos").val();
+            return $http.post(path, $.param({idHotel : idHotel}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                console.info("contratos = "+JSON.stringify(data.data));
+                service.listaContratos.data = data.data;
+            });
+        };
+
+        service.planesAlimentos = function(){
+            var path = $("#pathContratoPlanes").val();
+            return $http.post(path, {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                console.info("planes = "+JSON.stringify(data.data));
+                service.listaPlanes.data = data.data;
+            });
+        };
+
+        service.createContract = function(hotelContract){
+            console.log("el nuevo = "+JSON.stringify(hotelContract));
+            var path = $("#pathContratoCreate").val();
+            return $http.post(path, $.param({hotelContrato : JSON.stringify(hotelContract)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.updateContract = function(hotelContract){
+            var path = $("#pathContratoUpdate").val();
+            return $http.post(path, $.param({hotelContrato : JSON.stringify(hotelContract)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
 

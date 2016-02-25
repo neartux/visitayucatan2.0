@@ -386,8 +386,16 @@ class HotelAdminController extends Controller {
      */
     public function findContractByHotelAction(Request $request) {
         $idHotel = $request->get('idHotel');
-        $fechas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findContracts($idHotel);
-        return new Response($this->get('serializer')->serialize($fechas, Generalkeys::JSON_STRING));
+        $contratos = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findContracts($idHotel);
+        return new Response($this->get('serializer')->serialize($contratos, Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/admin/hotel/find/planes", name="hotel_find_planes")
+     * @Method("POST")
+     */
+    public function findPlansAction() {
+        return new Response($this->get('serializer')->serialize($this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelPlan')->findPlans(), Generalkeys::JSON_STRING));
     }
 
     /**
@@ -398,7 +406,11 @@ class HotelAdminController extends Controller {
         $serializer = $this->get('serializer');
         try {
             $hotelContratoJson = $request->get('hotelContrato');
-            $hotelContratoTO = $serializer->deserialize($hotelContratoJson, 'VisitaYucatanBundle\utils\to\ContratoTO', Generalkeys::JSON_STRING);
+            $hotelContratoTO = $serializer->deserialize($hotelContratoJson, 'VisitaYucatanBundle\utils\to\ContractTO', Generalkeys::JSON_STRING);
+            $fechasFormat = $this->getDates($hotelContratoTO->getFechaInicio(), $hotelContratoTO->getFechaFin());
+            $hotelContratoTO->setFechaInicio($fechasFormat[Generalkeys::NUMBER_ZERO]);
+            $hotelContratoTO->setFechaFin($fechasFormat[Generalkeys::NUMBER_ONE]);
+            //print_r($hotelContratoTO);
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->createContract($hotelContratoTO);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado el contrato correctamente ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));

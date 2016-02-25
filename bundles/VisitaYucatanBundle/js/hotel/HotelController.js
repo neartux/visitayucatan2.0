@@ -19,6 +19,7 @@
         ctrlHotel.contactHotelList = HotelService.contactHotelList;
         ctrlHotel.listaFechas = HotelService.listaFechas;
         ctrlHotel.listaContratos = HotelService.listaContratos;
+        ctrlHotel.listaPlanes = HotelService.listaPlanes;
         ctrlHotel.titleCreate = '';
         ctrlHotel.titleEdit = '';
         ctrlHotel.msjLoading = '';
@@ -30,6 +31,7 @@
         ctrlHotel.nameHotelTitle = '';
         ctrlHotel.isNewContact = false;
         ctrlHotel.hotelContacto = {};
+        ctrlHotel.hotelContract = undefined;
 
         ctrlHotel.init = function () {
             ctrlHotel.titleCreate = 'Nuevo Hotel';
@@ -44,6 +46,7 @@
             ctrlHotel.findAllHotels();
             ctrlHotel.findAllLanguages();
             HotelService.findDestinos();
+            HotelService.planesAlimentos();
         };
 
         ctrlHotel.findAllHotels = function () {
@@ -297,6 +300,15 @@
             $('#daterangepicker').data('daterangepicker').setStartDate(fechas[0]);
             $('#daterangepicker').data('daterangepicker').setEndDate(fechas[1]);
             $("#idFechaHotel").val(fecha.id);
+        };
+
+        ctrlHotel.createContractHotel = function(){
+            ctrlHotel.hotelContract.idHotel = ctrlHotel.idHotelGlobal;
+            return HotelService.createContract(ctrlHotel.hotelContract);
+        };
+
+        ctrlHotel.findPlanAlimentos = function () {
+            return HotelService.planesAlimentos();
         };
 
         ctrlHotel.getDate = function(fechaInicio, fechaFin){
