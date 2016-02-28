@@ -32,6 +32,7 @@
         ctrlHotel.isNewContact = false;
         ctrlHotel.hotelContacto = {};
         ctrlHotel.hotelContract = undefined;
+        ctrlHotel.isNewContract = false;
 
         ctrlHotel.init = function () {
             ctrlHotel.titleCreate = 'Nuevo Hotel';
@@ -53,14 +54,42 @@
             return HotelService.findHotelsActives();
         };
 
+        ctrlHotel.findAllHotelContracts = function () {
+            return HotelService.findListContracts(ctrlHotel.idHotelGlobal);
+        };
+
+        ctrlHotel.findContractById = function () {
+            console.info("id del contrato = "+ctrlHotel.hotelContratoTO.data.idContract);
+            return HotelService.findContractById(ctrlHotel.hotelContratoTO.data.idContract).then(function(data){
+                console.info("hotel update = "+JSON.stringify(data.data));
+                $(".datepickerInicio").datepicker("update", data.data.fechaInicio);
+                $(".datepickerFin").datepicker("update", data.data.fechaFin);
+                ctrlHotel.hotelContract = data.data;
+                ctrlHotel.isNewContract = false;
+            });
+        };
+
+        ctrlHotel.displayNewContract = function(){
+            ctrlHotel.isNewContract = true;
+        };
+
+        ctrlHotel.findPlanAlimentos = function () {
+            return HotelService.planesAlimentos();
+        };
+
         ctrlHotel.findContactsHotel = function (idHotel) {
-            console.info("idhotel = "+idHotel);
             ctrlHotel.hotelContacto = {};
             ctrlHotel.idHotelGlobal = idHotel;
             return HotelService.findContactsHotel(idHotel).then(function(){
                 ctrlHotel.isNewContact = false;
                 $("#modalHotelContacts").modal();
             });
+        };
+
+        ctrlHotel.findHabitacionesHotel = function () {
+            console.info("metodo buscando las habitaciones");
+            ctrlHotel.hotelHabitacion = {};
+            return HotelService.findHabitacionesHotel(ctrlHotel.idHotelGlobal);
         };
 
         ctrlHotel.findFechasCierreByHotel = function () {
@@ -97,15 +126,15 @@
             var lastNameContact = $("#lastNameContac");
             var emailContact = $("#emailContact");
             if(! $.trim(nameContact.val()).length){
-                pNotifyView('Captura Nombre de Contacto', 'info')
+                pNotifyView('Captura Nombre de Contacto', 'info');
                 nameContact.trigger('focus');
                 return false;
             }else if(! $.trim(lastNameContact.val()).length){
-                pNotifyView('Captura Apellidos de Contacto', 'info')
+                pNotifyView('Captura Apellidos de Contacto', 'info');
                 lastNameContact.trigger('focus');
                 return false;
             }else if(! $.trim(emailContact.val()).length){
-                pNotifyView('Captura Correo de Contacto', 'info')
+                pNotifyView('Captura Correo de Contacto', 'info');
                 emailContact.trigger('focus');
                 return false;
             }
@@ -295,7 +324,6 @@
 
         ctrlHotel.setFechaEdit = function(fecha) {
             fecha.classDanger = 'danger';
-            console.log(JSON.stringify(fecha));
             var fechas = ctrlHotel.getDate(fecha.fechainicio, fecha.fechafin);
             $('#daterangepicker').data('daterangepicker').setStartDate(fechas[0]);
             $('#daterangepicker').data('daterangepicker').setEndDate(fechas[1]);
@@ -303,13 +331,33 @@
         };
 
         ctrlHotel.createContractHotel = function(){
-            ctrlHotel.hotelContract.idHotel = ctrlHotel.idHotelGlobal;
-            return HotelService.createContract(ctrlHotel.hotelContract);
+            if(ctrlHotel.isNewContract){
+                ctrlHotel.hotelContract.idHotel = ctrlHotel.idHotelGlobal;
+                return HotelService.createContract(ctrlHotel.hotelContract).then(function(data){
+                    if(data.data.status){
+                        ctrlHotel.findAllHotelContracts();
+                    }
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }else{
+                return HotelService.updateContract(ctrlHotel.hotelContract).then(function(data){
+                    if(data.data.status){
+                        ctrlHotel.findAllHotelContracts();
+                    }
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
         };
 
-        ctrlHotel.findPlanAlimentos = function () {
-            return HotelService.planesAlimentos();
+        ctrlHotel.createHabitacionHotel = function(){
+            ctrlHotel.hotelHabitacion.idHotel = ctrlHotel.idHotelGlobal;
+            return HotelService.createHabitacion(ctrlHotel.hotelHabitacion).then(function(data){
+                ctrlHotel.findContactsHotel(ctrlHotel.idHotelGlobal);
+                pNotifyView(data.data.message, data.data.typeStatus);
+            });
         };
+
+
 
         ctrlHotel.getDate = function(fechaInicio, fechaFin){
             var fechaInicioParts = fechaInicio.split('-');

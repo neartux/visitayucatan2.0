@@ -92,6 +92,11 @@ class Hotel
     private $hotelContrato;
 
     /**
+     * @ORM\OneToMany(targetEntity="HotelHabitacion", mappedBy="hotel")
+     */
+    private $hotelHabitacion;
+
+    /**
      * Constructor
      */
     public function __construct(){
@@ -101,6 +106,7 @@ class Hotel
         $this->paqueteCombinacionHotel = new ArrayCollection();
         $this->hotelFechaCierre = new ArrayCollection();
         $this->hotelContrato = new ArrayCollection();
+        $this->hotelHabitacion = new ArrayCollection();
     }
 
 
@@ -460,5 +466,39 @@ class Hotel
     public function getHotelContrato()
     {
         return $this->hotelContrato;
+    }
+
+    /**
+     * Add hotelHabitacion
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelHabitacion $hotelHabitacion
+     *
+     * @return Hotel
+     */
+    public function addHotelHabitacion(\VisitaYucatanBundle\Entity\HotelHabitacion $hotelHabitacion)
+    {
+        $this->hotelHabitacion[] = $hotelHabitacion;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelHabitacion
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelHabitacion $hotelHabitacion
+     */
+    public function removeHotelHabitacion(\VisitaYucatanBundle\Entity\HotelHabitacion $hotelHabitacion)
+    {
+        $this->hotelHabitacion->removeElement($hotelHabitacion);
+    }
+
+    /**
+     * Get hotelHabitacion
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelHabitacion()
+    {
+        return $this->hotelHabitacion;
     }
 }

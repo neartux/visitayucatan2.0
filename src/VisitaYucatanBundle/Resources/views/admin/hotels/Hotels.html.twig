@@ -127,6 +127,10 @@
         <input type="hidden" id="pathContratoCreate" value="{{ path('hotel_create_contrato') }}"/>
         <input type="hidden" id="pathContratoUpdate" value="{{ path('hotel_update_contrato') }}"/>
         <input type="hidden" id="pathContratoPlanes" value="{{ path('hotel_find_planes') }}"/>
+        <input type="hidden" id="pathContractById" value="{{ path('hotel_find_contract') }}"/>
+        <input type="hidden" id="pathHabitaciones" value="{{ path('hotel_find_habitaciones') }}"/>
+        <input type="hidden" id="pathHabitacionCreate" value="{{ path('hotel_create_habitacion') }}"/>
+        <input type="hidden" id="pathHabitacionUpdate" value="{{ path('hotel_update_habitacion') }}"/>
     </div>
 
 {% endblock %}
@@ -154,10 +158,11 @@
                     format: 'DD/MM/YYYY'
                 }
             });
-            $('.datepicker').datepicker({
-
-                    format: 'dd/mm/yyyy'
-
+            $('.datepickerInicio').datepicker({
+                format: 'dd/mm/yyyy'
+            });
+            $('.datepickerFin').datepicker({
+                format: 'dd/mm/yyyy'
             });
         });
     </script>

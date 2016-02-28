@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-3">
-            <select class="form-control" data-ng-model="ctrlHotel.hotelContratoTO.data.idIdioma" ng-change="ctrlHotel.findHotelByIdAndLanguage()" required>
+            <select class="form-control" data-ng-model="ctrlHotel.hotelContratoTO.data.idContract" ng-change="ctrlHotel.findContractById()" required>
                 <option value="">SELECCIONA CONTRATO</option>
                 <option value="[[ contrato.id ]]" ng-repeat="contrato in ctrlHotel.listaContratos.data">[[ contrato.descripcion | uppercase ]]</option>
             </select>
@@ -11,13 +11,14 @@
         </div>
     </div>
 </div>
-
+<hr>
 <div class="row">
     <form class="form-horizontal">
         <div class="col-sm-12">
+            <h4 class="text-bold text-uppercase text-center">Información Contrato</h4>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
                         Nombre Contrato
                     </label>
                     <div class="col-sm-8">
@@ -25,40 +26,40 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
                         Fecha Inicial
                     </label>
                     <div class="col-sm-8">
-                        <div class="input-group date datepicker">
+                        <div class="input-group date datepickerInicio">
                             <span class="input-group-addon"><i class="ti ti-calendar"></i></span>
                             <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.fechaInicio"/>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
                         Fecha Final
                     </label>
                     <div class="col-sm-8">
-                        <div class="input-group date datepicker">
+                        <div class="input-group date datepickerFin">
                             <span class="input-group-addon"><i class="ti ti-calendar"></i></span>
                             <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.fechaFin"/>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
                         Plan de Alimentos
                     </label>
                     <div class="col-sm-8">
                         <select class="form-control" data-ng-model="ctrlHotel.hotelContract.idHotelPlan">
-                            <option value="">SELECCIONA</option>
+                            <option value="0">SELECCIONA</option>
                             <option value="[[ plan.id ]]" ng-repeat="plan in ctrlHotel.listaPlanes.data">[[ plan.descripcion | uppercase ]]</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
                         Edad Maxima del Menor
                     </label>
                     <div class="col-sm-8">
@@ -68,7 +69,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
                         ISH(%)
                     </label>
                     <div class="col-sm-8">
@@ -76,7 +77,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
                         Markup
                     </label>
                     <div class="col-sm-8">
@@ -84,7 +85,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
                         Iva
                     </label>
                     <div class="col-sm-8">
@@ -92,7 +93,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
                         Resort Fee
                     </label>
                     <div class="col-sm-8">
@@ -100,15 +101,17 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-bold text-uppercase">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
                         Marcar si ya incluye impuestos
                     </label>
                     <div class="col-sm-8">
                         <input type="checkbox" ng-model="ctrlHotel.hotelContract.aplicaImpuesto"/>
                     </div>
                 </div>
-                <input type="button" class="btn btn-primary" value="Guardar" data-ng-click="ctrlHotel.createContractHotel()"/>
             </div>
+        </div>
+        <div class="col-sm-12 text-right">
+            <input type="button" class="btn btn-primary" value="Guardar" data-ng-click="ctrlHotel.createContractHotel()"/>
         </div>
     </form>
 </div>

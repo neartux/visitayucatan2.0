@@ -63,8 +63,9 @@ class HotelContratoRepository extends \Doctrine\ORM\EntityRepository {
         if(! $contrato){
             throw new EntityNotFoundException('No se encontro el contacto seleccionado');
         }
-        $contrato->setFechaInicio($contractTO->getFechaInicio());
-        $contrato->setFechaFin($contractTO->getFechaFin());
+        $contrato->setDescripcion($contractTO->getDescripcion());
+        $contrato->setFechaInicio(new \DateTime($contractTO->getFechaInicio()));
+        $contrato->setFechaFin(new \DateTime($contractTO->getFechaFin()));
         $contrato->setEdadMenor($contractTO->getEdadMenor());
         $contrato->setAplicaImpuesto($contractTO->getAplicaImpuesto());
         $contrato->setIsh($contractTO->getIsh());

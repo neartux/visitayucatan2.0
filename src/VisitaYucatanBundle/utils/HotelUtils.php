@@ -7,6 +7,7 @@
 namespace VisitaYucatanBundle\utils;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\DateTime;
 use VisitaYucatanBundle\utils\to\ContractTO;
 use VisitaYucatanBundle\utils\to\HotelidiomaTO;
 use VisitaYucatanBundle\utils\to\ImagenTO;
@@ -49,11 +50,12 @@ class HotelUtils {
     public static function getHotelContract($contrato){
         $contratoTO = new ContractTO();
         $contratoTO->setId($contrato->getId());
+        $contratoTO->setDescripcion($contrato->getDescripcion());
         $contratoTO->setIdHotel($contrato->getHotel()->getId());
-        $contratoTO->setIdHotelPlan($contrato->getHotelPlan()->getId());
+        $contratoTO->setIdHotelPlan($contrato->getHotelPlan()->getId().'');
         $contratoTO->setIdEstatus($contrato->getEstatus()->getId());
-        $contratoTO->setFechaInicio($contrato->getFechaInicio());
-        $contratoTO->setFechaFin($contrato->getFechaFin());
+        $contratoTO->setFechaInicio(date_format($contrato->getFechaInicio(), 'd/m/Y'));
+        $contratoTO->setFechaFin(date_format($contrato->getFechaFin(), 'd/m/Y'));
         $contratoTO->setEdadMenor($contrato->getEdadMenor());
         $contratoTO->setAplicaImpuesto($contrato->getAplicaImpuesto());
         $contratoTO->setIsh($contrato->getIsh());

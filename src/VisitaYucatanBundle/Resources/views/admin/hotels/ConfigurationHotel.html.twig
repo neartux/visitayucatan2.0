@@ -11,7 +11,7 @@
         <div class="panel panel-gray" data-widget='{"draggable": "false"}'>
             <div class="panel-heading">
                 <h2>
-                    [[ ctrlHotel.idHotelGlobal ]]&nbsp;[[ ctrlHotel.nameHotelTitle ]]
+                    HOTEL **&nbsp;<span class="text-bold">[[ ctrlHotel.nameHotelTitle ]]</span>
                 </h2>
                 <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
                 <div class="options">
@@ -25,8 +25,11 @@
                         <li><a href="#fechas-cierre-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findFechasCierreByHotel()">
                                 <i class="fa fa-calendar text-info"></i>&nbsp;&nbsp;Fechas Cierre</a>
                         </li>
-                        <li><a href="#contratos-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findFechasCierreByHotel()">
+                        <li><a href="#contratos-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findAllHotelContracts()">
                                 <i class="fa fa-calendar text-info"></i>&nbsp;&nbsp;Contratos</a>
+                        </li>
+                        <li><a href="#habitaciones-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findHabitacionesHotel()">
+                                <i class="fa fa-header text-info"></i>&nbsp;&nbsp;Habitaciones</a>
                         </li>
                     </ul>
                 </div>
@@ -49,6 +52,11 @@
 
                     </div>
                     <div class="tab-pane" id="contratos-hotel">
+
+                        {% include '@VisitaYucatan/admin/hotels/TabPanelContratos.html.twig' %}
+
+                    </div>
+                    <div class="tab-pane" id="habitaciones-hotel">
 
                         {% include '@VisitaYucatan/admin/hotels/TabPanelContratos.html.twig' %}
 
