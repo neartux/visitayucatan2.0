@@ -53,7 +53,6 @@
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
-                console.log("contactos = "+JSON.stringify(data.data));
                 service.contactHotelList.data = data.data;
             });
         };
@@ -88,7 +87,6 @@
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
-                console.log("iamges = "+JSON.stringify(data.data));
                 service.imagesHotelList.data = data.data;
             });
         };
@@ -171,14 +169,11 @@
         };
 
         service.createOrUpdateFechaCierre = function(idFecha, idHotel, fechaInicio, fechaFin){
-            console.log("id fecha = "+idFecha);
             if(parseInt(idFecha) == 0){
-                console.log("es nuevo");
                 return $http.post($("#pathFechaCierreCreate").val(), $.param({idHotel : idHotel, fechaInicio : fechaInicio, fechaFin : fechaFin}), {
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }else{
-                console.log("es update");
                 return $http.post($("#pathFechaCierreUpdate").val(), $.param({idFechaCierre : idFecha, fechaInicio : fechaInicio, fechaFin : fechaFin}), {
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
@@ -207,7 +202,6 @@
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
-                console.info("contratos = "+JSON.stringify(data.data));
                 service.listaContratos.data = data.data;
             });
         };
@@ -217,7 +211,6 @@
             return $http.post(path, {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
-                console.info("planes = "+JSON.stringify(data.data));
                 service.listaPlanes.data = data.data;
             });
         };

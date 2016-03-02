@@ -79,3 +79,59 @@ function startLoading(msjLoading){
 function stopLoading(){
     HoldOn.close();
 }
+
+function cleanForm(className){
+    $('.'+className).val('');
+}
+
+function validateContractHotelForm(){
+    var nombre = $("#nombreContrato");
+    var startDate = $("#startDateContract");
+    var endDate = $("#endDateContract");
+    var plan = $("#selectPlanContract");
+    var edadMenor = $("#minorityContract");
+    var ish = $("#ishContract");
+    var markup = $("#markupContract");
+    var iva = $("#ivaContract");
+    var fee = $("#feeContract");
+
+    if($.trim(nombre.val()).length == 0){
+        pNotifyView("El nombre del contrato es necesario", "info");
+        nombre.trigger("focus");
+        return false;
+    }else if($.trim(startDate.val()).length == 0){
+        pNotifyView("La fecha inicio del contrato es necesario", "info");
+        startDate.trigger("focus");
+        return false;
+    }else if($.trim(endDate.val()).length == 0){
+        pNotifyView("La fecha final del contrato es necesario", "info");
+        endDate.trigger("focus");
+        return false;
+    }else if(plan.val() == 0){
+        pNotifyView("El plan es necesario", "info");
+        plan.trigger("focus");
+        return false;
+    }else if(edadMenor.val() <= 0){
+        pNotifyView("Captura la edad minima del menor", "info");
+        edadMenor.trigger("focus");
+        return false;
+    }else if(ish.val() < 0 || ish.val() == ""){
+        pNotifyView("Captura impueso sobre hotel", "info");
+        ish.trigger("focus");
+        return false;
+    }else if(markup.val() < 0 || markup.val() == ""){
+        pNotifyView("El markup es necesario", "info");
+        markup.trigger("focus");
+        return false;
+    }else if(iva.val() < 0 || iva.val() == ""){
+        pNotifyView("Captura el iva", "info");
+        iva.trigger("focus");
+        return false;
+    }else if(fee.val() < 0 || fee.val() == ""){
+        pNotifyView("El Resort fee necesario", "info");
+        fee.trigger("focus");
+        return false;
+    }else{
+        return true;
+    }
+}

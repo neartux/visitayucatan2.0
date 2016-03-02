@@ -1,58 +1,58 @@
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-3">
-            <select class="form-control" data-ng-model="ctrlHotel.hotelContratoTO.data.idContract" ng-change="ctrlHotel.findContractById()" required>
+            <select class="form-control" data-ng-model="ctrlHotel.hotelContratoTO.data.idContract" ng-change="ctrlHotel.findContractById()" id="selectContract">
                 <option value="">SELECCIONA CONTRATO</option>
                 <option value="[[ contrato.id ]]" ng-repeat="contrato in ctrlHotel.listaContratos.data">[[ contrato.descripcion | uppercase ]]</option>
             </select>
         </div>
         <div class="col-md-3">
-            <input type="button" value="Nuevo Contrato" class="btn btn-primary"/>
+            <input type="button" value="Nuevo Contrato" class="btn btn-primary" data-ng-show="! ctrlHotel.displayFormContract" data-ng-click="ctrlHotel.displayNewContract();"/>
         </div>
     </div>
 </div>
 <hr>
-<div class="row">
+<div class="row" data-ng-show="ctrlHotel.displayFormContract">
     <form class="form-horizontal">
         <div class="col-sm-12">
             <h4 class="text-bold text-uppercase text-center">Información Contrato</h4>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label text-bold text-uppercase">
-                        Nombre Contrato
+                        Nombre Contrato <span class="required">*</span>
                     </label>
                     <div class="col-sm-8">
-                        <input type="text" id="nombreContrato" ng-model="ctrlHotel.hotelContract.descripcion" class="form-control"/>
+                        <input type="text" id="nombreContrato" ng-model="ctrlHotel.hotelContract.descripcion" class="form-control field-contract-hotel"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label text-bold text-uppercase">
-                        Fecha Inicial
+                        Fecha Inicial <span class="required">*</span>
                     </label>
                     <div class="col-sm-8">
                         <div class="input-group date datepickerInicio">
                             <span class="input-group-addon"><i class="ti ti-calendar"></i></span>
-                            <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.fechaInicio"/>
+                            <input type="text" class="form-control" id="startDateContract" ng-model="ctrlHotel.hotelContract.fechaInicio"/>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label text-bold text-uppercase">
-                        Fecha Final
+                        Fecha Final <span class="required">*</span>
                     </label>
                     <div class="col-sm-8">
                         <div class="input-group date datepickerFin">
                             <span class="input-group-addon"><i class="ti ti-calendar"></i></span>
-                            <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.fechaFin"/>
+                            <input type="text" id="endDateContract" class="form-control field-contract-hotel" ng-model="ctrlHotel.hotelContract.fechaFin"/>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label text-bold text-uppercase">
-                        Plan de Alimentos
+                        Plan de Alimentos <span class="required">*</span>
                     </label>
                     <div class="col-sm-8">
-                        <select class="form-control" data-ng-model="ctrlHotel.hotelContract.idHotelPlan">
+                        <select class="form-control" data-ng-model="ctrlHotel.hotelContract.idHotelPlan" id="selectPlanContract">
                             <option value="0">SELECCIONA</option>
                             <option value="[[ plan.id ]]" ng-repeat="plan in ctrlHotel.listaPlanes.data">[[ plan.descripcion | uppercase ]]</option>
                         </select>
@@ -60,44 +60,44 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label text-bold text-uppercase">
-                        Edad Maxima del Menor
+                        Edad Maxima del Menor <span class="required">*</span>
                     </label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.edadMenor"/>
+                        <input type="text" class="form-control field-contract-hotel only-Integer" ng-model="ctrlHotel.hotelContract.edadMenor" id="minorityContract"/>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label text-bold text-uppercase">
-                        ISH(%)
+                        ISH(%) <span class="required">*</span>
                     </label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.ish"/>
+                        <input type="text" class="form-control field-contract-hotel only-Integer" ng-model="ctrlHotel.hotelContract.ish" id="ishContract"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label text-bold text-uppercase">
-                        Markup
+                        Markup <span class="required">*</span>
                     </label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.markup"/>
+                        <input type="text" class="form-control field-contract-hotel only-Integer" ng-model="ctrlHotel.hotelContract.markup" id="markupContract"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label text-bold text-uppercase">
-                        Iva
+                        Iva <span class="required">*</span>
                     </label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.iva"/>
+                        <input type="text" class="form-control field-contract-hotel only-Integer" ng-model="ctrlHotel.hotelContract.iva" id="ivaContract"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label text-bold text-uppercase">
-                        Resort Fee
+                        Resort Fee <span class="required">*</span>
                     </label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelContract.fee"/>
+                        <input type="text" class="form-control field-contract-hotel only-Integer" ng-model="ctrlHotel.hotelContract.fee" id="feeContract"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -111,6 +111,7 @@
             </div>
         </div>
         <div class="col-sm-12 text-right">
+            <input type="button" class="btn btn-default" value="Cancelar" data-ng-click="ctrlHotel.displayFormContract = false"/>
             <input type="button" class="btn btn-primary" value="Guardar" data-ng-click="ctrlHotel.createContractHotel()"/>
         </div>
     </form>

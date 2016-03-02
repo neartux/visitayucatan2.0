@@ -33,6 +33,7 @@
         ctrlHotel.hotelContacto = {};
         ctrlHotel.hotelContract = undefined;
         ctrlHotel.isNewContract = false;
+        ctrlHotel.displayFormContract = false;
 
         ctrlHotel.init = function () {
             ctrlHotel.titleCreate = 'Nuevo Hotel';
@@ -59,18 +60,27 @@
         };
 
         ctrlHotel.findContractById = function () {
-            console.info("id del contrato = "+ctrlHotel.hotelContratoTO.data.idContract);
-            return HotelService.findContractById(ctrlHotel.hotelContratoTO.data.idContract).then(function(data){
-                console.info("hotel update = "+JSON.stringify(data.data));
-                $(".datepickerInicio").datepicker("update", data.data.fechaInicio);
-                $(".datepickerFin").datepicker("update", data.data.fechaFin);
-                ctrlHotel.hotelContract = data.data;
-                ctrlHotel.isNewContract = false;
-            });
+            if(ctrlHotel.hotelContratoTO.data.idContract == ''){
+                ctrlHotel.displayFormContract = false;
+            }else{
+                return HotelService.findContractById(ctrlHotel.hotelContratoTO.data.idContract).then(function(data){
+                    $(".datepickerInicio").datepicker("update", data.data.fechaInicio);
+                    $(".datepickerFin").datepicker("update", data.data.fechaFin);
+                    ctrlHotel.hotelContract = data.data;
+                    ctrlHotel.isNewContract = false;
+                    ctrlHotel.displayFormContract = true;
+                });
+            }
         };
 
         ctrlHotel.displayNewContract = function(){
+            cleanForm('field-contract-hotel');
+            $('#selectContract option:eq(0)').prop('selected', true);
+            ctrlHotel.displayFormContract = true;
             ctrlHotel.isNewContract = true;
+            ctrlHotel.hotelContract = {
+                idHotelPlan: "0"
+            }
         };
 
         ctrlHotel.findPlanAlimentos = function () {
@@ -100,7 +110,6 @@
         ctrlHotel.createContactHotel = function () {
             if(ctrlHotel.validateContactHotel()){
                 ctrlHotel.hotelContacto.idHotel = ctrlHotel.idHotelGlobal;
-                console.log("infomacion del hotel contacto = "+JSON.stringify(ctrlHotel.hotelContacto));
                 return HotelService.createContactHotel(ctrlHotel.hotelContacto).then(function(data){
                     pNotifyView(data.data.message, data.data.typeStatus);
                     if(data.data.status){
@@ -208,7 +217,6 @@
             ctrlHotel.configHotel = true;
             $(".summernote").code('');
             ctrlHotel.findImagesByHotel();
-            console.log("bollean = "+ctrlHotel.configHotel);
         };
 
         ctrlHotel.returnListTour = function(){
@@ -331,21 +339,25 @@
         };
 
         ctrlHotel.createContractHotel = function(){
-            if(ctrlHotel.isNewContract){
-                ctrlHotel.hotelContract.idHotel = ctrlHotel.idHotelGlobal;
-                return HotelService.createContract(ctrlHotel.hotelContract).then(function(data){
-                    if(data.data.status){
-                        ctrlHotel.findAllHotelContracts();
-                    }
-                    pNotifyView(data.data.message, data.data.typeStatus);
-                });
-            }else{
-                return HotelService.updateContract(ctrlHotel.hotelContract).then(function(data){
-                    if(data.data.status){
-                        ctrlHotel.findAllHotelContracts();
-                    }
-                    pNotifyView(data.data.message, data.data.typeStatus);
-                });
+            if(validateContractHotelForm()){
+                if(ctrlHotel.isNewContract){
+                    ctrlHotel.hotelContract.idHotel = ctrlHotel.idHotelGlobal;
+                    return HotelService.createContract(ctrlHotel.hotelContract).then(function(data){
+                        if(data.data.status){
+                            ctrlHotel.findAllHotelContracts();
+                            ctrlHotel.displayFormContract = false;
+                        }
+                        pNotifyView(data.data.message, data.data.typeStatus);
+                    });
+                }else{
+                    return HotelService.updateContract(ctrlHotel.hotelContract).then(function(data){
+                        if(data.data.status){
+                            ctrlHotel.findAllHotelContracts();
+                            ctrlHotel.displayFormContract = false;
+                        }
+                        pNotifyView(data.data.message, data.data.typeStatus);
+                    });
+                }
             }
         };
 
