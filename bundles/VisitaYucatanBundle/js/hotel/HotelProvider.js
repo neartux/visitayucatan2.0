@@ -229,6 +229,13 @@
             });
         };
 
+        service.findHabitacionById = function (idHabitacion){
+            var path = $("#pathHabitacionOne").val();
+            return $http.post(path, $.param({idHabitacion : idHabitacion}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
         service.findHabitacionesHotel = function(idHotel){
             var path = $("#pathHabitaciones").val();
             return $http.post(path, $.param({idHotel : idHotel}), {

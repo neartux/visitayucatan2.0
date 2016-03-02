@@ -449,6 +449,16 @@ class HotelAdminController extends Controller {
     }
 
     /**
+     * @Route("/admin/hotel/find/habitacion", name="hotel_find_habitacion")
+     * @Method("POST")
+     */
+    public function findHabitacionByIdAction(Request $request) {
+        $idHabitacion = $request->get('idHabitacion');
+        $habitacionTO = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelHabitacion')->getHabitacionTOById($idHabitacion);
+        return new Response($this->get('serializer')->serialize($habitacionTO, Generalkeys::JSON_STRING));
+    }
+
+    /**
      * @Route("/admin/hotel/find/habitaciones", name="hotel_find_habitaciones")
      * @Method("POST")
      */

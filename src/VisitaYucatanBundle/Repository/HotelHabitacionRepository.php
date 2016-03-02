@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityNotFoundException;
 use VisitaYucatanBundle\Entity\HotelHabitacion;
 use VisitaYucatanBundle\utils\Estatuskeys;
 use VisitaYucatanBundle\utils\Generalkeys;
+use VisitaYucatanBundle\utils\HotelUtils;
 
 /**
  * HotelHabitacionRepository
@@ -25,6 +26,14 @@ class HotelHabitacionRepository extends \Doctrine\ORM\EntityRepository {
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();
+    }
+
+    public function getHabitacionTOById($idHabitacion){
+        $habitacion = $this->find($idHabitacion);
+        if(! $habitacion){
+            throw new EntityNotFoundException('No se encontro la habitacion seleccionada');
+        }
+        return HotelUtils::getHotelHabitacion($habitacion);
     }
 
     public function createHabitacion($habitacionTO){
@@ -58,8 +67,8 @@ class HotelHabitacionRepository extends \Doctrine\ORM\EntityRepository {
         $habitacion->setAllotment($habitacionTO->getAllotment());
         $habitacion->setCapacidadMaxima($habitacionTO->getCapacidadMaxima());
         $habitacion->setMaximoAdultos($habitacionTO->getMaximoAdultos());
-        $habitacion->setMaximoInfantes($habitacionTO->getMaximoJuniors());
-        $habitacion->setMaximoJuniors($habitacionTO->getMaximoJuniors());
+        $habitacion->setMaximoInfantes(Generalkeys::NUMBER_ZERO);
+        $habitacion->setMaximoJuniors(Generalkeys::NUMBER_ZERO);
         $habitacion->setMaximoMenores($habitacionTO->getMaximoMenores());
 
         $em->persist($habitacion);

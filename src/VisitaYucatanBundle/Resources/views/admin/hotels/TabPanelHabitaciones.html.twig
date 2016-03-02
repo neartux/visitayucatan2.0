@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-3">
-            <select class="form-control" data-ng-model="ctrlHotel.hotelHabitacionTO.idHabitacion" ng-change="ctrlHotel.findHabitacionById()" id="selectHabitaciones">
+            <select class="form-control" data-ng-model="ctrlHotel.hotelHabitacionTO.data.idHabitacion" ng-change="ctrlHotel.findHabitacionById()" id="selectHabitaciones">
                 <option value="">SELECCIONA HABITACIÓN</option>
-                <option value="[[ habitacion.id ]]" ng-repeat="habitacion in ctrlHotel.listaHabitacionesHotel.data">[[ habitacion.descripcion ]]</option>
+                <option value="[[ habitacion.id ]]" ng-repeat="habitacion in ctrlHotel.listaHabitacionesHotel.data">[[ habitacion.nombre ]]</option>
             </select>
         </div>
         <div class="col-md-3">

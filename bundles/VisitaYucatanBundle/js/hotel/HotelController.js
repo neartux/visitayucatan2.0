@@ -77,6 +77,19 @@
             }
         };
 
+        ctrlHotel.findHabitacionById = function () {
+            if(ctrlHotel.hotelHabitacionTO.data.idHabitacion == ''){
+                ctrlHotel.displayFormHabitacion = false;
+            }else{
+                return HotelService.findHabitacionById(ctrlHotel.hotelHabitacionTO.data.idHabitacion).then(function(data){
+                    ctrlHotel.hotelHabitacionTO = data.data;
+                    $(".summernoteHab").code(data.data.descripcion);
+                    ctrlHotel.isNewHabitacion = false;
+                    ctrlHotel.displayFormHabitacion = true;
+                });
+            }
+        };
+
         ctrlHotel.displayNewContract = function(){
             cleanForm('field-contract-hotel');
             $('#selectContract option:eq(0)').prop('selected', true);

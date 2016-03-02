@@ -7,8 +7,8 @@
 namespace VisitaYucatanBundle\utils;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\DateTime;
 use VisitaYucatanBundle\utils\to\ContractTO;
+use VisitaYucatanBundle\utils\to\HabitacionTO;
 use VisitaYucatanBundle\utils\to\HotelidiomaTO;
 use VisitaYucatanBundle\utils\to\ImagenTO;
 
@@ -64,5 +64,18 @@ class HotelUtils {
         $contratoTO->setFee($contrato->getFee());
 
         return $contratoTO;
+    }
+
+    public static function getHotelHabitacion($habitacion){
+        $habitacionTO = new HabitacionTO();
+        $habitacionTO->setId($habitacion->getId());
+        $habitacionTO->setNombre($habitacion->getNombre());
+        $habitacionTO->setDescripcion($habitacion->getDescripcion());
+        $habitacionTO->setAllotment($habitacion->getAllotment());
+        $habitacionTO->setMaximoMenores($habitacion->getMaximoMenores());
+        $habitacionTO->setMaximoAdultos($habitacion->getMaximoAdultos());
+        $habitacionTO->setCapacidadMaxima($habitacion->getCapacidadMaxima());
+
+        return $habitacionTO;
     }
 }
