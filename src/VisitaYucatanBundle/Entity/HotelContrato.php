@@ -101,6 +101,10 @@ class HotelContrato {
      */
     private $estatus;
 
+    /**
+     * @ORM\OneToMany(targetEntity="HotelTarifa", mappedBy="hotelContrato")
+     */
+    private $hotelTarifa;
 
     /**
      * Get id

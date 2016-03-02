@@ -94,6 +94,11 @@ class HotelHabitacion {
     private $hotelHabitacionIdioma;
 
     /**
+     * @ORM\OneToMany(targetEntity="HotelTarifa", mappedBy="hotelHabitacion")
+     */
+    private $hotelTarifa;
+
+    /**
      * Get id
      *
      * @return int

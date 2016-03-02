@@ -150,6 +150,11 @@ class Estatus
     private $hotelHabitacionIdioma;
 
     /**
+     * @ORM\OneToMany(targetEntity="HotelTarifa", mappedBy="estatus")
+     */
+    private $hotelTarifa;
+
+    /**
      * Constructor
      */
     public function __construct(){
@@ -173,6 +178,7 @@ class Estatus
         $this->hotelContrato = new ArrayCollection();
         $this->hotelHabitacion = new ArrayCollection();
         $this->hotelHabitacionIdioma = new ArrayCollection();
+        $this->hotelTarifa = new ArrayCollection();
     }
 
     /**

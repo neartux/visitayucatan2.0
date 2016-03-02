@@ -97,6 +97,11 @@ class Hotel
     private $hotelHabitacion;
 
     /**
+     * @ORM\OneToMany(targetEntity="HotelTarifa", mappedBy="hotel")
+     */
+    private $hotelTarifa;
+
+    /**
      * Constructor
      */
     public function __construct(){
@@ -107,6 +112,7 @@ class Hotel
         $this->hotelFechaCierre = new ArrayCollection();
         $this->hotelContrato = new ArrayCollection();
         $this->hotelHabitacion = new ArrayCollection();
+        $this->hotelTarifa = new ArrayCollection();
     }
 
 
