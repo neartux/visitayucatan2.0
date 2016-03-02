@@ -21,6 +21,7 @@
         ctrlHotel.listaContratos = HotelService.listaContratos;
         ctrlHotel.listaPlanes = HotelService.listaPlanes;
         ctrlHotel.listaHabitacionesHotel = HotelService.listaHabitacionesHotel;
+        ctrlHotel.hotelHabitacionIdiomaTO = HotelService.hotelHabitacionIdiomaTO;
         ctrlHotel.titleCreate = '';
         ctrlHotel.titleEdit = '';
         ctrlHotel.msjLoading = '';
@@ -38,6 +39,7 @@
         ctrlHotel.displayFormHabitacion = false;
         ctrlHotel.isNewHabitacion = false;
         ctrlHotel.hotelHabitacionTO = {};
+        ctrlHotel.showIdiomaHabitacionBolean = false;
 
         ctrlHotel.init = function () {
             ctrlHotel.titleCreate = 'Nuevo Hotel';
@@ -408,6 +410,26 @@
                     });
                 }
             }
+        };
+
+        ctrlHotel.showIdiomaHabitacion = function(){
+            if(ctrlHotel.hotelHabitacionIdiomaTO.data.idHabitacion != ""){
+                ctrlHotel.showIdiomaHabitacionBolean = true;
+            }else{
+                ctrlHotel.showIdiomaHabitacionBolean = false;
+            }
+        };
+
+        ctrlHotel.findHabitacionIdioma = function(){
+            return HotelService.findHabitacionByIdAndIdioma(ctrlHotel.hotelHabitacionIdiomaTO.data.idHabitacion, ctrlHotel.hotelHabitacionIdiomaTO.data.idIdioma).then(function(data){
+                console.info("Idioma habitacion = "+JSON.stringify(data.data));
+                ctrlHotel.showIdiomaHabitacionBolean = true;
+                $("#descripcionHotelHabitacionIdioma").code(data.data.descripcion);
+            });
+        };
+
+        ctrlHotel.saveHotelHabitacionIdioma = function(){
+
         };
 
         ctrlHotel.getDate = function(fechaInicio, fechaFin){

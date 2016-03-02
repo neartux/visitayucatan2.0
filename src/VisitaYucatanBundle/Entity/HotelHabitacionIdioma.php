@@ -5,12 +5,12 @@ namespace VisitaYucatanBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Hotelidioma
+ * HabitacionIdioma
  *
- * @ORM\Table(name="hotel_idioma")
- * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\HotelidiomaRepository")
+ * @ORM\Table(name="hotel_habitacion_idioma")
+ * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\HotelHabitacionIdiomaRepository")
  */
-class Hotelidioma {
+class HotelHabitacionIdioma {
     /**
      * @var int
      *
@@ -23,31 +23,24 @@ class Hotelidioma {
     /**
      * @var string
      *
-     * @ORM\Column(name="nombrehotel", type="string", length=255)
-     */
-    private $nombrehotel;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="descripcion", type="text")
      */
     private $descripcion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Hotel", inversedBy="hotelIdioma")
-     * @ORM\JoinColumn(name="id_hotel", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="HotelHabitacion", inversedBy="hotelHabitacionIdioma")
+     * @ORM\JoinColumn(name="id_hotel_habitacion", referencedColumnName="id", nullable=false)
      */
-    private $hotel;
+    private $hotelHabitacion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Idioma", inversedBy="hotelIdioma")
+     * @ORM\ManyToOne(targetEntity="Idioma", inversedBy="hotelHabitacionIdioma")
      * @ORM\JoinColumn(name="id_idioma", referencedColumnName="id", nullable=false)
      */
     private $idioma;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="hotelIdioma")
+     * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="hotelHabitacionIdioma")
      * @ORM\JoinColumn(name="id_estatus", referencedColumnName="id", nullable=false)
      */
     private $estatus;
@@ -64,35 +57,11 @@ class Hotelidioma {
     }
 
     /**
-     * Set nombrehotel
-     *
-     * @param string $nombrehotel
-     *
-     * @return Hotelidioma
-     */
-    public function setNombrehotel($nombrehotel)
-    {
-        $this->nombrehotel = $nombrehotel;
-
-        return $this;
-    }
-
-    /**
-     * Get nombrehotel
-     *
-     * @return string
-     */
-    public function getNombrehotel()
-    {
-        return $this->nombrehotel;
-    }
-
-    /**
      * Set descripcion
      *
      * @param string $descripcion
      *
-     * @return Hotelidioma
+     * @return HabitacionIdioma
      */
     public function setDescripcion($descripcion)
     {
@@ -112,27 +81,27 @@ class Hotelidioma {
     }
 
     /**
-     * Set hotel
+     * Set hotelHabitacion
      *
-     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
+     * @param \VisitaYucatanBundle\Entity\HotelHabitacion $hotelHabitacion
      *
-     * @return Hotelidioma
+     * @return HotelHabitacionIdioma
      */
-    public function setHotel(\VisitaYucatanBundle\Entity\Hotel $hotel)
+    public function setHotelHabitacion(\VisitaYucatanBundle\Entity\HotelHabitacion $hotelHabitacion)
     {
-        $this->hotel = $hotel;
+        $this->hotelHabitacion = $hotelHabitacion;
 
         return $this;
     }
 
     /**
-     * Get hotel
+     * Get hotelHabitacion
      *
-     * @return \VisitaYucatanBundle\Entity\Hotel
+     * @return \VisitaYucatanBundle\Entity\HotelHabitacion
      */
-    public function getHotel()
+    public function getHotelHabitacion()
     {
-        return $this->hotel;
+        return $this->hotelHabitacion;
     }
 
     /**
@@ -140,7 +109,7 @@ class Hotelidioma {
      *
      * @param \VisitaYucatanBundle\Entity\Idioma $idioma
      *
-     * @return Hotelidioma
+     * @return HotelHabitacionIdioma
      */
     public function setIdioma(\VisitaYucatanBundle\Entity\Idioma $idioma)
     {
@@ -164,7 +133,7 @@ class Hotelidioma {
      *
      * @param \VisitaYucatanBundle\Entity\Estatus $estatus
      *
-     * @return Hotelidioma
+     * @return HotelHabitacionIdioma
      */
     public function setEstatus(\VisitaYucatanBundle\Entity\Estatus $estatus)
     {

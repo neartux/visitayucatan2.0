@@ -12,6 +12,7 @@ namespace VisitaYucatanBundle\utils\to;
 class HotelidiomaTO {
     private $id;
     private $idHotel;
+    private $idHabitacion;
     private $idIdioma;
     private $nombreHotel;
     private $descripcion;
@@ -94,6 +95,22 @@ class HotelidiomaTO {
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdHabitacion()
+    {
+        return $this->idHabitacion;
+    }
+
+    /**
+     * @param mixed $idHabitacion
+     */
+    public function setIdHabitacion($idHabitacion)
+    {
+        $this->idHabitacion = $idHabitacion;
     }
 
 

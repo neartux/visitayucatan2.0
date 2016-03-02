@@ -89,6 +89,11 @@ class HotelHabitacion {
     private $estatus;
 
     /**
+     * @ORM\OneToMany(targetEntity="HotelHabitacionIdioma", mappedBy="hotelHabitacion")
+     */
+    private $hotelHabitacionIdioma;
+
+    /**
      * Get id
      *
      * @return int
@@ -336,5 +341,46 @@ class HotelHabitacion {
     public function getEstatus()
     {
         return $this->estatus;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->hotelHabitacionIdioma = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add hotelHabitacionIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelHabitacionIdioma $hotelHabitacionIdioma
+     *
+     * @return HotelHabitacion
+     */
+    public function addHotelHabitacionIdioma(\VisitaYucatanBundle\Entity\HotelHabitacionIdioma $hotelHabitacionIdioma)
+    {
+        $this->hotelHabitacionIdioma[] = $hotelHabitacionIdioma;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelHabitacionIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelHabitacionIdioma $hotelHabitacionIdioma
+     */
+    public function removeHotelHabitacionIdioma(\VisitaYucatanBundle\Entity\HotelHabitacionIdioma $hotelHabitacionIdioma)
+    {
+        $this->hotelHabitacionIdioma->removeElement($hotelHabitacionIdioma);
+    }
+
+    /**
+     * Get hotelHabitacionIdioma
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelHabitacionIdioma()
+    {
+        return $this->hotelHabitacionIdioma;
     }
 }

@@ -38,6 +38,9 @@
         service.listaHabitacionesHotel = {
             data: undefined
         };
+        service.hotelHabitacionIdiomaTO = {
+            data: undefined
+        };
 
         service.findHotelsActives= function(){
             var path = $("#pathListHotel").val();
@@ -260,6 +263,21 @@
             });
         };
 
+        service.findHabitacionByIdAndIdioma = function(idHotelHabitacion, idLanguage){
+            var path = $("#pathHabitacionIdioma").val();
+            return $http.post(path, $.param({idHotelHabitacion : idHotelHabitacion, idIdioma : idLanguage}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                service.hotelHabitacionIdiomaTO.data = data.data;
+            });
+        };
+
+        service.saveHabitacionIdioma = function(hotelHabitacion){
+            var path = $("#pathCreateHabitacionIdioma").val();
+            return $http.post(path, $.param({hotelHabitacionIdioma : JSON.stringify(hotelHabitacion)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
 
         return service;
     });

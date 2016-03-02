@@ -60,6 +60,11 @@ class Idioma
     private $hotelIdioma;
 
     /**
+     * @ORM\OneToMany(targetEntity="HotelHabitacionIdioma", mappedBy="idioma")
+     */
+    private $hotelHabitacionIdioma;
+
+    /**
      * @ORM\OneToMany(targetEntity="PaqueteIdioma", mappedBy="idioma")
      */
     private $paqueteIdioma;
@@ -76,6 +81,7 @@ class Idioma
     public function __construct() {
         $this->tourIdioma = new ArrayCollection();
         $this->hotelIdioma = new ArrayCollection();
+        $this->hotelHabitacionIdioma = new ArrayCollection();
         $this->paqueteIdioma = new ArrayCollection();
         $this->paqueteItinerario = new ArrayCollection();
     }
@@ -321,5 +327,39 @@ class Idioma
     public function getPaqueteItinerario()
     {
         return $this->paqueteItinerario;
+    }
+
+    /**
+     * Add hotelHabitacionIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelHabitacionIdioma $hotelHabitacionIdioma
+     *
+     * @return Idioma
+     */
+    public function addHotelHabitacionIdioma(\VisitaYucatanBundle\Entity\HotelHabitacionIdioma $hotelHabitacionIdioma)
+    {
+        $this->hotelHabitacionIdioma[] = $hotelHabitacionIdioma;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelHabitacionIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelHabitacionIdioma $hotelHabitacionIdioma
+     */
+    public function removeHotelHabitacionIdioma(\VisitaYucatanBundle\Entity\HotelHabitacionIdioma $hotelHabitacionIdioma)
+    {
+        $this->hotelHabitacionIdioma->removeElement($hotelHabitacionIdioma);
+    }
+
+    /**
+     * Get hotelHabitacionIdioma
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelHabitacionIdioma()
+    {
+        return $this->hotelHabitacionIdioma;
     }
 }

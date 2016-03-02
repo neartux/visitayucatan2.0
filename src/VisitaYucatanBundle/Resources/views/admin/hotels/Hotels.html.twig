@@ -132,6 +132,8 @@
         <input type="hidden" id="pathHabitacionCreate" value="{{ path('hotel_create_habitacion') }}"/>
         <input type="hidden" id="pathHabitacionUpdate" value="{{ path('hotel_update_habitacion') }}"/>
         <input type="hidden" id="pathHabitacionOne" value="{{ path('hotel_find_habitacion') }}"/>
+        <input type="hidden" id="pathHabitacionIdioma" value="{{ path('hotel_find_habitacion_idioma') }}"/>
+        <input type="hidden" id="pathCreateHabitacionIdioma" value="{{ path('hotel_create_habitacion_idioma') }}"/>
     </div>
 
 {% endblock %}
@@ -155,6 +157,9 @@
                 height: 200
             });
             $('.summernoteHab').summernote({
+                height: 200
+            });
+            $('.summernoteHabIdioma').summernote({
                 height: 200
             });
             $('#daterangepicker').daterangepicker({

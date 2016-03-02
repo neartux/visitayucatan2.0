@@ -501,6 +501,38 @@ class HotelAdminController extends Controller {
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
         }
     }
+
+    /**
+     * @Route("/admin/hotel/find/habitacion/idioma", name="hotel_find_habitacion_idioma")
+     * @Method("POST")
+     */
+    public function findHabitacionIdiomaAction(Request $request) {
+        $idHotelHabitacion = $request->get('idHabitacion');
+        $idIdioma = $request->get('idIdioma');
+        $habitacionIdioma = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelHabitacionIdioma')->findHotelHabitacionByIdAndIdLanguage($idHotelHabitacion, $idIdioma);
+        return new Response($this->get('serializer')->serialize($habitacionIdioma, Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/admin/hotel/create/habitacion/idioma", name="hotel_create_habitacion_idioma")
+     * @Method("POST")
+     */
+    public function createHotelHabitacionIdiomaAction(Request $request) {
+        $serializer = $this->get('serializer');
+        try {
+            $hotelHabitacionJson = $request->get('hotelHabitacionIdioma');
+            $hotelIdiomaTO = $serializer->deserialize($hotelHabitacionJson, 'VisitaYucatanBundle\utils\to\HotelIdiomaTO', Generalkeys::JSON_STRING);
+            $isNew = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelHabitacionIdioma')->saveHotelHabitacionIdioma($hotelIdiomaTO);
+            $message = 'Se ha modificado la información para la habitacion ';
+            if ($isNew) {
+                $message = 'Se ha agregado la informacion para un nuevo idioma de habitacion ';
+            }
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $message, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
 }
 
 /*TODO AQUI LA SECCION QUE FALTA VALIDAR O AGREGAR PERO NO ES NECESARIO A PRIMERA INSTANCIA
