@@ -1,6 +1,7 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use VisitaYucatanBundle\utils\Estatuskeys;
 
 /**
  * HotelTarifaRepository
@@ -9,4 +10,24 @@ namespace VisitaYucatanBundle\Repository;
  * repository methods below.
  */
 class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
+
+    public function findRateByRangeDate($fechaInicio, $fechaFin, $idHotel, $idContrato, $idHabitacion){
+        $em = $this->getEntityManager();
+        $sql = "SELECT hotel_tarifa.*
+                FROM hotel_tarifa
+                WHERE hotel_tarifa.id_hotel_habitacion =  :habitacion
+                AND hotel_tarifa.id_hotel_contrato = :contrato
+                AND hotel_tarifa.id_hotel = :hotel
+                AND hotel_tarifa.id_estatus = :estatus
+                AND hotel_tarifa.fecha BETWEEN :fechaInicio AND :fechaFin";
+        $params['habitacion'] = $idHabitacion;
+        $params['contrato'] = $idContrato;
+        $params['htoel'] = $idHotel;
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+        $params['fechaInicio'] = $fechaInicio;
+        $params['fechaFin'] = $fechaFin;
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
 }

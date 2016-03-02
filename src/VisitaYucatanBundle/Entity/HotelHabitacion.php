@@ -388,4 +388,38 @@ class HotelHabitacion {
     {
         return $this->hotelHabitacionIdioma;
     }
+
+    /**
+     * Add hotelTarifa
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa
+     *
+     * @return HotelHabitacion
+     */
+    public function addHotelTarifa(\VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa)
+    {
+        $this->hotelTarifa[] = $hotelTarifa;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelTarifa
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa
+     */
+    public function removeHotelTarifa(\VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa)
+    {
+        $this->hotelTarifa->removeElement($hotelTarifa);
+    }
+
+    /**
+     * Get hotelTarifa
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelTarifa()
+    {
+        return $this->hotelTarifa;
+    }
 }

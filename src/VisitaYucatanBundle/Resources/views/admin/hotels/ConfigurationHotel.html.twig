@@ -34,6 +34,9 @@
                         <li><a href="#habitaciones-idioma-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findHabitacionesHotel()">
                                 <i class="fa fa-header text-info"></i>&nbsp;&nbsp;Descripción Hab.</a>
                         </li>
+                        <li><a href="#habitaciones-tarifa-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findHabitacionesHotel()">
+                                <i class="fa fa-header text-info"></i>&nbsp;&nbsp;Tarifas</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -67,6 +70,11 @@
                     <div class="tab-pane" id="habitaciones-idioma-hotel">
 
                         {% include '@VisitaYucatan/admin/hotels/TabPanelHabitacionesDescripciones.html.twig' %}
+
+                    </div>
+                    <div class="tab-pane" id="habitaciones-tarifa-hotel">
+
+                        {% include '@VisitaYucatan/admin/hotels/TabPanelTarifas.html.twig' %}
 
                     </div>
                 </div>

@@ -208,5 +208,100 @@ class HotelTarifa {
     {
         return $this->cuadruple;
     }
-}
 
+    /**
+     * Set hotel
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
+     *
+     * @return HotelTarifa
+     */
+    public function setHotel(\VisitaYucatanBundle\Entity\Hotel $hotel)
+    {
+        $this->hotel = $hotel;
+
+        return $this;
+    }
+
+    /**
+     * Get hotel
+     *
+     * @return \VisitaYucatanBundle\Entity\Hotel
+     */
+    public function getHotel()
+    {
+        return $this->hotel;
+    }
+
+    /**
+     * Set hotelContrato
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelContrato $hotelContrato
+     *
+     * @return HotelTarifa
+     */
+    public function setHotelContrato(\VisitaYucatanBundle\Entity\HotelContrato $hotelContrato)
+    {
+        $this->hotelContrato = $hotelContrato;
+
+        return $this;
+    }
+
+    /**
+     * Get hotelContrato
+     *
+     * @return \VisitaYucatanBundle\Entity\HotelContrato
+     */
+    public function getHotelContrato()
+    {
+        return $this->hotelContrato;
+    }
+
+    /**
+     * Set hotelHabitacion
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelHabitacion $hotelHabitacion
+     *
+     * @return HotelTarifa
+     */
+    public function setHotelHabitacion(\VisitaYucatanBundle\Entity\HotelHabitacion $hotelHabitacion)
+    {
+        $this->hotelHabitacion = $hotelHabitacion;
+
+        return $this;
+    }
+
+    /**
+     * Get hotelHabitacion
+     *
+     * @return \VisitaYucatanBundle\Entity\HotelHabitacion
+     */
+    public function getHotelHabitacion()
+    {
+        return $this->hotelHabitacion;
+    }
+
+    /**
+     * Set estatus
+     *
+     * @param \VisitaYucatanBundle\Entity\Estatus $estatus
+     *
+     * @return HotelTarifa
+     */
+    public function setEstatus(\VisitaYucatanBundle\Entity\Estatus $estatus)
+    {
+        $this->estatus = $estatus;
+
+        return $this;
+    }
+
+    /**
+     * Get estatus
+     *
+     * @return \VisitaYucatanBundle\Entity\Estatus
+     */
+    public function getEstatus()
+    {
+        return $this->estatus;
+    }
+}
