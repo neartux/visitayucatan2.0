@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <select class="form-control" data-ng-model="ctrlHotel.hotelHabitacionTO.idHabitacion" ng-change="ctrlHotel.findHabitacionById()" id="selectHabitaciones">
+                <option value="">SELECCIONA HABITACIÓN</option>
+                <option value="[[ habitacion.id ]]" ng-repeat="habitacion in ctrlHotel.listaHabitacionesHotel.data">[[ habitacion.descripcion ]]</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="button" value="Nueva Habitacion" class="btn btn-primary" data-ng-show="! ctrlHotel.displayFormHabitacion" data-ng-click="ctrlHotel.displayNewHabitacion();"/>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row" data-ng-show="ctrlHotel.displayFormHabitacion">
+    <form class="form-horizontal">
+        <div class="col-sm-12">
+            <h4 class="text-bold text-uppercase text-center">Información Habitación</h4>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
+                        Nombre habitación <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" id="nombreHabitacion" ng-model="ctrlHotel.hotelHabitacionTO.nombre" class="form-control field-habitacion-hotel"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
+                        Base allotment <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control field-habitacion-hotel only-Integer" ng-model="ctrlHotel.hotelHabitacionTO.allotment" id="allotmentHabitacion"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
+                        Descripción <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <textarea class="summernoteHab field-habitacion-hotel" id="descripcionHotelHabitacion"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
+                        Máximo menores <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control field-habitacion-hotel only-Integer" ng-model="ctrlHotel.hotelHabitacionTO.maximoMenores" id="maxMenHabitacion"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
+                        Máximo adultos <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control field-habitacion-hotel only-Integer" ng-model="ctrlHotel.hotelHabitacionTO.maximoAdultos" id="maxAdultHabitacion"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
+                        Capacidad máxima de la habitación <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control field-hatabitacion-hotel only-Integer" ng-model="ctrlHotel.hotelHabitacionTO.capacidadMaxima" id="capMaxHabitacion"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-12 text-right">
+            <input type="button" class="btn btn-default" value="Cancelar" data-ng-click="ctrlHotel.displayFormHabitacion = false"/>
+            <input type="button" class="btn btn-primary" value="Guardar" data-ng-click="ctrlHotel.createHabitacionHotel()"/>
+        </div>
+    </form>
+</div>

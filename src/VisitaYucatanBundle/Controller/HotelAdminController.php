@@ -466,7 +466,7 @@ class HotelAdminController extends Controller {
         $serializer = $this->get('serializer');
         try {
             $hotelHabitacionJson = $request->get('hotelHabitacion');
-            $hotelHabitacionTO = $serializer->deserialize($hotelHabitacionJson, 'VisitaYucatanBundle\utils\to\ContractTO', Generalkeys::JSON_STRING);
+            $hotelHabitacionTO = $serializer->deserialize($hotelHabitacionJson, 'VisitaYucatanBundle\utils\to\HabitacionTO', Generalkeys::JSON_STRING);
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelHabitacion')->createHabitacion($hotelHabitacionTO);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado una nueva habitacion para el hotel', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
@@ -483,7 +483,7 @@ class HotelAdminController extends Controller {
         $serializer = $this->get('serializer');
         try {
             $hotelHabitacionJson = $request->get('hotelHabitacion');
-            $hotelHabitacionTO = $serializer->deserialize($hotelHabitacionJson, 'VisitaYucatanBundle\utils\to\ContratoTO', Generalkeys::JSON_STRING);
+            $hotelHabitacionTO = $serializer->deserialize($hotelHabitacionJson, 'VisitaYucatanBundle\utils\to\HabitacionTO', Generalkeys::JSON_STRING);
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelHabitacion')->updateHabitacion($hotelHabitacionTO);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha actualizado la informacion de la habitacion', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));

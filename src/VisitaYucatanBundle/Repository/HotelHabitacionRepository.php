@@ -4,6 +4,7 @@ namespace VisitaYucatanBundle\Repository;
 use Doctrine\ORM\EntityNotFoundException;
 use VisitaYucatanBundle\Entity\HotelHabitacion;
 use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 
 /**
  * HotelHabitacionRepository
@@ -28,15 +29,14 @@ class HotelHabitacionRepository extends \Doctrine\ORM\EntityRepository {
 
     public function createHabitacion($habitacionTO){
         $em = $this->getEntityManager();
-
         $habitacion = new HotelHabitacion();
         $habitacion->setNombre($habitacionTO->getNombre());
         $habitacion->setDescripcion($habitacionTO->getDescripcion());
         $habitacion->setAllotment($habitacionTO->getAllotment());
         $habitacion->setCapacidadMaxima($habitacionTO->getCapacidadMaxima());
         $habitacion->setMaximoAdultos($habitacionTO->getMaximoAdultos());
-        $habitacion->setMaximoInfantes($habitacionTO->getMaximoJuniors());
-        $habitacion->setMaximoJuniors($habitacionTO->getMaximoJuniors());
+        $habitacion->setMaximoInfantes(Generalkeys::NUMBER_ZERO);
+        $habitacion->setMaximoJuniors(Generalkeys::NUMBER_ZERO);
         $habitacion->setMaximoMenores($habitacionTO->getMaximoMenores());
         $habitacion->setHotel($em->getReference('VisitaYucatanBundle:Hotel', $habitacionTO->getIdHotel()));
         $habitacion->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));

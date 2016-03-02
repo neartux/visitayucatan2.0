@@ -135,3 +135,35 @@ function validateContractHotelForm(){
         return true;
     }
 }
+
+function validateHabitacionHotelForm(){
+    var nombre = $("#nombreHabitacion");
+    var allotment = $("#allotmentHabitacion");
+    var maxMen = $("#maxMenHabitacion");
+    var maxAdult = $("#maxAdultHabitacion");
+    var maxHab = $("#capMaxHabitacion");
+
+    if($.trim(nombre.val()).length == 0){
+        pNotifyView("El nombre de la habitacion es necesario", "info");
+        nombre.trigger("focus");
+        return false;
+    }else if(allotment.val().length <= 0){
+        pNotifyView("Base Allotment necesario", "info");
+        allotment.trigger("focus");
+        return false;
+    }else if(maxMen.val() <= 0){
+        pNotifyView("Captura maximo de menores", "info");
+        maxMen.trigger("focus");
+        return false;
+    }else if(maxAdult.val() <= 0){
+        pNotifyView("Maximo Adultos es necesario", "info");
+        maxAdult.trigger("focus");
+        return false;
+    }else if(maxHab.val() <= 0){
+        pNotifyView("Captura el maximo por habitacion", "info");
+        maxHab.trigger("focus");
+        return false;
+    }else{
+        return true;
+    }
+}

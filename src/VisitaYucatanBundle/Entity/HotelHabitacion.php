@@ -37,7 +37,7 @@ class HotelHabitacion {
     /**
      * @var int
      *
-     * @ORM\Column(name="maximoinfantes", type="integer")
+     * @ORM\Column(name="maximoinfantes", type="integer", nullable=true)
      */
     private $maximoInfantes;
 
@@ -51,7 +51,7 @@ class HotelHabitacion {
     /**
      * @var int
      *
-     * @ORM\Column(name="maximojuniors", type="integer")
+     * @ORM\Column(name="maximojuniors", type="integer", nullable=true)
      */
     private $maximoJuniors;
 

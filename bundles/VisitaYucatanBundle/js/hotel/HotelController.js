@@ -20,6 +20,7 @@
         ctrlHotel.listaFechas = HotelService.listaFechas;
         ctrlHotel.listaContratos = HotelService.listaContratos;
         ctrlHotel.listaPlanes = HotelService.listaPlanes;
+        ctrlHotel.listaHabitacionesHotel = HotelService.listaHabitacionesHotel;
         ctrlHotel.titleCreate = '';
         ctrlHotel.titleEdit = '';
         ctrlHotel.msjLoading = '';
@@ -34,6 +35,9 @@
         ctrlHotel.hotelContract = undefined;
         ctrlHotel.isNewContract = false;
         ctrlHotel.displayFormContract = false;
+        ctrlHotel.displayFormHabitacion = false;
+        ctrlHotel.isNewHabitacion = false;
+        ctrlHotel.hotelHabitacionTO = {};
 
         ctrlHotel.init = function () {
             ctrlHotel.titleCreate = 'Nuevo Hotel';
@@ -80,7 +84,14 @@
             ctrlHotel.isNewContract = true;
             ctrlHotel.hotelContract = {
                 idHotelPlan: "0"
-            }
+            };
+        };
+
+        ctrlHotel.displayNewHabitacion = function(){
+            cleanForm('field-habitacion-hotel');
+            $('#selectHabitaciones option:eq(0)').prop('selected', true);
+            ctrlHotel.displayFormHabitacion = true;
+            ctrlHotel.isNewHabitacion = true;
         };
 
         ctrlHotel.findPlanAlimentos = function () {
@@ -362,14 +373,29 @@
         };
 
         ctrlHotel.createHabitacionHotel = function(){
-            ctrlHotel.hotelHabitacion.idHotel = ctrlHotel.idHotelGlobal;
-            return HotelService.createHabitacion(ctrlHotel.hotelHabitacion).then(function(data){
-                ctrlHotel.findContactsHotel(ctrlHotel.idHotelGlobal);
-                pNotifyView(data.data.message, data.data.typeStatus);
-            });
+            console.log("en metodo para crear habitacion");
+            if(validateHabitacionHotelForm()){
+                ctrlHotel.hotelHabitacionTO.descripcion = $(".summernoteHab").code();
+                if(ctrlHotel.isNewHabitacion){
+                    ctrlHotel.hotelHabitacionTO.idHotel = ctrlHotel.idHotelGlobal;
+                    return HotelService.createHabitacion(ctrlHotel.hotelHabitacionTO).then(function(data){
+                        if(data.data.status){
+                            ctrlHotel.findHabitacionesHotel();
+                            ctrlHotel.displayFormHabitacion = false;
+                        }
+                        pNotifyView(data.data.message, data.data.typeStatus);
+                    });
+                }else{
+                    return HotelService.updateHabitacion(ctrlHotel.hotelHabitacionTO).then(function(data){
+                        if(data.data.status){
+                            ctrlHotel.findHabitacionesHotel();
+                            ctrlHotel.displayFormHabitacion = false;
+                        }
+                        pNotifyView(data.data.message, data.data.typeStatus);
+                    });
+                }
+            }
         };
-
-
 
         ctrlHotel.getDate = function(fechaInicio, fechaFin){
             var fechaInicioParts = fechaInicio.split('-');
