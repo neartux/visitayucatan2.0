@@ -273,6 +273,7 @@
         };
 
         service.saveHabitacionIdioma = function(hotelHabitacion){
+            console.log("guardar = "+JSON.stringify(hotelHabitacion));
             var path = $("#pathCreateHabitacionIdioma").val();
             return $http.post(path, $.param({hotelHabitacionIdioma : JSON.stringify(hotelHabitacion)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

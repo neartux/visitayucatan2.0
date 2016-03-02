@@ -40,6 +40,7 @@
         ctrlHotel.isNewHabitacion = false;
         ctrlHotel.hotelHabitacionTO = {};
         ctrlHotel.showIdiomaHabitacionBolean = false;
+        ctrlHotel.showIdiomaHabitacionDescripcion = false;
 
         ctrlHotel.init = function () {
             ctrlHotel.titleCreate = 'Nuevo Hotel';
@@ -423,13 +424,16 @@
         ctrlHotel.findHabitacionIdioma = function(){
             return HotelService.findHabitacionByIdAndIdioma(ctrlHotel.hotelHabitacionIdiomaTO.data.idHabitacion, ctrlHotel.hotelHabitacionIdiomaTO.data.idIdioma).then(function(data){
                 console.info("Idioma habitacion = "+JSON.stringify(data.data));
-                ctrlHotel.showIdiomaHabitacionBolean = true;
+                ctrlHotel.showIdiomaHabitacionDescripcion = true;
                 $("#descripcionHotelHabitacionIdioma").code(data.data.descripcion);
             });
         };
 
         ctrlHotel.saveHotelHabitacionIdioma = function(){
-
+            return HotelService.saveHabitacionIdioma(ctrlHotel.hotelHabitacionIdiomaTO.data).then(function(data){
+                ctrlHotel.showIdiomaHabitacionDescripcion = false;
+                pNotifyView(data.data.message, data.data.typeStatus);
+            });
         };
 
         ctrlHotel.getDate = function(fechaInicio, fechaFin){
