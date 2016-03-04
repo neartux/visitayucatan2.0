@@ -68,7 +68,7 @@ class HotelUtils {
 
     public static function getHotelHabitacion($habitacion){
         $habitacionTO = new HabitacionTO();
-        $habitacionTO->setId($habitacion->getId());
+        $habitacionTO->setId($habitacion->getId().'');
         $habitacionTO->setNombre($habitacion->getNombre());
         $habitacionTO->setDescripcion($habitacion->getDescripcion());
         $habitacionTO->setAllotment($habitacion->getAllotment());

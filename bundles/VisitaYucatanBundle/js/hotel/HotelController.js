@@ -81,10 +81,10 @@
         };
 
         ctrlHotel.findHabitacionById = function () {
-            if(ctrlHotel.hotelHabitacionTO.data.idHabitacion == ''){
+            if(ctrlHotel.hotelHabitacionTO.id == ''){
                 ctrlHotel.displayFormHabitacion = false;
             }else{
-                return HotelService.findHabitacionById(ctrlHotel.hotelHabitacionTO.data.idHabitacion).then(function(data){
+                return HotelService.findHabitacionById(ctrlHotel.hotelHabitacionTO.id).then(function(data){
                     ctrlHotel.hotelHabitacionTO = data.data;
                     $(".summernoteHab").code(data.data.descripcion);
                     ctrlHotel.isNewHabitacion = false;
@@ -414,7 +414,7 @@
         };
 
         ctrlHotel.showIdiomaHabitacion = function(){
-            if(ctrlHotel.hotelHabitacionIdiomaTO.data.idHabitacion != ""){
+            if(ctrlHotel.hotelHabitacionIdiomaTO.id != ""){
                 ctrlHotel.showIdiomaHabitacionBolean = true;
             }else{
                 ctrlHotel.showIdiomaHabitacionBolean = false;

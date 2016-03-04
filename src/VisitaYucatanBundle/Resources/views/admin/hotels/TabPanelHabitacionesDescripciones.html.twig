@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-3">
-            <select class="form-control" data-ng-model="ctrlHotel.hotelHabitacionIdiomaTO.data.idHabitacion" ng-change="ctrlHotel.showIdiomaHabitacion()" id="selectHabitaciones">
+            <select class="form-control" data-ng-model="ctrlHotel.hotelHabitacionIdiomaTO.id" ng-change="ctrlHotel.showIdiomaHabitacion()" id="selectHabitaciones">
                 <option value="">SELECCIONA HABITACIÓN</option>
                 <option value="[[ habitacion.id ]]" ng-repeat="habitacion in ctrlHotel.listaHabitacionesHotel.data">[[ habitacion.nombre ]]</option>
             </select>
         </div>
         <div class="col-md-3" data-ng-show="ctrlHotel.showIdiomaHabitacionBolean">
-            <select name="idiomaHotel" id="idiomaHotel" class="form-control" data-ng-model="ctrlHotel.hotelHabitacionIdiomaTO.data.idIdioma" ng-change="ctrlHotel.findHotelByIdAndLanguage()" required>
+            <select name="idiomaHotel" id="idiomaHotel" class="form-control" data-ng-model="ctrlHotel.hotelHabitacionIdiomaTO.idIdioma" ng-change="ctrlHotel.findHabitacionIdioma()" required>
                 <option value="">SELECCIONA</option>
                 <option value="[[ idioma.id ]]" ng-repeat="idioma in ctrlHotel.listLanguage.data">[[ idioma.descripcion | uppercase ]]</option>
             </select>
