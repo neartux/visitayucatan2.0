@@ -507,10 +507,10 @@ class HotelAdminController extends Controller {
      * @Method("POST")
      */
     public function findHabitacionIdiomaAction(Request $request) {
-        $idHotelHabitacion = $request->get('idHabitacion');
+        $idHotelHabitacion = $request->get('idHotelHabitacion');
         $idIdioma = $request->get('idIdioma');
         $habitacionIdioma = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelHabitacionIdioma')->findHotelHabitacionByIdAndIdLanguage($idHotelHabitacion, $idIdioma);
-        return new Response($this->get('serializer')->serialize($habitacionIdioma, Generalkeys::JSON_STRING));
+        return new Response($this->get('serializer')->serialize(HotelUtils::getHotelHabitacionIdioma($habitacionIdioma, $idHotelHabitacion, $idIdioma), Generalkeys::JSON_STRING));
     }
 
     /**
@@ -521,7 +521,7 @@ class HotelAdminController extends Controller {
         $serializer = $this->get('serializer');
         try {
             $hotelHabitacionJson = $request->get('hotelHabitacionIdioma');
-            $hotelIdiomaTO = $serializer->deserialize($hotelHabitacionJson, 'VisitaYucatanBundle\utils\to\HotelIdiomaTO', Generalkeys::JSON_STRING);
+            $hotelIdiomaTO = $serializer->deserialize($hotelHabitacionJson, 'VisitaYucatanBundle\utils\to\HotelidiomaTO', Generalkeys::JSON_STRING);
             $isNew = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelHabitacionIdioma')->saveHotelHabitacionIdioma($hotelIdiomaTO);
             $message = 'Se ha modificado la información para la habitacion ';
             if ($isNew) {

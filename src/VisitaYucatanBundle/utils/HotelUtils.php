@@ -78,4 +78,19 @@ class HotelUtils {
 
         return $habitacionTO;
     }
+
+    public static function getHotelHabitacionIdioma($habitacion, $idHabitacion, $idIdioma){
+        $habitacionIdioma = new HotelidiomaTO();
+
+        if(! is_null($habitacion)){
+            $habitacionIdioma->setId($habitacion->getHotelHabitacion()->getId().'');
+            $habitacionIdioma->setIdIdioma($habitacion->getIdioma()->getId().'');
+            $habitacionIdioma->setDescripcion($habitacion->getDescripcion());
+        }else{
+            $habitacionIdioma->setId($idHabitacion.'');
+            $habitacionIdioma->setIdIdioma($idIdioma.'');
+        }
+
+        return $habitacionIdioma;
+    }
 }

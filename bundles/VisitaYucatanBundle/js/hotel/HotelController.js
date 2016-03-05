@@ -124,7 +124,6 @@
         };
 
         ctrlHotel.findHabitacionesHotel = function () {
-            console.info("metodo buscando las habitaciones");
             ctrlHotel.hotelHabitacion = {};
             return HotelService.findHabitacionesHotel(ctrlHotel.idHotelGlobal);
         };
@@ -389,7 +388,6 @@
         };
 
         ctrlHotel.createHabitacionHotel = function(){
-            console.log("en metodo para crear habitacion");
             if(validateHabitacionHotelForm()){
                 ctrlHotel.hotelHabitacionTO.descripcion = $(".summernoteHab").code();
                 if(ctrlHotel.isNewHabitacion){
@@ -415,24 +413,36 @@
 
         ctrlHotel.showIdiomaHabitacion = function(){
             if(ctrlHotel.hotelHabitacionIdiomaTO.id != ""){
+                ctrlHotel.hotelHabitacionIdiomaTO.idIdioma = "";
                 ctrlHotel.showIdiomaHabitacionBolean = true;
             }else{
                 ctrlHotel.showIdiomaHabitacionBolean = false;
             }
+            ctrlHotel.showIdiomaHabitacionDescripcion = false;
         };
 
         ctrlHotel.findHabitacionIdioma = function(){
-            return HotelService.findHabitacionByIdAndIdioma(ctrlHotel.hotelHabitacionIdiomaTO.data.idHabitacion, ctrlHotel.hotelHabitacionIdiomaTO.data.idIdioma).then(function(data){
-                console.info("Idioma habitacion = "+JSON.stringify(data.data));
-                ctrlHotel.showIdiomaHabitacionDescripcion = true;
-                $("#descripcionHotelHabitacionIdioma").code(data.data.descripcion);
-            });
+            if(ctrlHotel.hotelHabitacionIdiomaTO.idIdioma != "" && ctrlHotel.hotelHabitacionIdiomaTO.idIdioma != undefined && ctrlHotel.hotelHabitacionIdiomaTO.id != ""){
+                return HotelService.findHabitacionByIdAndIdioma(ctrlHotel.hotelHabitacionIdiomaTO.id, ctrlHotel.hotelHabitacionIdiomaTO.idIdioma).then(function(data){
+                    ctrlHotel.hotelHabitacionIdiomaTO = data.data;
+                    $("#descripcionHotelHabitacionIdioma").code(data.data.descripcion);
+                    ctrlHotel.showIdiomaHabitacionDescripcion = true;
+                });
+            }else{
+                ctrlHotel.showIdiomaHabitacionDescripcion = false;
+            }
         };
 
         ctrlHotel.saveHotelHabitacionIdioma = function(){
-            return HotelService.saveHabitacionIdioma(ctrlHotel.hotelHabitacionIdiomaTO.data).then(function(data){
-                ctrlHotel.showIdiomaHabitacionDescripcion = false;
+            ctrlHotel.hotelHabitacionIdiomaTO.descripcion = $("#descripcionHotelHabitacionIdioma").code();
+            return HotelService.saveHabitacionIdioma(ctrlHotel.hotelHabitacionIdiomaTO).then(function(data){
                 pNotifyView(data.data.message, data.data.typeStatus);
+                ctrlHotel.showIdiomaHabitacionDescripcion = false;
+                ctrlHotel.showIdiomaHabitacionBolean = false;
+                ctrlHotel.hotelHabitacionIdiomaTO = {
+                    id: "",
+                    idIdioma: ""
+                };
             });
         };
 

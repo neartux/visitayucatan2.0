@@ -38,9 +38,6 @@
         service.listaHabitacionesHotel = {
             data: undefined
         };
-        service.hotelHabitacionIdiomaTO = {
-            data: undefined
-        };
 
         service.findHotelsActives= function(){
             var path = $("#pathListHotel").val();
@@ -244,7 +241,6 @@
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
-                console.info("habitaciones = "+JSON.stringify(data.data));
                 service.listaHabitacionesHotel.data = data.data;
             });
         };
@@ -267,13 +263,10 @@
             var path = $("#pathHabitacionIdioma").val();
             return $http.post(path, $.param({idHotelHabitacion : idHotelHabitacion, idIdioma : idLanguage}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            }).then(function (data){
-                service.hotelHabitacionIdiomaTO.data = data.data;
             });
         };
 
         service.saveHabitacionIdioma = function(hotelHabitacion){
-            console.log("guardar = "+JSON.stringify(hotelHabitacion));
             var path = $("#pathCreateHabitacionIdioma").val();
             return $http.post(path, $.param({hotelHabitacionIdioma : JSON.stringify(hotelHabitacion)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

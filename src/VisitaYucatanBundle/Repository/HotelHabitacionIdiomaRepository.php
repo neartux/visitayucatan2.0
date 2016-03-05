@@ -19,7 +19,7 @@ class HotelHabitacionIdiomaRepository extends \Doctrine\ORM\EntityRepository {
             'SELECT habitacionidioma
              FROM VisitaYucatanBundle:HotelHabitacionIdioma habitacionidioma
              WHERE habitacionidioma.estatus = :estatusActivo
-             AND habitacionidioma.hotel = :idHotelHabitacion
+             AND habitacionidioma.hotelHabitacion = :idHotelHabitacion
              AND habitacionidioma.idioma = :idIdioma'
         )->setParameter('estatusActivo', Estatuskeys::ESTATUS_ACTIVO)->setParameter('idHotelHabitacion', $idHotelHabitacion)->setParameter('idIdioma', $idIdioma);
 
@@ -28,13 +28,14 @@ class HotelHabitacionIdiomaRepository extends \Doctrine\ORM\EntityRepository {
 
     public function saveHotelHabitacionIdioma($hotelIdiomaTO) {
         $em = $this->getEntityManager();
-        $habitacionIdioma = $this->findHotelHabitacionByIdAndIdLanguage($hotelIdiomaTO->getIdHabitacion(), $hotelIdiomaTO->getIdIdioma());
+        $habitacionIdioma = $this->findHotelHabitacionByIdAndIdLanguage($hotelIdiomaTO->getId(), $hotelIdiomaTO->getIdIdioma());
+        //$idioma = $this->findOneBy(array('abreviatura' => $abreviatura, 'estatus' => Estatuskeys::ESTATUS_ACTIVO));
         $isNew = Generalkeys::BOOLEAN_FALSE;
         if (is_null($habitacionIdioma)) {
             $isNew = Generalkeys::BOOLEAN_TRUE;
             $habitacionIdioma = new HotelHabitacionIdioma();
             $habitacionIdioma->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
-            $habitacionIdioma->setHotelHabitacion($em->getReference('VisitaYucatanBundle:HotelHabitacion', $hotelIdiomaTO->getIdHabitacion()));
+            $habitacionIdioma->setHotelHabitacion($em->getReference('VisitaYucatanBundle:HotelHabitacion', $hotelIdiomaTO->getId()));
             $habitacionIdioma->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', $hotelIdiomaTO->getIdIdioma()));
         }
         $habitacionIdioma->setDescripcion($hotelIdiomaTO->getDescripcion());
