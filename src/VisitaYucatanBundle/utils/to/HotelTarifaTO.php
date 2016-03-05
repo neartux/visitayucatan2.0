@@ -17,6 +17,8 @@ class HotelTarifaTO {
     private $idHotel;
     private $idHotelContrato;
     private $idHotelHabitacion;
+    private $fechaInicio;
+    private $fechaFin;
 
     /**
      * @return mixed
@@ -162,5 +164,36 @@ class HotelTarifaTO {
         $this->idHotelHabitacion = $idHotelHabitacion;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getFechaInicio()
+    {
+        return $this->fechaInicio;
+    }
+
+    /**
+     * @param mixed $fechaInicio
+     */
+    public function setFechaInicio($fechaInicio)
+    {
+        $this->fechaInicio = $fechaInicio;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaFin()
+    {
+        return $this->fechaFin;
+    }
+
+    /**
+     * @param mixed $fechaFin
+     */
+    public function setFechaFin($fechaFin)
+    {
+        $this->fechaFin = $fechaFin;
+    }
 
 }

@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use VisitaYucatanBundle\utils\DateUtil;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\HotelUtils;
 use VisitaYucatanBundle\utils\to\ResponseTO;
@@ -316,7 +317,7 @@ class HotelAdminController extends Controller {
     public function createFechaCierreAction(Request $request) {
         try {
             $idHotel = $request->get('idHotel');
-            $fechas = $this->getDates($request->get('fechaInicio'), $request->get('fechaFin'));
+            $fechas = DateUtil::getDates($request->get('fechaInicio'), $request->get('fechaFin'));
 
             $fechaInicial = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ZERO]));
             $fechaFinal = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ONE]));
@@ -336,7 +337,7 @@ class HotelAdminController extends Controller {
     public function updateFechaCierreAction(Request $request) {
         try {
             $idFechaCierre = $request->get('idFechaCierre');
-            $fechas = $this->getDates($request->get('fechaInicio'), $request->get('fechaFin'));
+            $fechas = DateUtil::getDates($request->get('fechaInicio'), $request->get('fechaFin'));
 
             $fechaInicial = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ZERO]));
             $fechaFinal = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ONE]));
@@ -347,22 +348,6 @@ class HotelAdminController extends Controller {
         } catch (\Exception $e) {
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
         }
-    }
-
-    // Metodo que convierte las fechas de formato dd/mm/yyyy a formato mm/dd/yyyy parametros en string return array con nuevos strings de fechas
-    private function getDates($fechaInicio, $fechaFin){
-        // dd/mm/yyyy
-        $fechaInicioParts = explode('/', $fechaInicio);
-        $fechaFinParts = explode('/', $fechaFin);
-
-        // mm/dd/yy
-        $newInicio = $fechaInicioParts[Generalkeys::NUMBER_ONE] .Generalkeys::STRING_SLASH. $fechaInicioParts[Generalkeys::NUMBER_ZERO] .Generalkeys::STRING_SLASH. $fechaInicioParts[Generalkeys::NUMBER_TWO];
-        $newFin = $fechaFinParts[Generalkeys::NUMBER_ONE] .Generalkeys::STRING_SLASH. $fechaFinParts[Generalkeys::NUMBER_ZERO] .Generalkeys::STRING_SLASH. $fechaFinParts[Generalkeys::NUMBER_TWO];
-        $fechas = Array();
-        $fechas[Generalkeys::NUMBER_ZERO] = $newInicio;
-        $fechas[Generalkeys::NUMBER_ONE] = $newFin;
-
-        return $fechas;
     }
 
     /**
@@ -407,7 +392,7 @@ class HotelAdminController extends Controller {
         try {
             $hotelContratoJson = $request->get('hotelContrato');
             $hotelContratoTO = $serializer->deserialize($hotelContratoJson, 'VisitaYucatanBundle\utils\to\ContractTO', Generalkeys::JSON_STRING);
-            $fechasFormat = $this->getDates($hotelContratoTO->getFechaInicio(), $hotelContratoTO->getFechaFin());
+            $fechasFormat = DateUtil::getDates($hotelContratoTO->getFechaInicio(), $hotelContratoTO->getFechaFin());
             $hotelContratoTO->setFechaInicio($fechasFormat[Generalkeys::NUMBER_ZERO]);
             $hotelContratoTO->setFechaFin($fechasFormat[Generalkeys::NUMBER_ONE]);
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->createContract($hotelContratoTO);
@@ -427,7 +412,7 @@ class HotelAdminController extends Controller {
         try {
             $hotelContratoJson = $request->get('hotelContrato');
             $hotelContratoTO = $serializer->deserialize($hotelContratoJson, 'VisitaYucatanBundle\utils\to\ContractTO', Generalkeys::JSON_STRING);
-            $fechasFormat = $this->getDates($hotelContratoTO->getFechaInicio(), $hotelContratoTO->getFechaFin());
+            $fechasFormat = DateUtil::getDates($hotelContratoTO->getFechaInicio(), $hotelContratoTO->getFechaFin());
             $hotelContratoTO->setFechaInicio($fechasFormat[Generalkeys::NUMBER_ZERO]);
             $hotelContratoTO->setFechaFin($fechasFormat[Generalkeys::NUMBER_ONE]);
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->updateContract($hotelContratoTO);
@@ -533,6 +518,28 @@ class HotelAdminController extends Controller {
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
         }
     }
+
+    /**
+     * @Route("/admin/hotel/save/tarifa", name="hotel_save_tarifa") todo trabajando en este metodo
+     * @Method("POST")
+     */
+    public function saveTarifaHotelAction(Request $request) {
+        $serializer = $this->get('serializer');
+        try {
+            $hotelTarifaJson = $request->get('hotelTarifaTO');
+            $hotelTarifaTO = $serializer->deserialize($hotelTarifaJson, 'VisitaYucatanBundle\utils\to\HotelTarifaTO', Generalkeys::JSON_STRING);
+            $fechas = DateUtil::getDates($hotelTarifaTO->getFechaInicio(), $hotelTarifaTO->getFechaFin());
+
+            $fechaInicial = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ZERO]));
+            $fechaFinal = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ONE]));
+
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->createFechaCierre($idHotel, $fechaInicial, $fechaFinal);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
 }
 
 /*TODO AQUI LA SECCION QUE FALTA VALIDAR O AGREGAR PERO NO ES NECESARIO A PRIMERA INSTANCIA
@@ -541,5 +548,6 @@ class HotelAdminController extends Controller {
 2.- Cambiar los mensajes por messages_properties por idiomas
 3.- Agregar plugin para visualizacion previa de imagen, y mejor presentacion
 4.- Agregar campo fechacreacion a base de datos en hotel, hotelidioma
+5.- Mejorar las validaciones a nivel vista, y verificar que este bien validado
 
 */

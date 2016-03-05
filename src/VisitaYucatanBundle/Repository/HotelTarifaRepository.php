@@ -1,7 +1,11 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use Symfony\Component\Validator\Constraints\Date;
+use VisitaYucatanBundle\Entity\HotelTarifa;
+use VisitaYucatanBundle\utils\DateUtil;
 use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 
 /**
  * HotelTarifaRepository
@@ -29,5 +33,41 @@ class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();
+    }
+
+    public function saveRate($tarifaTO){
+        $nextDate = true;
+        $fechaActual = $tarifaTO->getFechaInicio();
+        // Mientras no se llege a la fecha final se crean o modifican los registros
+        while($nextDate){
+            $tarifa = $this->getRateNotNull($tarifaTO->getIdHotelHabitacion(), $tarifaTO->getIdHotelContrato(), $tarifaTO->getIdHotel(), $fechaActual);
+            $tarifa->setSencillo($tarifaTO->getSencillo());
+            $tarifa->setDoble($tarifaTO->getDoble());
+            $tarifa->setTriple($tarifaTO->getTriple());
+            $tarifa->setCuadruple($tarifaTO->getCuadruple());
+
+            if(DateUtil::isSammeDate($fechaActual, $tarifaTO->getFechaFin())){
+                $nextDate = false;
+            }else{
+                $fechaActual = DateUtil::summDaysToDate($fechaActual, Generalkeys::NUMBER_ONE);
+            }
+        }
+    }
+
+    public function findTarifaByContratoHabitacionAndDate($habitacion, $contrato, $hotel, $fecha){
+        return $this->findOneBy(array('hotelHabitacion' => $habitacion, 'hotelContrato' => $contrato, 'hotel' => $hotel, 'fecha' => $fecha));
+    }
+
+    public function getRateNotNull($habitacion, $contrato, $hotel, $fecha){
+        $em = $this->getEntityManager();
+        $tarifa = $this->findTarifaByContratoHabitacionAndDate($habitacion, $contrato, $hotel, $fecha);
+        if(is_null($tarifa)){
+            $tarifa = new HotelTarifa();
+            $tarifa->setHotel($em->getReference('VisitaYucatanBundle:Hotel', $hotel));
+            $tarifa->setHotelHabitacion($em->getReference('VisitaYucatanBundle:HotelHabitacion', $habitacion));
+            $tarifa->setHotelContrato($em->getReference('VisitaYucatanBundle:HotelContrato', $contrato));
+            $tarifa->setFecha(new \DateTime($fecha));
+        }
+        return $tarifa;
     }
 }

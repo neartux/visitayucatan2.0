@@ -1,15 +1,15 @@
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-3">
-            <select class="form-control" data-ng-model="ctrlHotel.hotelHabitacionIdiomaTO.data.idHabitacion" ng-change="ctrlHotel.showIdiomaHabitacion()" id="selectHabitaciones">
+            <select class="form-control" data-ng-model="ctrlHotel.tarifaHabitacion.idContrato" id="selectContratoTarifa">
                 <option value="">SELECCIONA CONTRATO</option>
-                <option value="[[ habitacion.id ]]" ng-repeat="habitacion in ctrlHotel.listaHabitacionesHotel.data">[[ habitacion.nombre ]]</option>
+                <option value="[[ contrato.id ]]" ng-repeat="contrato in ctrlHotel.listaContratos.data">[[ contrato.descripcion ]]</option>
             </select>
         </div>
-        <div class="col-md-3" data-ng-show="ctrlHotel.showIdiomaHabitacionBolean">
-            <select name="idiomaHotel" id="idiomaHotel" class="form-control" data-ng-model="ctrlHotel.hotelHabitacionIdiomaTO.data.idIdioma" ng-change="ctrlHotel.findHotelByIdAndLanguage()" required>
+        <div class="col-md-3">
+            <select class="form-control" data-ng-model="ctrlHotel.hotelHabitacionIdiomaTO.data.idHabitacion" ng-change="ctrlHotel.showIdiomaHabitacion()" id="selectHabitacionesTarifa">
                 <option value="">SELECCIONA HABITACION</option>
-                <option value="[[ idioma.id ]]" ng-repeat="idioma in ctrlHotel.listLanguage.data">[[ idioma.descripcion | uppercase ]]</option>
+                <option value="[[ habitacion.id ]]" ng-repeat="habitacion in ctrlHotel.listaHabitacionesHotel.data">[[ habitacion.nombre ]]</option>
             </select>
         </div>
     </div>
@@ -17,47 +17,62 @@
 <hr>
 <div class="row">
     <div class="col-sm-12">
-        <h5 class="page-header text-bold text-uppercase" style="margin-top: -13px;padding: 10px;">
-            Busqueda de tarifas
-        </h5>
-    </div>
-    <div class="col-sm-12 form-horizontal row-border">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Fecha</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="ti ti-calendar"></i></span>
-                    <input type="text" class="form-control daterangepicker" id="daterangepickerBusqueda" readonly/>
-                </div>
+
+        <div class="col-sm-6">
+            <div class="col-sm-12">
+                <h5 class="page-header text-bold text-uppercase" style="margin-top: -13px;padding: 10px;">
+                    Busqueda de tarifas
+                </h5>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label"></label>
-            <div class="col-sm-8">
-                <input type="button" data-ng-click="ctrlHotel.findRateByRangeDate()"/>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row" data-ng-show="ctrlHotel.displayFormHabitacion">
-    <form class="form-horizontal">
-        <div class="col-sm-12" data-ng-show="ctrlHotel.showIdiomaHabitacionDescripcion">
-            <h4 class="text-bold text-uppercase text-center">Idioma Habitación</h4>
-            <div class="col-sm-6">
+            <div class="col-sm-12 form-horizontal row-border">
+
                 <div class="form-group">
-                    <label class="col-sm-4 control-label text-bold text-uppercase">
-                        Descripción <span class="required">*</span>
-                    </label>
+                    <label class="col-sm-4 control-label">Fecha</label>
                     <div class="col-sm-8">
-                        <textarea class="summernoteHabIdioma" id="descripcionHotelHabitacionIdioma"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="ti ti-calendar"></i></span>
+                            <input type="text" class="form-control daterangepickerdate" readonly id="datePickerTarifas"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Tarifa Sencilla</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Tarifa Doble</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Tarifa Triple</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Tarifa Cuadruple</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"></label>
+                    <div class="col-sm-8 text-right">
+                        <input type="button" value="buscar" class="btn btn-primary"/>
                     </div>
                 </div>
             </div>
+        </div>
 
-        </div>
-        <div class="col-sm-12 text-right">
-            <input type="button" class="btn btn-default" value="Cancelar" data-ng-click="ctrlHotel.showIdiomaHabitacionBolean = false; ctrlHotel.showIdiomaHabitacionDescripcion = false;"/>
-            <input type="button" class="btn btn-primary" value="Guardar" data-ng-click="ctrlHotel.saveHotelHabitacionIdioma()"/>
-        </div>
-    </form>
+        <div class="col-sm-6"></div>
+    </div>
 </div>
