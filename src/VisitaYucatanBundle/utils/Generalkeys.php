@@ -18,10 +18,12 @@ class Generalkeys{
     const RESPONSE_CODE_OK = "OK";
     const USER_IN_SESSION = true;
     const LABEL_STATUS = "status";
+    const PATTERN_DATE_MYSQL = "Y-m-d";
     const NUMBER_ZERO = 0;
     const NUMBER_ONE = 1;
     const NUMBER_TWO = 2;
     const STRING_SLASH = '/';
+    const STRING_DASH = '-';
     const NUMBER_TWO_HUNDRED = 200;
     const BOOLEAN_TRUE = true;
     const BOOLEAN_FALSE = false;

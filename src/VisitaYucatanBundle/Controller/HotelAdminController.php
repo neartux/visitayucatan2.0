@@ -319,10 +319,7 @@ class HotelAdminController extends Controller {
             $idHotel = $request->get('idHotel');
             $fechas = DateUtil::getDates($request->get('fechaInicio'), $request->get('fechaFin'));
 
-            $fechaInicial = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ZERO]));
-            $fechaFinal = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ONE]));
-
-            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->createFechaCierre($idHotel, $fechaInicial, $fechaFinal);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->createFechaCierre($idHotel, $fechas[Generalkeys::NUMBER_ZERO], $fechas[Generalkeys::NUMBER_ONE]);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
         } catch (\Exception $e) {
@@ -339,10 +336,7 @@ class HotelAdminController extends Controller {
             $idFechaCierre = $request->get('idFechaCierre');
             $fechas = DateUtil::getDates($request->get('fechaInicio'), $request->get('fechaFin'));
 
-            $fechaInicial = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ZERO]));
-            $fechaFinal = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ONE]));
-
-            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->updateFechaCierre($idFechaCierre, $fechaInicial, $fechaFinal);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->updateFechaCierre($idFechaCierre, $fechas[Generalkeys::NUMBER_ZERO], $fechas[Generalkeys::NUMBER_ONE]);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha modificado la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
         } catch (\Exception $e) {
@@ -384,7 +378,7 @@ class HotelAdminController extends Controller {
     }
 
     /**
-     * @Route("/admin/hotel/create/contrato", name="hotel_create_contrato")
+     * @Route("/admin/hotel/create/contrato", name="hotel_create_contrato") todo verificar se cambio lo de las fechas, no se si sigue funcionando
      * @Method("POST")
      */
     public function createHotelContratoAction(Request $request) {
@@ -404,7 +398,7 @@ class HotelAdminController extends Controller {
     }
 
     /**
-     * @Route("/admin/hotel/update/contrato", name="hotel_update_contrato")
+     * @Route("/admin/hotel/update/contrato", name="hotel_update_contrato") todo lo mismo que el metodo anterior
      * @Method("POST")
      */
     public function updateHotelContratoAction(Request $request) {
@@ -530,10 +524,7 @@ class HotelAdminController extends Controller {
             $hotelTarifaTO = $serializer->deserialize($hotelTarifaJson, 'VisitaYucatanBundle\utils\to\HotelTarifaTO', Generalkeys::JSON_STRING);
             $fechas = DateUtil::getDates($hotelTarifaTO->getFechaInicio(), $hotelTarifaTO->getFechaFin());
 
-            $fechaInicial = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ZERO]));
-            $fechaFinal = date("Y-m-d",strtotime($fechas[Generalkeys::NUMBER_ONE]));
-
-            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->createFechaCierre($idHotel, $fechaInicial, $fechaFinal);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->createFechaCierre($idHotel, $fechas[Generalkeys::NUMBER_ZERO], $fechas[Generalkeys::NUMBER_ONE]);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
         } catch (\Exception $e) {
