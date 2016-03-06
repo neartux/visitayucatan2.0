@@ -38,6 +38,9 @@
         service.listaHabitacionesHotel = {
             data: undefined
         };
+        service.listaTarifasHotel = {
+            data: undefined
+        };
 
         service.findHotelsActives= function(){
             var path = $("#pathListHotel").val();
@@ -269,6 +272,14 @@
         service.saveHabitacionIdioma = function(hotelHabitacion){
             var path = $("#pathCreateHabitacionIdioma").val();
             return $http.post(path, $.param({hotelHabitacionIdioma : JSON.stringify(hotelHabitacion)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.saveTarifaHotel = function(hotelTarifaTO){
+            console.inf("tarifa = "+JSON.stringify(hotelTarifaTO));
+            var path = $("#pathSaveTarifa").val();
+            return $http.post(path, $.param({hotelTarifaTO : JSON.stringify(hotelTarifaTO)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };

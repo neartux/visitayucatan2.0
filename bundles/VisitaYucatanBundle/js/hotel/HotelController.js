@@ -22,6 +22,7 @@
         ctrlHotel.listaPlanes = HotelService.listaPlanes;
         ctrlHotel.listaHabitacionesHotel = HotelService.listaHabitacionesHotel;
         ctrlHotel.hotelHabitacionIdiomaTO = HotelService.hotelHabitacionIdiomaTO;
+        ctrlHotel.listaTarifasHotel = HotelService.listaTarifasHotel;
         ctrlHotel.titleCreate = '';
         ctrlHotel.titleEdit = '';
         ctrlHotel.msjLoading = '';
@@ -443,6 +444,12 @@
                     id: "",
                     idIdioma: ""
                 };
+            });
+        };
+
+        ctrlHotel.saveHotelTarifaTO = function(){
+            return HotelService.saveTarifaHotel().then(function(data){
+                pNotifyView(data.data.message, data.data.typeStatus);
             });
         };
 
