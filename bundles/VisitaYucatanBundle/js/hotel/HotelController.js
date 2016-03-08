@@ -40,6 +40,7 @@
         ctrlHotel.displayFormHabitacion = false;
         ctrlHotel.isNewHabitacion = false;
         ctrlHotel.hotelHabitacionTO = {};
+        ctrlHotel.tarifaHabitacionTO = {};
         ctrlHotel.showIdiomaHabitacionBolean = false;
         ctrlHotel.showIdiomaHabitacionDescripcion = false;
 
@@ -445,6 +446,11 @@
                     idIdioma: ""
                 };
             });
+        };
+
+        ctrlHotel.findListRateHotel = function(){
+            var fecha = $("#datePickerTarifas").val().split("-");
+            return HotelService.getListTarifa(fecha[0], fecha[1], ctrlHotel.tarifaHabitacionTO.idContrato, ctrlHotel.tarifaHabitacionTO.data.idHabitacion, ctrlHotel.idHotelGlobal);
         };
 
         ctrlHotel.saveHotelTarifaTO = function(){

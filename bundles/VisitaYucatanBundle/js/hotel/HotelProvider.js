@@ -276,6 +276,17 @@
             });
         };
 
+        service.getListTarifa = function(fechaInicio, fechaFin, idContrato, idHabitacion, idHotel){
+            console.info(fechaInicio, fechaFin, idContrato, idHabitacion, idHotel);
+            var path = $("#pathRateList").val();
+            return $http.post(path, $.param({fechaInicio : fechaInicio, fechaFin : fechaFin, idContrato : idContrato, idHabitacion : idHabitacion, idHotel : idHotel}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function(data){
+                console.log("lista de fechas tarifas = "+JSON.stringify(data.data));
+                service.listaTarifasHotel = data.data;
+            });
+        };
+
         service.saveTarifaHotel = function(hotelTarifaTO){
             console.inf("tarifa = "+JSON.stringify(hotelTarifaTO));
             var path = $("#pathSaveTarifa").val();

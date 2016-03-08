@@ -16,6 +16,11 @@ use VisitaYucatanBundle\utils\Generalkeys;
 class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
 
     public function findRateByRangeDate($fechaInicio, $fechaFin, $idHotel, $idContrato, $idHabitacion){
+        echo "fechainicion = ".$fechaInicio;
+        echo "fecha fin = ".$fechaFin;
+        echo "htoel = ".$idHotel;
+        echo "habitacion = ".$idHabitacion;
+        echo "contrato = ".$idContrato;
         $em = $this->getEntityManager();
         $sql = "SELECT hotel_tarifa.*
                 FROM hotel_tarifa
@@ -26,7 +31,7 @@ class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
                 AND hotel_tarifa.fecha BETWEEN :fechaInicio AND :fechaFin";
         $params['habitacion'] = $idHabitacion;
         $params['contrato'] = $idContrato;
-        $params['htoel'] = $idHotel;
+        $params['hotel'] = $idHotel;
         $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
         $params['fechaInicio'] = $fechaInicio;
         $params['fechaFin'] = $fechaFin;

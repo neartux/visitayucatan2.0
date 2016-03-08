@@ -514,6 +514,20 @@ class HotelAdminController extends Controller {
     }
 
     /**
+     * @Route("/admin/hotel/find/tarifas/by/dates", name="hotel_find_tarifas_by_date")
+     * @Method("POST")
+     */
+    public function findRateHotelByDateAction(Request $request) {
+        $fechaInicio = $request->get('fechaInicio');
+        $fechaFin = $request->get('fechaFin');
+        $idContrato = $request->get('idContrato');
+        $idHabitacion = $request->get('idHabitacion');
+        $idHotel = $request->get('idHotel');
+        $rateList = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->findRateByRangeDate(DateUtil::stringToDate($fechaInicio), DateUtil::stringToDate($fechaFin), $idHotel, $idContrato, $idHabitacion);
+        return new Response($this->get('serializer')->serialize($rateList, Generalkeys::JSON_STRING));
+    }
+
+    /**
      * @Route("/admin/hotel/save/tarifa", name="hotel_save_tarifa") todo trabajando en este metodo
      * @Method("POST")
      */

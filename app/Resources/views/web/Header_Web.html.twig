@@ -1,0 +1,44 @@
+<header>
+
+    <figure class="logo">
+        <a href="index"><img src="{{ asset('bundles/VisitaYucatanBundle/img/logos/logo_web.png') }}" alt="Visita Yucatan"/></a>
+    </figure>
+
+    <div class="detalles-header">
+        <p class="textcenter">
+            <a href="tours-en-yucatan_new">Tours &nbsp;<span class="icon-play3 cir"></span></a>
+            <br><br>
+        </p>
+    </div>
+
+    <div class="top-header">
+    </div>
+
+    <div class="body-header">
+        <div class="movil">
+            <a href="#">Menu</a><span id="nav-mobile" class="icon-menu"></span>
+
+            <div class="limpiar"></div>
+        </div>
+        <nav>
+            <div class="limpiar"></div>
+            <ul class="menu" id="menuL">
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">Inicio</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">Paquetes</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">Tours</a></li>
+                <li class="subMenu" onmouseover="showsubmenu(this)">
+                    <a>Hoteles</a>
+                    <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
+                        <li><a href="<? echo $linkdestino; ?>">Cancun</a></li>
+                        <li><a href="<? echo $linkdestino; ?>">Merida</a></li>
+                    </ul>
+                </li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">La peninsula</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">Contacto</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">Mapas</a></li>
+            </ul>
+            <div class="limpiar"></div>
+        </nav>
+    </div>
+
+</header>

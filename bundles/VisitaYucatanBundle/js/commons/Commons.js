@@ -48,7 +48,7 @@ function pNotifyView(textMsj, type) {
     }
 }
 
-function displayNotify(title, text, type, icon){
+function displayNotify(title, text, type, icon){;
     new PNotify({
         title: title,
         text: text,
