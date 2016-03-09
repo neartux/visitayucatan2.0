@@ -110,6 +110,9 @@ tour.report.label.upload.image.delete.all : Retirez toutes les
 tour.report.label.upload.image.loading.progress : Progrès Cargo
 
 # MESSAGES PROPERTIES TO WEB
+page.web.commons.label.facebook : Facebook
+page.web.commons.label.twitter : Twitter
+
 page.web.menu.label.start : Début
 page.web.menu.label.packages : Forfaits
 page.web.menu.label.tours : Visites
@@ -121,3 +124,8 @@ page.web.menu.label.hotel.cancun : Cancún
 page.web.menu.label.hotel.merida : Mérida
 
 page.web.label.title.tours : Visites
+page.web.label.tours.read.more : Lire Plus
+page.web.label.tours.read.less : Lire Moins
+page.web.label.tours.book.now : ¡Réservez Dès Maintenant!
+page.web.label.tours.rate.adults : Adulte
+page.web.label.tours.rate.children : Enfants

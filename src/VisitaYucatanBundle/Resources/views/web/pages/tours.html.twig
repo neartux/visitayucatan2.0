@@ -8,21 +8,20 @@
 
             <div class="introduccion">
                 <div id="izquierdo">
-                    <img src="http://www.visitayucatan.com/imagenes/tours-adorno.png">
+                    <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/tours-adorno.png') }}">
                 </div>
                 <div id="read-left">
-                    <? $texto = cortarTexto($pagina["descripcion"][0], $tamano=200, $colilla="..."); ?>
                     <div class="publireportaje">
                         <div>
                             ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos Tours y paquetes que ofrecemos, Están diseñados para que...
                         </div>
-                        <span id="btnleermas" class="lectura">Leer más</span>
+                        <span id="btnleermas" class="lectura">{% trans %}page.web.label.tours.read.more{% endtrans %}</span>
                     </div>
-                    <div  id="contenedorreportajeb" class="publireportajeb" style="display:none;">
+                    <div id="contenedorreportajeb" class="publireportajeb" style="display:none;">
                         <div>
-                            <? echo $pagina["descripcion"][0]; ?>
+                            ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos Tours y paquetes que ofrecemos, Están diseñados para que... mas
                         </div>
-                        <span id="btnleermenos" class="lectura">Leer menos</span>
+                        <span id="btnleermenos" class="lectura">{% trans %}page.web.label.tours.read.less{% endtrans %}</span>
                     </div>
                 </div>
             </div>
@@ -37,11 +36,11 @@
                             <img src="{{ tour.principalImage }}">
                         </a>
                         <div class="mask">
-                        <a href="resevalink"><h2>¡Reserva Ahora!</h2></a>
+                        <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
                         </div>
                     </figure>
                     <figure class="img2">
-                        <img src="files-new-design/images/seccion-estrellas.png">
+                        <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}">
                         <figcaption class="fondo-stars">
                             <span class="estrella texto"></span>
                             <span class="estrella icon-star-full estrella1"></span>
@@ -67,18 +66,18 @@
                     <div class="detalles-precio">
                         <div class="content-precios">
                            <div class="precios-tours">
-                             <p class="precio-top">Adultos:</p>
+                             <p class="precio-top">{% trans %}page.web.label.tours.rate.adults{% endtrans %}:</p>
                                <p class="precio">{{ tour.tarifaadulto }} {{ tour.simboloMoneda }}</p>
                             </div>
                             <div class="precios-tours">
                                 <!--Validacion que si el precio menor es mayour o igual a uno lo muestra y si el tour incluye menor-->
-                                    <p class="precio-top">Menor:</p>
+                                    <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}:</p>
                                     <p class="precio">{{ tour.tarifamenor }} {{ tour.simboloMoneda }}</p>
                             </div>
                          </div>
                         <div class="informacion-detalles">
                             <p class="first-texto">
-                                <a href="<? echo $link; ?>">Mas informacion</a>
+                                <a href="<? echo $link; ?>">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
                             </p>
 
                             <p class="second-texto"><span class="icon-play3"></span></p>
@@ -101,14 +100,14 @@
                         <a href="https://www.facebook.com/visitayucatan/?fref=ts">
                             <span class="icon-facebook"></span>
 
-                            <p>FACEBOOK</p>
+                            <p>{% trans %}page.web.commons.label.facebook{% endtrans %}</p>
                         </a>
                     </div>
                     <div class="red-right">
                         <a href="https://twitter.com/VisitYucatan">
                             <span class="icon-twitter"></span>
 
-                            <p>TWITTER</p>
+                            <p>{% trans %}page.web.commons.label.twitter{% endtrans %}</p>
                         </a>
                     </div>
                 </div>

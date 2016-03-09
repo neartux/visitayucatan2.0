@@ -231,7 +231,7 @@ aside {
 
 aside .top-aside {
 
-    background: url("../images/cabecera-aside.png")  top ;
+    background: url("../../img/web/cabecera-aside.png")  top ;
 
     background-size: 103.3% 100%;
 
@@ -476,18 +476,18 @@ article {
 }
 
 .img-tours{
-    background-image: url("../images/fondo-header.png");
+    background-image: url("../../img/web/fondo-header.png");
 
     background-size: 100% 170px;
 }
 
 .img-paquetes{
-    background-image: url("../images/paquetes-header.png");
+    background-image: url("../../img/web/paquetes-header.png");
 
     background-size: 100% 170px;
 }
 .img-hoteles{
-    background-image: url("../images/fondo-header.png");
+    background-image: url("../../img/web/fondo-header.png");
 
     background-size: 100% 170px;
 }
@@ -513,7 +513,7 @@ article {
 
     width: 200px;
 
-    background: url("../images/titulo-paquetes.png") no-repeat;
+    background: url("../../img/web/titulo-paquetes.png") no-repeat;
 
     background-size: 200px auto;
 
@@ -1045,7 +1045,7 @@ article {
 
     margin-top: .5%;
 
-    background: url(../images/derecho.png) center no-repeat;
+    background: url(../../img/web/derecho.png) center no-repeat;
 
     background-size: 100% 100%;
 
@@ -1193,7 +1193,7 @@ article {
 
     position: relative;
 
-    background: url(../images/informacion.png) center no-repeat;
+    background: url(../../img/web/informacion.png) center no-repeat;
 
     background-size: 100% 100%;
 
@@ -1269,7 +1269,7 @@ article {
 
     line-height: 10px;
 
-    background: url("../images/barrita.png");
+    background: url("../../img/web/barrita.png");
 
 }
 
@@ -2058,20 +2058,20 @@ footer .column-img{
     }
 
     .img-paquetes{
-        background-image: url("../images/paquetes-movil.png");
+        background-image: url("../../img/web/paquetes-movil.png");
 
         background-size: 100% 170px;
     }
 
 
     .img-tours{
-        background-image: url("../images/fondo-movil.png");
+        background-image: url("../../img/web/fondo-movil.png");
 
         background-size: 100% 170px;
     }
 
     .img-hoteles{
-        background-image: url("../images/fondo-movil.png");
+        background-image: url("../../img/web/fondo-movil.png");
 
         background-size: 100% 170px;
     }

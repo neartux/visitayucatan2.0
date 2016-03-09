@@ -110,6 +110,9 @@ tour.report.label.upload.image.delete.all : Rimuovere tutti
 tour.report.label.upload.image.loading.progress : Carico di progresso
 
 # MESSAGES PROPERTIES TO WEB
+page.web.commons.label.facebook : Facebook
+page.web.commons.label.twitter : Twitter
+
 page.web.menu.label.start : Iniziazione
 page.web.menu.label.packages : Pacchetti
 page.web.menu.label.tours : Tour
@@ -121,3 +124,8 @@ page.web.menu.label.hotel.cancun : Cancún
 page.web.menu.label.hotel.merida : Mérida
 
 page.web.label.title.tours : Tours
+page.web.label.tours.read.more : Per Saperne Di Più
+page.web.label.tours.read.less : Leggere Meno
+page.web.label.tours.book.now : ¡Prenotare Ora!
+page.web.label.tours.rate.adults : Adulto
+page.web.label.tours.rate.children : Bambini
