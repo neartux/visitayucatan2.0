@@ -108,3 +108,12 @@ tour.report.label.upload.image.upload.all : Upload All
 tour.report.label.upload.image.cancel.all : Cancel All
 tour.report.label.upload.image.delete.all : Delete All
 tour.report.label.upload.image.loading.progress : Loading Progress
+
+# MESSAGES PROPERTIES TO WEB
+page.web.menu.label.start : Start
+page.web.menu.label.packages : Packages
+page.web.menu.label.tours : Tours
+page.web.menu.label.hotels : Hotels
+page.web.menu.label.peninsula : The Peninsula
+page.web.menu.label.contact : Contact
+page.web.menu.label.maps : Maps

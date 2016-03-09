@@ -23,19 +23,19 @@
         <nav>
             <div class="limpiar"></div>
             <ul class="menu" id="menuL">
-                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">Inicio</a></li>
-                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">Paquetes</a></li>
-                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">Tours</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %page.web.menu.label.start{% endtrans %}</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %}page.web.menu.label.packages{% endtrans %}</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
                 <li class="subMenu" onmouseover="showsubmenu(this)">
-                    <a>Hoteles</a>
+                    <a>{% trans %}page.web.menu.label.hotels{% endtrans %}</a>
                     <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
                         <li><a href="<? echo $linkdestino; ?>">Cancun</a></li>
                         <li><a href="<? echo $linkdestino; ?>">Merida</a></li>
                     </ul>
                 </li>
-                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">La peninsula</a></li>
-                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">Contacto</a></li>
-                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">Mapas</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %}page.web.menu.label.maps{% endtrans %}</a></li>
             </ul>
             <div class="limpiar"></div>
         </nav>

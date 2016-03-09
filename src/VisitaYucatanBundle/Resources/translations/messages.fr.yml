@@ -108,3 +108,12 @@ tour.report.label.upload.image.upload.all : Publier All
 tour.report.label.upload.image.cancel.all : Annuler tout
 tour.report.label.upload.image.delete.all : Retirez toutes les
 tour.report.label.upload.image.loading.progress : Progrès Cargo
+
+# MESSAGES PROPERTIES TO WEB
+page.web.menu.label.start : Début
+page.web.menu.label.packages : Forfaits
+page.web.menu.label.tours : Visites
+page.web.menu.label.hotels : Hôtels
+page.web.menu.label.peninsula : La péninsule
+page.web.menu.label.contact : Contact
+page.web.menu.label.maps : Cartes
