@@ -13,108 +13,192 @@
                 <div id="read-left">
                     <div class="publireportaje">
                         <div>
-                            ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos Tours y paquetes que ofrecemos, Están diseñados para que...
+                            ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos
+                            Tours y paquetes que ofrecemos, Están diseñados para que...
                         </div>
-                        <span id="btnleermas" class="lectura">{% trans %}page.web.label.tours.read.more{% endtrans %}</span>
+                        <span id="btnleermas" class="lectura">{% trans %}
+                            page.web.label.tours.read.more{% endtrans %}</span>
                     </div>
                     <div id="contenedorreportajeb" class="publireportajeb" style="display:none;">
                         <div>
-                            ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos Tours y paquetes que ofrecemos, Están diseñados para que... mas
+                            ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos
+                            Tours y paquetes que ofrecemos, Están diseñados para que... mas
                         </div>
-                        <span id="btnleermenos" class="lectura">{% trans %}page.web.label.tours.read.less{% endtrans %}</span>
+                        <span id="btnleermenos" class="lectura">{% trans %}
+                            page.web.label.tours.read.less{% endtrans %}</span>
                     </div>
                 </div>
             </div>
 
             {% for tour in tours %}
                 <article>
-                <div class="border-top"></div>
-                <div class="section-left">
-                    <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
-                    <figure class="img1 view">
-                        <a href="toulink">
-                            <img src="{{ tour.principalImage }}">
-                        </a>
-                        <div class="mask">
-                        <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
-                        </div>
-                    </figure>
-                    <figure class="img2">
-                        <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}">
-                        <figcaption class="fondo-stars">
-                            <span class="estrella texto"></span>
-                            <span class="estrella icon-star-full estrella1"></span>
-                            <span class="estrella icon-star-full estrella2"></span>
-                            <span class="estrella icon-star-full estrella3"></span>
-                            <span class="estrella icon-star-full estrella4"></span>
-                            <span class="estrella icon-star-full estrella5"></span>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="detalles">
-                    <hgroup class="titulos">
-                        <h2>{{ tour.nombreTour }}</h2>
+                    <div class="border-top"></div>
+                    <div class="section-left">
+                        <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
+                        <figure class="img1 view">
+                            <a href="toulink">
+                                <img src="{{ tour.principalImage }}">
+                            </a>
 
-                        <h3>{{ tour.circuito }}</h3>
-                    </hgroup>
-                    <p class="descripciones">
-                        {{ tour.descripcionTour }}
-                    </p>
-
-                </div>
-                <div class="img3">
-                    <div class="detalles-precio">
-                        <div class="content-precios">
-                           <div class="precios-tours">
-                             <p class="precio-top">{% trans %}page.web.label.tours.rate.adults{% endtrans %}:</p>
-                               <p class="precio">{{ tour.tarifaadulto }} {{ tour.simboloMoneda }}</p>
+                            <div class="mask">
+                                <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
                             </div>
-                            <div class="precios-tours">
-                                <!--Validacion que si el precio menor es mayour o igual a uno lo muestra y si el tour incluye menor-->
-                                    <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}:</p>
+                        </figure>
+                        <figure class="img2">
+                            <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}">
+                            <figcaption class="fondo-stars">
+                                <span class="estrella texto"></span>
+                                <span class="estrella icon-star-full estrella1"></span>
+                                <span class="estrella icon-star-full estrella2"></span>
+                                <span class="estrella icon-star-full estrella3"></span>
+                                <span class="estrella icon-star-full estrella4"></span>
+                                <span class="estrella icon-star-full estrella5"></span>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="detalles">
+                        <hgroup class="titulos">
+                            <h2>{{ tour.nombreTour }}</h2>
+
+                            <h3>{{ tour.circuito }}</h3>
+                        </hgroup>
+                        <p class="descripciones">
+                            {{ tour.descripcionTour }}
+                        </p>
+
+                    </div>
+                    <div class="img3">
+                        <div class="detalles-precio">
+                            <div class="content-precios">
+                                <div class="precios-tours">
+                                    <p class="precio-top">{% trans %}page.web.label.tours.rate.adults{% endtrans %}:</p>
+
+                                    <p class="precio">{{ tour.tarifaadulto }} {{ tour.simboloMoneda }}</p>
+                                </div>
+                                <div class="precios-tours">
+                                    <!--Validacion que si el precio menor es mayour o igual a uno lo muestra y si el tour incluye menor-->
+                                    <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}
+                                        :</p>
+
                                     <p class="precio">{{ tour.tarifamenor }} {{ tour.simboloMoneda }}</p>
+                                </div>
                             </div>
-                         </div>
-                        <div class="informacion-detalles">
-                            <p class="first-texto">
-                                <a href="<? echo $link; ?>">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
-                            </p>
+                            <div class="informacion-detalles">
+                                <p class="first-texto">
+                                    <a href="<? echo $link; ?>">{% trans %}
+                                        page.web.label.tours.more.information{% endtrans %}</a>
+                                </p>
 
-                            <p class="second-texto"><span class="icon-play3"></span></p>
+                                <p class="second-texto"><span class="icon-play3"></span></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </article>
+                </article>
             {% endfor %}
 
             <aside>
-            <div class="top-aside">
-            </div>
-            <div class="limpiar"></div>
-            <div class="caja-aside-right">
-                <? //include("templates/publicidad.php"); ?>
-            </div>
-            <div class="cajas redes-sociales">
-                <div class="redes">
-                    <div class="red-left">
-                        <a href="https://www.facebook.com/visitayucatan/?fref=ts">
-                            <span class="icon-facebook"></span>
+                <div class="top-aside">
+                </div>
+                <div class="limpiar"></div>
+                <div class="caja-aside-right">
+                    <? //include("templates/publicidad.php"); ?>
+                </div>
+                <div class="cajas redes-sociales">
+                    <div class="redes">
+                        <div class="red-left">
+                            <a href="https://www.facebook.com/visitayucatan/?fref=ts">
+                                <span class="icon-facebook"></span>
 
-                            <p>{% trans %}page.web.commons.label.facebook{% endtrans %}</p>
-                        </a>
+                                <p>{% trans %}page.web.commons.label.facebook{% endtrans %}</p>
+                            </a>
+                        </div>
+                        <div class="red-right">
+                            <a href="https://twitter.com/VisitYucatan">
+                                <span class="icon-twitter"></span>
+
+                                <p>{% trans %}page.web.commons.label.twitter{% endtrans %}</p>
+                            </a>
+                        </div>
                     </div>
-                    <div class="red-right">
-                        <a href="https://twitter.com/VisitYucatan">
-                            <span class="icon-twitter"></span>
+                </div>
+                <div class="limpiar"></div>
+            </aside>
+        </div>
+    </section>
 
-                            <p>{% trans %}page.web.commons.label.twitter{% endtrans %}</p>
+    <style type="text/css">
+
+
+        @media screen and (max-width: 860px) {
+
+            .pie-pagina{
+                width: 100%;
+                height: auto;
+            }
+            .wrap-pie{
+                width: 100%;
+                height: 100%;
+            }
+            .pie-central{
+                width: 95%;
+                height: 100%;
+            }
+
+        }
+
+        @media screen and (max-width: 480px) {
+            .renglon1,.renglon2,.renglon3,.renglon4{
+                width: 60%;
+                margin: auto;
+                float: none;
+                position: relative;
+            }
+
+            .renglon3 a{
+                padding: 0%;
+            }
+
+        }
+
+    </style>
+
+    <div class="pie-pagina">
+        <div class="wrap-pie">
+            <div class="pie-central">
+
+                <div class="renglon1">
+                    <div class="linea">
+                    </div>
+                    <ul class="menu-footer">
+                        <li><a href="home.html">INICIO</a></li>
+                        <li><a href="paquetes-yucatan_new">PAQUETES</a></li>
+                        <li><a href="tours-en-yucatan_new">TOURS</a></li>
+                    </ul>
+                </div>
+                <div class="renglon2">
+                    <ul class="menu-footer">
+                        <li><a href="hoteles-en-yucatan">HOTELES</a></li>
+                        <li><a href="yucatan-mexico">LA PENINSULA</a></li>
+                        <li><a href="contacto">CONTACTO</a></li>
+                    </ul>
+                </div>
+                <div class="renglon3">
+                    <div>
+                        <a href="https://www.facebook.com/visitayucatan?ref=br_rs" target="_blank" class="">
+                            <span class="icon-facebook redesSociales"></span>
+                            <p class="social">FACEBOOK</p>
+                        </a>
+                        <a href="https://twitter.com/VisitYucatan" target="_blank" class="">
+                            <span class="icon-twitter"></span>
+                            <p class="social2">TWITTER</p>
                         </a>
                     </div>
                 </div>
-            </div>
-            <div class="limpiar"></div>
-        </aside>
-        </div>
-    </section>
+                <div class="renglon4">
+                    <div>
+                        <img src="files-new-design/images/logo-pie.png">
+                    </div>
+                </div>
+                <div class="limpiar"></div>
 
 {% endblock %}
