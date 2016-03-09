@@ -6,7 +6,7 @@
 
     <div class="detalles-header">
         <p class="textcenter">
-            <a href="tours-en-yucatan_new">Tours &nbsp;<span class="icon-play3 cir"></span></a>
+            <a href="tours-en-yucatan_new">{% trans %}page.web.label.title.tours{% endtrans %} &nbsp;<span class="icon-play3 cir"></span></a>
             <br><br>
         </p>
     </div>
@@ -23,14 +23,14 @@
         <nav>
             <div class="limpiar"></div>
             <ul class="menu" id="menuL">
-                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %page.web.menu.label.start{% endtrans %}</a></li>
+                <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %}page.web.menu.label.start{% endtrans %}</a></li>
                 <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %}page.web.menu.label.packages{% endtrans %}</a></li>
                 <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
                 <li class="subMenu" onmouseover="showsubmenu(this)">
                     <a>{% trans %}page.web.menu.label.hotels{% endtrans %}</a>
                     <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
-                        <li><a href="<? echo $linkdestino; ?>">Cancun</a></li>
-                        <li><a href="<? echo $linkdestino; ?>">Merida</a></li>
+                        <li><a href="<? echo $linkdestino; ?>">{% trans %}page.web.menu.label.hotel.cancun{% endtrans %}</a></li>
+                        <li><a href="<? echo $linkdestino; ?>">{% trans %}page.web.menu.label.hotel.merida{% endtrans %}</a></li>
                     </ul>
                 </li>
                 <li class="mapas"><a href="mapas" target="_self" title="Visita Yucatán">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
