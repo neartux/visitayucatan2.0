@@ -14,7 +14,7 @@ use VisitaYucatanBundle\utils\Generalkeys;
 class IdiomaRepository extends \Doctrine\ORM\EntityRepository{
     public function findAllLanguage(){
         $em = $this->getEntityManager();
-        $sql = "SELECT idioma.id, idioma.descripcion
+        $sql = "SELECT idioma.id, idioma.abreviatura, idioma.descripcion
                 FROM idioma
                 WHERE idioma.id_estatus =  :estatus ";
         $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;

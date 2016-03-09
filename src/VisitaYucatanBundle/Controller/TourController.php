@@ -18,8 +18,25 @@ class TourController extends Controller {
      */
     public function indexAction(Request $request) {
         $datos = $this->getParamsTour($request);
+        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
+        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
         $tours = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTours($datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], Generalkeys::OFFSET_ROWS_ZERO, Generalkeys::LIMIT_ROWS_TWENTY);
-        return $this->render('VisitaYucatanBundle:web/pages:tours.html.twig', array('tours' => TourUtils::getTours($tours)));
+        return $this->render('VisitaYucatanBundle:web/pages:tours.html.twig', array('tours' => TourUtils::getTours($tours), 'monedas' => $currency, 'idiomas' => $idiomas));
+    }
+
+    /**
+     * @Route("/tours", name="web_tours_configure_select")
+     * @Method("POST")
+     */
+    public function configureCatalogsAction(Request $request) {
+        // Obtiene la session del request para obtener moneda e idioma
+        $session = $request->getSession();
+        // Obtiene el idioma de la sesion
+        $session->set('_locale', strtolower($request->get('language')));
+        //echo "sesion = ".$session->get('_locale');exit;
+        // Obtiene el idioma de la session
+        $session->set('_currency', $request->get('currency'));
+        return $this->redirectToRoute('web_tours');
     }
 
     private function getParamsTour($request){
