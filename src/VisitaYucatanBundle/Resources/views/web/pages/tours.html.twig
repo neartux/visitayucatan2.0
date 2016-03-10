@@ -185,20 +185,19 @@
                 <div class="renglon3">
                     <div>
                         <form action="{{ path('web_tours_configure_select') }}" method="post" id="formCatalogsReload">
-                            <h2>Moneda</h2>
+                            <h2>Moneda}</h2>
                             <select name="currency" id="moneda" onchange="$('#formCatalogsReload').submit()">
                                 {% for moneda in monedas %}
-                                    <option value="{{ moneda.id }}">{{ moneda.descripcion }}</option>
+                                    <option value="{{ moneda.id }}" {{ moneda.id == app.session.get('_currency') ? 'selected' : '' }}>{{ moneda.descripcion }}</option>
                                 {% endfor %}
                             </select>
 
                             <h2 class="idioma">Idioma</h2>
                             <select name="language" id="idioma" onchange="$('#formCatalogsReload').submit()">
                                 {% for idioma in idiomas %}
-                                    <option value="{{ idioma.abreviatura }}">{{ idioma.descripcion }}</option>
+                                    <option value="{{ idioma.abreviatura }}" {{ moneda.id == app.session.get('_locale') ? 'selected' : '' }}>{{ idioma.descripcion }}</option>
                                 {% endfor %}
                             </select>
-                            {#<input type="submit" style="display: none;" id="btnReloadPage"/>#}
                         </form>
                     </div>
                 </div>
