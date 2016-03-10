@@ -195,7 +195,7 @@
                             <h2 class="idioma">Idioma</h2>
                             <select name="language" id="idioma" onchange="$('#formCatalogsReload').submit()">
                                 {% for idioma in idiomas %}
-                                    <option value="{{ idioma.abreviatura }}" {{ moneda.id == app.session.get('_locale') ? 'selected' : '' }}>{{ idioma.descripcion }}</option>
+                                    <option value="{{ idioma.abreviatura }}" {{ idioma.abreviatura == app.session.get('_locale') ? 'selected' : '' }}>{{ idioma.descripcion }}</option>
                                 {% endfor %}
                             </select>
                         </form>
