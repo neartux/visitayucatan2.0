@@ -3,164 +3,107 @@
 
 {% block section %}
 
-    <section>
-        <div id="content">
+    {% block content %}
+        <section>
+            <div id="content">
 
-            <div class="introduccion">
-                <div id="izquierdo">
-                    <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/tours-adorno.png') }}">
-                </div>
-                <div id="read-left">
-                    <div class="publireportaje">
-                        <div>
-                            ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos
-                            Tours y paquetes que ofrecemos, Están diseñados para que...
-                        </div>
+                <div class="introduccion">
+                    <div id="izquierdo">
+                        <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/tours-adorno.png') }}">
+                    </div>
+                    <div id="read-left">
+                        <div class="publireportaje">
+                            <div>
+                                ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos
+                                Tours y paquetes que ofrecemos, Están diseñados para que...
+                            </div>
                         <span id="btnleermas" class="lectura">{% trans %}
                             page.web.label.tours.read.more{% endtrans %}</span>
-                    </div>
-                    <div id="contenedorreportajeb" class="publireportajeb" style="display:none;">
-                        <div>
-                            ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos
-                            Tours y paquetes que ofrecemos, Están diseñados para que... mas
                         </div>
+                        <div id="contenedorreportajeb" class="publireportajeb" style="display:none;">
+                            <div>
+                                ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos
+                                Tours y paquetes que ofrecemos, Están diseñados para que... mas
+                            </div>
                         <span id="btnleermenos" class="lectura">{% trans %}
                             page.web.label.tours.read.less{% endtrans %}</span>
+                        </div>
                     </div>
                 </div>
+
+                {% for tour in tours %}
+                    <article>
+                        <div class="border-top"></div>
+                        <div class="section-left">
+                            <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
+                            <figure class="img1 view">
+                                <a href="toulink">
+                                    <img src="{{ tour.principalImage }}">
+                                </a>
+
+                                <div class="mask">
+                                    <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
+                                </div>
+                            </figure>
+                            <figure class="img2">
+                                <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}">
+                                <figcaption class="fondo-stars">
+                                    <span class="estrella texto"></span>
+                                    <span class="estrella icon-star-full estrella1"></span>
+                                    <span class="estrella icon-star-full estrella2"></span>
+                                    <span class="estrella icon-star-full estrella3"></span>
+                                    <span class="estrella icon-star-full estrella4"></span>
+                                    <span class="estrella icon-star-full estrella5"></span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="detalles">
+                            <hgroup class="titulos">
+                                <h2>{{ tour.nombreTour }}</h2>
+
+                                <h3>{{ tour.circuito }}</h3>
+                            </hgroup>
+                            <p class="descripciones">
+                                {{ tour.descripcionTour }}
+                            </p>
+
+                        </div>
+                        <div class="img3">
+                            <div class="detalles-precio">
+                                <div class="content-precios">
+                                    <div class="precios-tours">
+                                        <p class="precio-top">{% trans %}page.web.label.tours.rate.adults{% endtrans %}:</p>
+
+                                        <p class="precio">${{ tour.tarifaadulto }} {{ tour.simboloMoneda }}</p>
+                                    </div>
+                                    <div class="precios-tours">
+                                        <!--Validacion que si el precio menor es mayour o igual a uno lo muestra y si el tour incluye menor-->
+                                        <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}
+                                            :</p>
+
+                                        <p class="precio">${{ tour.tarifamenor }} {{ tour.simboloMoneda }}</p>
+                                    </div>
+                                </div>
+                                <div class="informacion-detalles">
+                                    <p class="first-texto">
+                                        <a href="<? echo $link; ?>">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
+                                    </p>
+
+                                    <p class="second-texto"><span class="icon-play3"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+
+                {% block aside %}
+                    {{ parent() }}
+                {% endblock %}
             </div>
-
-            {% for tour in tours %}
-                <article>
-                    <div class="border-top"></div>
-                    <div class="section-left">
-                        <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
-                        <figure class="img1 view">
-                            <a href="toulink">
-                                <img src="{{ tour.principalImage }}">
-                            </a>
-
-                            <div class="mask">
-                                <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
-                            </div>
-                        </figure>
-                        <figure class="img2">
-                            <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}">
-                            <figcaption class="fondo-stars">
-                                <span class="estrella texto"></span>
-                                <span class="estrella icon-star-full estrella1"></span>
-                                <span class="estrella icon-star-full estrella2"></span>
-                                <span class="estrella icon-star-full estrella3"></span>
-                                <span class="estrella icon-star-full estrella4"></span>
-                                <span class="estrella icon-star-full estrella5"></span>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="detalles">
-                        <hgroup class="titulos">
-                            <h2>{{ tour.nombreTour }}</h2>
-
-                            <h3>{{ tour.circuito }}</h3>
-                        </hgroup>
-                        <p class="descripciones">
-                            {{ tour.descripcionTour }}
-                        </p>
-
-                    </div>
-                    <div class="img3">
-                        <div class="detalles-precio">
-                            <div class="content-precios">
-                                <div class="precios-tours">
-                                    <p class="precio-top">{% trans %}page.web.label.tours.rate.adults{% endtrans %}:</p>
-
-                                    <p class="precio">{{ tour.tarifaadulto }} {{ tour.simboloMoneda }}</p>
-                                </div>
-                                <div class="precios-tours">
-                                    <!--Validacion que si el precio menor es mayour o igual a uno lo muestra y si el tour incluye menor-->
-                                    <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}
-                                        :</p>
-
-                                    <p class="precio">{{ tour.tarifamenor }} {{ tour.simboloMoneda }}</p>
-                                </div>
-                            </div>
-                            <div class="informacion-detalles">
-                                <p class="first-texto">
-                                    <a href="<? echo $link; ?>">{% trans %}
-                                        page.web.label.tours.more.information{% endtrans %}</a>
-                                </p>
-
-                                <p class="second-texto"><span class="icon-play3"></span></p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            {% endfor %}
-
-            <aside>
-                <div class="top-aside">
-                </div>
-                <div class="limpiar"></div>
-                <div class="caja-aside-right">
-                    <? //include("templates/publicidad.php"); ?>
-                </div>
-                <div class="cajas redes-sociales">
-                    <div class="redes">
-                        <div class="red-left">
-                            <a href="https://www.facebook.com/visitayucatan/?fref=ts">
-                                <span class="icon-facebook"></span>
-
-                                <p>{% trans %}page.web.commons.label.facebook{% endtrans %}</p>
-                            </a>
-                        </div>
-                        <div class="red-right">
-                            <a href="https://twitter.com/VisitYucatan">
-                                <span class="icon-twitter"></span>
-
-                                <p>{% trans %}page.web.commons.label.twitter{% endtrans %}</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="limpiar"></div>
-            </aside>
-        </div>
-    </section>
-
-    <style type="text/css">
+        </section>
+    {% endblock %}
 
 
-        @media screen and (max-width: 860px) {
-
-            .pie-pagina{
-                width: 100%;
-                height: auto;
-            }
-            .wrap-pie{
-                width: 100%;
-                height: 100%;
-            }
-            .pie-central{
-                width: 95%;
-                height: 100%;
-            }
-
-        }
-
-        @media screen and (max-width: 480px) {
-            .renglon1,.renglon2,.renglon3,.renglon4{
-                width: 60%;
-                margin: auto;
-                float: none;
-                position: relative;
-            }
-
-            .renglon3 a{
-                padding: 0%;
-            }
-
-        }
-
-    </style>
 
     <div class="pie-pagina">
         <div class="wrap-pie">

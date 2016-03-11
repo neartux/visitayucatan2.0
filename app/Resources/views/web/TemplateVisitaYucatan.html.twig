@@ -19,6 +19,44 @@
     {% endblock %}
 
     {% block section %}
+
+        {% block content %}
+
+            {% block aside %}
+                <aside>
+                    <div class="top-aside">
+                    </div>
+                    <div class="limpiar"></div>
+                    <div class="caja-aside-right">
+
+                    </div>
+                    <div class="cajas redes-sociales">
+                        <div class="redes">
+                            <div class="red-left">
+                                <a href="https://www.facebook.com/visitayucatan/?fref=ts">
+                                    <span class="icon-facebook"></span>
+
+                                    <p>{% trans %}page.web.commons.label.facebook{% endtrans %}</p>
+                                </a>
+                            </div>
+                            <div class="red-right">
+                                <a href="https://twitter.com/VisitYucatan">
+                                    <span class="icon-twitter"></span>
+
+                                    <p>{% trans %}page.web.commons.label.twitter{% endtrans %}</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="limpiar"></div>
+                </aside>
+            {% endblock %}
+
+        {% endblock %}
+
+        {% block footer %}
+        {% endblock %}
+
     {% endblock %}
 
 {% endblock %}
