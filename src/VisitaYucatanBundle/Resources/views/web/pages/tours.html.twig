@@ -96,59 +96,17 @@
                     </article>
                 {% endfor %}
 
-                {% block aside %}
-                    {{ parent() }}
-                {% endblock %}
             </div>
+
+            {% block aside %}
+                {{ parent() }}
+            {% endblock %}
         </section>
     {% endblock %}
 
 
-
-    <div class="pie-pagina">
-        <div class="wrap-pie">
-            <div class="pie-central">
-
-                <div class="renglon1 text-to-uppercase">
-                    <div class="linea">
-                    </div>
-                    <ul class="menu-footer">
-                        <li><a href="home.html">{% trans %}page.web.menu.label.start{% endtrans %}</a></li>
-                        <li><a href="paquetes-yucatan_new">{% trans %}page.web.menu.label.packages{% endtrans %}</a></li>
-                        <li><a href="tours-en-yucatan_new">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
-                    </ul>
-                </div>
-                <div class="renglon2 text-to-uppercase">
-                    <ul class="menu-footer">
-                        <li><a href="hoteles-en-yucatan">{% trans %}page.web.menu.label.hotels{% endtrans %}</a></li>
-                        <li><a href="yucatan-mexico">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
-                        <li><a href="contacto">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
-                    </ul>
-                </div>
-                <div class="renglon3">
-                    <div>
-                        <form action="{{ path('web_tours_configure_select') }}" method="post" id="formCatalogsReload">
-                            <h2>Moneda}</h2>
-                            <select name="currency" id="moneda" onchange="$('#formCatalogsReload').submit()">
-                                {% for moneda in monedas %}
-                                    <option value="{{ moneda.id }}" {{ moneda.id == app.session.get('_currency') ? 'selected' : '' }}>{{ moneda.descripcion }}</option>
-                                {% endfor %}
-                            </select>
-
-                            <h2 class="idioma">Idioma</h2>
-                            <select name="language" id="idioma" onchange="$('#formCatalogsReload').submit()">
-                                {% for idioma in idiomas %}
-                                    <option value="{{ idioma.abreviatura }}" {{ idioma.abreviatura == app.session.get('_locale') ? 'selected' : '' }}>{{ idioma.descripcion }}</option>
-                                {% endfor %}
-                            </select>
-                        </form>
-                    </div>
-                </div>
-                <div class="renglon4">
-                    <div>
-                        <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/logo-pie.png') }}">
-                    </div>
-                </div>
-                <div class="limpiar"></div>
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
 
 {% endblock %}

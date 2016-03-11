@@ -1601,6 +1601,7 @@ footer .column-img {
     width: 38%;
     height: 100%;
     float: left;
+    text-align: center;
 
 }
 
@@ -1696,6 +1697,17 @@ footer .column-img {
 .renglon4 div {
     margin-top: 14%;
     position: relative;
+}
+
+.select-currency,.select-language {
+    padding: 5px;
+    color: #666;
+    width: 70%;
+    box-sizing: border-box;
+}
+.label-currency, .label-language {
+    color: white;
+    padding: 3px;
 }
 
 @media screen and (max-width: 1250px) {
