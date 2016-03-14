@@ -459,6 +459,16 @@
             });
         };
 
+        ctrlHotel.convertDates = function(fechaInicio, fechaFin){
+            var fechaInicioParts = fechaInicio.split('/');
+            var fechaFinParts = fechaFin.split('/');
+            var fechas = [];
+            fechas[0] = $.trim(fechaInicioParts[2])+'-'+ $.trim(fechaInicioParts[1])+'-'+ $.trim(fechaInicioParts[0]);
+            fechas[1] = $.trim(fechaFinParts[2])+'-'+ $.trim(fechaFinParts[1])+'-'+ $.trim(fechaFinParts[0]);
+
+            return fechas;
+        };
+
         ctrlHotel.getDate = function(fechaInicio, fechaFin){
             var fechaInicioParts = fechaInicio.split('-');
             var fechaFinParts = fechaFin.split('-');
