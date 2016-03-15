@@ -16,8 +16,8 @@ class PaqueteController extends Controller {
     */
 	public function PaqueteAction(Request $request){
 		$data = $this->getParamsPaquete($request);
-		//$paquetes = $this->getDoctrine()->getRepository('VisitaYucatanBundle:')
-		return $this->render('VisitaYucatanBundle:web/pages:paquetes.html.twig',array('data'=>'hola'));
+		$paquetes = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->getPaquetes($data[Generalkeys::NUMBER_ZERO],$data[Generalkeys::NUMBER_ONE]);
+		return $this->render('VisitaYucatanBundle:web/pages:paquetes.html.twig',array('paquetes'=>$paquetes));
 	}
 
 	private function getParamsPaquete($request){

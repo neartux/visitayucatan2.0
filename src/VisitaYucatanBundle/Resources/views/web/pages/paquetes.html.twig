@@ -1,1 +1,4 @@
-paquetes
+{% for p in paquetes %}
+	id: {{p.id}}
+	descripcion: {{p.descripcion}}
+{% endfor %}
