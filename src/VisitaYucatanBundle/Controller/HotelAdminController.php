@@ -536,9 +536,9 @@ class HotelAdminController extends Controller {
         try {
             $hotelTarifaJson = $request->get('hotelTarifaTO');
             $hotelTarifaTO = $serializer->deserialize($hotelTarifaJson, 'VisitaYucatanBundle\utils\to\HotelTarifaTO', Generalkeys::JSON_STRING);
-            $fechas = DateUtil::getDates($hotelTarifaTO->getFechaInicio(), $hotelTarifaTO->getFechaFin());
-            $hotelTarifaTO->setFechaInicio($fechas[0]);
-            $hotelTarifaTO->setFechaFin($fechas[1]);
+            //$fechas = DateUtil::getDates($hotelTarifaTO->getFechaInicio(), $hotelTarifaTO->getFechaFin());
+            //$hotelTarifaTO->setFechaInicio($fechas[0]);
+            //$hotelTarifaTO->setFechaFin($fechas[1]);
 
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->saveRate($hotelTarifaTO);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha guardado correctamente las tarifas de las fechas seleccionadas ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);

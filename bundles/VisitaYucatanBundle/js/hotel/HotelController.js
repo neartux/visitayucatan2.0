@@ -455,10 +455,10 @@
 
         ctrlHotel.saveHotelTarifaTO = function(){
             var fechas = $("#datePickerTarifas").val().split("-");
-            var fechasParts = ctrlHotel.getDate(fechas[0], fechas[1]);
+            var fechasParts = ctrlHotel.convertDates(fechas[0], fechas[1]);
             ctrlHotel.tarifaHabitacionTO.idHotel = ctrlHotel.idHotelGlobal;
-            ctrlHotel.tarifaHabitacionTO.fechaInicio = fechas[0];
-            ctrlHotel.tarifaHabitacionTO.fechaFin = fechas[1];
+            ctrlHotel.tarifaHabitacionTO.fechaInicio = fechasParts[0];
+            ctrlHotel.tarifaHabitacionTO.fechaFin = fechasParts[1];
             return HotelService.saveTarifaHotel(ctrlHotel.tarifaHabitacionTO).then(function(data){
                 pNotifyView(data.data.message, data.data.typeStatus);
             });
