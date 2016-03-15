@@ -40,14 +40,15 @@ class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
         $nextDate = true;
         $fechaActual = $tarifaTO->getFechaInicio();
         // Mientras no se llege a la fecha final se crean o modifican los registros
-        while($nextDate){
+        //while($nextDate){
             $tarifa = $this->getRateNotNull($tarifaTO->getIdHabitacion(), $tarifaTO->getIdContrato(), $tarifaTO->getIdHotel(), $fechaActual);
+            echo "con los datos ".print_r($tarifa);
             $tarifa->setSencillo($tarifaTO->getSencillo());
             $tarifa->setDoble($tarifaTO->getDoble());
             $tarifa->setTriple($tarifaTO->getTriple());
             $tarifa->setCuadruple($tarifaTO->getCuadruple());
             //$tarifa->setFecha(new \DateTime($nextDate));
-            print_r($tarifa);
+
 
             if(DateUtil::isSammeDate($fechaActual, $tarifaTO->getFechaFin())){
                 echo "es misma fecha ya no mas iterada";
@@ -59,12 +60,12 @@ class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
 
             $em->persist($tarifa);
             $em->flush();
-        }
+        //}
     }
 
     public function findTarifaByContratoHabitacionAndDate($habitacion, $contrato, $hotel, $fecha){
         $em = $this->getEntityManager();
-        $sql = "SELECT hotel_tarifa.id
+        $sql = "SELECT hotel_tarifa.*
                 FROM hotel_tarifa
                 WHERE hotel_tarifa.id_hotel_habitacion =  :habitacion
                 AND hotel_tarifa.id_hotel_contrato = :contrato
@@ -78,24 +79,25 @@ class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
         $params['fecha'] = $fecha;
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
-        return $stmt->fetchColumn();
+        return $stmt->fetchAll();
     }
 
     public function getRateNotNull($habitacion, $contrato, $hotel, $fecha){
         $em = $this->getEntityManager();
-
-        $idioma = $this->findOneBy(array('hotelHabitacion' => $habitacion, 'hotelContrato' => $contrato, 'hotel' => $hotel, 'fecha' => '2016-03-06', 'estatus' => Estatuskeys::ESTATUS_ACTIVO));
-        print_r($idioma);exit;
-        $tarifaId = $this->findTarifaByContratoHabitacionAndDate($habitacion, $contrato, $hotel, $fecha);
-        echo "id encontrado = ".$tarifaId." la fecha = ".$fecha;
-        if(is_string($tarifaId)){
+        $tarifa = $this->findTarifaByContratoHabitacionAndDate($habitacion, $contrato, $hotel, $fecha);
+        print_r($tarifa);
+        if(count($tarifa) == Generalkeys::NUMBER_ZERO){ //todo aqui esta el problema no se porque
+            echo "en el if";
             $tarifaObj = new HotelTarifa();
             $tarifaObj->setHotel($em->getReference('VisitaYucatanBundle:Hotel', $hotel));
             $tarifaObj->setHotelHabitacion($em->getReference('VisitaYucatanBundle:HotelHabitacion', $habitacion));
             $tarifaObj->setHotelContrato($em->getReference('VisitaYucatanBundle:HotelContrato', $contrato));
         }else{
-            $tarifaObj = $this->find($tarifaId);
+            echo "en el else";
+            //$tarifaObj = $em->getRepository('VisitaYucatanBundle:HotelTarifa')->find()
         }
+        print_r($tarifaObj);
+        exit;
         return $tarifaObj;
     }
 
