@@ -9,4 +9,23 @@ namespace VisitaYucatanBundle\Repository;
  * repository methods below.
  */
 class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
+
+	public function getPaquetes($idIdioma){
+		$em = $this->getEntityManager();
+		$sql = 'SELECT p.id, pd.descripcion, pd.incluye, pd.descripcion as nombre, p.circuito, pf.nombreoriginal as archivo,
+				(select min(costosencillo) from paquete_combinacion_hotel where id_paquete = p.id) as sencilla
+				from paquete p
+				left join paquete_idioma pd on pd.id_paquete = p.id
+				left join paquete_imagen pf on pf.id_paquete = p.id and pf.principal = 1
+				where p.id_estatus = 1 and pd.id_idioma = $idIdioma
+				order by sencilla;';
+		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+		$params['idioma'] = $idioma;
+		$params['moneda'] = $idMoneda;
+		$params['origen'] = Generalkeys::ORIGEN_MERIDA; // Este es estatico solo hay origen desde merida por ahora
+
+		$stmt = $em->getConnection()->prepare($sql);
+		$stmt->execute($params);
+		return $stmt->fetchAll();
+	}
 }
