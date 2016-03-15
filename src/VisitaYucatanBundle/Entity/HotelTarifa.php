@@ -90,6 +90,14 @@ class HotelTarifa {
     }
 
     /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * Set fecha
      *
      * @param \DateTime $fecha

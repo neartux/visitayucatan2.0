@@ -31,10 +31,9 @@ class TourController extends Controller {
     public function configureCatalogsAction(Request $request) {
         // Obtiene la session del request para obtener moneda e idioma
         $session = $request->getSession();
-        // Obtiene el idioma de la sesion
+        // Colocal el idioma seleccionado en session
         $session->set('_locale', strtolower($request->get('language')));
-        //echo "sesion = ".$session->get('_locale');exit;
-        // Obtiene el idioma de la session
+        // Coloca la moneda seleccionada
         $session->set('_currency', $request->get('currency'));
         return $this->redirectToRoute('web_tours');
     }

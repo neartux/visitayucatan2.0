@@ -15,8 +15,8 @@ class HotelTarifaTO {
     private $triple;
     private $cuadruple;
     private $idHotel;
-    private $idHotelContrato;
-    private $idHotelHabitacion;
+    private $idContrato;
+    private $idHabitacion;
     private $fechaInicio;
     private $fechaFin;
 
@@ -135,34 +135,35 @@ class HotelTarifaTO {
     /**
      * @return mixed
      */
-    public function getIdHotelContrato()
+    public function getIdContrato()
     {
-        return $this->idHotelContrato;
+        return $this->idContrato;
     }
 
     /**
-     * @param mixed $idHotelContrato
+     * @param mixed $idContrato
      */
-    public function setIdHotelContrato($idHotelContrato)
+    public function setIdContrato($idContrato)
     {
-        $this->idHotelContrato = $idHotelContrato;
+        $this->idContrato = $idContrato;
     }
 
     /**
      * @return mixed
      */
-    public function getIdHotelHabitacion()
+    public function getIdHabitacion()
     {
-        return $this->idHotelHabitacion;
+        return $this->idHabitacion;
     }
 
     /**
-     * @param mixed $idHotelHabitacion
+     * @param mixed $idHabitacion
      */
-    public function setIdHotelHabitacion($idHotelHabitacion)
+    public function setIdHabitacion($idHabitacion)
     {
-        $this->idHotelHabitacion = $idHotelHabitacion;
+        $this->idHabitacion = $idHabitacion;
     }
+
 
     /**
      * @return mixed

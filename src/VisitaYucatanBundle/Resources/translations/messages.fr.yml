@@ -32,23 +32,23 @@ catalog.currency.report.label.description : Description
 catalog.currency.report.label.symbol : Symbole
 catalog.currency.report.label.change.type : Taux de change
 catalog.currency.report.message.error.description : Le description est nécessaire
-catalog.currency.report.message.error.symbol : Symbole est nécessaire
-catalog.currency.report.message.error.length.symbol : Le maximum est de 10 caractères
-catalog.currency.report.message.error.change.type : Le taux de change est nécessaire
+catalog.currency.report.message.error.symbol : Symbole est necessaire
+catalog.currency.report.message.error.length.symbol : Le maximum est de 10 caracteres
+catalog.currency.report.message.error.change.type : Le taux de change est necessaire
 catalog.currency.report.message.new.currency : Nouvelle Monnaie
 catalog.currency.report.message.edit.currency : Monnaie de Modifier
-catalog.currency.report.message.success.create : Monnaie Créée
-catalog.currency.report.message.success.update : Monnaie édité
-catalog.currency.report.message.error : Une erreur est survenue, ne pouvait pas effectuer l'actionon
-catalog.currency.report.message.delete : Monnaie Retirée
+catalog.currency.report.message.success.create : Monnaie Creee
+catalog.currency.report.message.success.update : Monnaie edite
+catalog.currency.report.message.error : Une erreur est survenue, ne pouvait pas effectuer l actionon
+catalog.currency.report.message.delete : Monnaie Retiree
 catalog.currency.report.message.confirm.delete : Etes-vous sûr de retirer la pièce de monnaie?
 
 #** Properties to login
-login.validate.message.user.not.exist : N'existe pas l'utilisateur dans le système
-login.validate.message.pass.not.coincidence : Le mot de passe ne correspond pas à l'utilisateur
-login.validate.message.user.and.pass.isrequired : Nom d'utilisateur et mot de passe sont nécessaires
-login.validate.message.user.isrequired : L'utilisateur doit
-login.validate.message.pass.isrequired : Le mot de passe est nécessaire
+login.validate.message.user.not.exist : N existe pas l utilisateur dans le systeme
+login.validate.message.pass.not.coincidence : Le mot de passe ne correspond pas a l utilisateur
+login.validate.message.user.and.pass.isrequired : Nom d'utilisateur et mot de passe sont necessaires
+login.validate.message.user.isrequired : L utilisateur doit
+login.validate.message.pass.isrequired : Le mot de passe est necessaire
 
 #** Properties to catalog users
 catalog.user.report.label.title : Utilisateurs

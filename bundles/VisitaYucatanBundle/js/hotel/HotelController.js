@@ -450,11 +450,16 @@
 
         ctrlHotel.findListRateHotel = function(){
             var fecha = $("#datePickerTarifas").val().split("-");
-            return HotelService.getListTarifa(fecha[0], fecha[1], ctrlHotel.tarifaHabitacionTO.idContrato, ctrlHotel.tarifaHabitacionTO.data.idHabitacion, ctrlHotel.idHotelGlobal);
+            return HotelService.getListTarifa(fecha[0], fecha[1], ctrlHotel.tarifaHabitacionTO.idContrato, ctrlHotel.tarifaHabitacionTO.idHabitacion, ctrlHotel.idHotelGlobal);
         };
 
         ctrlHotel.saveHotelTarifaTO = function(){
-            return HotelService.saveTarifaHotel().then(function(data){
+            var fechas = $("#datePickerTarifas").val().split("-");
+            var fechasParts = ctrlHotel.getDate(fechas[0], fechas[1]);
+            ctrlHotel.tarifaHabitacionTO.idHotel = ctrlHotel.idHotelGlobal;
+            ctrlHotel.tarifaHabitacionTO.fechaInicio = fechas[0];
+            ctrlHotel.tarifaHabitacionTO.fechaFin = fechas[1];
+            return HotelService.saveTarifaHotel(ctrlHotel.tarifaHabitacionTO).then(function(data){
                 pNotifyView(data.data.message, data.data.typeStatus);
             });
         };

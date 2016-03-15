@@ -283,12 +283,12 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function(data){
                 console.log("lista de fechas tarifas = "+JSON.stringify(data.data));
-                service.listaTarifasHotel = data.data;
+                service.listaTarifasHotel.data = data.data;
             });
         };
 
         service.saveTarifaHotel = function(hotelTarifaTO){
-            console.inf("tarifa = "+JSON.stringify(hotelTarifaTO));
+            console.info("tarifa = "+JSON.stringify(hotelTarifaTO));
             var path = $("#pathSaveTarifa").val();
             return $http.post(path, $.param({hotelTarifaTO : JSON.stringify(hotelTarifaTO)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

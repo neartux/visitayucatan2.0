@@ -26,6 +26,14 @@ class DateUtil
         return $fechas;
     }
 
+    public static function formatDate($fecha){
+        // dd/mm/yyyy
+        $fechaParts = explode('/', trim($fecha));
+
+        // yyyy/mm/dd
+        return $fechaParts[Generalkeys::NUMBER_TWO] . Generalkeys::STRING_DASH . $fechaParts[Generalkeys::NUMBER_ONE] . Generalkeys::STRING_DASH . $fechaParts[Generalkeys::NUMBER_ZERO];
+    }
+
     public static function isSammeDate($fecha1, $fecha2) {
         if ($fecha1 == $fecha2) {
             return true;
@@ -38,10 +46,7 @@ class DateUtil
         return date(Generalkeys::PATTERN_DATE_MYSQL, strtotime($dateString));
     }
 
-    public static function summDaysToDate($date, $daysToSumm) {
-        $dateXplode = explode("-", $date); // yyyy//mm/dd
-
-        $newDate = getdate(mktime(0, 0, 0, $dateXplode[1], $dateXplode[2], $dateXplode[0]) + 24 * 60 * 60 * $daysToSumm);
-        return self::stringToDate($newDate['mon'] . Generalkeys::STRING_DASH . $newDate['day'] . Generalkeys::STRING_DASH . $newDate['year']);
+    public static function summOneDayToDate($date) {
+        return date ( Generalkeys::PATTERN_DATE_MYSQL , strtotime ( '+1 day' , strtotime ($date) ) );
     }
 }
