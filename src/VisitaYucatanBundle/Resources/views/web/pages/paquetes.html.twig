@@ -1,4 +1,107 @@
-{% for p in paquetes %}
-	id: {{p.id}}
-	descripcion: {{p.descripcion}}
-{% endfor %}
+{% extends ':web:TemplateVisitaYucatan.html.twig' %}
+
+{% block section %}
+
+    {% block content %}
+        <section>
+            <div id="content">
+
+                <div class="introduccion">
+                    <div id="izquierdo">
+                        <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/tours-adorno.png') }}">
+                    </div>
+                    <div id="read-left">
+                        <div class="publireportaje">
+                            <div>
+                                Nuestros paquetes están diseñados con la finalidad de que Usted pueda planear enteramente su viaje, nuestra selección de tours y excursiones en cada paquete le ayuda a maximizar su tiempo y...
+                            </div>
+                        <span id="btnleermas" class="lectura">{% trans %}
+                            page.web.label.tours.read.more{% endtrans %}</span>
+                        </div>
+                        <div id="contenedorreportajeb" class="publireportajeb" style="display:none;">
+                            <div>
+                                Nuestros paquetes están diseñados con la finalidad de que Usted pueda planear enteramente su viaje, nuestra selección de tours y excursiones en cada paquete le ayuda a maximizar su tiempo y experiencia con los atractivos que tenemos para ofrecerle de acuerdo, al número de noches de estancia en Mérida y el estado de Yucatán.
+                                Así mismo le presentamos una variedad de hoteles de distintas categorías para que escoja el que más se adapte a su gusto y presupuesto.
+                            </div>
+                        <span id="btnleermenos" class="lectura">{% trans %}
+                            page.web.label.tours.read.less{% endtrans %}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% for paquete in paquetes %}
+                    <article>
+                        <div class="border-top"></div>
+                        <div class="section-left">
+                            <h2 class="titulo-top">{{ paquete.nombre }}</h2>
+                            <figure class="img1 view">
+                                <a href="toulink">
+                                    <img src="{{ paquete.archivo }}">
+                                </a>
+
+                                <div class="mask">
+                                    <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
+                                </div>
+                            </figure>
+                            <figure class="img2">
+                                <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}">
+                                <figcaption class="fondo-stars">
+                                    <span class="estrella texto"></span>
+                                    <span class="estrella icon-star-full estrella1"></span>
+                                    <span class="estrella icon-star-full estrella2"></span>
+                                    <span class="estrella icon-star-full estrella3"></span>
+                                    <span class="estrella icon-star-full estrella4"></span>
+                                    <span class="estrella icon-star-full estrella5"></span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="detalles">
+                            <hgroup class="titulos">
+                                <h2>{{ paquete.nombre }}</h2>
+
+                                <h3>{{ paquete.circuito }}</h3>
+                            </hgroup>
+                            <p class="descripciones">
+                                
+                            </p>
+
+                        </div>
+                        <div class="img3">
+                            <div class="detalles-precio">
+                                <div class="content-precios">
+                                    <div class="precios-tours">
+                                        <p class="precio-top">
+                                        <!--En la traduccion va la palabra Desde no adulto-->
+                                        {% trans %} page.web.label.tours.rate.adults {% endtrans %}:</p>
+
+                                        <p class="precio">${{ paquete.sencilla }} {{ paquete.simbolmoneda }}</p>
+                                    </div>
+                                    
+                                </div>
+                                <div class="informacion-detalles">
+                                    <p class="first-texto">
+                                        <a href="<? echo $link; ?>">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
+                                    </p>
+
+                                    <p class="second-texto"><span class="icon-play3"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+
+            </div>
+
+            {% block aside %}
+                {{ parent() }}
+            {% endblock %}
+
+        </section>
+    {% endblock %}
+
+
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+{% endblock %}

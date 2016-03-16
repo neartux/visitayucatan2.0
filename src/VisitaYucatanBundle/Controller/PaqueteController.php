@@ -16,8 +16,10 @@ class PaqueteController extends Controller {
     */
 	public function PaqueteAction(Request $request){
 		$data = $this->getParamsPaquete($request);
+        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
+        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
 		$paquetes = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->getPaquetes($data[Generalkeys::NUMBER_ZERO],$data[Generalkeys::NUMBER_ONE]);
-		return $this->render('VisitaYucatanBundle:web/pages:paquetes.html.twig',array('paquetes'=>$paquetes));
+		return $this->render('VisitaYucatanBundle:web/pages:paquetes.html.twig',array('paquetes'=>$paquetes,'monedas'=>$currency,'idiomas'=>$idiomas));
 	}
 
 	private function getParamsPaquete($request){
