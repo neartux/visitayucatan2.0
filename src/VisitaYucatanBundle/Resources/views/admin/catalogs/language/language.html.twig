@@ -1,0 +1,73 @@
+{% extends '::BaseTemplate.html.twig' %}
+
+{% block breadcrumb %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="content-main" data-ng-app="Language" data-ng-controller="LanguageController as ctrlLanguage"
+         ng-init="ctrlLanguage.init()">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-bluegray" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                    <div class="panel-heading">
+                        <h2>
+                            Idiomas
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <input type="button" data-ng-click="ctrlLanguage.displayNewLanguage()" value="Nuevo Idioma" class="btn btn-primary"/>
+                        </div>
+                        <br><br><br>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead class="text-uppercase text-bold">
+                                    <tr>
+                                        <th width="10%">Id</th>
+                                        <th width="45">Descripción</th>
+                                        <th width="20%">Abreviatura</th>
+                                        <th width="25%">Panel</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr data-ng-repeat="language in ctrlLanguage.listLanguage.data">
+                                        <td>[[ language.id ]]</td>
+                                        <td>[[ language.descripcion ]]</td>
+                                        <td>[[ language.abreviatura ]]</td>
+                                        <td>
+                                            <a class="btn btn-success-alt" data-ng-click="ctrlLanguage.displayEditLanguage(language)" href="javascript:;"><i class="fa fa-pencil"></i>&nbsp;Editar</a>
+                                            <a class="btn btn-danger-alt" data-ng-click="ctrlLanguage.deleteLanguage(language.id)" href="javascript:;"><i class="fa fa-trash"></i>&nbsp;Eliminar</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {% include '@VisitaYucatan/admin/catalogs/language/ModalLanguage.html.twig' %}
+
+        <!--Paths-->
+    <input type="hidden" id="pathListLanguage" value="{{ path('language_find_all') }}"/>
+    <input type="hidden" id="pathCreateLanguage" value="{{ path('idioma_crear') }}"/>
+    <input type="hidden" id="pathUpdateLanguage" value="{{ path('idioma_editar') }}"/>
+    <input type="hidden" id="pathDeleteLanguage" value="{{ path('idioma_delete') }}"/>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/VisitaYucatanBundle/js/catalogs/language/LanguageProvider.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/VisitaYucatanBundle/js/catalogs/language/LanguageController.js') }}" type="text/javascript"></script>
+{% endblock %}

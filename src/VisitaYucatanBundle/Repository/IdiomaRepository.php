@@ -30,4 +30,39 @@ class IdiomaRepository extends \Doctrine\ORM\EntityRepository{
         }
         return $idioma->getId();
     }
+
+    public function createLanguage($language){
+        $em = $this->getEntityManager();
+        $language->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+
+        $em->persist($language);
+        $em->flush();
+
+        return $language->getId();
+    }
+
+    public function updateLanguage($language){
+        $em = $this->getEntityManager();
+        $languageUpdate = $em->getRepository("VisitaYucatanBundle:Idioma")->find($language->getId());
+        if(! $languageUpdate){
+            throw new EntityNotFoundException('La moneda con id '.$language->getId()." no se encontro");
+        }
+        // Actualiza la informacion del idiomas
+        $languageUpdate->setDescripcion($language->getDescripcion());
+        $languageUpdate->setAbreviatura($language->getAbreviatura());
+
+        $em->persist($languageUpdate);
+        $em->flush();
+    }
+
+    public function deleteLanguage($idLanguage){
+        $em = $this->getEntityManager();
+        $language = $em->getRepository('VisitaYucatanBundle:Idioma')->find($idLanguage);
+        if(! $language){
+            throw new EntityNotFoundException('El idioma con id '.$idLanguage." no se encontro");
+        }
+        $language->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
+        $em->persist($language);
+        $em->flush();
+    }
 }

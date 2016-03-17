@@ -12,6 +12,7 @@ class ResponseTO{
     private $typeStatus;
     private $message;
     private $code;
+    private $id;
 
     /**
      * ResponseTO constructor.
@@ -21,6 +22,14 @@ class ResponseTO{
         $this->message = $message;
         $this->typeStatus = $typeStatus;
         $this->code = $code;
+    }
+
+    public function getId(){
+        return $this->id;
+    }
+
+    public function setId($id){
+        $this->id = $id;
     }
 
 

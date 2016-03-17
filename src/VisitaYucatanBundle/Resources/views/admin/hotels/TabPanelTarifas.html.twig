@@ -1,12 +1,14 @@
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-3">
+             <label class="col-sm-4 text-bold control-label" style="margin-bottom: 0; padding-left:0 !important;" >Contrato:</label>
             <select class="form-control" data-ng-model="ctrlHotel.tarifaHabitacionTO.idContrato" id="selectContratoTarifa">
                 <option value="">SELECCIONA CONTRATO</option>
                 <option value="[[ contrato.id ]]" ng-repeat="contrato in ctrlHotel.listaContratos.data">[[ contrato.descripcion ]]</option>
             </select>
         </div>
         <div class="col-md-3">
+             <label class="col-sm-4 text-bold control-label" style="margin-bottom: 0; padding-left:0 !important;" >Habitación:</label>
             <select class="form-control" data-ng-model="ctrlHotel.tarifaHabitacionTO.data.idHabitacion" id="selectHabitacionesTarifa">
                 <option value="">SELECCIONA HABITACION</option>
                 <option value="[[ habitacion.id ]]" ng-repeat="habitacion in ctrlHotel.listaHabitacionesHotel.data">[[ habitacion.nombre ]]</option>

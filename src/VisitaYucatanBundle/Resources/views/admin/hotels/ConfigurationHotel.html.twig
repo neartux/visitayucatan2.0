@@ -1,41 +1,43 @@
-<div class="row" nv-file-drop="" uploader="uploader" id="ng-app" data-ng-controller="AngularFileUploadController as ctrlFile">
-    <div class="col-md-12 text-left">
-        <button class="btn btn-success" data-ng-click="ctrlHotel.returnListTour()">
+
+<div class="row" >
+    <div class="col-md-3 text-left">
+        <button style="margin-bottom:15px;" class="btn btn-success" data-ng-click="ctrlHotel.returnListTour()">
             <span class="fa fa-mail-reply"></span>&nbsp;Regresar
         </button>
     </div>
-    <br>
-    <br>
+    <div class="col-md-9 div-custom text-right">
+            <span class="text-bold">[[ ctrlHotel.nameHotelTitle ]]</span>          
+    </div>
+   </div>
+   <div class="row" nv-file-drop="" uploader="uploader" id="ng-app" data-ng-controller="AngularFileUploadController as ctrlFile">
     <div class="col-md-12">
 
-        <div class="panel panel-gray" data-widget='{"draggable": "false"}'>
+        <div class="panel panel-bluegraylight custom" data-widget='{"draggable": "false"}'>
             <div class="panel-heading">
-                <h2>
-                    HOTEL **&nbsp;<span class="text-bold">[[ ctrlHotel.nameHotelTitle ]]</span>
-                </h2>
+               
                 <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
                 <div class="options">
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs" >
                         <li class="active"><a href="#information-hotel" data-toggle="tab">
                                 <i class="fa fa-info text-info"></i>&nbsp;&nbsp;Información</a>
                         </li>
-                        <li><a href="#images-hotel" data-toggle="tab" data-ng-click="ctrlFile.setIdApplication(ctrlHotel.idHotelGlobal)">
+                        <li><a href="#images-hotel"  data-toggle="tab" data-ng-click="ctrlFile.setIdApplication(ctrlHotel.idHotelGlobal)">
                                 <i class="fa fa-image text-info"></i>&nbsp;&nbsp;Fotografías</a>
                         </li>
                         <li><a href="#fechas-cierre-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findFechasCierreByHotel()">
                                 <i class="fa fa-calendar text-info"></i>&nbsp;&nbsp;Fechas Cierre</a>
                         </li>
                         <li><a href="#contratos-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findAllHotelContracts()">
-                                <i class="fa fa-calendar text-info"></i>&nbsp;&nbsp;Contratos</a>
+                                <i class="fa fa-file-text-o text-info"></i>&nbsp;&nbsp;Contratos</a>
                         </li>
                         <li><a href="#habitaciones-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findHabitacionesHotel()">
-                                <i class="fa fa-header text-info"></i>&nbsp;&nbsp;Habitaciones</a>
+                                <i class="fa  fa-hotel text-info"></i>&nbsp;&nbsp;Habitaciones</a>
                         </li>
                         <li><a href="#habitaciones-idioma-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findHabitacionesHotel()">
-                                <i class="fa fa-header text-info"></i>&nbsp;&nbsp;Descripción Hab.</a>
+                                <i class="fa fa-list-alt text-info"></i>&nbsp;&nbsp;Descripción Hab.</a>
                         </li>
                         <li><a href="#habitaciones-tarifa-hotel" data-toggle="tab" data-ng-click="ctrlHotel.findAllHotelContracts();ctrlHotel.findHabitacionesHotel();">
-                                <i class="fa fa-header text-info"></i>&nbsp;&nbsp;Tarifas</a>
+                                <i class="fa fa-money text-info"></i>&nbsp;&nbsp;Tarifas</a>
                         </li>
                     </ul>
                 </div>
@@ -68,8 +70,8 @@
 
                     </div>
                     <div class="tab-pane" id="habitaciones-idioma-hotel">
-
                         {% include '@VisitaYucatan/admin/hotels/TabPanelHabitacionesDescripciones.html.twig' %}
+
 
                     </div>
                     <div class="tab-pane" id="habitaciones-tarifa-hotel">

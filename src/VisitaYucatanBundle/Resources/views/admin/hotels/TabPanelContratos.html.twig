@@ -1,13 +1,14 @@
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-3">
+             <label class="col-sm-4 text-bold control-label" style="margin-bottom: 0; padding-left:0 !important;" >Contrato:</label>
             <select class="form-control" data-ng-model="ctrlHotel.hotelContratoTO.data.idContract" ng-change="ctrlHotel.findContractById()" id="selectContract">
                 <option value="">SELECCIONA CONTRATO</option>
                 <option value="[[ contrato.id ]]" ng-repeat="contrato in ctrlHotel.listaContratos.data">[[ contrato.descripcion | uppercase ]]</option>
             </select>
         </div>
         <div class="col-md-3">
-            <input type="button" value="Nuevo Contrato" class="btn btn-primary" data-ng-show="! ctrlHotel.displayFormContract" data-ng-click="ctrlHotel.displayNewContract();"/>
+            <input style="margin-top: 20px;" type="button" value="Nuevo Contrato" class="btn btn-primary" data-ng-show="! ctrlHotel.displayFormContract" data-ng-click="ctrlHotel.displayNewContract();"/>
         </div>
     </div>
 </div>

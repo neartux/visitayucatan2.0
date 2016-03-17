@@ -49,3 +49,14 @@ canvas {
     border-bottom: 1px solid #BFF4FC;
     padding-bottom: 5px;
 }
+
+.panel.panel-bluegraylight.custom .panel-heading .nav-tabs li > a {
+  color: #9E9E9E ;
+}
+
+.panel.panel-bluegraylight.custom .panel-heading .nav-tabs li:hover > a {
+  color: #5F737F 
+
+  
+}
+

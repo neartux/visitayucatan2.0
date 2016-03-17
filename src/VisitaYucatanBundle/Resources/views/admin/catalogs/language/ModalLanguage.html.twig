@@ -1,0 +1,56 @@
+<div class="modal fade in" id="modalLanguage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-backdrop fade in" style="height: 1037px;"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times"></span></button>
+                <h2 class="modal-title">[[ ctrlLanguage.titleModal ]]</h2>
+            </div>
+            <form action="" class="form-horizontal row-border" name="formLanguage" novalidate>
+                <input type="hidden" ng-model="ctrlLanguage.language.id"/>
+                <div class="modal-body">
+                        <div class="form-group" ng-class="{ 'has-error' : formLanguage.descripcion.$invalid && !formLanguage.descripcion.$pristine }">
+                            <label class="col-sm-2 control-label text-bold text-uppercase">
+                                Descripción
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" id="description" ng-model="ctrlLanguage.language.descripcion" name="descripcion" class="form-control" required/>
+                                <span ng-show="formLanguage.descripcion.$invalid && !formLanguage.descripcion.$pristine" class="help-block">
+                                    Es requerido
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : formLanguage.symbolo.$invalid && !formLanguage.symbolo.$pristine }">
+                            <label class="col-sm-2 control-label text-bold text-uppercase">
+                                Abreviatura
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" id="symbolo" ng-model="ctrlLanguage.language.abreviatura" name="symbolo" class="form-control" ng-maxlength="10" required />
+                                <span ng-show=" formLanguage.symbolo.$dirty && formLanguage.symbolo.$invalid &&formLanguage.symbolo.$error.required" class="help-block">
+                                    Es requerido
+                                </span>
+                                <span ng-show="formLanguage.symbolo.$error.maxlength" class="help-block">
+                                    El maximo de caracteres es 10
+                                </span>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    [[ ctrlLanguage.language ]]
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times-circle-o"></span> &nbsp;
+                        {% trans %}button.label.close{% endtrans %}
+                    </button>
+                    <button data-ng-show="ctrlLanguage.isNewLanguage" type="button" class="btn btn-primary" data-ng-click="ctrlLanguage.saveFormLanguage(formLanguage.$valid)" ng-disabled="formLanguage.$invalid">
+                        <span class="fa fa-save"></span> &nbsp;
+                        {% trans %}button.label.save{% endtrans %}
+                    </button>
+                    <button data-ng-show="!ctrlLanguage.isNewLanguage" type="button" class="btn btn-primary" data-ng-click="ctrlLanguage.updateLanguage(formLanguage.$valid)" ng-disabled="formLanguage.$invalid">
+                        <span class="fa fa-save"></span> &nbsp;
+                        {% trans %}button.label.edit{% endtrans %}
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

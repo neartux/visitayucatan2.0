@@ -27,8 +27,15 @@
             data: undefined
         };
         service.listaFechas = {
+            
+      
             data: undefined
+
+   // alert("HOLA");
+              
         };
+
+
         service.listaContratos = {
             data: undefined
         };
@@ -40,6 +47,18 @@
         };
         service.listaTarifasHotel = {
             data: undefined
+        };
+        
+        service.listaResetHotel = function(){
+          alert("hola rafael");
+
+          angular.forEach(service.listaFechas.data, function(valor, indice) {
+            if (valor.classDanger != " ") {
+
+                valor.classDanger=" "; 
+            }
+                                  
+            });
         };
 
         service.findHotelsActives= function(){

@@ -50,6 +50,7 @@
             ctrlHotel.msjLoading = 'Cargando';
             ctrlHotel.titleModal = 'Nuevo Hotel';
             ctrlHotel.confirmDelete = '¿ Seguro que desea eliminar el hotel ?';
+            
             ctrlHotel.msjDeleteImage = '¿ Desea eliminar la imagen ? ';
             ctrlHotel.hotelTO = {
                 estrellas: '1'
@@ -343,27 +344,46 @@
         };
 
         ctrlHotel.createFechaCierre = function(){
-            var idFecha = $("#idFechaHotel");
-            var fecha = $("#daterangepicker").val();
-            if(fecha.length == 0){
-                pNotifyView('Captura la fecha', 'info');
-                $("#daterangepicker").trigger('focus');
-            }else{
-                var fechaArray = fecha.split('-');
-                return HotelService.createOrUpdateFechaCierre(idFecha.val(), ctrlHotel.idHotelGlobal, $.trim(fechaArray[0]), $.trim(fechaArray[1])).then(function (data) {
-                    ctrlHotel.findFechasCierreByHotel();
-                    pNotifyView(data.data.message, data.data.typeStatus);
-                    idFecha.val(0);
-                });
-            }
+            if(confirm('¿Crear fecha de cierre?')){
+                var idFecha = $("#idFechaHotel");
+                var fecha = $("#daterangepicker").val();
+          
+               
+                if(fecha.length == 0){
+                    pNotifyView('Captura la fecha', 'info');
+                    $("#daterangepicker").trigger('focus');
+                }else{
+                    var fechaArray = fecha.split('-');
+                    return HotelService.createOrUpdateFechaCierre(idFecha.val(), ctrlHotel.idHotelGlobal, $.trim(fechaArray[0]), $.trim(fechaArray[1])).then(function (data) {
+                        ctrlHotel.findFechasCierreByHotel();
+                        pNotifyView(data.data.message, data.data.typeStatus);
+                        idFecha.val(0);
+                    });
+                }
+           }
         };
 
         ctrlHotel.setFechaEdit = function(fecha) {
-            fecha.classDanger = 'danger';
+
+               HotelService.listaResetHotel();
+            
+            console.log("idiomas = "+JSON.stringify(fecha));
+
+
+            if (fecha.classDanger == " ") {
+
+                  fecha.classDanger='danger';
+            }
+           
+         
+         
+
+            
             var fechas = ctrlHotel.getDate(fecha.fechainicio, fecha.fechafin);
             $('#daterangepicker').data('daterangepicker').setStartDate(fechas[0]);
             $('#daterangepicker').data('daterangepicker').setEndDate(fechas[1]);
             $("#idFechaHotel").val(fecha.id);
+
         };
 
         ctrlHotel.createContractHotel = function(){
