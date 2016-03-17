@@ -448,9 +448,35 @@
             });
         };
 
+        ctrlHotel.changeContractRate = function (){
+            var contrato = $("#selectContratoTarifa");
+            if(contrato.val() == ""){
+                pNotifyView("Selecciona un contrato");
+                contrato.trigger("focus");
+                ctrlHotel.showSelectRoomRate = false;
+            }else{
+                ctrlHotel.showSelectRoomRate = true;
+            }
+        };
+
+        ctrlHotel.changeRoomRate = function(){
+            var room = $("#selectHabitacionesTarifa");
+            if(room.val() == ""){
+                pNotifyView("Selecciona una habitacion");
+                room.trigger("focus");
+            }else{
+                ctrlHotel.showSearchRate = true;
+            }
+        };
+
         ctrlHotel.findListRateHotel = function(){
             var fecha = $("#datePickerTarifas").val().split("-");
-            return HotelService.getListTarifa(fecha[0], fecha[1], ctrlHotel.tarifaHabitacionTO.idContrato, ctrlHotel.tarifaHabitacionTO.idHabitacion, ctrlHotel.idHotelGlobal);
+            //var fechasFormated = ctrlHotel.convertDates(fecha[0], fecha[1]);
+            return HotelService.getListTarifa(fecha[0], fecha[1], ctrlHotel.tarifaHabitacionTO.idContrato, ctrlHotel.tarifaHabitacionTO.idHabitacion, ctrlHotel.idHotelGlobal).then(function(){
+                if(ctrlHotel.listaTarifasHotel.data.length == 0){
+                    pNotifyView('No se encontraron tarifas para esas fechas, contrao o habitacion', 'info');
+                }
+            });
         };
 
         ctrlHotel.saveHotelTarifaTO = function(){
@@ -461,7 +487,14 @@
             ctrlHotel.tarifaHabitacionTO.fechaFin = fechasParts[1];
             return HotelService.saveTarifaHotel(ctrlHotel.tarifaHabitacionTO).then(function(data){
                 pNotifyView(data.data.message, data.data.typeStatus);
+                ctrlHotel.showEditRate = false;
             });
+        };
+
+        ctrlHotel.cleanFormTarifas = function () {
+            $(".input-tarifa").val("");
+            $("#tarifaSencillo").trigger("focus");
+            ctrlHotel.showEditRate = true
         };
 
         ctrlHotel.convertDates = function(fechaInicio, fechaFin){

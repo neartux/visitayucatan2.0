@@ -533,17 +533,17 @@ class HotelAdminController extends Controller {
      */
     public function saveTarifaHotelAction(Request $request) {
         $serializer = $this->get('serializer');
+        $em = $this->getDoctrine()->getManager();
+        $em->getConnection()->beginTransaction();
         try {
             $hotelTarifaJson = $request->get('hotelTarifaTO');
             $hotelTarifaTO = $serializer->deserialize($hotelTarifaJson, 'VisitaYucatanBundle\utils\to\HotelTarifaTO', Generalkeys::JSON_STRING);
-            //$fechas = DateUtil::getDates($hotelTarifaTO->getFechaInicio(), $hotelTarifaTO->getFechaFin());
-            //$hotelTarifaTO->setFechaInicio($fechas[0]);
-            //$hotelTarifaTO->setFechaFin($fechas[1]);
-
-            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->saveRate($hotelTarifaTO);
+            $em->getRepository('VisitaYucatanBundle:HotelTarifa')->saveRate($hotelTarifaTO);
+            $em->getConnection()->commit();
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha guardado correctamente las tarifas de las fechas seleccionadas ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
         } catch (\Exception $e) {
+            $em->getConnection()->rollback();
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
         }
     }
