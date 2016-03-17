@@ -518,12 +518,12 @@ class HotelAdminController extends Controller {
      * @Method("POST")
      */
     public function findRateHotelByDateAction(Request $request) {
-        $fechaInicio = $request->get('fechaInicio');
-        $fechaFin = $request->get('fechaFin');
+        $fechaInicio = DateUtil::formatDate($request->get('fechaInicio'));
+        $fechaFin = DateUtil::formatDate($request->get('fechaFin'));
         $idContrato = $request->get('idContrato');
         $idHabitacion = $request->get('idHabitacion');
         $idHotel = $request->get('idHotel');
-        $rateList = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->findRateByRangeDate(DateUtil::stringToDate($fechaInicio), DateUtil::stringToDate($fechaFin), $idHotel, $idContrato, $idHabitacion);
+        $rateList = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->findRateByRangeDate($fechaInicio, $fechaFin, $idHotel, $idContrato, $idHabitacion);
         return new Response($this->get('serializer')->serialize($rateList, Generalkeys::JSON_STRING));
     }
 
@@ -533,15 +533,17 @@ class HotelAdminController extends Controller {
      */
     public function saveTarifaHotelAction(Request $request) {
         $serializer = $this->get('serializer');
+        $em = $this->getDoctrine()->getManager();
+        $em->getConnection()->beginTransaction();
         try {
             $hotelTarifaJson = $request->get('hotelTarifaTO');
             $hotelTarifaTO = $serializer->deserialize($hotelTarifaJson, 'VisitaYucatanBundle\utils\to\HotelTarifaTO', Generalkeys::JSON_STRING);
-            $fechas = DateUtil::getDates($hotelTarifaTO->getFechaInicio(), $hotelTarifaTO->getFechaFin());
-
-            $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->createFechaCierre($idHotel, $fechas[Generalkeys::NUMBER_ZERO], $fechas[Generalkeys::NUMBER_ONE]);
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $em->getRepository('VisitaYucatanBundle:HotelTarifa')->saveRate($hotelTarifaTO);
+            $em->getConnection()->commit();
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha guardado correctamente las tarifas de las fechas seleccionadas ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
         } catch (\Exception $e) {
+            $em->getConnection()->rollback();
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
         }
     }

@@ -96,10 +96,10 @@ class Hotel
      */
     private $hotelHabitacion;
 
-    /**
-     * @ORM\OneToMany(targetEntity="HotelTarifa", mappedBy="hotel")
-     */
-    private $hotelTarifa;
+//    /**
+//     * @ORM\OneToMany(targetEntity="HotelTarifa", mappedBy="hotel")
+//     */
+//    private $hotelTarifa;
 
     /**
      * Constructor
@@ -112,7 +112,7 @@ class Hotel
         $this->hotelFechaCierre = new ArrayCollection();
         $this->hotelContrato = new ArrayCollection();
         $this->hotelHabitacion = new ArrayCollection();
-        $this->hotelTarifa = new ArrayCollection();
+//        $this->hotelTarifa = new ArrayCollection();
     }
 
 
@@ -508,37 +508,37 @@ class Hotel
         return $this->hotelHabitacion;
     }
 
-    /**
-     * Add hotelTarifa
-     *
-     * @param \VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa
-     *
-     * @return Hotel
-     */
-    public function addHotelTarifa(\VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa)
-    {
-        $this->hotelTarifa[] = $hotelTarifa;
-
-        return $this;
-    }
-
-    /**
-     * Remove hotelTarifa
-     *
-     * @param \VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa
-     */
-    public function removeHotelTarifa(\VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa)
-    {
-        $this->hotelTarifa->removeElement($hotelTarifa);
-    }
-
-    /**
-     * Get hotelTarifa
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getHotelTarifa()
-    {
-        return $this->hotelTarifa;
-    }
+//    /**
+//     * Add hotelTarifa
+//     *
+//     * @param \VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa
+//     *
+//     * @return Hotel
+//     */
+//    public function addHotelTarifa(\VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa)
+//    {
+//        $this->hotelTarifa[] = $hotelTarifa;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Remove hotelTarifa
+//     *
+//     * @param \VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa
+//     */
+//    public function removeHotelTarifa(\VisitaYucatanBundle\Entity\HotelTarifa $hotelTarifa)
+//    {
+//        $this->hotelTarifa->removeElement($hotelTarifa);
+//    }
+//
+//    /**
+//     * Get hotelTarifa
+//     *
+//     * @return \Doctrine\Common\Collections\Collection
+//     */
+//    public function getHotelTarifa()
+//    {
+//        return $this->hotelTarifa;
+//    }
 }

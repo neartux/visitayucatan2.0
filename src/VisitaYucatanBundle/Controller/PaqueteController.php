@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace VisitaYucatanBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,36 +8,21 @@ use Symfony\Component\HttpFoundation\Request;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\TourUtils;
 
+class PaqueteController extends Controller {
 
-class TourController extends Controller {
-
-    /**
-     * @Route("/tours", name="web_tours")
+	/**
+     * @Route("/paquetes", name="web_paquetes")
      * @Method("GET")
-     */
-    public function indexAction(Request $request) {
-        $datos = $this->getParamsTour($request);
+    */
+	public function PaqueteAction(Request $request){
+		$data = $this->getParamsPaquete($request);
         $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
         $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
-        $tours = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTours($datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], Generalkeys::OFFSET_ROWS_ZERO, Generalkeys::LIMIT_ROWS_TWENTY);
-        return $this->render('VisitaYucatanBundle:web/pages:tours.html.twig', array('tours' => TourUtils::getTours($tours), 'monedas' => $currency, 'idiomas' => $idiomas));
-    }
+		$paquetes = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->getPaquetes($data[Generalkeys::NUMBER_ZERO],$data[Generalkeys::NUMBER_ONE]);
+		return $this->render('VisitaYucatanBundle:web/pages:paquetes.html.twig',array('paquetes'=>$paquetes,'monedas'=>$currency,'idiomas'=>$idiomas));
+	}
 
-    /**
-     * @Route("/tours", name="web_tours_configure_select")
-     * @Method("POST")
-     */
-    public function configureCatalogsAction(Request $request) {
-        // Obtiene la session del request para obtener moneda e idioma
-        $session = $request->getSession();
-        // Colocal el idioma seleccionado en session
-        $session->set('_locale', strtolower($request->get('language')));
-        // Coloca la moneda seleccionada
-        $session->set('_currency', $request->get('currency'));
-        return $this->redirectToRoute('web_tours');
-    }
-
-    private function getParamsTour($request){
+	private function getParamsPaquete($request){
         // Obtiene la session del request para obtener moneda e idioma
         $session = $request->getSession();
         // Obtiene el idioma de la sesion

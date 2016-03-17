@@ -50,14 +50,10 @@
         };
         
         service.listaResetHotel = function(){
-          alert("hola rafael");
-
           angular.forEach(service.listaFechas.data, function(valor, indice) {
-            if (valor.classDanger != " ") {
-
-                valor.classDanger=" "; 
-            }
-                                  
+                if (valor.classDanger != " ") {
+                    valor.classDanger=" "; 
+                }                                  
             });
         };
 

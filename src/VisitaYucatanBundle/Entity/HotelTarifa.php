@@ -55,11 +55,13 @@ class HotelTarifa {
      */
     private $cuadruple;
 
+    // todo quitando relacion, posiblemente problema al traer la informacion, se esta haciendo ciclico....
     /**
-     * @ORM\ManyToOne(targetEntity="Hotel", inversedBy="hotelTarifa")
-     * @ORM\JoinColumn(name="id_hotel", referencedColumnName="id", nullable=false)
+     * @var int
+     *
+     * @ORM\Column(name="id_hotel", type="integer")
      */
-    private $hotel;
+    private $idHotel;
 
     /**
      * @ORM\ManyToOne(targetEntity="HotelContrato", inversedBy="hotelTarifa")
@@ -87,6 +89,14 @@ class HotelTarifa {
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -210,28 +220,44 @@ class HotelTarifa {
     }
 
     /**
-     * Set hotel
-     *
-     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
-     *
-     * @return HotelTarifa
+     * @return int
      */
-    public function setHotel(\VisitaYucatanBundle\Entity\Hotel $hotel)
+    public function getIdHotel()
     {
-        $this->hotel = $hotel;
-
-        return $this;
+        return $this->idHotel;
     }
 
     /**
-     * Get hotel
-     *
-     * @return \VisitaYucatanBundle\Entity\Hotel
+     * @param int $idHotel
      */
-    public function getHotel()
+    public function setIdHotel($idHotel)
     {
-        return $this->hotel;
+        $this->idHotel = $idHotel;
     }
+
+//    /**
+//     * Set hotel
+//     *
+//     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
+//     *
+//     * @return HotelTarifa
+//     */
+//    public function setHotel(\VisitaYucatanBundle\Entity\Hotel $hotel)
+//    {
+//        $this->hotel = $hotel;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get hotel
+//     *
+//     * @return \VisitaYucatanBundle\Entity\Hotel
+//     */
+//    public function getHotel()
+//    {
+//        return $this->hotel;
+//    }
 
     /**
      * Set hotelContrato

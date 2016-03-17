@@ -16,11 +16,6 @@ use VisitaYucatanBundle\utils\Generalkeys;
 class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
 
     public function findRateByRangeDate($fechaInicio, $fechaFin, $idHotel, $idContrato, $idHabitacion){
-        echo "fechainicion = ".$fechaInicio;
-        echo "fecha fin = ".$fechaFin;
-        echo "htoel = ".$idHotel;
-        echo "habitacion = ".$idHabitacion;
-        echo "contrato = ".$idContrato;
         $em = $this->getEntityManager();
         $sql = "SELECT hotel_tarifa.*
                 FROM hotel_tarifa
@@ -41,38 +36,48 @@ class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     public function saveRate($tarifaTO){
+        $em = $this->getEntityManager();
         $nextDate = true;
+        // asigna primera fecha a guardar
         $fechaActual = $tarifaTO->getFechaInicio();
-        // Mientras no se llege a la fecha final se crean o modifican los registros
-        while($nextDate){
-            $tarifa = $this->getRateNotNull($tarifaTO->getIdHotelHabitacion(), $tarifaTO->getIdHotelContrato(), $tarifaTO->getIdHotel(), $fechaActual);
-            $tarifa->setSencillo($tarifaTO->getSencillo());
-            $tarifa->setDoble($tarifaTO->getDoble());
-            $tarifa->setTriple($tarifaTO->getTriple());
-            $tarifa->setCuadruple($tarifaTO->getCuadruple());
-
-            if(DateUtil::isSammeDate($fechaActual, $tarifaTO->getFechaFin())){
-                $nextDate = false;
-            }else{
-                $fechaActual = DateUtil::summDaysToDate($fechaActual, Generalkeys::NUMBER_ONE);
+        // Elimina las tarifas en el rango de fechas seleccionadas
+        $eliminado = $this->deleteRateByDates($tarifaTO->getIdContrato(), $tarifaTO->getIdHabitacion(), $tarifaTO->getIdHotel(), $tarifaTO->getFechaInicio(), $tarifaTO->getFechaFin());
+        // Si se eliminaron los registro procede a guardar los nuevos
+        if($eliminado){
+            // Mientras no se llege a la fecha final se crean o modifican los registros
+            while($nextDate){
+                // Crea la fecha con la informacion capturada
+                $this->createRateHotel($tarifaTO->getIdContrato(), $tarifaTO->getIdHabitacion(), $tarifaTO->getIdHotel(), $fechaActual,
+                    $tarifaTO->getSencillo(), $tarifaTO->getDoble(), $tarifaTO->getTriple(), $tarifaTO->getCuadruple());
+                // Si la fecha actual es la misma a la fecha final sale del ciclo, termina
+                if(DateUtil::isSammeDate($fechaActual, $tarifaTO->getFechaFin())){
+                    $nextDate = false;
+                }else{ // Si no es igual le suma un dia a la fecha actual
+                    $fechaActual = DateUtil::summOneDayToDate($fechaActual);
+                }
             }
         }
     }
 
-    public function findTarifaByContratoHabitacionAndDate($habitacion, $contrato, $hotel, $fecha){
-        return $this->findOneBy(array('hotelHabitacion' => $habitacion, 'hotelContrato' => $contrato, 'hotel' => $hotel, 'fecha' => $fecha));
+    public function deleteRateByDates($contrato, $habitacion, $hotel, $fechaInicio, $fechaFin){
+        $sql = "DELETE FROM hotel_tarifa WHERE hotel_tarifa.id_hotel_contrato = :contrato AND hotel_tarifa.id_hotel_habitacion = :habitacion AND hotel_tarifa.id_hotel = :hotel
+                AND hotel_tarifa.fecha BETWEEN :fechaInicio AND :fechaFin";
+        $params = array('contrato'=> $contrato, 'habitacion'=> $habitacion, 'hotel' => $hotel, 'fechaInicio' => $fechaInicio, 'fechaFin' => $fechaFin);
+
+        $em = $this->getEntityManager();
+        $stmt = $em->getConnection()->prepare($sql);
+        return $stmt->execute($params);
     }
 
-    public function getRateNotNull($habitacion, $contrato, $hotel, $fecha){
+    public function createRateHotel($contrato, $habitacion, $hotel, $fecha, $sencillo, $doble, $triple, $cuadruple){
+        $sql = "INSERT INTO hotel_tarifa (id, id_hotel, id_hotel_contrato, id_hotel_habitacion, id_estatus, fecha, sencillo, doble, triple, cuadruple)
+                VALUES (null, :hotel, :contrato, :habitacion, :estatus, :fecha, :sencillo, :doble, :triple, :cuadruple)";
+        $params = array('hotel'=> $hotel, 'contrato'=> $contrato, 'habitacion' => $habitacion, 'estatus' => Estatuskeys::ESTATUS_ACTIVO,
+            'fecha' => $fecha, 'sencillo' => $sencillo, 'doble' => $doble, 'triple' => $triple, 'cuadruple' => $cuadruple);
+
         $em = $this->getEntityManager();
-        $tarifa = $this->findTarifaByContratoHabitacionAndDate($habitacion, $contrato, $hotel, $fecha);
-        if(is_null($tarifa)){
-            $tarifa = new HotelTarifa();
-            $tarifa->setHotel($em->getReference('VisitaYucatanBundle:Hotel', $hotel));
-            $tarifa->setHotelHabitacion($em->getReference('VisitaYucatanBundle:HotelHabitacion', $habitacion));
-            $tarifa->setHotelContrato($em->getReference('VisitaYucatanBundle:HotelContrato', $contrato));
-            $tarifa->setFecha(new \DateTime($fecha));
-        }
-        return $tarifa;
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
     }
+
 }

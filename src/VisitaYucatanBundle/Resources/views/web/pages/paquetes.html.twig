@@ -1,6 +1,5 @@
 {% extends ':web:TemplateVisitaYucatan.html.twig' %}
 
-
 {% block section %}
 
     {% block content %}
@@ -14,16 +13,15 @@
                     <div id="read-left">
                         <div class="publireportaje">
                             <div>
-                                ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos
-                                Tours y paquetes que ofrecemos, Están diseñados para que...
+                                Nuestros paquetes están diseñados con la finalidad de que Usted pueda planear enteramente su viaje, nuestra selección de tours y excursiones en cada paquete le ayuda a maximizar su tiempo y...
                             </div>
                         <span id="btnleermas" class="lectura">{% trans %}
                             page.web.label.tours.read.more{% endtrans %}</span>
                         </div>
                         <div id="contenedorreportajeb" class="publireportajeb" style="display:none;">
                             <div>
-                                ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos
-                                Tours y paquetes que ofrecemos, Están diseñados para que... mas
+                                Nuestros paquetes están diseñados con la finalidad de que Usted pueda planear enteramente su viaje, nuestra selección de tours y excursiones en cada paquete le ayuda a maximizar su tiempo y experiencia con los atractivos que tenemos para ofrecerle de acuerdo, al número de noches de estancia en Mérida y el estado de Yucatán.
+                                Así mismo le presentamos una variedad de hoteles de distintas categorías para que escoja el que más se adapte a su gusto y presupuesto.
                             </div>
                         <span id="btnleermenos" class="lectura">{% trans %}
                             page.web.label.tours.read.less{% endtrans %}</span>
@@ -31,14 +29,14 @@
                     </div>
                 </div>
 
-                {% for tour in tours %}
+                {% for paquete in paquetes %}
                     <article>
                         <div class="border-top"></div>
                         <div class="section-left">
-                            <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
+                            <h2 class="titulo-top">{{ paquete.nombre }}</h2>
                             <figure class="img1 view">
                                 <a href="toulink">
-                                    <img src="{{ tour.principalImage }}">
+                                    <img src="{{ paquete.archivo }}">
                                 </a>
 
                                 <div class="mask">
@@ -59,12 +57,12 @@
                         </div>
                         <div class="detalles">
                             <hgroup class="titulos">
-                                <h2>{{ tour.nombreTour }}</h2>
+                                <h2>{{ paquete.nombre }}</h2>
 
-                                <h3>{{ tour.circuito }}</h3>
+                                <h3>{{ paquete.circuito }}</h3>
                             </hgroup>
                             <p class="descripciones">
-                                {{ tour.descripcionTour }}
+                                
                             </p>
 
                         </div>
@@ -72,17 +70,13 @@
                             <div class="detalles-precio">
                                 <div class="content-precios">
                                     <div class="precios-tours">
-                                        <p class="precio-top">{% trans %}page.web.label.tours.rate.adults{% endtrans %}:</p>
+                                        <p class="precio-top">
+                                        <!--En la traduccion va la palabra Desde no adulto-->
+                                        {% trans %} page.web.label.tours.rate.adults {% endtrans %}:</p>
 
-                                        <p class="precio">${{ tour.tarifaadulto }} {{ tour.simboloMoneda }}</p>
+                                        <p class="precio">${{ paquete.sencilla }} {{ paquete.simbolmoneda }}</p>
                                     </div>
-                                    <div class="precios-tours">
-                                        <!--Validacion que si el precio menor es mayour o igual a uno lo muestra y si el tour incluye menor-->
-                                        <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}
-                                            :</p>
-
-                                        <p class="precio">${{ tour.tarifamenor }} {{ tour.simboloMoneda }}</p>
-                                    </div>
+                                    
                                 </div>
                                 <div class="informacion-detalles">
                                     <p class="first-texto">

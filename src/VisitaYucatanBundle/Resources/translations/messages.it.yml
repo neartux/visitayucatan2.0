@@ -31,15 +31,15 @@ catalog.currency.report.label.id : Id
 catalog.currency.report.label.description : Descrizione
 catalog.currency.report.label.symbol : I symbolo
 catalog.currency.report.label.change.type : Tassi di cambio
-catalog.currency.report.message.error.description : Descrizione è necessario
+catalog.currency.report.message.error.description : Descrizione e necessario
 catalog.currency.report.message.error.symbol : Symbolo ha richiesto
 catalog.currency.report.message.error.length.symbol : Il numero massimo di caratteri è 10
-catalog.currency.report.message.error.change.type : É necessario tasso di cambio
+catalog.currency.report.message.error.change.type : E necessario tasso di cambio
 catalog.currency.report.message.new.currency : Nuova moneta
 catalog.currency.report.message.edit.currency : Aggiornamento di valuta
 catalog.currency.report.message.success.create : Valuta creato
 catalog.currency.report.message.success.update : Aggiornamento di valuta
-catalog.currency.report.message.error : Si è verificato un errore, non ha potuto eseguire l'azione
+catalog.currency.report.message.error : Si e verificato un errore, non ha potuto eseguire l azione
 catalog.currency.report.message.delete : Valuta rimosso
 catalog.currency.report.message.confirm.delete : Sei sicuro di voler rimuovere la moneta?
 
@@ -47,8 +47,8 @@ catalog.currency.report.message.confirm.delete : Sei sicuro di voler rimuovere l
 login.validate.message.user.not.exist : L'utente non esiste nel sistema
 login.validate.message.pass.not.coincidence : La password non corrisponde l'utente
 login.validate.message.user.and.pass.isrequired : Nome utente e password sono necessari
-login.validate.message.user.isrequired : É necessario che l'utente
-login.validate.message.pass.isrequired : É richiesta la password
+login.validate.message.user.isrequired : E necessario che l utente
+login.validate.message.pass.isrequired : E richiesta la password
 
 #** Properties to catalog users
 catalog.user.report.label.title : Utenti
@@ -58,17 +58,17 @@ catalog.user.report.label.password : Password
 catalog.user.report.label.names : Nomi
 catalog.user.report.label.last.names : Cognomi
 catalog.user.report.label.address : Indirizzo
-catalog.user.report.label.phone : Teléfono
+catalog.user.report.label.phone : Telefono
 catalog.user.report.label.movil : Cellulare
 catalog.user.report.label.email : E elettr.
-catalog.user.report.message.error.username : É necessario che l'utente
+catalog.user.report.message.error.username : E necessario che l utente
 catalog.user.report.message.error.names : È richiesto il nome
 catalog.user.report.message.error.last.names : Gli ultimi nomi sono necessari
 catalog.user.report.message.error.password : É richiesta la password
 catalog.user.report.message.edit.user : Modifica utente
 catalog.user.report.message.success.create : Creati dagli utenti
 catalog.user.report.message.success.update : Utente aggiornata
-catalog.user.report.message.error : Si è verificato un errore, non poteva rendere il processo
+catalog.user.report.message.error : Si e verificato un errore, non poteva rendere il processo
 catalog.user.report.message.delete : Utente eliminato
 catalog.user.report.message.confirm.delete : Sei sicuro di voler eliminare l utente?
 
