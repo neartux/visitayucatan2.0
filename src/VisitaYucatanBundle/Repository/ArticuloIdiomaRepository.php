@@ -1,6 +1,8 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use Doctrine\ORM\EntityNotFoundException;
+use VisitaYucatanBundle\Entity\ArticuloIdioma;
 
 /**
  * ArticuloIdiomaRepository
@@ -9,4 +11,33 @@ namespace VisitaYucatanBundle\Repository;
  * repository methods below.
  */
 class ArticuloIdiomaRepository extends \Doctrine\ORM\EntityRepository {
+
+    public function createArticuloIdioma($nombre, $descripcion, $idArticulo, $idIdioma){
+        $em = $this->getEntityManager();
+
+        $articulo = new ArticuloIdioma();
+        $articulo->setNombre($nombre);
+        $articulo->setDescripcion($descripcion);
+        $articulo->setArticulo($em->getReference('VisitaYucatanBundle:Articulo', $idArticulo));
+        $articulo->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', $idIdioma));
+
+        $em->persist($articulo);
+        $em->flush();
+    }
+
+    public function editArticuloIdioma($idArticuloIdioma, $nombre, $descripcion, $idArticulo, $idIdioma){
+        $articulo = $this->find($idArticuloIdioma);
+
+        if(! $articulo){
+            throw new EntityNotFoundException('No se pudo actualizar la informacion');
+        }
+        $em = $this->getEntityManager();
+
+        $articulo->setNombre($nombre);
+        $articulo->setDescripcion($descripcion);
+
+        $em->persist($articulo);
+        $em->flush();
+    }
+
 }

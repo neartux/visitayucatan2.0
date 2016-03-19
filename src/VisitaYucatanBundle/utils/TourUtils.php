@@ -6,7 +6,6 @@
 
 namespace VisitaYucatanBundle\utils;
 use Doctrine\Common\Collections\ArrayCollection;
-use VisitaYucatanBundle\Entity\Tour;
 use VisitaYucatanBundle\utils\to\ImagenTO;
 use VisitaYucatanBundle\utils\to\TouridiomaTO;
 use VisitaYucatanBundle\utils\to\TourTO;
