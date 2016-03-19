@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use VisitaYucatanBundle\utils\Generalkeys;
+use VisitaYucatanBundle\utils\StringUtils;
 use VisitaYucatanBundle\utils\TourUtils;
 
 
@@ -17,11 +18,21 @@ class TourController extends Controller {
      * @Method("GET")
      */
     public function indexAction(Request $request) {
+        // obtiene los datos de session moneda e idioma
         $datos = $this->getParamsTour($request);
+        // lista de monedas e idiomas
         $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
         $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
+        // encuentra la descripcio de la pagina, obtiene la descripcion corta
+        $descriptionPage = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Articulo')->getArticuloPage(Generalkeys::TIPO_ARTICULO_PAGINA, Generalkeys::TIPO_ARTICULO_PAGINA_TOUR, $datos[Generalkeys::NUMBER_ZERO]);
+        $descripcion = $descriptionPage['descripcion'];
+        $descripcionCorta = StringUtils::cutText($descriptionPage['descripcion'], Generalkeys::NUMBER_ZERO, Generalkeys::NUMBER_ONE_HUNDRED_FIFTEEN, Generalkeys::COLILLA_TEXT, Generalkeys::CIERRE_HTML_P);
+        // busca todos los tours activos y publicados
         $tours = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTours($datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], Generalkeys::OFFSET_ROWS_ZERO, Generalkeys::LIMIT_ROWS_TWENTY);
-        return $this->render('VisitaYucatanBundle:web/pages:tours.html.twig', array('tours' => TourUtils::getTours($tours), 'monedas' => $currency, 'idiomas' => $idiomas));
+        // renderiza la vista y manda la informacion
+        return $this->render('VisitaYucatanBundle:web/pages:tours.html.twig', array('tours' => TourUtils::getTours($tours),
+            'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta, 'monedas' => $currency,
+            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR));
     }
 
     /**
@@ -37,7 +48,8 @@ class TourController extends Controller {
         //print_r($tour);exit;
         $imagesTour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->findTourImagesByIdTour($id);
 
-        return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 'monedas' => $currency, 'idiomas' => $idiomas));
+        return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 'monedas' => $currency,
+            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR));
     }
 
     /**

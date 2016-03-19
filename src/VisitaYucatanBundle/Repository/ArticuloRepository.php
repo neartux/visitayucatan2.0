@@ -4,6 +4,7 @@ namespace VisitaYucatanBundle\Repository;
 use Doctrine\ORM\EntityNotFoundException;
 use VisitaYucatanBundle\Entity\Articulo;
 use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 
 /**
  * ArticuloRepository
@@ -12,6 +13,46 @@ use VisitaYucatanBundle\utils\Estatuskeys;
  * repository methods below.
  */
 class ArticuloRepository extends \Doctrine\ORM\EntityRepository {
+
+    public function findAllArticulos($tipoArticulo){
+        $em = $this->getEntityManager();
+
+        $sql = "SELECT articulo.id,articulo.descripcion,articulo_idioma.nombre,articulo_idioma.descripcion AS descripcionidioma
+                FROM articulo
+                INNER JOIN articulo_idioma ON articulo.id = articulo_idioma.id_articulo
+                INNER JOIN idioma ON idioma.id = articulo_idioma.id_idioma AND idioma.id = :idioma AND idioma.id_estatus = :estatus
+                WHERE articulo.tipoarticulo = :tipoPeninsula
+                AND articulo.id_estatus = :estatus";
+
+        $params['tipoPeninsula'] = $tipoArticulo;
+        $params['idioma'] = Generalkeys::IDIOMA_ESPANOL;
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
+
+    public function getArticuloPage($tipoArticulo, $seccion, $idioma){
+        $em = $this->getEntityManager();
+
+        $sql = "SELECT articulo_idioma.nombre,articulo_idioma.descripcion
+                FROM articulo
+                INNER JOIN articulo_idioma ON articulo.id = articulo_idioma.id_articulo
+                INNER JOIN idioma ON idioma.id = articulo_idioma.id_idioma AND idioma.id = :idioma AND idioma.id_estatus = :estatus
+                WHERE articulo.tipoarticulo = :tipoArticulo
+                AND articulo.seccionarticulo = :seccionArticulo
+                AND articulo.id_estatus = :estatus";
+
+        $params['tipoArticulo'] = $tipoArticulo;
+        $params['seccionArticulo'] = $seccion;
+        $params['idioma'] = $idioma;
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetch();
+    }
 
     public function createArticulo($descripcion, $tipoArticulo){
         $em = $this->getEntityManager();

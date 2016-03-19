@@ -36,6 +36,13 @@ class Articulo {
     private $tipoArticulo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="seccionarticulo", type="text")
+     */
+    private $seccionArticulo;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="articulo")
      * @ORM\JoinColumn(name="id_estatus", referencedColumnName="id", nullable=false)
      */
@@ -196,4 +203,21 @@ class Articulo {
     {
         return $this->articuloImagen;
     }
+
+    /**
+     * @return string
+     */
+    public function getSeccionArticulo()
+    {
+        return $this->seccionArticulo;
+    }
+
+    /**
+     * @param string $seccionArticulo
+     */
+    public function setSeccionArticulo($seccionArticulo)
+    {
+        $this->seccionArticulo = $seccionArticulo;
+    }
+
 }

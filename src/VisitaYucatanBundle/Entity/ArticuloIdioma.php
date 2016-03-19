@@ -30,7 +30,7 @@ class ArticuloIdioma {
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion_corta", type="text")
+     * @ORM\Column(name="descripcion_corta", type="text", nullable=true)
      */
     private $descripcionCorta;
 

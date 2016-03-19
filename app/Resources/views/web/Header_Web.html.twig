@@ -1,17 +1,17 @@
 <header>
 
     <figure class="logo">
-        <a href="index"><img src="{{ asset('bundles/VisitaYucatanBundle/img/logos/logo_web.png') }}" alt="Visita Yucatan"/></a>
+        <a href="{{ path('web_home') }}"><img src="{{ asset('bundles/VisitaYucatanBundle/img/logos/logo_web.png') }}" alt="Visita Yucatan"/></a>
     </figure>
 
     <figure class="titulo-img">
-        <a href="tours-en-yucatan_new"><img src="{{ asset('bundles/VisitaYucatanBundle/img/web/titulo-tours.png') }}" alt="logo"></a>
+        <a href="{{ path('web_tours') }}"><img src="{{ asset('bundles/VisitaYucatanBundle/img/web/titulo-tours.png') }}" alt="logo"></a>
     </figure>
 
     <div class="top-header">
     </div>
 
-    <div class="body-header img-tours"> {# img-tours esta clase se cambiara dependiendo de lapagina en la que se encuentre #}
+    <div class="body-header {{ claseImg }}">
         <div class="movil">
             <a href="#">Menu</a><span id="nav-mobile" class="icon-menu"></span>
 
