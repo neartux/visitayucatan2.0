@@ -20,9 +20,9 @@
         <nav>
             <div class="limpiar"></div>
             <ul class="menu" id="menuL">
-                <li class="index text-to-lowercase"><a href="mapas" target="_self" title="{% trans %}page.web.menu.label.start{% endtrans %}">{% trans %}page.web.menu.label.start{% endtrans %}</a></li>
-                <li class="paquetes-yucatan text-to-lowercase"><a href="mapas" target="_self" title="{% trans %}page.web.menu.label.packages{% endtrans %}">{% trans %}page.web.menu.label.packages{% endtrans %}</a></li>
-                <li class="tours-en-yucatan text-to-lowercase"><a href="mapas" target="_self" title="{% trans %}page.web.menu.label.tours{% endtrans %}">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
+                <li class="index text-to-lowercase"><a href="{{ path('web_home') }}" target="_self" title="{% trans %}page.web.menu.label.start{% endtrans %}">{% trans %}page.web.menu.label.start{% endtrans %}</a></li>
+                <li class="paquetes-yucatan text-to-lowercase"><a href="{{ path('web_paquetes') }}" target="_self" title="{% trans %}page.web.menu.label.packages{% endtrans %}">{% trans %}page.web.menu.label.packages{% endtrans %}</a></li>
+                <li class="tours-en-yucatan text-to-lowercase"><a href="{{ path('web_tours') }}" target="_self" title="{% trans %}page.web.menu.label.tours{% endtrans %}">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
                 <li class="subMenu text-to-lowercase" onmouseover="showsubmenu(this)">
                     <a>{% trans %}page.web.menu.label.hotels{% endtrans %}</a>
                     <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">

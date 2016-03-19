@@ -490,13 +490,15 @@
         };
 
         ctrlHotel.findListRateHotel = function(){
+            ctrlHotel.showEditRate = false;
             var fecha = $("#datePickerTarifas").val().split("-");
             //var fechasFormated = ctrlHotel.convertDates(fecha[0], fecha[1]);
-            return HotelService.getListTarifa(fecha[0], fecha[1], ctrlHotel.tarifaHabitacionTO.idContrato, ctrlHotel.tarifaHabitacionTO.idHabitacion, ctrlHotel.idHotelGlobal).then(function(){
-                if(ctrlHotel.listaTarifasHotel.data.length == 0){
-                    pNotifyView('No se encontraron tarifas para esas fechas, contrao o habitacion', 'info');
-                }
-            });
+            return HotelService.getListTarifa(fecha[0], fecha[1], ctrlHotel.tarifaHabitacionTO.idContrato, ctrlHotel.tarifaHabitacionTO.idHabitacion, ctrlHotel.idHotelGlobal).
+                then(function(){
+                    if(ctrlHotel.listaTarifasHotel.data.length == 0){
+                        pNotifyView("No se encontraron tarifas en esa fecha", "info");
+                    }
+                });
         };
 
         ctrlHotel.saveHotelTarifaTO = function(){

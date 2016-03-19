@@ -25,6 +25,38 @@ class TourController extends Controller {
     }
 
     /**
+     * @Route("/tour/detail/id/{id}", name="web_tour_detail")
+     * @Method("GET")
+     */
+    public function detailTourAction($id, Request $request) {
+        $datos = $this->getParamsTour($request);
+        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
+        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
+
+        $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($id, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
+        //print_r($tour);exit;
+        $imagesTour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->findTourImagesByIdTour($id);
+
+        return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 'monedas' => $currency, 'idiomas' => $idiomas));
+    }
+
+    /**
+     * @Route("/tour/reserva", name="web_tour_reserva")
+     * @Method("POST")
+     */
+    public function displayReservaTourAction(Request $request) {
+        $idTour = $request->get('idTour');
+        $fechaReserva = $request->get('fechaReserva');
+        $numeroAdultos = $request->get('numeroAdultos');
+        $numeroMenores = $request->get('numeroMenores');
+        echo "idtour = ".$idTour;
+        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
+        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
+
+        return $this->render('VisitaYucatanBundle:web/pages:reserva-tour.html.twig', array('monedas' => $currency, 'idiomas' => $idiomas));
+    }
+
+    /**
      * @Route("/tours", name="web_tours_configure_select")
      * @Method("POST")
      */

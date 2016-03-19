@@ -7,6 +7,8 @@
 namespace VisitaYucatanBundle\utils\to;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class TourTO {
     private $id;
     private $idtourorigen;
@@ -21,6 +23,14 @@ class TourTO {
     private $descripcionTour;
     private $principalImage;
     private $simboloMoneda;
+    private $imagesTour;
+    private $soloAdultos;
+    private $origen;
+
+    public function __construct(){
+        $this->imagesTour = new ArrayCollection();
+    }
+
     /**
      * @return mixed
      */
@@ -227,6 +237,54 @@ class TourTO {
     public function setSimboloMoneda($simboloMoneda)
     {
         $this->simboloMoneda = $simboloMoneda;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImagesTour()
+    {
+        return $this->imagesTour;
+    }
+
+    /**
+     * @param mixed $imagesTour
+     */
+    public function setImagesTour($imagesTour)
+    {
+        $this->imagesTour = $imagesTour;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSoloAdultos()
+    {
+        return $this->soloAdultos;
+    }
+
+    /**
+     * @param mixed $soloAdultos
+     */
+    public function setSoloAdultos($soloAdultos)
+    {
+        $this->soloAdultos = $soloAdultos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrigen()
+    {
+        return $this->origen;
+    }
+
+    /**
+     * @param mixed $origen
+     */
+    public function setOrigen($origen)
+    {
+        $this->origen = $origen;
     }
 
 }

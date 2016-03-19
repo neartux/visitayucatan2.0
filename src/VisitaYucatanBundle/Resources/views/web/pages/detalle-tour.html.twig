@@ -1,0 +1,114 @@
+{% extends ':web:TemplateVisitaYucatan.html.twig' %}
+
+
+{% block section %}
+
+    {% block content %}
+        <section>
+            <div id="content">
+
+                <article>
+                    <div class="border-top"></div>
+                    <div class="section-left">
+                        <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
+                        <figure class="img1 view">
+                            <a href="toulink">
+                                <img src="{{ asset(tour.principalImage) }}">
+                            </a>
+
+                            <div class="mask">
+                                <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
+                            </div>
+                        </figure>
+                        <figure class="img2">
+                            <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}">
+                            <figcaption class="fondo-stars">
+                                <span class="estrella texto"></span>
+                                <span class="estrella icon-star-full estrella1"></span>
+                                <span class="estrella icon-star-full estrella2"></span>
+                                <span class="estrella icon-star-full estrella3"></span>
+                                <span class="estrella icon-star-full estrella4"></span>
+                                <span class="estrella icon-star-full estrella5"></span>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="detalles">
+
+                        <hgroup class="titulos">
+                            <h2>{{ tour.nombreTour }}</h2>
+
+                            <h3>{{ tour.circuito }}</h3>
+                        </hgroup>
+
+                    </div>
+                    <div class="img3">
+                        <div class="detalles-precio">
+                            <div class="content-precios">
+                                <div class="precios-tours">
+                                    <p class="precio-top">{% trans %}page.web.label.tours.rate.adults{% endtrans %}:</p>
+
+                                    <p class="precio">${{ tour.tarifaadulto }} {{ tour.simboloMoneda }}</p>
+                                </div>
+                                <div class="precios-tours">
+                                    <!--Validacion que si el precio menor es mayour o igual a uno lo muestra y si el tour incluye menor-->
+                                    <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}
+                                        :</p>
+
+                                    <p class="precio">${{ tour.tarifamenor }} {{ tour.simboloMoneda }}</p>
+                                </div>
+                            </div>
+                            <div class="informacion-detalles">
+                                <p class="first-texto">
+                                    <a href="{{ path('web_tour_detail', {'id': tour.id}) }}">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
+                                </p>
+
+                                <p class="second-texto"><span class="icon-play3"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                DESCRIPCION: <p class="descripciones">
+                    {{ tour.descripcionTour | raw }}
+                </p>
+
+                {% for imagen in tour.imagesTour %}
+                    <img src="{{ asset(imagen.path) }}" width="80px" height="80px"/> &nbsp;
+                {% endfor %}
+                <br><br>
+                <hr>
+
+                <b>Reserva Ahora</b>
+
+                <form action="{{ path('web_tour_reserva') }}" method="POST">
+                    <input type="hidden" value="{{ tour.id }}" name="idTour"/>
+
+                    fecha tour: <input type="text" name="fechaReserva"/>&nbsp; Menores: <select name="numeroMenores" id="">
+                        <option value="">Select</option></select> Adultos: <select
+                            name="numeroAdultos" id=""><option value="">Select</option></select>
+
+                    <hr>
+                    reserva ahora <br>
+                    2 Adultos, impuestos incluidos <br>
+                    transporte saliendo de {# lo anterior es propertie lo siguiente no #} {{ tour.origen }} <br>
+                    <button type="submit">
+                        Reserva
+                    </button>
+
+                </form>
+
+            </div>
+
+            {% block aside %}
+                {{ parent() }}
+            {% endblock %}
+
+        </section>
+    {% endblock %}
+
+
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+{% endblock %}

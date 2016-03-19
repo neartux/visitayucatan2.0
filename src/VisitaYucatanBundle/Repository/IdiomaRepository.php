@@ -45,7 +45,7 @@ class IdiomaRepository extends \Doctrine\ORM\EntityRepository{
         $em = $this->getEntityManager();
         $languageUpdate = $em->getRepository("VisitaYucatanBundle:Idioma")->find($language->getId());
         if(! $languageUpdate){
-            throw new EntityNotFoundException('La moneda con id '.$language->getId()." no se encontro");
+            throw new EntityNotFoundException('El idioma con id '.$language->getId()." no se encontro");
         }
         // Actualiza la informacion del idiomas
         $languageUpdate->setDescripcion($language->getDescripcion());

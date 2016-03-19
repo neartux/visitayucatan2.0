@@ -6,6 +6,7 @@
 
 namespace VisitaYucatanBundle\utils;
 use Doctrine\Common\Collections\ArrayCollection;
+use VisitaYucatanBundle\Entity\Tour;
 use VisitaYucatanBundle\utils\to\ImagenTO;
 use VisitaYucatanBundle\utils\to\TouridiomaTO;
 use VisitaYucatanBundle\utils\to\TourTO;
@@ -78,5 +79,35 @@ class TourUtils {
 
             return $toursColeccion;
         }
+    }
+
+    public static function getTourTO($tour, $imagesTour){
+        // Se crea un nuevo objeto para colocal la informacion de cada uno de los tours como array
+        $tourTO = new TourTO();
+
+        //Se anexa la invformacion
+        $tourTO->setId($tour['id']);
+        $tourTO->setNombreTour($tour['nombre']);
+        $tourTO->setCircuito($tour['circuito']);
+        $tourTO->setDescripcionTour($tour['descripcion']);
+        $tourTO->setTarifaadulto(ceil($tour['tarifaadulto']));
+        $tourTO->setTarifamenor(ceil($tour['tarifamenor']));
+        $tourTO->setSimboloMoneda($tour['simbolomoneda']);
+        $tourTO->setSoloAdultos($tour['soloadultos']);
+        $tourTO->setMinimopersonas($tour['minimopersonas']);
+        $tourTO->setOrigen($tour['origen']);
+        // Valida imagen tour si es null coloca imagen not found de lo contrario coloca la imagen
+        if(is_null($tour['imagen'])){
+            $tourTO->setPrincipalImage(Generalkeys::PATH_IMAGE_NOT_FOUND);
+        }else{
+            $tourTO->setPrincipalImage($tour['imagen']);
+        }
+
+        // si tienes imagens el tour las colocal
+        if(count($imagesTour) > Generalkeys::NUMBER_ZERO){
+            $tourTO->setImagesTour($imagesTour);
+        }
+
+        return $tourTO;
     }
 }

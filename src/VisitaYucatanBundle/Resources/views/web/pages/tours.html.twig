@@ -38,7 +38,7 @@
                             <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
                             <figure class="img1 view">
                                 <a href="toulink">
-                                    <img src="{{ tour.principalImage }}">
+                                    <img src="{{ asset(tour.principalImage) }}">
                                 </a>
 
                                 <div class="mask">
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="informacion-detalles">
                                     <p class="first-texto">
-                                        <a href="<? echo $link; ?>">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
+                                        <a href="{{ path('web_tour_detail', {'id': tour.id}) }}">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
                                     </p>
 
                                     <p class="second-texto"><span class="icon-play3"></span></p>

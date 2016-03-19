@@ -18,7 +18,7 @@
 // Borre los parametros de init
         ctrlLanguage.init = function () {
             ctrlLanguage.titleCreate = 'Nuevo Idioma';
-           ctrlLanguage.titleEdit = 'Actualizar Moneda';
+           ctrlLanguage.titleEdit = 'Actualizar Idioma';
             ctrlLanguage.msjLoading = 'Cargando';
             ctrlLanguage.titleModal = 'Crear Idioma';
             ctrlLanguage.confirmDelete = '¿Esta seguro de eliminar este idioma?';
