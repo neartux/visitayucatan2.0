@@ -1,0 +1,25 @@
+{% extends ':web:TemplateVisitaYucatan.html.twig' %}
+
+
+{% block section %}
+
+    {% block content %}
+        <section>
+            <div id="content">
+
+
+            </div>
+
+            {% block aside %}
+                {{ parent() }}
+            {% endblock %}
+
+        </section>
+    {% endblock %}
+
+
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+{% endblock %}

@@ -25,6 +25,7 @@ class Generalkeys{
     const STRING_SLASH = '/';
     const STRING_DASH = '-';
     const NUMBER_TWO_HUNDRED = 200;
+    const NUMBER_ONE_HUNDRED_FIFTEEN = 156;
     const BOOLEAN_TRUE = true;
     const BOOLEAN_FALSE = false;
     const PATH_TOURS_IMAGE = "bundles/VisitaYucatanBundle/images/tours/";
@@ -41,4 +42,12 @@ class Generalkeys{
     const OFFSET_ROWS_ZERO = 0;
     const COLILLA_TEXT = "...";
     const CIERRE_HTML_P = '</p>';
+    const TIPO_ARTICULO_PENINSULA = 'peninsula';
+    const TIPO_ARTICULO_PAGINA = 'pagina';
+    const TIPO_ARTICULO_PAGINA_TOUR = 'tour';
+    const TIPO_ARTICULO_PAGINA_PAQUETE = 'paquete';
+    const TIPO_ARTICULO_PAGINA_HOTEL = 'hotel';
+    const CLASS_HEADER_TOUR = 'img-tours';
+    const CLASS_HEADER_HOTEL = 'img-hoteles';
+    const CLASS_HEADER_PACKAGE = 'img-paquetes';
 }

@@ -75,6 +75,16 @@ class Idioma
     private $paqueteItinerario;
 
     /**
+     * @ORM\OneToMany(targetEntity="ArticuloIdioma", mappedBy="idioma")
+     */
+    private $articuloIdioma;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ArticuloImagenIdioma", mappedBy="idioma")
+     */
+    private $articuloImagenIdioma;
+
+    /**
      * Idioma constructor.
      * @param $tourIdioma
      */
@@ -84,6 +94,8 @@ class Idioma
         $this->hotelHabitacionIdioma = new ArrayCollection();
         $this->paqueteIdioma = new ArrayCollection();
         $this->paqueteItinerario = new ArrayCollection();
+        $this->articuloIdioma = new ArrayCollection();
+        $this->articuloImagenIdioma = new ArrayCollection();
     }
 
 
@@ -368,5 +380,73 @@ class Idioma
     public function getHotelHabitacionIdioma()
     {
         return $this->hotelHabitacionIdioma;
+    }
+
+    /**
+     * Add articuloIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\ArticuloIdioma $articuloIdioma
+     *
+     * @return Idioma
+     */
+    public function addArticuloIdioma(\VisitaYucatanBundle\Entity\ArticuloIdioma $articuloIdioma)
+    {
+        $this->articuloIdioma[] = $articuloIdioma;
+
+        return $this;
+    }
+
+    /**
+     * Remove articuloIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\ArticuloIdioma $articuloIdioma
+     */
+    public function removeArticuloIdioma(\VisitaYucatanBundle\Entity\ArticuloIdioma $articuloIdioma)
+    {
+        $this->articuloIdioma->removeElement($articuloIdioma);
+    }
+
+    /**
+     * Get articuloIdioma
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticuloIdioma()
+    {
+        return $this->articuloIdioma;
+    }
+
+    /**
+     * Add articuloImagenIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\ArticuloImagenIdioma $articuloImagenIdioma
+     *
+     * @return Idioma
+     */
+    public function addArticuloImagenIdioma(\VisitaYucatanBundle\Entity\ArticuloImagenIdioma $articuloImagenIdioma)
+    {
+        $this->articuloImagenIdioma[] = $articuloImagenIdioma;
+
+        return $this;
+    }
+
+    /**
+     * Remove articuloImagenIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\ArticuloImagenIdioma $articuloImagenIdioma
+     */
+    public function removeArticuloImagenIdioma(\VisitaYucatanBundle\Entity\ArticuloImagenIdioma $articuloImagenIdioma)
+    {
+        $this->articuloImagenIdioma->removeElement($articuloImagenIdioma);
+    }
+
+    /**
+     * Get articuloImagenIdioma
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticuloImagenIdioma()
+    {
+        return $this->articuloImagenIdioma;
     }
 }

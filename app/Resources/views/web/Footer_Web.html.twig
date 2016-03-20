@@ -6,9 +6,9 @@
                 <div class="linea">
                 </div>
                 <ul class="menu-footer">
-                    <li><a href="home.html">{% trans %}page.web.menu.label.start{% endtrans %}</a></li>
-                    <li><a href="paquetes-yucatan_new">{% trans %}page.web.menu.label.packages{% endtrans %}</a></li>
-                    <li><a href="tours-en-yucatan_new">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_home') }}">{% trans %}page.web.menu.label.start{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_paquetes') }}">{% trans %}page.web.menu.label.packages{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_tours') }}">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
                 </ul>
             </div>
             <div class="renglon2 text-to-uppercase">

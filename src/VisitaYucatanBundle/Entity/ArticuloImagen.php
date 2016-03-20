@@ -2,15 +2,16 @@
 
 namespace VisitaYucatanBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Paginaimagen
+ * ArticuloImagen
  *
- * @ORM\Table(name="pagina_imagen")
- * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\PaginaimagenRepository")
+ * @ORM\Table(name="articulo_imagen")
+ * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\ArticuloImagenRepository")
  */
-class Paginaimagen {
+class ArticuloImagen {
     /**
      * @var int
      *
@@ -63,10 +64,33 @@ class Paginaimagen {
     private $fechaCreacion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="paginaImagen")
+     * @ORM\ManyToOne(targetEntity="Articulo", inversedBy="articuloImagen")
+     * @ORM\JoinColumn(name="id_articulo", referencedColumnName="id", nullable=false)
+     */
+    private $articulo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="articuloImagen")
      * @ORM\JoinColumn(name="id_estatus", referencedColumnName="id", nullable=false)
      */
     private $estatus;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ArticuloImagenIdioma", mappedBy="articuloImagen")
+     */
+    private $articuloImagenIdioma;
+
+    public function __construct(){
+        $this->articuloImagenIdioma = new ArrayCollection();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @param int $id
@@ -77,32 +101,6 @@ class Paginaimagen {
     }
 
     /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set nombreOriginal
-     *
-     * @param string $nombreOriginal
-     *
-     * @return Paginaimagen
-     */
-    public function setNombreOriginal($nombreOriginal)
-    {
-        $this->nombreOriginal = $nombreOriginal;
-
-        return $this;
-    }
-
-    /**
-     * Get nombreOriginal
-     *
      * @return string
      */
     public function getNombreOriginal()
@@ -111,22 +109,14 @@ class Paginaimagen {
     }
 
     /**
-     * Set nombre
-     *
-     * @param string $nombre
-     *
-     * @return Paginaimagen
+     * @param string $nombreOriginal
      */
-    public function setNombre($nombre)
+    public function setNombreOriginal($nombreOriginal)
     {
-        $this->nombre = $nombre;
-
-        return $this;
+        $this->nombreOriginal = $nombreOriginal;
     }
 
     /**
-     * Get nombre
-     *
      * @return string
      */
     public function getNombre()
@@ -135,22 +125,14 @@ class Paginaimagen {
     }
 
     /**
-     * Set path
-     *
-     * @param string $path
-     *
-     * @return Paginaimagen
+     * @param string $nombre
      */
-    public function setPath($path)
+    public function setNombre($nombre)
     {
-        $this->path = $path;
-
-        return $this;
+        $this->nombre = $nombre;
     }
 
     /**
-     * Get path
-     *
      * @return string
      */
     public function getPath()
@@ -159,22 +141,14 @@ class Paginaimagen {
     }
 
     /**
-     * Set tipoArchivo
-     *
-     * @param string $tipoArchivo
-     *
-     * @return Paginaimagen
+     * @param string $path
      */
-    public function setTipoArchivo($tipoArchivo)
+    public function setPath($path)
     {
-        $this->tipoArchivo = $tipoArchivo;
-
-        return $this;
+        $this->path = $path;
     }
 
     /**
-     * Get tipoArchivo
-     *
      * @return string
      */
     public function getTipoArchivo()
@@ -183,22 +157,14 @@ class Paginaimagen {
     }
 
     /**
-     * Set folio
-     *
-     * @param integer $folio
-     *
-     * @return Paginaimagen
+     * @param string $tipoArchivo
      */
-    public function setFolio($folio)
+    public function setTipoArchivo($tipoArchivo)
     {
-        $this->folio = $folio;
-
-        return $this;
+        $this->tipoArchivo = $tipoArchivo;
     }
 
     /**
-     * Get folio
-     *
      * @return int
      */
     public function getFolio()
@@ -207,22 +173,14 @@ class Paginaimagen {
     }
 
     /**
-     * Set fechaCreacion
-     *
-     * @param \DateTime $fechaCreacion
-     *
-     * @return Paginaimagen
+     * @param int $folio
      */
-    public function setFechaCreacion($fechaCreacion)
+    public function setFolio($folio)
     {
-        $this->fechaCreacion = $fechaCreacion;
-
-        return $this;
+        $this->folio = $folio;
     }
 
     /**
-     * Get fechaCreacion
-     *
      * @return \DateTime
      */
     public function getFechaCreacion()
@@ -231,11 +189,43 @@ class Paginaimagen {
     }
 
     /**
+     * @param \DateTime $fechaCreacion
+     */
+    public function setFechaCreacion($fechaCreacion)
+    {
+        $this->fechaCreacion = $fechaCreacion;
+    }
+
+    /**
+     * Set articulo
+     *
+     * @param \VisitaYucatanBundle\Entity\Articulo $articulo
+     *
+     * @return ArticuloImagen
+     */
+    public function setArticulo(\VisitaYucatanBundle\Entity\Articulo $articulo)
+    {
+        $this->articulo = $articulo;
+
+        return $this;
+    }
+
+    /**
+     * Get articulo
+     *
+     * @return \VisitaYucatanBundle\Entity\Articulo
+     */
+    public function getArticulo()
+    {
+        return $this->articulo;
+    }
+
+    /**
      * Set estatus
      *
      * @param \VisitaYucatanBundle\Entity\Estatus $estatus
      *
-     * @return Paginaimagen
+     * @return ArticuloImagen
      */
     public function setEstatus(\VisitaYucatanBundle\Entity\Estatus $estatus)
     {
@@ -252,5 +242,39 @@ class Paginaimagen {
     public function getEstatus()
     {
         return $this->estatus;
+    }
+
+    /**
+     * Add articuloImagenIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\ArticuloImagenIdioma $articuloImagenIdioma
+     *
+     * @return ArticuloImagen
+     */
+    public function addArticuloImagenIdioma(\VisitaYucatanBundle\Entity\ArticuloImagenIdioma $articuloImagenIdioma)
+    {
+        $this->articuloImagenIdioma[] = $articuloImagenIdioma;
+
+        return $this;
+    }
+
+    /**
+     * Remove articuloImagenIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\ArticuloImagenIdioma $articuloImagenIdioma
+     */
+    public function removeArticuloImagenIdioma(\VisitaYucatanBundle\Entity\ArticuloImagenIdioma $articuloImagenIdioma)
+    {
+        $this->articuloImagenIdioma->removeElement($articuloImagenIdioma);
+    }
+
+    /**
+     * Get articuloImagenIdioma
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticuloImagenIdioma()
+    {
+        return $this->articuloImagenIdioma;
     }
 }

@@ -7,29 +7,32 @@
         <section>
             <div id="content">
 
-                <div class="introduccion">
-                    <div id="izquierdo">
-                        <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/tours-adorno.png') }}">
-                    </div>
-                    <div id="read-left">
-                        <div class="publireportaje">
-                            <div>
-                                ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos
-                                Tours y paquetes que ofrecemos, Están diseñados para que...
-                            </div>
+                {% if(pageDescription) %}
+
+                    <div class="introduccion">
+                        <div id="izquierdo">
+                            <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/tours-adorno.png') }}">
+                        </div>
+                        <div id="read-left">
+                            <div class="publireportaje">
+                                <div>
+                                    {{ descripcionCorta | raw }}
+                                </div>
                         <span id="btnleermas" class="lectura">{% trans %}
                             page.web.label.tours.read.more{% endtrans %}</span>
-                        </div>
-                        <div id="contenedorreportajeb" class="publireportajeb" style="display:none;">
-                            <div>
-                                ¿Cuantas veces se puede decir, “conozco aquel lugar” en lugar de “ya estuve ahí”? Estos
-                                Tours y paquetes que ofrecemos, Están diseñados para que... mas
                             </div>
+                            <div id="contenedorreportajeb" class="publireportajeb" style="display:none;">
+                                <div>
+                                    {{ pageDescription | raw }}
+                                </div>
                         <span id="btnleermenos" class="lectura">{% trans %}
                             page.web.label.tours.read.less{% endtrans %}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                {% endif %}
+
 
                 {% for tour in tours %}
                     <article>
@@ -38,7 +41,7 @@
                             <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
                             <figure class="img1 view">
                                 <a href="toulink">
-                                    <img src="{{ tour.principalImage }}">
+                                    <img src="{{ asset(tour.principalImage) }}">
                                 </a>
 
                                 <div class="mask">
@@ -86,7 +89,7 @@
                                 </div>
                                 <div class="informacion-detalles">
                                     <p class="first-texto">
-                                        <a href="<? echo $link; ?>">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
+                                        <a href="{{ path('web_tour_detail', {'id': tour.id}) }}">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
                                     </p>
 
                                     <p class="second-texto"><span class="icon-play3"></span></p>
