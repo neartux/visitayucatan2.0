@@ -1,6 +1,5 @@
 {% extends ':web:TemplateVisitaYucatan.html.twig' %}
 
-
 {% block section %}
 
     {% block content %}
@@ -11,7 +10,7 @@
 
                     <div class="introduccion">
                         <div id="izquierdo">
-                            <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/tours-adorno.png') }}">
+                            <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/hoteles1.png') }}">
                         </div>
                         <div id="read-left">
                             <div class="publireportaje">
@@ -34,65 +33,56 @@
                 {% endif %}
 
 
-                {% for tour in tours %}
-                    <article>
+                {% for hotel in hotels %}
+                    <article id="hotel">
                         <div class="border-top"></div>
                         <div class="section-left">
-                            <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
-                            <figure class="img1 view">
-                                <a href="toulink">
-                                    <img src="{{ asset(tour.principalImage) }}">
+                            <h2 class="titulo-top">{{ hotel.nombreHotel }}</h2>
+                            <div class="img1 view">
+                                <a href="<? echo $link; ?>" title="<? echo">
+                                    <img src="{{ asset(hotel.principalImage) }}"/>
                                 </a>
-
                                 <div class="mask">
-                                    <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
+                                    <a href="<? echo $link; ?>"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
                                 </div>
-                            </figure>
+                            </div>
                             <figure class="img2">
                                 <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}"/>
                                 <figcaption class="fondo-stars">
                                     <span class="estrella texto"></span>
-                                    <span class="estrella icon-star-full estrella1"></span>
-                                    <span class="estrella icon-star-full estrella2"></span>
-                                    <span class="estrella icon-star-full estrella3"></span>
-                                    <span class="estrella icon-star-full estrella4"></span>
-                                    <span class="estrella icon-star-full estrella5"></span>
+                                    {% for i in range(1 , hotel.estrellas) %}
+                                        <span class="estrella icon-star-full estrella{{ i }}"></span>
+                                    {% endfor %}
                                 </figcaption>
                             </figure>
                         </div>
                         <div class="detalles">
                             <hgroup class="titulos">
-                                <h2>{{ tour.nombreTour }}</h2>
-
-                                <h3>{{ tour.circuito }}</h3>
+                                <h2> {{ hotel.nombreHotel }} </h2>
                             </hgroup>
                             <p class="descripciones">
-                                {{ tour.descripcionTour }}
+                                {{ hotel.descripcion | raw }}
                             </p>
 
                         </div>
                         <div class="img3">
                             <div class="detalles-precio">
                                 <div class="content-precios">
-                                    <div class="precios-tours">
-                                        <p class="precio-top">{% trans %}page.web.label.tours.rate.adults{% endtrans %}:</p>
+                                    <div class="precios-hotel">
+                                        <p class="precio-top texto-top">{% trans %}page.web.label.hotels.price.since{% endtrans %}:</p>
+                                        <p class="precio">${{ hotel.tarifa }} {{ hotel.simboloMoneda }}</p>
 
-                                        <p class="precio">${{ tour.tarifaadulto }} {{ tour.simboloMoneda }}</p>
-                                    </div>
-                                    <div class="precios-tours">
-                                        <!--Validacion que si el precio menor es mayour o igual a uno lo muestra y si el tour incluye menor-->
-                                        <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}
-                                            :</p>
-
-                                        <p class="precio">${{ tour.tarifamenor }} {{ tour.simboloMoneda }}</p>
+                                        <div class="uno">
+                                            <p>{% trans %}page.web.label.hotels.price.per.person{% endtrans %}</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="informacion-detalles">
-                                    <p class="first-texto">
-                                        <a href="{{ path('web_tour_detail', {'id': tour.id}) }}">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
-                                    </p>
-
-                                    <p class="second-texto"><span class="icon-play3"></span></p>
+                                    <a href="<? echo $link; ?>" title="Ver más información"><p class="first-texto">{% trans %}page.web.label.hotels.more.information{% endtrans %}</p>
+                                        <p class="second-texto">
+                                            <span class="icon-play3"></span>
+                                        </p>
+                                    </a>
                                 </div>
                             </div>
                         </div>

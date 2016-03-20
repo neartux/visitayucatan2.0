@@ -32,7 +32,7 @@ class TourController extends Controller {
         // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:tours.html.twig', array('tours' => TourUtils::getTours($tours),
             'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta, 'monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR));
+            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
     }
 
     /**
@@ -49,7 +49,7 @@ class TourController extends Controller {
         $imagesTour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->findTourImagesByIdTour($id);
 
         return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 'monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR));
+            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
     }
 
     /**
@@ -66,20 +66,6 @@ class TourController extends Controller {
         $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
 
         return $this->render('VisitaYucatanBundle:web/pages:reserva-tour.html.twig', array('monedas' => $currency, 'idiomas' => $idiomas));
-    }
-
-    /**
-     * @Route("/tours", name="web_tours_configure_select")
-     * @Method("POST")
-     */
-    public function configureCatalogsAction(Request $request) {
-        // Obtiene la session del request para obtener moneda e idioma
-        $session = $request->getSession();
-        // Colocal el idioma seleccionado en session
-        $session->set('_locale', strtolower($request->get('language')));
-        // Coloca la moneda seleccionada
-        $session->set('_currency', $request->get('currency'));
-        return $this->redirectToRoute('web_tours');
     }
 
     private function getParamsTour($request){

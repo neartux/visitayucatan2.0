@@ -13,14 +13,15 @@
             </div>
             <div class="renglon2 text-to-uppercase">
                 <ul class="menu-footer">
-                    <li><a href="hoteles-en-yucatan">{% trans %}page.web.menu.label.hotels{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_hoteles_merida') }}">{% trans %}page.web.menu.label.hotels{% endtrans %}</a></li>
                     <li><a href="yucatan-mexico">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
                     <li><a href="contacto">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
                 </ul>
             </div>
             <div class="renglon3">
                 <div>
-                    <form action="{{ path('web_tours_configure_select') }}" method="post" id="formCatalogsReload">
+                    <form action="{{ path('web_configure_select') }}" method="POST" id="formCatalogsReload">
+                        <input type="hidden" name="pathRedirect" value="{{ app.request.uri }}"/>
                         <h4 class="label-currency">Moneda</h4>
                         <select name="currency" class="select-language" onchange="$('#formCatalogsReload').submit()">
                             {% for moneda in monedas %}

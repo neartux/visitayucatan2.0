@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use VisitaYucatanBundle\utils\to\ContractTO;
 use VisitaYucatanBundle\utils\to\HabitacionTO;
 use VisitaYucatanBundle\utils\to\HotelidiomaTO;
+use VisitaYucatanBundle\utils\to\HotelTO;
 use VisitaYucatanBundle\utils\to\ImagenTO;
 
 class HotelUtils {
@@ -92,5 +93,37 @@ class HotelUtils {
         }
 
         return $habitacionIdioma;
+    }
+
+    public static function getHotels($hotels){
+        // Valida que existan tours
+        if(count($hotels) >= Generalkeys::NUMBER_ONE){
+            // Crea un array para colocar una coleccion de objetos HotelTO
+            $hotelsColeccion = new ArrayCollection();
+            // Itera los hoteles encontrados
+            foreach($hotels as $hotel){
+                // Se crea un nuevo objeto para colocal la informacion de cada uno de los hoteles como array
+                $hotelTO = new HotelTO();
+
+                //Se anexa la informacion
+                $hotelTO->setId($hotel['id']);
+                $hotelTO->setNombreHotel($hotel['nombrehotel']);
+                $hotelTO->setDescripcion(StringUtils::cutText($hotel['descripcion'], Generalkeys::NUMBER_ZERO, Generalkeys::NUMBER_TWO_HUNDRED, Generalkeys::COLILLA_TEXT, Generalkeys::CIERRE_HTML_P));
+                $hotelTO->setTarifa(ceil($hotel['tarifa']));
+                $hotelTO->setSimboloMoneda($hotel['simbolo']);
+                $hotelTO->setEstrellas($hotel['estrellas']);
+                // Valida imagen hotel si es null coloca imagen not found de lo contrario coloca la imagen
+                if(is_null($hotel['imagen'])){
+                    $hotelTO->setPrincipalImage(Generalkeys::PATH_IMAGE_NOT_FOUND);
+                }else{
+                    $hotelTO->setPrincipalImage($hotel['imagen']);
+                }
+
+                //Se agrega el objeto a la coleccion
+                $hotelsColeccion->add($hotelTO);
+            }
+
+            return $hotelsColeccion;
+        }
     }
 }

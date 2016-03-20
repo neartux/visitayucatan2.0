@@ -150,6 +150,11 @@ class Estatus
     private $articuloImagen;
 
     /**
+     * @ORM\OneToMany(targetEntity="HotelIdioma", mappedBy="estatus")
+     */
+    private $hotelIdioma;
+
+    /**
      * Constructor
      */
     public function __construct(){
@@ -174,6 +179,7 @@ class Estatus
         $this->hotelHabitacionIdioma = new ArrayCollection();
         $this->hotelTarifa = new ArrayCollection();
         $this->articulo = new ArrayCollection();
+        $this->hotelIdioma = new ArrayCollection();
     }
 
     /**

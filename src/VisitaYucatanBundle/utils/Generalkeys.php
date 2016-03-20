@@ -50,4 +50,6 @@ class Generalkeys{
     const CLASS_HEADER_TOUR = 'img-tours';
     const CLASS_HEADER_HOTEL = 'img-hoteles';
     const CLASS_HEADER_PACKAGE = 'img-paquetes';
+    const IMG_NAME_SECCION_WEB_TOUR = 'bundles/VisitaYucatanBundle/img/web/titulo-tours.png';
+    const IMG_NAME_SECCION_WEB_HOTEL = 'bundles/VisitaYucatanBundle/img/web/titulo-hoteles.png';
 }
