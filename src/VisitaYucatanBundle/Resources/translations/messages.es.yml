@@ -29,17 +29,17 @@ catalog.currency.report.label.title : Monedas
 catalog.currency.report.label.new : Nueva Moneda
 catalog.currency.report.label.id : Id
 catalog.currency.report.label.description : Descripción
-catalog.currency.report.label.symbol : Symbolo
+catalog.currency.report.label.symbol : Símbolo #Symbolo
 catalog.currency.report.label.change.type : Tipo Cambio
 catalog.currency.report.message.error.description : Descripción es requerido
-catalog.currency.report.message.error.symbol : Symbolo es requerido
+catalog.currency.report.message.error.symbol : Símbolo es requerido
 catalog.currency.report.message.error.length.symbol : El máximo de caracteres es 10
 catalog.currency.report.message.error.change.type : Tipo cambio es requerido
 catalog.currency.report.message.new.currency : Nueva moneda
 catalog.currency.report.message.edit.currency : Actualizar moneda
 catalog.currency.report.message.success.create : Moneda Creada
 catalog.currency.report.message.success.update : Moneda Actualizada
-catalog.currency.report.message.error : Ocurrio un error, no se pudo realizar la accion
+catalog.currency.report.message.error : Ocurrio un error, no se pudo realizar la acción
 catalog.currency.report.message.delete : Moneda eliminada
 catalog.currency.report.message.confirm.delete : ¿Esta seguro de eliminar la moneda?
 
@@ -68,7 +68,7 @@ catalog.user.report.message.error.password : La contraseña es requerido
 catalog.user.report.message.edit.user : Edita Usuario
 catalog.user.report.message.success.create : Usuario Creado
 catalog.user.report.message.success.update : Usuario Actualizado
-catalog.user.report.message.error : Ocurrio un error, no se pudo realizar el proceso
+catalog.user.report.message.error : Ocurrió un error, no se pudo realizar el proceso
 catalog.user.report.message.delete : Usuario eliminado
 catalog.user.report.message.confirm.delete : ¿Esta seguro de eliminar el usuario?
 
@@ -79,12 +79,12 @@ tour.report.label.edit : Editar Tour
 tour.report.label.message.confirm.delete : ¿Seguro que desea eliminar el tour?
 tour.report.label.message.confirm.delete.image : ¿Seguro que desea eliminar la image?
 tour.report.label.num : Id
-tour.report.label.description : Descripcion
+tour.report.label.description : Descripción
 tour.report.label.adult.rate : Tarifa Adulto
 tour.report.label.adult.rate.required : Tarifa Adulto es requerido
 tour.report.label.lower.rate : Tarifa Menor
 tour.report.label.lower.rate.required : Tarifa Menor es requerido
-tour.report.label.minimum.people : Minimo de personas
+tour.report.label.minimum.people : Mínimo de personas
 tour.report.label.minimum.people.required : Mínimo de personas requerido
 tour.report.label.sold : Vendidos
 tour.report.label.circuit : Circuito
@@ -92,13 +92,13 @@ tour.report.label.circuit.required : El circuito es requerido
 tour.report.label.tour.created : Tour Creado
 tour.report.label.tour.updated : Tour Actualizado
 tour.report.label.tour.deleted : Tour Eliminado
-tour.report.label.tour.promoved : Se ha promovido el tour
+tour.report.label.tour.promoved : Se há promovido el tour
 tour.report.label.tour.removed.promoved : El tour ya no esta promovido
 tour.report.label.upload.image.select.files : Selecciona Los Archivos
-tour.report.label.upload.image.drag.image : Arrastra las imagenes
+tour.report.label.upload.image.drag.image : Arrastra las imágenes
 tour.report.label.upload.image.select.file : Selecciona Imagen
 tour.report.label.upload.image.change.file : Cambiar
-tour.report.label.upload.image.image.list : Lista de imagenes
+tour.report.label.upload.image.image.list : Lista de imágenes
 tour.report.label.upload.image.name : Nombre
 tour.report.label.upload.image.size : Tamaño
 tour.report.label.upload.image.progress : Progreso
@@ -117,7 +117,7 @@ page.web.menu.label.start : Inicio
 page.web.menu.label.packages : Paquetes
 page.web.menu.label.tours : Tours
 page.web.menu.label.hotels : Hoteles
-page.web.menu.label.peninsula : La Peninsula
+page.web.menu.label.peninsula : La Península
 page.web.menu.label.contact : Contacto
 page.web.menu.label.maps : Mapas
 page.web.menu.label.hotel.cancun : Cancún

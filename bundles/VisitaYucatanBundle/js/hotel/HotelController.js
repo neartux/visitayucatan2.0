@@ -364,21 +364,11 @@
         };
 
         ctrlHotel.setFechaEdit = function(fecha) {
-
                HotelService.listaResetHotel();
-            
-            console.log("idiomas = "+JSON.stringify(fecha));
-
-
             if (fecha.classDanger == " ") {
-
-                  fecha.classDanger='danger';
+                   fecha.classDanger='danger';
             }
-           
-         
-         
 
-            
             var fechas = ctrlHotel.getDate(fecha.fechainicio, fecha.fechafin);
             $('#daterangepicker').data('daterangepicker').setStartDate(fechas[0]);
             $('#daterangepicker').data('daterangepicker').setEndDate(fechas[1]);

@@ -85,7 +85,6 @@
         };
 
         ctrlLanguage.deleteLanguage = function(idLanguage){
-            alert(idLanguage);
             if(confirm(ctrlLanguage.confirmDelete)){
                 return LanguageService.deleteLanguageById(idLanguage).then(function(data){
                     if(data.data.status){
