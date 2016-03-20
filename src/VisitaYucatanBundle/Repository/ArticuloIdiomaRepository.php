@@ -25,7 +25,7 @@ class ArticuloIdiomaRepository extends \Doctrine\ORM\EntityRepository {
         $em->flush();
     }
 
-    public function editArticuloIdioma($idArticuloIdioma, $nombre, $descripcion, $idArticulo, $idIdioma){
+    public function editArticuloIdioma($idArticuloIdioma, $nombre, $descripcion){
         $articulo = $this->find($idArticuloIdioma);
 
         if(! $articulo){

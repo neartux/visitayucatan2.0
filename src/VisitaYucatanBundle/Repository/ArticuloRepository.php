@@ -54,11 +54,14 @@ class ArticuloRepository extends \Doctrine\ORM\EntityRepository {
         return $stmt->fetch();
     }
 
-    public function createArticulo($descripcion, $tipoArticulo){
+    public function createArticulo($descripcion, $tipoArticulo, $seccionArticulo){
         $em = $this->getEntityManager();
         $articulo = new Articulo();
         $articulo->setDescripcion($descripcion);
         $articulo->setTipoArticulo($tipoArticulo);
+        if(! is_null($seccionArticulo)){
+            $articulo->setSeccionArticulo($seccionArticulo);
+        }
         $articulo->setEstatus($em->getReference('VisitaYucatanBundle:Estatus'), Estatuskeys::ESTATUS_ACTIVO);
 
         $em->persist($articulo);

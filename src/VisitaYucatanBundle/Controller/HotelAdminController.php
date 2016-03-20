@@ -550,7 +550,7 @@ class HotelAdminController extends Controller {
 }
 
 /*TODO AQUI LA SECCION QUE FALTA VALIDAR O AGREGAR PERO NO ES NECESARIO A PRIMERA INSTANCIA
-
+0.- todo esto es muy importante valida la fecha de un contrato cuando se crea tarifas, las fechas a crear no deben ser fuera de la fecha de inicio y fin de contrato seleccionado
 1.- Validar que si es una imagen u otro tipo de archivo
 2.- Cambiar los mensajes por messages_properties por idiomas
 3.- Agregar plugin para visualizacion previa de imagen, y mejor presentacion
