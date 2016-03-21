@@ -5,3 +5,10 @@
 .text-to-lowercase {
     text-transform: lowercase !important;
 }
+
+.not-found {
+    text-align: center;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}

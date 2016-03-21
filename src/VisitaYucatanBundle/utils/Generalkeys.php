@@ -37,6 +37,7 @@ class Generalkeys{
     const PART_NAME_HOTEL = "hotel-";
     const IDIOMA_ESPANOL = 1;
     const ORIGEN_MERIDA = 1;
+    const ORIGEN_CANCUN = 2;
     const MEXICAN_CURRENCY = 1;
     const LIMIT_ROWS_TWENTY = 20;
     const OFFSET_ROWS_ZERO = 0;
@@ -52,4 +53,5 @@ class Generalkeys{
     const CLASS_HEADER_PACKAGE = 'img-paquetes';
     const IMG_NAME_SECCION_WEB_TOUR = 'bundles/VisitaYucatanBundle/img/web/titulo-tours.png';
     const IMG_NAME_SECCION_WEB_HOTEL = 'bundles/VisitaYucatanBundle/img/web/titulo-hoteles.png';
+    const IMG_NAME_SECCION_WEB_PACKAGE = 'bundles/VisitaYucatanBundle/img/web/titulo-paquetes.png';
 }

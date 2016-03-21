@@ -32,62 +32,71 @@
 
                 {% endif %}
 
+                {% if(hotels) %}
 
-                {% for hotel in hotels %}
-                    <article id="hotel">
-                        <div class="border-top"></div>
-                        <div class="section-left">
-                            <h2 class="titulo-top">{{ hotel.nombreHotel }}</h2>
-                            <div class="img1 view">
-                                <a href="<? echo $link; ?>" title="<? echo">
-                                    <img src="{{ asset(hotel.principalImage) }}"/>
-                                </a>
-                                <div class="mask">
-                                    <a href="<? echo $link; ?>"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
-                                </div>
-                            </div>
-                            <figure class="img2">
-                                <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}"/>
-                                <figcaption class="fondo-stars">
-                                    <span class="estrella texto"></span>
-                                    {% for i in range(1 , hotel.estrellas) %}
-                                        <span class="estrella icon-star-full estrella{{ i }}"></span>
-                                    {% endfor %}
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="detalles">
-                            <hgroup class="titulos">
-                                <h2> {{ hotel.nombreHotel }} </h2>
-                            </hgroup>
-                            <p class="descripciones">
-                                {{ hotel.descripcion | raw }}
-                            </p>
-
-                        </div>
-                        <div class="img3">
-                            <div class="detalles-precio">
-                                <div class="content-precios">
-                                    <div class="precios-hotel">
-                                        <p class="precio-top texto-top">{% trans %}page.web.label.hotels.price.since{% endtrans %}:</p>
-                                        <p class="precio">${{ hotel.tarifa }} {{ hotel.simboloMoneda }}</p>
-
-                                        <div class="uno">
-                                            <p>{% trans %}page.web.label.hotels.price.per.person{% endtrans %}</p>
-                                        </div>
+                    {% for hotel in hotels %}
+                        <article id="hotel">
+                            <div class="border-top"></div>
+                            <div class="section-left">
+                                <h2 class="titulo-top">{{ hotel.nombreHotel }}</h2>
+                                <div class="img1 view">
+                                    <a href="<? echo $link; ?>" title="<? echo">
+                                        <img src="{{ asset(hotel.principalImage) }}"/>
+                                    </a>
+                                    <div class="mask">
+                                        <a href="<? echo $link; ?>"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
                                     </div>
                                 </div>
-                                <div class="informacion-detalles">
-                                    <a href="<? echo $link; ?>" title="Ver más información"><p class="first-texto">{% trans %}page.web.label.hotels.more.information{% endtrans %}</p>
-                                        <p class="second-texto">
-                                            <span class="icon-play3"></span>
-                                        </p>
-                                    </a>
+                                <figure class="img2">
+                                    <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}"/>
+                                    <figcaption class="fondo-stars">
+                                        <span class="estrella texto"></span>
+                                        {% for i in range(1 , hotel.estrellas) %}
+                                            <span class="estrella icon-star-full estrella{{ i }}"></span>
+                                        {% endfor %}
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="detalles">
+                                <hgroup class="titulos">
+                                    <h2> {{ hotel.nombreHotel }} </h2>
+                                </hgroup>
+                                <p class="descripciones">
+                                    {{ hotel.descripcion | raw }}
+                                </p>
+
+                            </div>
+                            <div class="img3">
+                                <div class="detalles-precio">
+                                    <div class="content-precios">
+                                        <div class="precios-hotel">
+                                            <p class="precio-top texto-top">{% trans %}page.web.label.hotels.price.since{% endtrans %}:</p>
+                                            <p class="precio">${{ hotel.tarifa }} {{ hotel.simboloMoneda }}</p>
+
+                                            <div class="uno">
+                                                <p>{% trans %}page.web.label.hotels.price.per.person{% endtrans %}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="informacion-detalles">
+                                        <a href="<? echo $link; ?>" title="Ver más información"><p class="first-texto">{% trans %}page.web.label.hotels.more.information{% endtrans %}</p>
+                                            <p class="second-texto">
+                                                <span class="icon-play3"></span>
+                                            </p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </article>
-                {% endfor %}
+                        </article>
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="not-found">
+                        {% trans %}page.web.label.hotels.not.found{% endtrans %}
+                    </div>
+
+                {% endif %}
 
             </div>
 
