@@ -13,19 +13,22 @@ use VisitaYucatanBundle\utils\Generalkeys;
  */
 class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
 
-	public function getPaquetes($idIdioma,$idMoneda){
+	public function getPaquetes($idIdioma, $idMoneda, $offset, $limit){
 		$em = $this->getEntityManager();
-		$sql = 'SELECT p.id, pd.descripcion as nombre, pd.incluye,  p.circuito, pf.nombreoriginal as archivo,
-				(select min(costosencillo) from paquete_combinacion_hotel where id_paquete = p.id) as sencilla, m.simbolo as simbolmoneda
-				from paquete p
-				left join paquete_idioma pd on pd.id_paquete = p.id
-				left join paquete_imagen pf on pf.id_paquete = p.id and pf.principal = 1
-				left join moneda m on m.id = 1
-				where p.id_estatus = 1 and pd.id_idioma = '.$idIdioma.' order by sencilla;';
+		$sql = "SELECT paquete.id,paquete_idioma.descripcioncorta,paquete_idioma.descripcionlarga,paquete_idioma.incluye,paquete_idioma.descripcion AS nombrepaquete,
+				paquete_imagen.path AS imagen,moneda.simbolo,
+				(select min(paquete_combinacion_hotel.costosencillo)/moneda.tipo_cambio from paquete_combinacion_hotel where paquete_combinacion_hotel.id_paquete = paquete.id) as sencilla
+				FROM paquete
+				INNER JOIN paquete_idioma ON paquete.id = paquete_idioma.id_paquete AND paquete_idioma.id_estatus = :estatusActivo
+				INNER JOIN idioma ON idioma.id = paquete_idioma.id_idioma AND idioma.id = :idioma AND idioma.id_estatus = :estatusActivo
+				INNER JOIN moneda ON moneda.id = :moneda AND moneda.id_estatus = :estatusActivo
+				LEFT JOIN paquete_imagen ON paquete.id = paquete_imagen.id_paquete AND paquete_imagen.id_estatus = :estatusActivo
+				WHERE paquete.id_estatus = :estatusActivo
+				AND paquete.promovido = TRUE
+				ORDER BY sencilla LIMIT ". $limit ." OFFSET ".$offset;
 		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
 		$params['idioma'] = $idIdioma;
 		$params['moneda'] = $idMoneda;
-		$params['origen'] = Generalkeys::ORIGEN_MERIDA; // Este es estatico solo hay origen desde merida por ahora
 
 		$stmt = $em->getConnection()->prepare($sql);
 		$stmt->execute($params);

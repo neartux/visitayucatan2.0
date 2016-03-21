@@ -62,8 +62,8 @@ class TourUtils {
                 $tourTO->setNombreTour($tour['nombre']);
                 $tourTO->setCircuito($tour['circuito']);
                 $tourTO->setDescripcionTour(StringUtils::cutText($tour['descripcion'], Generalkeys::NUMBER_ZERO, Generalkeys::NUMBER_TWO_HUNDRED, Generalkeys::COLILLA_TEXT, Generalkeys::CIERRE_HTML_P));
-                $tourTO->setTarifaadulto(ceil($tour['tarifaadulto']));
-                $tourTO->setTarifamenor(ceil($tour['tarifamenor']));
+                $tourTO->setTarifaadulto(number_format(ceil($tour['tarifaadulto'])));
+                $tourTO->setTarifamenor(number_format(ceil($tour['tarifamenor'])));
                 $tourTO->setSimboloMoneda($tour['simbolomoneda']);
                 // Valida imagen tour si es null coloca imagen not found de lo contrario coloca la imagen
                 if(is_null($tour['imagen'])){

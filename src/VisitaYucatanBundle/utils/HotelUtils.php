@@ -109,7 +109,7 @@ class HotelUtils {
                 $hotelTO->setId($hotel['id']);
                 $hotelTO->setNombreHotel($hotel['nombrehotel']);
                 $hotelTO->setDescripcion(StringUtils::cutText($hotel['descripcion'], Generalkeys::NUMBER_ZERO, Generalkeys::NUMBER_TWO_HUNDRED, Generalkeys::COLILLA_TEXT, Generalkeys::CIERRE_HTML_P));
-                $hotelTO->setTarifa(ceil($hotel['tarifa']));
+                $hotelTO->setTarifa(number_format(ceil($hotel['tarifa'])));
                 $hotelTO->setSimboloMoneda($hotel['simbolo']);
                 $hotelTO->setEstrellas($hotel['estrellas']);
                 // Valida imagen hotel si es null coloca imagen not found de lo contrario coloca la imagen
