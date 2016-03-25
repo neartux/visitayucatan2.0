@@ -8,38 +8,50 @@
     }]);
 
     app.controller('PaqueteController', function ($scope, $http, PaqueteService) {
-        var ctrlPaquete = this;
-        ctrlPaquete.tour = undefined;
-        ctrlPaquete.listTour = PaqueteService.listTour;
-        ctrlPaquete.listLanguage = PaqueteService.listLanguage;
-        ctrlPaquete.tourIdiomaTo = PaqueteService.tourIdiomaTO;
-        ctrlPaquete.imagesTour = PaqueteService.imagesTourList;
-        ctrlPaquete.titleCreate = '';
-        ctrlPaquete.titleEdit = '';
-        ctrlPaquete.msjLoading = '';
-        ctrlPaquete.msjDeleteImage = '';
-        ctrlPaquete.titleModal = '';
-        ctrlPaquete.isNewTour = true;
-        ctrlPaquete.configTour = false;
-        ctrlPaquete.idTourGlobal = 0;
-        ctrlPaquete.nameTourTitle = '';
+        var paquetes = this;
+        paquetes.paquete = undefined;
+        /*paquetes.listPaquetes = PaqueteService.listTour;
+        paquetes.listLanguage = PaqueteService.listLanguage;
+        paquetes.paqueteIdiomaTo = PaqueteService.tourIdiomaTO;
+        paquetes.imagesPaquetes = PaqueteService.imagesTourList;*/
+        paquetes.titleCreate = '';
+        paquetes.titleEdit = '';
+        paquetes.msjLoading = '';
+        paquetes.msjDeleteImage = '';
+        paquetes.titleModal = '';
+        paquetes.isNewTour = true;
+        paquetes.configTour = false;
+        paquetes.idTourGlobal = 0;
+        paquetes.nameTourTitl;
 
-        ctrlPaquete.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
-            ctrlPaquete.titleCreate = titleCreate;
-            ctrlPaquete.titleEdit = titleEdit;
-            ctrlPaquete.msjLoading = msjLoading;
-            ctrlPaquete.titleModal = titleCreate;
-            ctrlPaquete.confirmDelete = confirmDelete;
-            ctrlPaquete.msjDeleteImage = msjDeleteImg;
-            ctrlPaquete.findAllTours();
-            ctrlPaquete.findAllLanguages();
+        paquetes.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
+            paquetes.titleCreate = titleCreate;
+            paquetes.titleEdit = titleEdit;
+            paquetes.msjLoading = msjLoading;
+            paquetes.titleModal = titleCreate;
+            paquetes.confirmDelete = confirmDelete;
+            paquetes.msjDeleteImage = msjDeleteImg;
+            paquetes.initPaths();
+            paquetes.findAllPaquetes();
+            /*paquetes.findAllLanguages();*/
+            console.info("paquetes",paquetes);
+            
         };
 
-        ctrlPaquete.findAllTours = function () {
-            return PaqueteService.findToursActives();
+        paquetes.findAllPaquetes = function () {
+            PaqueteService.findPaquetesList(paquetes.paths.findList).then(function(data){
+                paquetes.listPaquetes=data;
+                console.info("paquete list", paquetes.listPaquetes);
+            });
+            console.info("paquetes paths in findAllPaquetes",paquetes);
         };
-
-        ctrlPaquete.findAllLanguages = function () {
+        paquetes.initPaths = function(){
+            paquetes.paths = {
+                findList: angular.element(document.querySelector('#pathListPaquete')).context.value
+            };
+            console.info("paths",paquetes.paths);
+        }
+        /*ctrlPaquete.findAllLanguages = function () {
             return PaqueteService.findLanguagesActives();
         };
 
@@ -189,7 +201,7 @@
             $("#description").val("");
             $("#symbolo").val("");
             $("#tipoCambio").val("");
-        };
+        };*/
 
     });
 

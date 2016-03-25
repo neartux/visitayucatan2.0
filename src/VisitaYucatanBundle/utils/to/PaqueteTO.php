@@ -81,7 +81,21 @@ class PaqueteTO {
     {
         $this->descripcionLarga = $descripcionLarga;
     }
+    /**
+     * @return mixed
+     */
+    public function getCircuito()
+    {
+        return $this->circuito;
+    }
 
+    /**
+     * @param mixed $circuito
+     */
+    public function setCircuito($circuito)
+    {
+        $this->circuito = $circuito;
+    }
     /**
      * @return mixed
      */

@@ -1,0 +1,67 @@
+<div class="modal fade in" id="modalPaquete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-backdrop fade in" style="height: 1037px;"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times"></span></button>
+                <h2 class="modal-title">[[ paquete.titleModal ]]</h2>
+            </div>
+            <form action="" class="form-horizontal row-border" name="formTour" novalidate>
+                <input type="hidden" ng-model="ctrlTour.currency.id"/>
+                <div class="modal-body">
+                    <div class="form-group" ng-class="{ 'has-error' : formTour.descripcion.$invalid && !formTour.descripcion.$pristine }">
+                        <label class="col-sm-2 control-label text-bold text-uppercase">
+                            {%trans%}paquete.report.label.description{% endtrans %}
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" id="description" ng-model="newpaquete.descripcion" name="descripcion" class="form-control" required/>
+                                <span ng-show="formTour.descripcion.$invalid && !formTour.descripcion.$pristine" class="help-block">
+                                    {% trans %}catalog.currency.report.message.error.description{% endtrans %}
+                                </span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : formTour.circuito.$invalid && !formTour.circuito.$pristine && paquete.isNewTour }" data-ng-show="paquete.isNewPaquete">
+                        <label class="col-sm-2 control-label text-bold text-uppercase">
+                            {% trans %}paquete.report.label.circuito{% endtrans %}
+                        </label>
+
+                        <div class="col-sm-8">
+                            <textarea name="circuito" ng-model="newpaquete.circuito"  class="form-control" id="circuito" cols="30" rows="2" required></textarea>
+                            <span ng-show="formTour.circuito.$invalid && !formTour.circuito.$pristine && ctrlTour.isNewTour" class="help-block">
+                                    {% trans %}tour.report.label.circuit.required{% endtrans %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : formTour.tarifapaquete.$invalid && !formTour.tarifapaquete.$pristine }">
+                        <label class="col-sm-2 control-label text-bold text-uppercase">
+                            {% trans %}paquete.report.label.costo{% endtrans %}
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" id="tarifapaquete" ng-model="newpaquete.tarifapaquete" name="tarifapaquete" class="form-control" required onkeypress="return numbersOnlyWithDecimals(this, event);"/>
+                                <span ng-show=" formTour.tarifapaquete.$dirty && formTour.tarifapaquete.$invalid &&formTour.tarifapaquete.$error.required" class="help-block">
+                                    {% trans %}tour.report.label.adult.rate.required{% endtrans %}
+                                </span>
+                        </div>
+                    </div>
+                    
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times-circle-o"></span> &nbsp;
+                        {% trans %}button.label.close{% endtrans %}
+                    </button>
+                    <button data-ng-show="paquete.isNewPaquete" type="button" class="btn btn-primary" data-ng-click="saveFormTour(formTour.$valid)" ng-disabled="formTour.$invalid">
+                        <span class="fa fa-save"></span> &nbsp;
+                        {% trans %}button.label.save{% endtrans %}
+                    </button>
+                    <button data-ng-show="!paquete.isNewPaquete" type="button" class="btn btn-primary" data-ng-click="updateTour(formTour.$valid)" ng-disabled="formTour.$invalid">
+                        <span class="fa fa-save"></span> &nbsp;
+                        {% trans %}button.label.edit{% endtrans %}
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

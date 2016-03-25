@@ -109,6 +109,16 @@ tour.report.label.upload.image.cancel.all : Cancelar Todos
 tour.report.label.upload.image.delete.all : Remover Todos
 tour.report.label.upload.image.loading.progress : Progreso de Carga
 
+#** Properties to Tours
+paquete.report.label.title : Paquetes
+paquete.report.label.new : Nuevo Paquete
+paquete.report.label.edit : Editar Paquete
+paquete.report.label.message.confirm.delete : ¿Seguro que desea eliminar el paquete?
+paquete.report.label.message.confirm.delete.image : ¿Seguro que desea eliminar la image?
+paquete.report.label.num : Id
+paquete.report.label.description : Descripción
+paquete.report.label.circuit : Circuito
+
 # MESSAGES PROPERTIES TO WEB
 page.web.commons.label.facebook : Facebook
 page.web.commons.label.twitter : Twitter

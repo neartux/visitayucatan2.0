@@ -23,6 +23,7 @@ class PaqueteUtils {
 
                 $paqueteTO->setId($paquete['id']);
                 $paqueteTO->setNombrePaquete($paquete['nombrepaquete']);
+                $paqueteTO->setCircuito($paquete['circuito']);
                 $paqueteTO->setDescripcionCorta($paquete['descripcioncorta']);
                 $paqueteTO->setDescripcionLarga($paquete['descripcionlarga']);
                 $paqueteTO->setIncluye($paquete['incluye']);
@@ -38,7 +39,7 @@ class PaqueteUtils {
             }
         }
 
-        return$paquetesTO;
+        return $paquetesTO;
     }
 
 }

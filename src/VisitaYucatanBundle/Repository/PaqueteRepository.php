@@ -15,7 +15,7 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
 
 	public function getPaquetes($idIdioma, $idMoneda, $offset, $limit){
 		$em = $this->getEntityManager();
-		$sql = "SELECT paquete.id,paquete_idioma.descripcioncorta,paquete_idioma.descripcionlarga,paquete_idioma.incluye,paquete_idioma.descripcion AS nombrepaquete,
+		$sql = "SELECT paquete.id,paquete_idioma.descripcion AS nombrepaquete,paquete_idioma.descripcioncorta,paquete_idioma.descripcionlarga,paquete.circuito,paquete_idioma.incluye,
 				paquete_imagen.path AS imagen,moneda.simbolo,
 				(select min(paquete_combinacion_hotel.costosencillo)/moneda.tipo_cambio from paquete_combinacion_hotel where paquete_combinacion_hotel.id_paquete = paquete.id) as sencilla
 				FROM paquete
@@ -30,6 +30,19 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
 		$params['idioma'] = $idIdioma;
 		$params['moneda'] = $idMoneda;
 
+		$stmt = $em->getConnection()->prepare($sql);
+		$stmt->execute($params);
+		return $stmt->fetchAll();
+	}
+
+	public function findAllPaquetes(){
+		$em = $this->getEntityManager();
+		$sql='SELECT  p.id, p.descripcion as nombrepaquete, p.circuito, p.promovido
+			  FROM paquete p
+			  inner join paquete_idioma pi on pi.id_idioma = :idioma AND pi.id_paquete = p.id
+			  WHERE p.id_estatus = :estatusActivo';
+		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+		$params['idioma'] = Generalkeys::IDIOMA_ESPANOL;
 		$stmt = $em->getConnection()->prepare($sql);
 		$stmt->execute($params);
 		return $stmt->fetchAll();
