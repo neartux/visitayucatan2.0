@@ -4,7 +4,8 @@
 {% block section %}
 
     {% block content %}
-        <section>
+        <section data-ng-app="Web" data-ng-controller="WebController as ctrlWeb" ng-init="ctrlWeb.initTour({{ tour.tarifamenor }}, {{ tour.tarifaadulto }}, {{ tour.tipoCambio }});">
+            <input type="hidden" value="{{ tour.simboloMoneda }}" id="symbolCurrencyHidden"/>
             <div id="content">
 
                 <article>
@@ -47,14 +48,13 @@
                                 <div class="precios-tours">
                                     <p class="precio-top">{% trans %}page.web.label.tours.rate.adults{% endtrans %}:</p>
 
-                                    <p class="precio">${{ tour.tarifaadulto }} {{ tour.simboloMoneda }}</p>
+                                    <p class="precio">${{ tour.tarifaAdultoFormat }} {{ tour.simboloMoneda }}</p>
                                 </div>
                                 <div class="precios-tours">
                                     <!--Validacion que si el precio menor es mayour o igual a uno lo muestra y si el tour incluye menor-->
-                                    <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}
-                                        :</p>
+                                    <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}:</p>
 
-                                    <p class="precio">${{ tour.tarifamenor }} {{ tour.simboloMoneda }}</p>
+                                    <p class="precio">${{ tour.tarifaMenorFormat }} {{ tour.simboloMoneda }}</p>
                                 </div>
                             </div>
                             <div class="informacion-detalles">
@@ -78,14 +78,27 @@
                 <br><br>
                 <hr>
 
-                <b>Reserva Ahora</b>
+                <b>Reserva Ahora</b> tipo cambio = {{ tour.tipoCambio }}<br>
 
                 <form action="{{ path('web_tour_reserva') }}" method="POST">
                     <input type="hidden" value="{{ tour.id }}" name="idTour"/>
 
-                    fecha tour: <input type="text" name="fechaReserva"/>&nbsp; Menores: <select name="numeroMenores" id="">
-                        <option value="">Select</option></select> Adultos: <select
-                            name="numeroAdultos" id=""><option value="">Select</option></select>
+                    fecha tour: <input type="text" name="fechaReserva" class="datepicker"/>&nbsp; Menores:
+                    <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.children" ng-change="ctrlWeb.recalculateCostTour()">
+                        <option value='0'>0</option>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                    </select> 
+                    Adultos: 
+                    <select name="numeroAdultos" data-ng-model="ctrlWeb.totalPersons.adults" ng-change="ctrlWeb.recalculateCostTour()">
+                        <option value='0'>0</option>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                    </select>
 
                     <hr>
                     reserva ahora <br>
@@ -94,6 +107,8 @@
                     <button type="submit">
                         Reserva
                     </button>
+                    <br>
+                    <span id="totalCostTour">${{ tour.costTwoAdults }} {{ tour.simboloMoneda }}</span>
 
                 </form>
 
@@ -104,6 +119,18 @@
             {% endblock %}
 
         </section>
+    {% endblock %}
+
+    {% block scripts %}
+        {{ parent() }}
+        <script>
+            $(function(){
+                $('.datepicker').datepicker({
+                    format: 'dd/mm/yyyy'
+                });
+            });
+        </script>
+
     {% endblock %}
 
 

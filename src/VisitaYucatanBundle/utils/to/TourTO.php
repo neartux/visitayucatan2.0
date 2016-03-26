@@ -26,6 +26,10 @@ class TourTO {
     private $imagesTour;
     private $soloAdultos;
     private $origen;
+    private $tipoCambio;
+    private $tarifaAdultoFormat;
+    private $tarifaMenorFormat;
+    private $costTwoAdults;
 
     public function __construct(){
         $this->imagesTour = new ArrayCollection();
@@ -286,5 +290,71 @@ class TourTO {
     {
         $this->origen = $origen;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTipoCambio()
+    {
+        return $this->tipoCambio;
+    }
+
+    /**
+     * @param mixed $tipoCambio
+     */
+    public function setTipoCambio($tipoCambio)
+    {
+        $this->tipoCambio = $tipoCambio;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTarifaAdultoFormat()
+    {
+        return $this->tarifaAdultoFormat;
+    }
+
+    /**
+     * @param mixed $tarifaAdultoFormat
+     */
+    public function setTarifaAdultoFormat($tarifaAdultoFormat)
+    {
+        $this->tarifaAdultoFormat = $tarifaAdultoFormat;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getTarifaMenorFormat()
+    {
+        return $this->tarifaMenorFormat;
+    }
+
+    /**
+     * @param mixed $tarifaMenorFormat
+     */
+    public function setTarifaMenorFormat($tarifaMenorFormat)
+    {
+        $this->tarifaMenorFormat = $tarifaMenorFormat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCostTwoAdults()
+    {
+        return $this->costTwoAdults;
+    }
+
+    /**
+     * @param mixed $costTwoAdults
+     */
+    public function setCostTwoAdults($costTwoAdults)
+    {
+        $this->costTwoAdults = $costTwoAdults;
+    }
+
 
 }

@@ -22,14 +22,14 @@
                 <div>
                     <form action="{{ path('web_configure_select') }}" method="POST" id="formCatalogsReload">
                         <input type="hidden" name="pathRedirect" value="{{ app.request.uri }}"/>
-                        <h4 class="label-currency">Moneda</h4>
+                        <h4 class="label-currency">{% trans %}page.web.commons.label.currency{% endtrans %}</h4>
                         <select name="currency" class="select-language" onchange="$('#formCatalogsReload').submit()">
                             {% for moneda in monedas %}
                                 <option value="{{ moneda.id }}" {{ moneda.id == app.session.get('_currency') ? 'selected' : '' }}>{{ moneda.descripcion }}</option>
                             {% endfor %}
                         </select>
 
-                        <h4 class="label-language">Idioma</h4>
+                        <h4 class="label-language">{% trans %}page.web.commons.label.language{% endtrans %}</h4>
                         <select name="language" class="select-currency" onchange="$('#formCatalogsReload').submit()">
                             {% for idioma in idiomas %}
                                 <option value="{{ idioma.abreviatura }}" {{ idioma.abreviatura == app.session.get('_locale') ? 'selected' : '' }}>{{ idioma.descripcion }}</option>
