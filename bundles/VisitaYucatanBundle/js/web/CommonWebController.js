@@ -43,4 +43,26 @@
 
     });
 
+    app.controller('WebCommonsController', function($scope, $http, WebService){
+        var ctrlCommons = this;
+        ctrlCommons.objCatalog = {
+            language : undefined,
+            currency : undefined
+        };
+
+        ctrlCommons.initCommons = function(language, currency){
+            ctrlCommons.objCatalog.language = language;
+            ctrlCommons.objCatalog.currency = currency;
+        };
+
+        ctrlCommons.changeCurrencyOrLanguage = function() {
+            WebService.changeCurrencyOrLanguageSession(ctrlCommons.objCatalog.language, ctrlCommons.objCatalog.currency).then(function(data){
+               if(data.data){
+                   document.location.reload (true);
+               }
+            });
+        };
+
+    });
+
 })();

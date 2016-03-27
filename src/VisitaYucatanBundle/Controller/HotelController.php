@@ -74,6 +74,11 @@ class HotelController extends Controller {
         // Encuentra el id de el idioma actual si no hay en sesion coloca idioma español
         $idIdioma = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->getIdIdiomaByAbreviatura($idioma);
 
+        // Valida el idioma
+        if(is_null($idioma)){
+            $session->set('_locale', Generalkeys::SPANISH_LANGUAGE);
+        }
+
         // Declarp nuevo array para mandar los datos
         $datos = Array();
         // coloco la informacion

@@ -7,7 +7,12 @@
 
         var service = {};
 
-
+        service.changeCurrencyOrLanguageSession = function(language, currency){
+            var path = angular.element(document.querySelector('#pathCatalogsReload')).context.value;
+            return $http.post(path, $.param({language : language, currency : currency}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
 
         return service;
     });

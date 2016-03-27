@@ -39,6 +39,7 @@ class Generalkeys{
     const ORIGEN_MERIDA = 1;
     const ORIGEN_CANCUN = 2;
     const MEXICAN_CURRENCY = 1;
+    const SPANISH_LANGUAGE = 'es';
     const LIMIT_ROWS_TWENTY = 20;
     const OFFSET_ROWS_ZERO = 0;
     const COLILLA_TEXT = "...";

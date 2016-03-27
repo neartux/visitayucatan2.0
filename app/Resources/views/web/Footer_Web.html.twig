@@ -1,4 +1,4 @@
-<div class="pie-pagina">
+<div class="pie-pagina" data-ng-controller="WebCommonsController as ctrlCommons" data-ng-init="ctrlCommons.initCommons('{{ app.session.get('_locale') }}', '{{ app.session.get('_currency') }}')">
     <div class="wrap-pie">
         <div class="pie-central">
 
@@ -20,22 +20,21 @@
             </div>
             <div class="renglon3">
                 <div>
-                    <form action="{{ path('web_configure_select') }}" method="POST" id="formCatalogsReload">
-                        <input type="hidden" name="pathRedirect" value="{{ app.request.uri }}"/>
+
+                        <input type="hidden" id="pathCatalogsReload" value="{{ path('web_configure_select') }}"/>
                         <h4 class="label-currency">{% trans %}page.web.commons.label.currency{% endtrans %}</h4>
-                        <select name="currency" class="select-language" onchange="$('#formCatalogsReload').submit()">
+                        <select ng-model="ctrlCommons.objCatalog.currency" class="select-currency" ng-change="ctrlCommons.changeCurrencyOrLanguage()">
                             {% for moneda in monedas %}
-                                <option value="{{ moneda.id }}" {{ moneda.id == app.session.get('_currency') ? 'selected' : '' }}>{{ moneda.descripcion }}</option>
+                                <option value='{{ moneda.id }}'>{{ moneda.descripcion }}</option>
                             {% endfor %}
                         </select>
 
                         <h4 class="label-language">{% trans %}page.web.commons.label.language{% endtrans %}</h4>
-                        <select name="language" class="select-currency" onchange="$('#formCatalogsReload').submit()">
+                        <select ng-model="ctrlCommons.objCatalog.language" class="select-language" ng-change="ctrlCommons.changeCurrencyOrLanguage()">
                             {% for idioma in idiomas %}
-                                <option value="{{ idioma.abreviatura }}" {{ idioma.abreviatura == app.session.get('_locale') ? 'selected' : '' }}>{{ idioma.descripcion }}</option>
+                                <option value='{{ idioma.abreviatura }}'>{{ idioma.descripcion }}</option>
                             {% endfor %}
                         </select>
-                    </form>
                 </div>
             </div>
             <div class="renglon4">
