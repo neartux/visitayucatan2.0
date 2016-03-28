@@ -91,10 +91,14 @@ class TourUtils {
         $tourTO->setDescripcionTour($tour['descripcion']);
         $tourTO->setTarifaadulto(ceil($tour['tarifaadulto']));
         $tourTO->setTarifamenor(ceil($tour['tarifamenor']));
+        $tourTO->setTarifaAdultoFormat(number_format(ceil($tour['tarifaadulto'])));
+        $tourTO->setTarifaMenorFormat(number_format(ceil($tour['tarifamenor'])));
         $tourTO->setSimboloMoneda($tour['simbolomoneda']);
+        $tourTO->setCostTwoAdults(number_format($tourTO->getTarifaadulto() * Generalkeys::NUMBER_TWO));
         $tourTO->setSoloAdultos($tour['soloadultos']);
         $tourTO->setMinimopersonas($tour['minimopersonas']);
         $tourTO->setOrigen($tour['origen']);
+        $tourTO->setTipoCambio($tour['tipocambio']);
         // Valida imagen tour si es null coloca imagen not found de lo contrario coloca la imagen
         if(is_null($tour['imagen'])){
             $tourTO->setPrincipalImage(Generalkeys::PATH_IMAGE_NOT_FOUND);

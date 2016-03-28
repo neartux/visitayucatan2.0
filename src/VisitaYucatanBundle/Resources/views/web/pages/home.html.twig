@@ -540,8 +540,8 @@
                                 <span class="icon-keyboard_arrow_down"></span>
                             </a>
                             <ul>
-                                <li><a href="http://www.visitayucatan.com/hoteles-en/cancun/2/1/">{% trans %}page.web.menu.label.hotel.cancun{% endtrans %}</a><li>
-                                <li><a href="http://www.visitayucatan.com/hoteles-en/merida/1/1/">{% trans %}page.web.menu.label.hotel.merida{% endtrans %}</a><li>
+                                <li><a href="{{ path('web_hoteles_cancun') }}">{% trans %}page.web.menu.label.hotel.cancun{% endtrans %}</a><li>
+                                <li><a href="{{ path('web_hoteles_merida') }}">{% trans %}page.web.menu.label.hotel.merida{% endtrans %}</a><li>
                             </ul>
                         </li>
                         <li><a href="http://www.visitayucatan.com/yucatan-mexico">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
@@ -557,7 +557,7 @@
             </div>
 
             <div id="detalles">
-                <a href="http://www.visitayucatan.com/paquetes-yucatan_new">
+                <a href="{{ path('web_paquetes') }}">
                     <div class="productos producto-paquetes first">
                         <div class="contacto">
                             <p class="texto-title text-to-uppercase">{% trans %}page.web.menu.label.packages{% endtrans %}</p>
@@ -568,7 +568,7 @@
                     </div>
                 </a>
 
-                <a href="http://www.visitayucatan.com/tours-en-yucatan_new">
+                <a href="{{ path('web_tours') }}">
                     <div class="productos producto-tours">
                         <div >
                             <p class="texto-title text-to-uppercase">{% trans %}page.web.menu.label.tours{% endtrans %}</p>
@@ -577,7 +577,7 @@
                     </div>
                 </a>
 
-                <a href="http://www.visitayucatan.com/hoteles-en-yucatan">
+                <a href="{{ path('web_hoteles_merida') }}">
                     <div class="productos producto-hoteles">
                         <div>
                             <p class="texto-title text-to-uppercase">{% trans %}page.web.menu.label.hotels{% endtrans %}</p>
@@ -635,7 +635,7 @@
             </div>
             <div class="renglon2">
                 <ul class="menu-footer text-to-uppercase">
-                    <li><a href="hoteles-en-yucatan">{% trans %}page.web.menu.label.hotels{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_hoteles_merida') }}">{% trans %}page.web.menu.label.hotels{% endtrans %}</a></li>
                     <li><a href="yucatan-mexico">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
                     <li><a href="contacto">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
                 </ul>

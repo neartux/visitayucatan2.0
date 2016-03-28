@@ -122,6 +122,8 @@ paquete.report.label.circuit : Circuito
 # MESSAGES PROPERTIES TO WEB
 page.web.commons.label.facebook : Facebook
 page.web.commons.label.twitter : Twitter
+page.web.commons.label.currency : Moneda
+page.web.commons.label.language : Idioma
 
 page.web.menu.label.start : Inicio
 page.web.menu.label.packages : Paquetes
@@ -143,7 +145,7 @@ page.web.label.tours.more.information : Más Información
 
 page.web.label.home.package.text : <p>TU VIAJE</p><p>PERFECTAMENTE</p><p>PLANEADO</p>
 page.web.label.home.tours.text : CONOZCA LUGARES REALMENTE INCREIBLES
-page.web.label.home.hotels.text : CONVENIENTEMENTE UBIC ADOS A PRECIOS INCREIBLES
+page.web.label.home.hotels.text : CONVENIENTEMENTE UBICADOS A PRECIOS INCREIBLES
 page.web.label.home.peninsula.title : LA <br> PENINSULA
 page.web.label.home.peninsula.text : DESCUBRE LA MAGIA DE YUCATÁN
 page.web.label.home.maps.text : UBICA LOS SITIOS DE INTERES EN YUCATAN

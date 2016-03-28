@@ -7,6 +7,44 @@
         <section>
             <div id="content">
 
+                <h3>Preparemos su reservacion</h3>
+
+                <br>
+                nombre:
+                <input type="text"/><br>
+                lada
+                <input type="text"/><br>
+                telefono
+                <input type="text"/><br>
+                correo
+                <input type="text"/><br>
+                ciudad
+                <input type="text"/> <br>
+                hotel
+                <input type="text"/> <br>
+                fecha tour:
+                <input type="text" name="fechaReserva" class="datepicker"/> <br>
+                Menores:
+                <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.children" ng-change="ctrlWeb.recalculateCostTour()">
+                    <option value='0'>0</option>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                </select>
+                Adultos:
+                <select name="numeroAdultos" data-ng-model="ctrlWeb.totalPersons.adults" ng-change="ctrlWeb.recalculateCostTour()">
+                    <option value='0'>0</option>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                </select>
+
+                <br><br>
+                tour seleccionado = {{ tour.nombreTour }} <br>
+                precio adulto = {{ tour.tarifaAdultoFormat }} <br>
+                precio menor = {{ tour.tarifaMenorFormat }}
 
             </div>
 
