@@ -19,9 +19,9 @@
         paquetes.msjLoading = '';
         paquetes.msjDeleteImage = '';
         paquetes.titleModal = '';
-        paquetes.isNewTour = true;
-        paquetes.configTour = false;
-        paquetes.idTourGlobal = 0;
+        paquetes.isNewPaquete = true;
+        paquetes.configPaquete = false;
+        paquetes.idPaqueteGlobal = 0;
         paquetes.nameTourTitl;
 
         paquetes.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
@@ -47,10 +47,40 @@
         };
         paquetes.initPaths = function(){
             paquetes.paths = {
-                findList: angular.element(document.querySelector('#pathListPaquete')).context.value
+                findList: angular.element(document.querySelector('#pathListPaquete')).context.value,
+                create: angular.element(document.querySelector('#pathCreatePaquete')).context.value
             };
             console.info("paths",paquetes.paths);
         }
+        paquetes.displayNewPaquete = function () {
+            //ctrlPaquete.cleanForm();
+            paquetes.titleModal = paquetes.titleCreate;
+            paquetes.isNewPaquete = true;
+            //paquetes.newPaquete
+            $("#modalPaquete").modal();
+            setTimeout(function () {
+                $("#description").trigger('focus');
+            }, 1000);
+        };
+        paquetes.saveFormPaquete = function (isValid) {
+            // check to make sure the form is completely valid
+
+            if (isValid && paquetes.newPaquete != undefined) {
+                startLoading(paquetes.msjLoading);
+                console.info("Paquetes item",paquetes.newPaquete);
+                return PaqueteService.createPaquete(paquetes.newPaquete,paquetes.paths.create).then(function (data) {
+                    stopLoading();
+                    console.info("data",data);
+                    /*if (data.data.status) {
+                        ctrlPaquete.findAllTours();
+                        updateDataTable();
+                    }
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                    $("#modalTour").modal("hide");*/
+                });
+            }
+
+        };
         /*ctrlPaquete.findAllLanguages = function () {
             return PaqueteService.findLanguagesActives();
         };

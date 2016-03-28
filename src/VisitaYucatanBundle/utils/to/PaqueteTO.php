@@ -17,6 +17,8 @@ class PaqueteTO {
     private $principalImage;
     private $simboloMoneda;
     private $costoSencilla;
+    private $circuito;
+    private $descripcion;
 
     /**
      * @return mixed
@@ -160,4 +162,17 @@ class PaqueteTO {
         $this->costoSencilla = $costoSencilla;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDescripcion(){
+        return $this->descripcion;
+    }
+
+    /**
+     * @param mixed $descripcion
+     */
+    public function setDescripcion($descripcion){
+        $this->descripcion = $descripcion;
+    }
 }

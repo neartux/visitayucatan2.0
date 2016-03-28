@@ -31,7 +31,12 @@
                 return data.data;
             });
         };
-
+        service.createPaquete = function(paquete,path){
+            //var path = $("#pathCreateTour").val();
+            return $http.post(path, $.param({paquete : JSON.stringify(paquete)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
         /*service.findContactsHotel = function(idHotel){
             var path = $("#pathContacts").val();
             service.contactHotelList.data = [];

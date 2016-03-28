@@ -33,4 +33,28 @@ class PaqueteAdminController extends Controller {
 	  $tours = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->findAllPaquetes();
 	  return new Response($this->get('serializer')->serialize($tours, Generalkeys::JSON_STRING));
 	}
+
+	/**
+     * @Route("/admin/paquete/create", name="paquete_create")
+     * @Method("POST")
+     */
+	public function createPaqueteAction(Request $request) {
+		$serializer = $this->get('serializer');
+		try {
+		   $paqueteJson = $request->get('paquete');
+		   $paqueteTO = $serializer->deserialize($paqueteJson,'VisitaYucatanBundle\utils\to\PaqueteTO',Generalkeys::JSON_STRING);
+		   //$tourTO = $serializer->deserialize($tourJson, 'VisitaYucatanBundle\utils\to\TourTO', Generalkeys::JSON_STRING);
+		   //print_r($tourTO);
+		   $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->createPaquete($paqueteTO);
+
+		   $translator = $this->get('translator');
+		   $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.created"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+		   return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+		} catch (\Exception $e) {
+
+		   $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+		   return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+		}
+ 	}
 }

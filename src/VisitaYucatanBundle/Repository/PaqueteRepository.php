@@ -4,6 +4,7 @@ namespace VisitaYucatanBundle\Repository;
 
 use VisitaYucatanBundle\utils\Estatuskeys;
 use VisitaYucatanBundle\utils\Generalkeys;
+use VisitaYucatanBundle\Entity\Paquete;
 
 /**
  * PaqueteRepository
@@ -46,5 +47,16 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
 		$stmt = $em->getConnection()->prepare($sql);
 		$stmt->execute($params);
 		return $stmt->fetchAll();
+	}
+
+	public function createPaquete($paqueteTo){
+		$em = $this->getEntityManager();
+		$paquete = new Paquete();
+		$paquete->setDescripcion($paqueteTo->getDescripcion());
+		$paquete->setCircuito($paqueteTo->getCircuito());
+		$paquete->setPromovido(Generalkeys::BOOLEAN_FALSE);
+		$paquete->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+		$em->persist($paquete);
+		$em->flush();
 	}
 }
