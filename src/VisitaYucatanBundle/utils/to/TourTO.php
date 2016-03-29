@@ -30,6 +30,9 @@ class TourTO {
     private $tarifaAdultoFormat;
     private $tarifaMenorFormat;
     private $costTwoAdults;
+    private $fechaReserva;
+    private $totalAdultos;
+    private $totalMenores;
 
     public function __construct(){
         $this->imagesTour = new ArrayCollection();
@@ -354,6 +357,54 @@ class TourTO {
     public function setCostTwoAdults($costTwoAdults)
     {
         $this->costTwoAdults = $costTwoAdults;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaReserva()
+    {
+        return $this->fechaReserva;
+    }
+
+    /**
+     * @param mixed $fechaReserva
+     */
+    public function setFechaReserva($fechaReserva)
+    {
+        $this->fechaReserva = $fechaReserva;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalAdultos()
+    {
+        return $this->totalAdultos;
+    }
+
+    /**
+     * @param mixed $totalAdultos
+     */
+    public function setTotalAdultos($totalAdultos)
+    {
+        $this->totalAdultos = $totalAdultos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalMenores()
+    {
+        return $this->totalMenores;
+    }
+
+    /**
+     * @param mixed $totalMenores
+     */
+    public function setTotalMenores($totalMenores)
+    {
+        $this->totalMenores = $totalMenores;
     }
 
 

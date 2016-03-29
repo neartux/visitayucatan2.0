@@ -57,17 +57,21 @@ class TourController extends Controller {
      * @Method("POST")
      */
     public function displayReservaTourAction(Request $request) {
-        echo $idTour = $request->get('idTour');
-        echo $fechaReserva = $request->get('fechaReserva');
-        echo $numeroAdultos = $request->get('numeroAdultos');
-        echo $numeroMenores = $request->get('numeroMenores');
+        echo $idTour = $request->get('idTour'); echo "<br>";
+        echo $fechaReserva = $request->get('fechaReserva');echo "<br>";
+        echo $numeroAdultos = $request->get('numeroAdultos');echo "<br>";
+        echo $numeroMenores = $request->get('numeroMenores');echo "<br>";
         $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
         $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
         $datos = $this->getParamsTour($request);
         $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($idTour, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
-
+        $tourTO = TourUtils::getTourTO($tour, new ArrayCollection());
+        $tourTO->setFechaReserva($fechaReserva);
+        $tourTO->setTotalAdultos($numeroAdultos);
+        $tourTO->setTotalMenores($numeroMenores);
+        $costoTotal = ($tourTO->getTotalAdultos() * $tourTO->getTarifaadulto()) + ($tourTO->getTotalMenores() * $tourTO->getTarifamenor());
         return $this->render('VisitaYucatanBundle:web/pages:reserva-tour.html.twig', array('monedas' => $currency, 'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR,
-            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR, 'tour' => TourUtils::getTourTO($tour, new ArrayCollection())));
+            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR, 'tour' => $tourTO, 'costoTotal' => number_format($costoTotal)));
     }
 
     private function getParamsTour($request){

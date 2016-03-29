@@ -7,7 +7,7 @@
         $interpolateProvider.endSymbol(']]');
     }]);
 
-    app.controller('WebController', function ($scope, $http, WebService) {
+    app.controller('WebTourController', function ($scope, $http, WebService) {
         var ctrlWeb = this;
         ctrlWeb.symbolCurrency = 'MXP';
         ctrlWeb.exchangeRate = 1;
@@ -22,7 +22,22 @@
 
         ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate) {
             console.info("en init detalle", angular.element(document.querySelector('#symbolCurrencyHidden')).context.value, exchangeRate, rateChild, rateAdult);
+            ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate);
+        };
+
+        ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate){
+            console.info(fechaReserva);
+            ctrlWeb.totalPersons = {
+                children : totalMenores,
+                adults : totalAdultos
+            };
+            $('.datepicker').val(fechaReserva);
+            ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate);
+        };
+
+        ctrlWeb.configureParametersInit = function(rateChild, rateAdult, exchangeRate){
             ctrlWeb.symbolCurrency = angular.element(document.querySelector('#symbolCurrencyHidden')).context.value;
+            console.info("simbolo ", ctrlWeb.symbolCurrency);
             ctrlWeb.exchangeRate = parseFloat(exchangeRate);
             ctrlWeb.rateChild = parseFloat(rateChild);
             ctrlWeb.rateAdult = parseFloat(rateAdult);
