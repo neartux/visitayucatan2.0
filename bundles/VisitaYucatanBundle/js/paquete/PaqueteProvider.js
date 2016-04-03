@@ -3,11 +3,11 @@
  */
 (function () {
     var app = angular.module('PaqueteProvider', []);
-    app.factory('HotelService', function($http, $q){
+    app.factory('PaqueteService', function($http, $q){
 
         var service = {};
 
-        service.listHotel = {
+        /*service.listHotel = {
             data: undefined
         };
         service.listLanguage = {
@@ -24,17 +24,20 @@
         };
         service.contactHotelList = {
             data: undefined
-        };
+        };*/
 
-        service.findHotelsActives= function(){
-            var path = $("#pathListHotel").val();
-            service.listHotel.data = [];
+        service.findPaquetesList= function(path){
             return $http.get(path).then(function(data){
-                service.listHotel.data = data.data;
+                return data.data;
             });
         };
-
-        service.findContactsHotel = function(idHotel){
+        service.createPaquete = function(paquete,path){
+            //var path = $("#pathCreateTour").val();
+            return $http.post(path, $.param({paquete : JSON.stringify(paquete)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+        /*service.findContactsHotel = function(idHotel){
             var path = $("#pathContacts").val();
             service.contactHotelList.data = [];
             return $http.post(path, $.param({idHotel : idHotel}), {
@@ -149,7 +152,7 @@
             return $http.post(path, $.param({idHotelContacto : idHotelContacto}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
-        };
+        };*/
 
         return service;
     });

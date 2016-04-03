@@ -17,6 +17,10 @@ class HotelTO {
     private $idDestino;
     private $promovido;
     private $idEstatus;
+    private $nombreHotel;
+    private $tarifa;
+    private $simboloMoneda;
+    private $principalImage;
 
     /**
      * @return mixed
@@ -146,6 +150,69 @@ class HotelTO {
         $this->idEstatus = $idEstatus;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getNombreHotel()
+    {
+        return $this->nombreHotel;
+    }
+
+    /**
+     * @param mixed $nombreHotel
+     */
+    public function setNombreHotel($nombreHotel)
+    {
+        $this->nombreHotel = $nombreHotel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTarifa()
+    {
+        return $this->tarifa;
+    }
+
+    /**
+     * @param mixed $tarifa
+     */
+    public function setTarifa($tarifa)
+    {
+        $this->tarifa = $tarifa;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSimboloMoneda()
+    {
+        return $this->simboloMoneda;
+    }
+
+    /**
+     * @param mixed $simboloMoneda
+     */
+    public function setSimboloMoneda($simboloMoneda)
+    {
+        $this->simboloMoneda = $simboloMoneda;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrincipalImage()
+    {
+        return $this->principalImage;
+    }
+
+    /**
+     * @param mixed $principalImage
+     */
+    public function setPrincipalImage($principalImage)
+    {
+        $this->principalImage = $principalImage;
+    }
 
 
 }

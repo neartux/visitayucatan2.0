@@ -150,6 +150,11 @@ class Estatus
     private $articuloImagen;
 
     /**
+     * @ORM\OneToMany(targetEntity="Hotelidioma", mappedBy="estatus")
+     */
+    private $hotelIdioma;
+
+    /**
      * Constructor
      */
     public function __construct(){
@@ -174,6 +179,7 @@ class Estatus
         $this->hotelHabitacionIdioma = new ArrayCollection();
         $this->hotelTarifa = new ArrayCollection();
         $this->articulo = new ArrayCollection();
+        $this->hotelIdioma = new ArrayCollection();
     }
 
     /**
@@ -1024,5 +1030,39 @@ class Estatus
     public function getArticuloImagen()
     {
         return $this->articuloImagen;
+    }
+
+    /**
+     * Add hotelIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelIdioma $hotelIdioma
+     *
+     * @return Estatus
+     */
+    public function addHotelIdioma(\VisitaYucatanBundle\Entity\HotelIdioma $hotelIdioma)
+    {
+        $this->hotelIdioma[] = $hotelIdioma;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelIdioma
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelIdioma $hotelIdioma
+     */
+    public function removeHotelIdioma(\VisitaYucatanBundle\Entity\HotelIdioma $hotelIdioma)
+    {
+        $this->hotelIdioma->removeElement($hotelIdioma);
+    }
+
+    /**
+     * Get hotelIdioma
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHotelIdioma()
+    {
+        return $this->hotelIdioma;
     }
 }

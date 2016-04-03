@@ -62,8 +62,8 @@ class TourUtils {
                 $tourTO->setNombreTour($tour['nombre']);
                 $tourTO->setCircuito($tour['circuito']);
                 $tourTO->setDescripcionTour(StringUtils::cutText($tour['descripcion'], Generalkeys::NUMBER_ZERO, Generalkeys::NUMBER_TWO_HUNDRED, Generalkeys::COLILLA_TEXT, Generalkeys::CIERRE_HTML_P));
-                $tourTO->setTarifaadulto(ceil($tour['tarifaadulto']));
-                $tourTO->setTarifamenor(ceil($tour['tarifamenor']));
+                $tourTO->setTarifaadulto(number_format(ceil($tour['tarifaadulto'])));
+                $tourTO->setTarifamenor(number_format(ceil($tour['tarifamenor'])));
                 $tourTO->setSimboloMoneda($tour['simbolomoneda']);
                 // Valida imagen tour si es null coloca imagen not found de lo contrario coloca la imagen
                 if(is_null($tour['imagen'])){
@@ -91,10 +91,14 @@ class TourUtils {
         $tourTO->setDescripcionTour($tour['descripcion']);
         $tourTO->setTarifaadulto(ceil($tour['tarifaadulto']));
         $tourTO->setTarifamenor(ceil($tour['tarifamenor']));
+        $tourTO->setTarifaAdultoFormat(number_format(ceil($tour['tarifaadulto'])));
+        $tourTO->setTarifaMenorFormat(number_format(ceil($tour['tarifamenor'])));
         $tourTO->setSimboloMoneda($tour['simbolomoneda']);
+        $tourTO->setCostTwoAdults(number_format($tourTO->getTarifaadulto() * Generalkeys::NUMBER_TWO));
         $tourTO->setSoloAdultos($tour['soloadultos']);
         $tourTO->setMinimopersonas($tour['minimopersonas']);
         $tourTO->setOrigen($tour['origen']);
+        $tourTO->setTipoCambio($tour['tipocambio']);
         // Valida imagen tour si es null coloca imagen not found de lo contrario coloca la imagen
         if(is_null($tour['imagen'])){
             $tourTO->setPrincipalImage(Generalkeys::PATH_IMAGE_NOT_FOUND);

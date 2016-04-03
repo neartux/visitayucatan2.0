@@ -2,6 +2,7 @@
 
 namespace VisitaYucatanBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -32,7 +33,7 @@ class TourController extends Controller {
         // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:tours.html.twig', array('tours' => TourUtils::getTours($tours),
             'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta, 'monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR));
+            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
     }
 
     /**
@@ -45,11 +46,10 @@ class TourController extends Controller {
         $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
 
         $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($id, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
-        //print_r($tour);exit;
         $imagesTour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->findTourImagesByIdTour($id);
 
         return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 'monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR));
+            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
     }
 
     /**
@@ -57,29 +57,21 @@ class TourController extends Controller {
      * @Method("POST")
      */
     public function displayReservaTourAction(Request $request) {
-        $idTour = $request->get('idTour');
-        $fechaReserva = $request->get('fechaReserva');
-        $numeroAdultos = $request->get('numeroAdultos');
-        $numeroMenores = $request->get('numeroMenores');
-        echo "idtour = ".$idTour;
+        echo $idTour = $request->get('idTour'); echo "<br>";
+        echo $fechaReserva = $request->get('fechaReserva');echo "<br>";
+        echo $numeroAdultos = $request->get('numeroAdultos');echo "<br>";
+        echo $numeroMenores = $request->get('numeroMenores');echo "<br>";
         $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
         $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
-
-        return $this->render('VisitaYucatanBundle:web/pages:reserva-tour.html.twig', array('monedas' => $currency, 'idiomas' => $idiomas));
-    }
-
-    /**
-     * @Route("/tours", name="web_tours_configure_select")
-     * @Method("POST")
-     */
-    public function configureCatalogsAction(Request $request) {
-        // Obtiene la session del request para obtener moneda e idioma
-        $session = $request->getSession();
-        // Colocal el idioma seleccionado en session
-        $session->set('_locale', strtolower($request->get('language')));
-        // Coloca la moneda seleccionada
-        $session->set('_currency', $request->get('currency'));
-        return $this->redirectToRoute('web_tours');
+        $datos = $this->getParamsTour($request);
+        $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($idTour, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
+        $tourTO = TourUtils::getTourTO($tour, new ArrayCollection());
+        $tourTO->setFechaReserva($fechaReserva);
+        $tourTO->setTotalAdultos($numeroAdultos);
+        $tourTO->setTotalMenores($numeroMenores);
+        $costoTotal = ($tourTO->getTotalAdultos() * $tourTO->getTarifaadulto()) + ($tourTO->getTotalMenores() * $tourTO->getTarifamenor());
+        return $this->render('VisitaYucatanBundle:web/pages:reserva-tour.html.twig', array('monedas' => $currency, 'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR,
+            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR, 'tour' => $tourTO, 'costoTotal' => number_format($costoTotal)));
     }
 
     private function getParamsTour($request){
@@ -97,6 +89,11 @@ class TourController extends Controller {
         }
         // Encuentra el id de el idioma actual si no hay en sesion coloca idioma español
         $idIdioma = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->getIdIdiomaByAbreviatura($idioma);
+
+        // Valida el idioma
+        if(is_null($idioma)){
+            $session->set('_locale', Generalkeys::SPANISH_LANGUAGE);
+        }
 
         // Declarp nuevo array para mandar los datos
         $datos = Array();

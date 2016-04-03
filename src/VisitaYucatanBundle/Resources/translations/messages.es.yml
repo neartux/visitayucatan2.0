@@ -109,9 +109,21 @@ tour.report.label.upload.image.cancel.all : Cancelar Todos
 tour.report.label.upload.image.delete.all : Remover Todos
 tour.report.label.upload.image.loading.progress : Progreso de Carga
 
+#** Properties to Tours
+paquete.report.label.title : Paquetes
+paquete.report.label.new : Nuevo Paquete
+paquete.report.label.edit : Editar Paquete
+paquete.report.label.message.confirm.delete : ¿Seguro que desea eliminar el paquete?
+paquete.report.label.message.confirm.delete.image : ¿Seguro que desea eliminar la image?
+paquete.report.label.num : Id
+paquete.report.label.description : Descripción
+paquete.report.label.circuit : Circuito
+
 # MESSAGES PROPERTIES TO WEB
 page.web.commons.label.facebook : Facebook
 page.web.commons.label.twitter : Twitter
+page.web.commons.label.currency : Moneda
+page.web.commons.label.language : Idioma
 
 page.web.menu.label.start : Inicio
 page.web.menu.label.packages : Paquetes
@@ -133,7 +145,12 @@ page.web.label.tours.more.information : Más Información
 
 page.web.label.home.package.text : <p>TU VIAJE</p><p>PERFECTAMENTE</p><p>PLANEADO</p>
 page.web.label.home.tours.text : CONOZCA LUGARES REALMENTE INCREIBLES
-page.web.label.home.hotels.text : CONVENIENTEMENTE UBIC ADOS A PRECIOS INCREIBLES
+page.web.label.home.hotels.text : CONVENIENTEMENTE UBICADOS A PRECIOS INCREIBLES
 page.web.label.home.peninsula.title : LA <br> PENINSULA
 page.web.label.home.peninsula.text : DESCUBRE LA MAGIA DE YUCATÁN
 page.web.label.home.maps.text : UBICA LOS SITIOS DE INTERES EN YUCATAN
+
+page.web.label.hotels.price.per.person : Precio por person
+page.web.label.hotels.price.since : Desde
+page.web.label.hotels.more.information : Más Información
+page.web.label.hotels.not.found : No Se Encontraron Hoteles

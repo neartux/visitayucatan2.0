@@ -112,6 +112,8 @@ tour.report.label.upload.image.loading.progress : Carico di progresso
 # MESSAGES PROPERTIES TO WEB
 page.web.commons.label.facebook : Facebook
 page.web.commons.label.twitter : Twitter
+page.web.commons.label.currency : Valuta
+page.web.commons.label.language : Lingua
 
 page.web.menu.label.start : Iniziazione
 page.web.menu.label.packages : Pacchetti
@@ -137,3 +139,8 @@ page.web.label.home.hotels.text : CONVENIENTEMENTE UBIC ADOS A PRECIOS INCREIBLE
 page.web.label.home.peninsula.title : LA <br> PENINSULA
 page.web.label.home.peninsula.text : DESCUBRE LA MAGIA DE YUCATÁN
 page.web.label.home.maps.text : UBICA LOS SITIOS DE INTERES EN YUCATAN
+
+page.web.label.hotels.price.per.person : Prezzo per persona
+page.web.label.hotels.price.since : Da
+page.web.label.hotels.more.information : Ulteriori Informazioni
+page.web.label.hotels.not.found : Nessun hotel trovati

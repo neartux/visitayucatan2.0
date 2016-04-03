@@ -26,6 +26,13 @@ class TourTO {
     private $imagesTour;
     private $soloAdultos;
     private $origen;
+    private $tipoCambio;
+    private $tarifaAdultoFormat;
+    private $tarifaMenorFormat;
+    private $costTwoAdults;
+    private $fechaReserva;
+    private $totalAdultos;
+    private $totalMenores;
 
     public function __construct(){
         $this->imagesTour = new ArrayCollection();
@@ -286,5 +293,119 @@ class TourTO {
     {
         $this->origen = $origen;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTipoCambio()
+    {
+        return $this->tipoCambio;
+    }
+
+    /**
+     * @param mixed $tipoCambio
+     */
+    public function setTipoCambio($tipoCambio)
+    {
+        $this->tipoCambio = $tipoCambio;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTarifaAdultoFormat()
+    {
+        return $this->tarifaAdultoFormat;
+    }
+
+    /**
+     * @param mixed $tarifaAdultoFormat
+     */
+    public function setTarifaAdultoFormat($tarifaAdultoFormat)
+    {
+        $this->tarifaAdultoFormat = $tarifaAdultoFormat;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getTarifaMenorFormat()
+    {
+        return $this->tarifaMenorFormat;
+    }
+
+    /**
+     * @param mixed $tarifaMenorFormat
+     */
+    public function setTarifaMenorFormat($tarifaMenorFormat)
+    {
+        $this->tarifaMenorFormat = $tarifaMenorFormat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCostTwoAdults()
+    {
+        return $this->costTwoAdults;
+    }
+
+    /**
+     * @param mixed $costTwoAdults
+     */
+    public function setCostTwoAdults($costTwoAdults)
+    {
+        $this->costTwoAdults = $costTwoAdults;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaReserva()
+    {
+        return $this->fechaReserva;
+    }
+
+    /**
+     * @param mixed $fechaReserva
+     */
+    public function setFechaReserva($fechaReserva)
+    {
+        $this->fechaReserva = $fechaReserva;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalAdultos()
+    {
+        return $this->totalAdultos;
+    }
+
+    /**
+     * @param mixed $totalAdultos
+     */
+    public function setTotalAdultos($totalAdultos)
+    {
+        $this->totalAdultos = $totalAdultos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalMenores()
+    {
+        return $this->totalMenores;
+    }
+
+    /**
+     * @param mixed $totalMenores
+     */
+    public function setTotalMenores($totalMenores)
+    {
+        $this->totalMenores = $totalMenores;
+    }
+
 
 }

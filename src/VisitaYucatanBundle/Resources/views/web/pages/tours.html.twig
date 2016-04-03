@@ -49,7 +49,7 @@
                                 </div>
                             </figure>
                             <figure class="img2">
-                                <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}">
+                                <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/seccion-estrellas.png') }}"/>
                                 <figcaption class="fondo-stars">
                                     <span class="estrella texto"></span>
                                     <span class="estrella icon-star-full estrella1"></span>
@@ -81,8 +81,7 @@
                                     </div>
                                     <div class="precios-tours">
                                         <!--Validacion que si el precio menor es mayour o igual a uno lo muestra y si el tour incluye menor-->
-                                        <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}
-                                            :</p>
+                                        <p class="precio-top">{% trans %}page.web.label.tours.rate.children{% endtrans %}:</p>
 
                                         <p class="precio">${{ tour.tarifamenor }} {{ tour.simboloMoneda }}</p>
                                     </div>

@@ -5,7 +5,7 @@
     </figure>
 
     <figure class="titulo-img">
-        <a href="{{ path('web_tours') }}"><img src="{{ asset('bundles/VisitaYucatanBundle/img/web/titulo-tours.png') }}" alt="logo"></a>
+        <a href="#"><img src="{{ asset(logoSection) }}" alt="logo"></a>
     </figure>
 
     <div class="top-header">
@@ -26,8 +26,8 @@
                 <li class="subMenu text-to-lowercase" onmouseover="showsubmenu(this)">
                     <a>{% trans %}page.web.menu.label.hotels{% endtrans %}</a>
                     <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
-                        <li><a href="<? echo $linkdestino; ?>">{% trans %}page.web.menu.label.hotel.cancun{% endtrans %}</a></li>
-                        <li><a href="<? echo $linkdestino; ?>">{% trans %}page.web.menu.label.hotel.merida{% endtrans %}</a></li>
+                        <li><a href="{{ path('web_hoteles_cancun') }}">{% trans %}page.web.menu.label.hotel.cancun{% endtrans %}</a></li>
+                        <li><a href="{{ path('web_hoteles_merida') }}">{% trans %}page.web.menu.label.hotel.merida{% endtrans %}</a></li>
                     </ul>
                 </li>
                 <li class="yucatan-mexico text-to-lowercase"><a href="{{ path('web_peninsulas') }}" target="_self" title="{% trans %}page.web.menu.label.peninsula{% endtrans %}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>

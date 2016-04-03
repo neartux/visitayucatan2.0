@@ -1,0 +1,40 @@
+{% extends ':web:TemplateVisitaYucatan.html.twig' %}
+
+
+{% block section %}
+
+    {% block content %}
+        <section data-ng-controller="WebTourController as ctrlWeb" ng-init="ctrlWeb.initTour({{ tour.tarifamenor }}, {{ tour.tarifaadulto }}, {{ tour.tipoCambio }});">
+            <input type="hidden" value="{{ tour.simboloMoneda }}" id="symbolCurrencyHidden"/>
+            <div id="content">
+
+
+            </div>
+
+            {% block aside %}
+                {{ parent() }}
+            {% endblock %}
+
+        </section>
+    {% endblock %}
+
+    {% block scripts %}
+        {{ parent() }}
+        <script>
+            $(function(){
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    format: 'dd/mm/yyyy',
+                    startDate: '+2d'
+                });
+            });
+        </script>
+
+    {% endblock %}
+
+
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+{% endblock %}

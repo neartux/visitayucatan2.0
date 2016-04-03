@@ -8,38 +8,80 @@
     }]);
 
     app.controller('PaqueteController', function ($scope, $http, PaqueteService) {
-        var ctrlPaquete = this;
-        ctrlPaquete.tour = undefined;
-        ctrlPaquete.listTour = PaqueteService.listTour;
-        ctrlPaquete.listLanguage = PaqueteService.listLanguage;
-        ctrlPaquete.tourIdiomaTo = PaqueteService.tourIdiomaTO;
-        ctrlPaquete.imagesTour = PaqueteService.imagesTourList;
-        ctrlPaquete.titleCreate = '';
-        ctrlPaquete.titleEdit = '';
-        ctrlPaquete.msjLoading = '';
-        ctrlPaquete.msjDeleteImage = '';
-        ctrlPaquete.titleModal = '';
-        ctrlPaquete.isNewTour = true;
-        ctrlPaquete.configTour = false;
-        ctrlPaquete.idTourGlobal = 0;
-        ctrlPaquete.nameTourTitle = '';
+        var paquetes = this;
+        paquetes.paquete = undefined;
+        /*paquetes.listPaquetes = PaqueteService.listTour;
+        paquetes.listLanguage = PaqueteService.listLanguage;
+        paquetes.paqueteIdiomaTo = PaqueteService.tourIdiomaTO;
+        paquetes.imagesPaquetes = PaqueteService.imagesTourList;*/
+        paquetes.titleCreate = '';
+        paquetes.titleEdit = '';
+        paquetes.msjLoading = '';
+        paquetes.msjDeleteImage = '';
+        paquetes.titleModal = '';
+        paquetes.isNewPaquete = true;
+        paquetes.configPaquete = false;
+        paquetes.idPaqueteGlobal = 0;
+        paquetes.nameTourTitl;
 
-        ctrlPaquete.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
-            ctrlPaquete.titleCreate = titleCreate;
-            ctrlPaquete.titleEdit = titleEdit;
-            ctrlPaquete.msjLoading = msjLoading;
-            ctrlPaquete.titleModal = titleCreate;
-            ctrlPaquete.confirmDelete = confirmDelete;
-            ctrlPaquete.msjDeleteImage = msjDeleteImg;
-            ctrlPaquete.findAllTours();
-            ctrlPaquete.findAllLanguages();
+        paquetes.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
+            paquetes.titleCreate = titleCreate;
+            paquetes.titleEdit = titleEdit;
+            paquetes.msjLoading = msjLoading;
+            paquetes.titleModal = titleCreate;
+            paquetes.confirmDelete = confirmDelete;
+            paquetes.msjDeleteImage = msjDeleteImg;
+            paquetes.initPaths();
+            paquetes.findAllPaquetes();
+            /*paquetes.findAllLanguages();*/
+            console.info("paquetes",paquetes);
+            
         };
 
-        ctrlPaquete.findAllTours = function () {
-            return PaqueteService.findToursActives();
+        paquetes.findAllPaquetes = function () {
+            PaqueteService.findPaquetesList(paquetes.paths.findList).then(function(data){
+                paquetes.listPaquetes=data;
+                console.info("paquete list", paquetes.listPaquetes);
+            });
+            console.info("paquetes paths in findAllPaquetes",paquetes);
         };
+        paquetes.initPaths = function(){
+            paquetes.paths = {
+                findList: angular.element(document.querySelector('#pathListPaquete')).context.value,
+                create: angular.element(document.querySelector('#pathCreatePaquete')).context.value
+            };
+            console.info("paths",paquetes.paths);
+        }
+        paquetes.displayNewPaquete = function () {
+            //ctrlPaquete.cleanForm();
+            paquetes.titleModal = paquetes.titleCreate;
+            paquetes.isNewPaquete = true;
+            //paquetes.newPaquete
+            $("#modalPaquete").modal();
+            setTimeout(function () {
+                $("#description").trigger('focus');
+            }, 1000);
+        };
+        paquetes.saveFormPaquete = function (isValid) {
+            // check to make sure the form is completely valid
 
-        ctrlPaquete.findAllLanguages = function () {
+            if (isValid && paquetes.newPaquete != undefined) {
+                startLoading(paquetes.msjLoading);
+                console.info("Paquetes item",paquetes.newPaquete);
+                return PaqueteService.createPaquete(paquetes.newPaquete,paquetes.paths.create).then(function (data) {
+                    stopLoading();
+                    console.info("data",data);
+                    /*if (data.data.status) {
+                        ctrlPaquete.findAllTours();
+                        updateDataTable();
+                    }
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                    $("#modalTour").modal("hide");*/
+                });
+            }
+
+        };
+        /*ctrlPaquete.findAllLanguages = function () {
             return PaqueteService.findLanguagesActives();
         };
 
@@ -189,7 +231,7 @@
             $("#description").val("");
             $("#symbolo").val("");
             $("#tipoCambio").val("");
-        };
+        };*/
 
     });
 

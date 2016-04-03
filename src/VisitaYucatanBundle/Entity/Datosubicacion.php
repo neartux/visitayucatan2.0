@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="datos_ubicacion")
  * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\DatosubicacionRepository")
  */
-class Datosubicacion
-{
+class Datosubicacion {
     /**
      * @var int
      *
@@ -20,6 +19,13 @@ class Datosubicacion
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ciudad", type="string", length=255, nullable=true)
+     */
+    private $ciudad;
 
     /**
      * @var string
@@ -34,6 +40,13 @@ class Datosubicacion
      * @ORM\Column(name="codigopostal", type="string", length=50, nullable=true)
      */
     private $codigopostal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lada", type="string", length=20, nullable=true)
+     */
+    private $lada;
 
     /**
      * @var string
@@ -186,4 +199,37 @@ class Datosubicacion
     {
         return $this->email;
     }
+
+    /**
+     * @return string
+     */
+    public function getLada()
+    {
+        return $this->lada;
+    }
+
+    /**
+     * @param string $lada
+     */
+    public function setLada($lada)
+    {
+        $this->lada = $lada;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
+
+    /**
+     * @param string $ciudad
+     */
+    public function setCiudad($ciudad)
+    {
+        $this->ciudad = $ciudad;
+    }
+
 }
