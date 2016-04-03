@@ -1,0 +1,42 @@
+<div class="modal fade in" id="modalPeninsula" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-backdrop fade in" style="height: 1037px;"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times"></span></button>
+                <h2 class="modal-title">[[ ctrlPeninsula.titleModal ]]</h2>
+            </div>
+            <form action="" class="form-horizontal row-border" name="formPeninsula" novalidate>
+                <input type="hidden" ng-model="ctrlPeninsula.currency.id"/>
+                <div class="modal-body">
+                    <div class="form-group" ng-class="{ 'has-error' : formPeninsula.descripcion.$invalid && !formPeninsula.descripcion.$pristine }">
+                        <label class="col-sm-2 control-label text-bold text-uppercase">
+                            Nombre
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" id="description" ng-model="ctrlPeninsula.peninsula.descripcion" name="descripcion" class="form-control" required/>
+                                <span ng-show="formPeninsula.nombre.$invalid && !formPeninsula.nombre.$pristine" class="help-block">
+                                    {% trans %}catalog.currency.report.message.error.nombre{% endtrans %}
+                                </span>
+                        </div>
+                    </div> 
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times-circle-o"></span> &nbsp;
+                        {% trans %}button.label.close{% endtrans %}
+                    </button>
+                    <button data-ng-show="ctrlPeninsula.isNewPeninsula" type="button" class="btn btn-primary" data-ng-click="ctrlPeninsula.saveFormPeninsula(formPeninsula.$valid)" ng-disabled="formPeninsula.$invalid">
+                        <span class="fa fa-save"></span> &nbsp;
+                        Guardar
+                    </button>
+                    <button data-ng-show="!ctrlPeninsula.isNewPeninsula" type="button" class="btn btn-primary" data-ng-click="ctrlPeninsula.updatePeninsula(formPeninsula.$valid)" ng-disabled="formPeninsula.$invalid">
+                        <span class="fa fa-save"></span> &nbsp;
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

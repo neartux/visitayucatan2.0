@@ -21,6 +21,7 @@
         };
 
         service.addLanguage = function (objLanguage) {
+            console.info("addLanguage = "+JSON.stringify(objLanguage));
             service.listLanguage.data.push(objLanguage);
         }
 
@@ -29,7 +30,7 @@
            angular.forEach(service.listLanguage.data, function(valor, indice) {
                 if(iterate){
                     if (id == valor.id ){
-                        service.listLanguage.data.splice(indice);
+                        service.listLanguage.data.splice(indice, 1);
                         iterate = false;
                     }
                 }                    
@@ -49,6 +50,7 @@
         };
 
         service.createLanguage = function(language){
+            console.info("Peninsula = "+JSON.stringify(language));
             var path = $("#pathCreateLanguage").val();
             return $http.post(path, $.param({language : JSON.stringify(language)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

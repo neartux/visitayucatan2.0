@@ -30,7 +30,8 @@
         };
 
         ctrlLanguage.displayNewLanguage = function(){
-            ctrlLanguage.cleanForm();
+         ctrlLanguage.language = undefined;
+          ctrlLanguage.cleanForm();
             ctrlLanguage.titleModal = ctrlLanguage.titleCreate;
             ctrlLanguage.isNewLanguage = true;
             $("#modalLanguage").modal();
@@ -51,9 +52,9 @@
 
         ctrlLanguage.saveFormLanguage = function(isValid) {
             // check to make sure the form is completely valid
+
             if (isValid && ctrlLanguage.language != undefined) {
                 startLoading(ctrlLanguage.msjLoading);
-                console.info(JSON.stringify(ctrlLanguage.language));
                 return LanguageService.createLanguage(ctrlLanguage.language).then(function(data){
                     $("#modalLanguage").modal("hide");
                     stopLoading();
@@ -77,6 +78,7 @@
                     stopLoading();
                     if(data.data.status){
                         LanguageService.updateLanguageOfTheList(ctrlLanguage.language);
+                        ctrlPeninsula.peninsula = undefined;
                     }
                     pNotifyView(data.data.message, data.data.typeStatus);
                 });

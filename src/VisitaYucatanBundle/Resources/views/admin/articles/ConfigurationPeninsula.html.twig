@@ -1,13 +1,13 @@
 
 <div class="row">
     <div class="col-md-3 text-left">
-        <button style="margin-bottom:15px;" class="btn btn-success" data-ng-click="ctrlTour.returnListTour()">
-            <span class="fa fa-mail-reply"></span>&nbsp;{% trans %}button.label.go.back{% endtrans %}
+        <button style="margin-bottom:15px;" class="btn btn-success" data-ng-click="ctrlPeninsula.returnListPeninsula()">
+            <span class="fa fa-mail-reply"></span>&nbsp;Regresar
         </button>
     </div>
         <div class="col-md-9 text-right">
             <span class="text-bold">
-                    [[ ctrlTour.nameTourTitle ]]
+                 [[ ctrlPeninsula.namePeninsulaTitle ]]
                 </sapn>
         </div>
     
@@ -22,27 +22,21 @@
                 <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
                 <div class="options">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#information-tour" data-toggle="tab">
+                        <li class="active"><a href="#information-peninsula" data-toggle="tab">
                                 <i class="fa fa-info text-info"></i>&nbsp;&nbsp;Información</a>
                         </li>
-                        <li><a href="#images-tour" data-toggle="tab" data-ng-click="ctrlFile.setIdApplication(ctrlTour.idTourGlobal)">
-                                <i class="fa fa-image text-info"></i>&nbsp;&nbsp;Fotografías</a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="information-tour">
+                    <div class="tab-pane active" id="information-peninsula">
 
-                        {% include '@VisitaYucatan/admin/tours/TabPaneInformationTourLanguage.html.twig' %}
-
-                    </div>
-                    <div class="tab-pane" id="images-tour">
-
-                        {% include '@VisitaYucatan/admin/tours/TabPaneImagesTourLanguage.html.twig' %}
+                        {% include '@VisitaYucatan/admin/articles/TabPaneInformationPeninsulaLanguage.html.twig' %}
 
                     </div>
+                 
                 </div>
             </div>
         </div>

@@ -19,12 +19,12 @@ class ArticuloRepository extends \Doctrine\ORM\EntityRepository {
 
         $sql = "SELECT articulo.id,articulo.descripcion,articulo_idioma.nombre,articulo_idioma.descripcion AS descripcionidioma
                 FROM articulo
-                INNER JOIN articulo_idioma ON articulo.id = articulo_idioma.id_articulo
-                INNER JOIN idioma ON idioma.id = articulo_idioma.id_idioma AND idioma.id = :idioma AND idioma.id_estatus = :estatus
-                WHERE articulo.tipoarticulo = :tipoPeninsula
+                LEFT JOIN articulo_idioma ON articulo.id = articulo_idioma.id_articulo AND articulo_idioma.id_idioma = :idioma
+                LEFT JOIN idioma ON idioma.id = articulo_idioma.id_idioma AND idioma.id = :idioma AND idioma.id_estatus = :estatus
+                WHERE articulo.tipoarticulo = :tipoArticulo
                 AND articulo.id_estatus = :estatus";
 
-        $params['tipoPeninsula'] = $tipoArticulo;
+        $params['tipoArticulo'] = $tipoArticulo;
         $params['idioma'] = Generalkeys::IDIOMA_ESPANOL;
         $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
 
@@ -54,21 +54,22 @@ class ArticuloRepository extends \Doctrine\ORM\EntityRepository {
         return $stmt->fetch();
     }
 
-    public function createArticulo($descripcion, $tipoArticulo, $seccionArticulo){
+    public function createArticulo($nombre, $tipoArticulo, $seccionArticulo){
         $em = $this->getEntityManager();
         $articulo = new Articulo();
-        $articulo->setDescripcion($descripcion);
+        $articulo->setDescripcion($nombre);
         $articulo->setTipoArticulo($tipoArticulo);
         if(! is_null($seccionArticulo)){
             $articulo->setSeccionArticulo($seccionArticulo);
         }
-        $articulo->setEstatus($em->getReference('VisitaYucatanBundle:Estatus'), Estatuskeys::ESTATUS_ACTIVO);
+        $articulo->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
 
         $em->persist($articulo);
         $em->flush();
+        return $articulo->getId();
     }
 
-    public function updateArticulo($idArticulo, $descripcion){
+    public function updateArticulo($idArticulo, $nombre){
         $em = $this->getEntityManager();
 
         $articulo = $this->find($idArticulo);
@@ -77,7 +78,7 @@ class ArticuloRepository extends \Doctrine\ORM\EntityRepository {
             throw new EntityNotFoundException('El articulo con id ' . $idArticulo . " no se encontro");
         }
 
-        $articulo->setDescripcion($descripcion);
+        $articulo->setDescripcion($nombre);
 
         $em->persist($articulo);
         $em->flush();
@@ -85,16 +86,47 @@ class ArticuloRepository extends \Doctrine\ORM\EntityRepository {
 
     public function deleteArticulo($idArticulo){
         $em = $this->getEntityManager();
-
+        //$articulo = $em->getRepository('VisitaYucatanBundle:Articulo')->find($idArticulo);
         $articulo = $this->find($idArticulo);
-
+          
         if(! $articulo){
-            throw new EntityNotFoundException('El articulo con id ' . $idArticulo . " no se encontro");
+            throw new EntityNotFoundException('El articulo con id ' . $idArticulo . 
+                " no se encontro");
         }
 
-        $articulo->setEstatus($em->getReference('VisitaYucatanBundle:Estatus'), Estatuskeys::ESTATUS_INACTIVO);
 
-        $em->persist($articulo);
+             
+        $articulo->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
+        $em->persist($articulo); 
         $em->flush();
     }
+
+    public function deletePeninsula($idPeninsula){
+        $em = $this->getEntityManager();
+        $peninsula = $em->getRepository('VisitaYucatanBundle:Articulo')->find($idPeninsula);
+        if(! $peninsula){
+            throw new EntityNotFoundException('La peninsula con id '.$idPeninsula." no se encontro");
+        }
+        $peninsula->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
+        $em->persist($peninsula);
+        $em->flush();
+    }
+   
+   public function getPeninsulas($idioma, $offset, $limit){
+
+    $em = $this->getEntityManager();
+    $sql = "SELECT articulo.id, articulo_idioma.nombre,articulo_idioma.descripcion AS descripcionidioma
+                FROM articulo
+                inner JOIN articulo_idioma ON articulo.id = articulo_idioma.id_articulo AND articulo_idioma.id_idioma = :idioma
+                inner JOIN idioma ON idioma.id = articulo_idioma.id_idioma AND idioma.id = :idioma  AND idioma.id_estatus = :estatusActivo
+                WHERE articulo.tipoarticulo = 'peninsula'
+                AND articulo.id_estatus = :estatusActivo";
+
+    $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+    $params['idioma'] = $idioma;
+    $stmt = $em->getConnection()->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll();
+   }
+
 }

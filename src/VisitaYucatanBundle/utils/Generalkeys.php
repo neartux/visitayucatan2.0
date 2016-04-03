@@ -45,6 +45,7 @@ class Generalkeys{
     const TIPO_ARTICULO_PENINSULA = 'peninsula';
     const TIPO_ARTICULO_PAGINA = 'pagina';
     const TIPO_ARTICULO_PAGINA_TOUR = 'tour';
+    const TIPO_ARTICULO_PAGINA_PENINSULA = 'peninsula';
     const TIPO_ARTICULO_PAGINA_PAQUETE = 'paquete';
     const TIPO_ARTICULO_PAGINA_HOTEL = 'hotel';
     const CLASS_HEADER_TOUR = 'img-tours';

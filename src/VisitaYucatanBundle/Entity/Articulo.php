@@ -38,7 +38,7 @@ class Articulo {
     /**
      * @var string
      *
-     * @ORM\Column(name="seccionarticulo", type="text")
+     * @ORM\Column(name="seccionarticulo", type="text", nullable=true)
      */
     private $seccionArticulo;
 
