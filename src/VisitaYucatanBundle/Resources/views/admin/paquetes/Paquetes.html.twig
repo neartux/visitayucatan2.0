@@ -62,7 +62,7 @@
                                                     <td>
                                                         <a class="btn btn-success-alt" data-ng-click="paquetes.displayEditTour(p)" href="javascript:;"><i class="fa fa-pencil"></i></a>
                                                         <a class="btn btn-success-alt" data-ng-click="paquetes.configurateTour(p)" href="javascript:;"><i class="fa  fa-gears"></i></a>
-                                                        <a class="btn btn-danger-alt" data-ng-click="paquetes.deleteTour(p.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
+                                                        <a class="btn btn-danger-alt" data-ng-click="paquetes.deletePaquete(p.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
                                                     </td>
                                                     <td>
                                                         <span data-ng-if="p.promovido == 0">
@@ -98,6 +98,7 @@
         <!--Paths-->
         <input type="hidden" id="pathListPaquete" value="{{ path('paquete_find_list') }}"/>
         <input type="hidden" id="pathCreatePaquete" value="{{ path('paquete_create') }}"/>
+        <input type="hidden" id="pathDeletePaquete" value="{{ path('paquete_delete') }}" />
         
     </div>
 

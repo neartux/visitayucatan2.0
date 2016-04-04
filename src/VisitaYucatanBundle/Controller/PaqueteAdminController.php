@@ -57,4 +57,26 @@ class PaqueteAdminController extends Controller {
 		   return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 		}
  	}
+
+ 	/**
+     * @Route("/admin/paquete/delete", name="paquete_delete")
+     * @Method("POST")
+   */
+	public function deleteTourAction(Request $request) {
+		$serializer = $this->get('serializer');
+		try {
+		   $idPaquete = $request->get('idPaquete');
+		   $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->deletePaquete($idPaquete);
+
+		   $translator = $this->get('translator');
+		   $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.deleted"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+		   return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+		} catch (\Exception $e) {
+
+		   $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+		   return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+		}
+
+	}
 }

@@ -37,6 +37,12 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
+        service.deletePaqueteById = function(path,idPaquete){
+            //var path = $("#pathDeleteHotel").val();
+            return $http.post(path, $.param({idPaquete : idPaquete}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
         /*service.findContactsHotel = function(idHotel){
             var path = $("#pathContacts").val();
             service.contactHotelList.data = [];

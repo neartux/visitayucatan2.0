@@ -5,6 +5,7 @@ namespace VisitaYucatanBundle\Repository;
 use VisitaYucatanBundle\utils\Estatuskeys;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\Entity\Paquete;
+use VisitaYucatanBundle\Entity\PaqueteIdioma;
 
 /**
  * PaqueteRepository
@@ -56,6 +57,28 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
 		$paquete->setCircuito($paqueteTo->getCircuito());
 		$paquete->setPromovido(Generalkeys::BOOLEAN_FALSE);
 		$paquete->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+		$em->persist($paquete);
+
+		$paqueteIdioma = new PaqueteIdioma();
+		$paqueteIdioma->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', Generalkeys::IDIOMA_ESPANOL));
+		$paqueteIdioma->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+		$paqueteIdioma->setPaquete($paquete);
+		$paqueteIdioma->setDescripcion($paqueteTo->getDescripcion());
+		$paqueteIdioma->setDescripcionCorta('');
+		$paqueteIdioma->setDescripcionLarga('');
+		$paqueteIdioma->setIncluye('');
+
+		$em->persist($paqueteIdioma);
+
+		$em->flush();
+	}
+	public function deletePaquete($idPaquete){
+		$em = $this->getEntityManager();
+		$paquete = $em->getRepository('VisitaYucatanBundle:Paquete')->find($idPaquete);
+		if (!$paquete) {
+		   throw new EntityNotFoundException('El tour con id ' . $idPaquete . " no se encontro");
+		}
+		$paquete->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
 		$em->persist($paquete);
 		$em->flush();
 	}
