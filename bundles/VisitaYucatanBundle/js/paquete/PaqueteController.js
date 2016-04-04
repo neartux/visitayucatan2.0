@@ -48,12 +48,13 @@
         paquetes.initPaths = function(){
             paquetes.paths = {
                 findList: angular.element(document.querySelector('#pathListPaquete')).context.value,
-                create: angular.element(document.querySelector('#pathCreatePaquete')).context.value
+                create: angular.element(document.querySelector('#pathCreatePaquete')).context.value,
+                deletePaquete:angular.element(document.querySelector('#pathDeletePaquete')).context.value
             };
             console.info("paths",paquetes.paths);
         }
         paquetes.displayNewPaquete = function () {
-            //ctrlPaquete.cleanForm();
+            paquetes.cleanForm();
             paquetes.titleModal = paquetes.titleCreate;
             paquetes.isNewPaquete = true;
             //paquetes.newPaquete
@@ -68,18 +69,35 @@
             if (isValid && paquetes.newPaquete != undefined) {
                 startLoading(paquetes.msjLoading);
                 console.info("Paquetes item",paquetes.newPaquete);
-                return PaqueteService.createPaquete(paquetes.newPaquete,paquetes.paths.create).then(function (data) {
+                return PaqueteService.createPaquete(paquetes.newPaquete,paquetes.paths.create).then(function (r) {
                     stopLoading();
-                    console.info("data",data);
-                    /*if (data.data.status) {
-                        ctrlPaquete.findAllTours();
-                        updateDataTable();
+                    console.info("data",r);
+                    if (r.data.status) {
+                        paquetes.findAllPaquetes();
+                        //updateDataTable();
                     }
-                    pNotifyView(data.data.message, data.data.typeStatus);
-                    $("#modalTour").modal("hide");*/
+                    pNotifyView(r.data.message, r.data.typeStatus);
+                    $("#modalPaquete").modal("hide");
                 });
             }
 
+        };
+        paquetes.deletePaquete = function (idPaquete) {
+            if (confirm(paquetes.confirmDelete)) {
+                return PaqueteService.deletePaqueteById(paquetes.paths.deletePaquete,idPaquete).then(function (data) {
+                    if (data.data.status) {
+                        paquetes.findAllPaquetes();
+                    }
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
+        };
+        paquetes.cleanForm = function(){
+            paquetes.newPaquete = {
+                descripcion:'',
+                circuito:''
+            }
+            $scope.formPaquete.$setPristine();
         };
         /*ctrlPaquete.findAllLanguages = function () {
             return PaqueteService.findLanguagesActives();
