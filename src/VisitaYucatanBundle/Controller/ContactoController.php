@@ -48,6 +48,8 @@ class ContactoController extends Controller {
         );
         $this->get('mailer')->send($message);
 
+        $this->get('session')->getFlashBag()->add('notice', 'Se ha enviado la información, en breve nos comunicaremos');
+
         return $this->redirectToRoute('web_contacto');
     }
 

@@ -7,11 +7,24 @@
         <section>
             <div id="content">
 
+                {% if app.session.flashbag.get('notice') %}
+
+                    <div class="sectionMessageSuccess">
+                        {% for flashMessage in app.session.flashbag.get('notice') %}
+
+                            {{ flashMessage }}
+
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+
                 <form action="{{ path('web_contactar') }}" method="POST">
                     Estamos para ayudarte <br>
-                    Nombre: <input type="text"/> <br>
-                    Telefono: <input type="text"/> <br>
-                    Correo: <input type="text"/> <br><br>
+                    Nombre: <input type="text" name="nombre"/> <br>
+                    Telefono: <input type="text" name="telefono"/> <br>
+                    Correo: <input type="text" name="email"/> <br><br>
+                    Comentarios: <textarea name="comentarios" cols="30" rows="10"></textarea>
                     <input type="submit" value="enviar correo"/>
                 </form>
 
