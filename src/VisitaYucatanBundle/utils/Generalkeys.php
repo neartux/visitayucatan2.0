@@ -56,4 +56,14 @@ class Generalkeys{
     const IMG_NAME_SECCION_WEB_TOUR = 'bundles/VisitaYucatanBundle/img/web/titulo-tours.png';
     const IMG_NAME_SECCION_WEB_HOTEL = 'bundles/VisitaYucatanBundle/img/web/titulo-hoteles.png';
     const IMG_NAME_SECCION_WEB_PACKAGE = 'bundles/VisitaYucatanBundle/img/web/titulo-paquetes.png';
+    const bcc_email = 'near31_3112@hotmail.com';
+    const gabino_martinez_email = 'gmartinez@visitayucatan.com';
+    const director_viyuc_email = 'director@visitayucatan.com';
+    const f_capetillo_email = 'fcapetilloc@visitayucatan.com';
+    const faustino_pech_email = 'faustinopech@posadatoledo.com';
+    const no_responder_email = 'noresponder@visitayucatan.com';
+
+    public static function getMailsCcContact(){
+        return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);
+    }
 }

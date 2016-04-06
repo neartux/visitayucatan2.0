@@ -30,36 +30,28 @@ class ContactoController extends Controller {
      * @Route("/contacto/solicitud/informacion", name="web_contactar")
      * @Method("POST")
      */
-    public function sendMailContact(){
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Hello Email')
-            ->setFrom('near31_3112@hotmail.com')
-            ->setTo('near31_3112@hotmail.com')
-            ->setBody(
-                $this->renderView(
-                // app/Resources/views/Emails/registration.html.twig
-                    '@VisitaYucatan/web/pages/mail/contacto.html.twig',
-                    array('name' => 'REDU')
-                ),
-                'text/html'
-            )
-            /*
-             * If you also want to include a plaintext version of the message
-            ->addPart(
-                $this->renderView(
-                    'Emails/registration.txt.twig',
-                    array('name' => $name)
-                ),
-                'text/plain'
-            )
-            */
-        ;
+    public function sendMailContact(Request $request) {
+        $message = \Swift_Message::newInstance();
+        $message->setSubject('Se ha generado un nuevo prospecto | Visita Yucatan‏');
+        $message->setFrom('notificaciones@visitayucatan.com');
+        // TODO desconmentar la siguiente linea cuando ya este en produccion
+        //$message->setTo(Generalkeys::gabino_martinez_email);
+        // TODO eliminar la siguiente linea cuando este en produccion
+        $message->setTo(Generalkeys::bcc_email);
+        $message->setReplyTo(Generalkeys::no_responder_email);
+        // TODO desconmentar la siguiente linea cuando ya este en produccion
+        //$message->setCc(Generalkeys::getMailsCcContact());
+        $message->setBcc(Generalkeys::bcc_email);
+        $message->setBody(
+            $this->renderView('@VisitaYucatan/web/pages/mail/contacto.html.twig',
+                array('nombre' => $request->get('nombre'), 'telefono' => $request->get('telefono'), 'email' => $request->get('email'), 'comentarios' => $request->get('comentarios'))), 'text/html'
+        );
         $this->get('mailer')->send($message);
 
         return $this->redirectToRoute('web_contacto');
     }
 
-    private function getParamsTour($request){
+    private function getParamsTour($request) {
         // Obtiene la session del request para obtener moneda e idioma
         $session = $request->getSession();
         // Obtiene el idioma de la sesion
@@ -67,7 +59,7 @@ class ContactoController extends Controller {
         // Obtiene el idioma de la session
         $moneda = $session->get('_currency');
         //valida la moneda, si es null coloca la moneda mexicana
-        if(is_null($moneda)){
+        if (is_null($moneda)) {
             $moneda = Generalkeys::MEXICAN_CURRENCY;
             // colocal la moneda en session
             $session->set('_currency', $moneda);
@@ -76,7 +68,7 @@ class ContactoController extends Controller {
         $idIdioma = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->getIdIdiomaByAbreviatura($idioma);
 
         // Valida el idioma
-        if(is_null($idioma)){
+        if (is_null($idioma)) {
             $session->set('_locale', Generalkeys::SPANISH_LANGUAGE);
         }
 
