@@ -4,9 +4,37 @@
 {% block section %}
 
     {% block content %}
-        <section data-ng-controller="WebTourController as ctrlWeb" ng-init="ctrlWeb.initTour({{ tour.tarifamenor }}, {{ tour.tarifaadulto }}, {{ tour.tipoCambio }});">
-            <input type="hidden" value="{{ tour.simboloMoneda }}" id="symbolCurrencyHidden"/>
+        <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-daterangepicker/daterangepicker-bs3.css') }}" type="text/css" rel="stylesheet" />
+
+        <section data-ng-controller="WebHotelController as ctrlWeb" ng-init="ctrlWeb.init('{{ dateFrom }}', '{{ dateTo }}');">
+            <input type="hidden" value="" id="symbolCurrencyHidden"/>
             <div id="content">
+
+                <b>Tarifas</b> <br>
+
+                Adultos:
+                <select name="" id="">
+                    <option value="1">1</option>
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+
+                Menores:
+                <select name="" id="">
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select> <br>
+
+                Desde: <input type="text" name="fechaReserva" id="dateFrom" class="datepicker" readonly/>
+                Hasta: <input type="text" name="fechaReserva" id="dateTo" class="datepicker" readonly/> <br>
+
+                <button data-ng-click="">
+                    Buscar
+                </button>
 
 
             </div>
@@ -20,12 +48,14 @@
 
     {% block scripts %}
         {{ parent() }}
+        <script src="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
         <script>
             $(function(){
+
                 $('.datepicker').datepicker({
                     autoclose: true,
                     format: 'dd/mm/yyyy',
-                    startDate: '+2d'
+                    startDate: '+1d'
                 });
             });
         </script>

@@ -64,7 +64,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository {
         $params['idioma'] = $idioma;
         $params['moneda'] = $idMoneda;
         $params['origen'] = Generalkeys::ORIGEN_MERIDA; // Este es estatico solo hay origen desde merida por ahora
-        $params['idTour'] = $idTour; // Este es estatico solo hay origen desde merida por ahora
+        $params['idTour'] = $idTour;
 
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);

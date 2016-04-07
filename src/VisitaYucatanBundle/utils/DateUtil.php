@@ -49,4 +49,20 @@ class DateUtil
     public static function summOneDayToDate($date) {
         return date ( Generalkeys::PATTERN_DATE_MYSQL , strtotime ( '+1 day' , strtotime ($date) ) );
     }
+
+    public static function summDayToDate($date, $dias){
+        return date ( Generalkeys::PATTERN_DATE_MYSQL , strtotime ( '+'.$dias.' day' , strtotime ($date) ) );
+    }
+
+    public static function Now(){
+        return date('Y-m-d');
+    }
+
+    public static function formatDateToString($fecha){
+        // yyyy-mm-dd
+        $fechaParts = explode('-', trim($fecha));
+
+        // dd/mm/yyyy
+        return $fechaParts[Generalkeys::NUMBER_TWO] . Generalkeys::STRING_SLASH . $fechaParts[Generalkeys::NUMBER_ONE] . Generalkeys::STRING_SLASH . $fechaParts[Generalkeys::NUMBER_ZERO];
+    }
 }

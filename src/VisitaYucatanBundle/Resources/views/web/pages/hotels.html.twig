@@ -40,7 +40,7 @@
                             <div class="section-left">
                                 <h2 class="titulo-top">{{ hotel.nombreHotel }}</h2>
                                 <div class="img1 view">
-                                    <a href="<? echo $link; ?>" title="<? echo">
+                                    <a href="{{ path('web_hotel_detail', {'id': hotel.id}) }}">
                                         <img src="{{ asset(hotel.principalImage) }}"/>
                                     </a>
                                     <div class="mask">
@@ -79,7 +79,7 @@
                                         </div>
                                     </div>
                                     <div class="informacion-detalles">
-                                        <a href="<? echo $link; ?>" title="Ver más información"><p class="first-texto">{% trans %}page.web.label.hotels.more.information{% endtrans %}</p>
+                                        <a href="{{ path('web_hotel_detail', {'id': hotel.id}) }}" title="Ver más información"><p class="first-texto">{% trans %}page.web.label.hotels.more.information{% endtrans %}</p>
                                             <p class="second-texto">
                                                 <span class="icon-play3"></span>
                                             </p>

@@ -58,6 +58,29 @@
 
     });
 
+    app.controller("WebHotelController", function ($scope, $http, WebService) {
+        var ctrlHotel = this;
+        ctrlHotel.hotel = {};
+
+        ctrlHotel.init = function(dateFrom, dateTo, idHotel) {
+            ctrlHotel.hotel.idHotel = idHotel;
+            console.info(dateFrom, dateTo);
+            angular.element(document.querySelector('#dateFrom')).context.value = dateFrom;
+            angular.element(document.querySelector('#dateTo')).context.value = dateTo;
+        };
+
+        ctrlHotel.findTarifasHotel = function() {
+
+        };
+
+        ctrlHotel.isSammeDates = function (dateFrom, dateTo){
+            console.info(dateFrom, dateTo);
+            if(dateFrom == dateTo){
+                alert("es misma fecha");
+            }
+        };
+    });
+
     app.controller('WebCommonsController', function($scope, $http, WebService){
         var ctrlCommons = this;
         ctrlCommons.objCatalog = {

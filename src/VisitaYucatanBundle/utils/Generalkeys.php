@@ -22,6 +22,7 @@ class Generalkeys{
     const NUMBER_ZERO = 0;
     const NUMBER_ONE = 1;
     const NUMBER_TWO = 2;
+    const NUMBER_THREE = 3;
     const STRING_SLASH = '/';
     const STRING_DASH = '-';
     const NUMBER_TWO_HUNDRED = 200;

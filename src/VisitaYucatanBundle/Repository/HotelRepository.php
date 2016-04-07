@@ -41,6 +41,32 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
         return $stmt->fetchAll();
     }
 
+    public function getHotelById($idHotel, $idioma, $idMoneda){
+        $em = $this->getEntityManager();
+
+        $sql = "SELECT hotel.id,hotel.estrellas,hotel_idioma.nombrehotel,hotel_idioma.descripcion,hotel_imagen.path AS imagen,moneda.simbolo,hotel_tarifa.doble
+                ,(min(hotel_tarifa.doble)/moneda.tipo_cambio) AS tarifa
+                FROM hotel
+                INNER JOIN hotel_tarifa ON hotel.id = hotel_tarifa.id_hotel AND hotel_tarifa.fecha = curdate() AND hotel_tarifa.id_estatus = :estatusActivo
+                INNER JOIN hotel_idioma ON hotel.id = hotel_idioma.id_hotel AND hotel_idioma.id_idioma = :idioma AND hotel_idioma.id_estatus = :estatusActivo
+                INNER JOIN idioma ON idioma.id = hotel_idioma.id_idioma AND idioma.id = :idioma AND idioma.id_estatus = :estatusActivo
+                INNER JOIN moneda ON moneda.id = :moneda AND moneda.id_estatus = :estatusActivo
+                LEFT JOIN hotel_imagen ON hotel.id = hotel_imagen.id_hotel AND hotel_imagen.principal = TRUE  AND hotel_imagen.id_estatus = :estatusActivo
+                WHERE hotel.id = :idHotel
+                AND hotel.id_estatus = :estatusActivo
+                AND hotel.promovido = TRUE
+                GROUP BY hotel_tarifa.id_hotel LIMIT 1;";
+
+        $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+        $params['idioma'] = $idioma;
+        $params['moneda'] = $idMoneda;
+        $params['idHotel'] = $idHotel;
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetch();
+    }
+
     public function findAllHotels() {
         $em = $this->getEntityManager();
         $sql = "SELECT hotel.id, hotel.descripcion, hotel.estrellas, hotel.promovido, destino.id AS idDestino,
