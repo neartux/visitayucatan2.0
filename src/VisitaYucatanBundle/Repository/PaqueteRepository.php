@@ -72,6 +72,27 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
 
 		$em->flush();
 	}
+	public function updatePaquete($paqueteTO) {
+        $em = $this->getEntityManager();
+        $paqueteUpdate = $this->find($paqueteTO->getId());
+        if (!$paqueteUpdate) {
+            throw new EntityNotFoundException('El paquete con id ' . $paqueteTO->getId() . " no se encontro");
+        }
+        // Actualiza la informacion del tour
+        $paqueteUpdate->setDescripcion($paqueteTO->getDescripcion());
+        $paqueteUpdate->setCircuito($paqueteTO->getCircuito());
+        $em->persist($paqueteUpdate);
+
+        // Actualiza la informacion de tarigas para el origen seleccionado
+        /*$tourOrigen = $em->getRepository('VisitaYucatanBundle:TourOrigen')->find($tourTO->getIdtourorigen());
+        if (!$tourOrigen) {
+            throw new EntityNotFoundException('El tour origen ' . $tourTO->getIdtourorigen() . " no se encontro");
+        }
+        $tourOrigen->setTarifaAdulto($tourTO->getTarifaadulto());
+        $tourOrigen->setTarifaMenor($tourTO->getTarifamenor());*/
+
+        $em->flush();
+    }
 	public function deletePaquete($idPaquete){
 		$em = $this->getEntityManager();
 		$paquete = $em->getRepository('VisitaYucatanBundle:Paquete')->find($idPaquete);

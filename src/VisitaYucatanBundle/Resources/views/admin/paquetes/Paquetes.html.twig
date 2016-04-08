@@ -60,7 +60,7 @@
                                                     <td>[[ p.nombrepaquete ]]</td>
                                                     <td>[[ p.circuito ]]</td>
                                                     <td>
-                                                        <a class="btn btn-success-alt" data-ng-click="paquetes.displayEditTour(p)" href="javascript:;"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-success-alt" data-ng-click="paquetes.displayEditPaquete(p)" href="javascript:;"><i class="fa fa-pencil"></i></a>
                                                         <a class="btn btn-success-alt" data-ng-click="paquetes.configurateTour(p)" href="javascript:;"><i class="fa  fa-gears"></i></a>
                                                         <a class="btn btn-danger-alt" data-ng-click="paquetes.deletePaquete(p.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
                                                     </td>
@@ -99,6 +99,8 @@
         <input type="hidden" id="pathListPaquete" value="{{ path('paquete_find_list') }}"/>
         <input type="hidden" id="pathCreatePaquete" value="{{ path('paquete_create') }}"/>
         <input type="hidden" id="pathDeletePaquete" value="{{ path('paquete_delete') }}" />
+        <input type="hidden" id="pathUpdatePaquete" value="{{ path('paquete_update') }}" />
+        
         
     </div>
 

@@ -43,6 +43,12 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
+        service.updatePaquete = function(path,paquete){
+            //var path = $("#pathUpdateTour").val();
+            return $http.post(path, $.param({paquete : JSON.stringify(paquete)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
         /*service.findContactsHotel = function(idHotel){
             var path = $("#pathContacts").val();
             service.contactHotelList.data = [];

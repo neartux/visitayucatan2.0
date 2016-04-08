@@ -20,7 +20,7 @@
                                 </span>
                         </div>
                     </div>
-                    <div class="form-group" ng-class="{ 'has-error' : formPaquete.circuito.$invalid && !formPaquete.circuito.$pristine && paquetes.isNewPaquete }" data-ng-show="paquetes.isNewPaquete">
+                    <div class="form-group" ng-class="{ 'has-error' : formPaquete.circuito.$invalid && !formPaquete.circuito.$pristine && paquetes.isNewPaquete }">
                         <label class="col-sm-2 control-label text-bold text-uppercase">
                             Circuito
                         </label>
@@ -42,7 +42,7 @@
                         <span class="fa fa-save"></span> &nbsp;
                         {% trans %}button.label.save{% endtrans %}
                     </button>
-                    <button data-ng-show="!paquetes.isNewPaquete" type="button" class="btn btn-primary" data-ng-click="paquetes.updateTour(formPaquete.$valid)" ng-disabled="formPaquete.$invalid">
+                    <button data-ng-show="!paquetes.isNewPaquete" type="button" class="btn btn-primary" data-ng-click="paquetes.updatePaquete(formPaquete.$valid)" ng-disabled="formPaquete.$invalid">
                         <span class="fa fa-save"></span> &nbsp;
                         {% trans %}button.label.edit{% endtrans %}
                     </button>

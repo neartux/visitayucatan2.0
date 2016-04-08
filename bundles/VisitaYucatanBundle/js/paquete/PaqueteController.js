@@ -49,7 +49,8 @@
             paquetes.paths = {
                 findList: angular.element(document.querySelector('#pathListPaquete')).context.value,
                 create: angular.element(document.querySelector('#pathCreatePaquete')).context.value,
-                deletePaquete:angular.element(document.querySelector('#pathDeletePaquete')).context.value
+                deletePaquete:angular.element(document.querySelector('#pathDeletePaquete')).context.value,
+                updatePaquete:angular.element(document.querySelector('#pathUpdatePaquete')).context.value
             };
             console.info("paths",paquetes.paths);
         }
@@ -91,6 +92,35 @@
                     pNotifyView(data.data.message, data.data.typeStatus);
                 });
             }
+        };
+        paquetes.displayEditPaquete = function (paquete) {
+            paquetes.titleModal = paquetes.titleEdit;
+            console.info("displayEditPaquete",paquete);
+            paquetes.newPaquete = {
+                id:paquete.id,descripcion:paquete.nombrepaquete,circuito:paquete.circuito,promovido:paquete.promovido
+            };
+
+            paquetes.isNewPaquete = false;
+            $("#modalPaquete").modal();
+            setTimeout(function () {
+                $("#description").trigger('focus');
+            }, 1000);
+        };
+        paquetes.updatePaquete = function (isValid) {
+            // check to make sure the form is completely valid
+            if (isValid && paquetes.newPaquete != undefined) {
+                console.info("paquetes update",paquetes.newPaquete);
+                startLoading(paquetes.msjLoading);
+                return PaqueteService.updatePaquete(paquetes.paths.updatePaquete,paquetes.newPaquete).then(function (data) {
+                    stopLoading();
+                    if (data.data.status) {
+                        paquetes.findAllPaquetes();
+                    }
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                    $("#modalPaquete").modal("hide");
+                });
+            }
+
         };
         paquetes.cleanForm = function(){
             paquetes.newPaquete = {

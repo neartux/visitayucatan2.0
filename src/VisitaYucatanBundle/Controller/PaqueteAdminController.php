@@ -59,6 +59,28 @@ class PaqueteAdminController extends Controller {
  	}
 
  	/**
+     * @Route("/admin/paquete/update", name="paquete_update")
+     * @Method("POST")
+   */
+	public function updatePaqueteAction(Request $request) {
+		$serializer = $this->get('serializer');
+        try {
+            $paqueteJson = $request->get('paquete');
+            $paqueteTO = $serializer->deserialize($paqueteJson, 'VisitaYucatanBundle\utils\to\PaqueteTO', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->updatePaquete($paqueteTO);
+
+            $translator = $this->get('translator');
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Paquete actualizado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        } catch (\Exception $e) {
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
+	}
+
+ 	/**
      * @Route("/admin/paquete/delete", name="paquete_delete")
      * @Method("POST")
    */
