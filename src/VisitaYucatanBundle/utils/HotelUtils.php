@@ -9,6 +9,7 @@ namespace VisitaYucatanBundle\utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use VisitaYucatanBundle\utils\to\ContractTO;
 use VisitaYucatanBundle\utils\to\HabitacionTO;
+use VisitaYucatanBundle\utils\to\HotelCompleteTO;
 use VisitaYucatanBundle\utils\to\HotelidiomaTO;
 use VisitaYucatanBundle\utils\to\HotelTO;
 use VisitaYucatanBundle\utils\to\ImagenTO;
@@ -95,11 +96,12 @@ class HotelUtils {
         return $habitacionIdioma;
     }
 
-    public static function getHotels($hotels){
-        // Valida que existan tours
+    public static function getHotels($hotels) {
+        // Crea un array para colocar una coleccion de objetos HotelTO
+        $hotelsColeccion = new ArrayCollection();
+
+        // Valida que existan hoteles
         if(count($hotels) >= Generalkeys::NUMBER_ONE){
-            // Crea un array para colocar una coleccion de objetos HotelTO
-            $hotelsColeccion = new ArrayCollection();
             // Itera los hoteles encontrados
             foreach($hotels as $hotel){
                 // Se crea un nuevo objeto para colocal la informacion de cada uno de los hoteles como array
@@ -122,8 +124,48 @@ class HotelUtils {
                 //Se agrega el objeto a la coleccion
                 $hotelsColeccion->add($hotelTO);
             }
-
-            return $hotelsColeccion;
         }
+        return $hotelsColeccion;
+    }
+
+    public static function getArrayClosingDates($fechasCierre){
+        $closingDate = new ArrayCollection();
+        // Trato la información si tiene fechas
+        if (count($fechasCierre) > Generalkeys::NUMBER_ZERO){
+
+            foreach($fechasCierre as $fecha){
+                $fechaInicio = $fecha['fechainicio'];
+                $fechaFin = $fecha['fechafin'];
+                $isLastDate = false;
+
+                while(! $isLastDate){
+
+                    $closingDate->add($fechaInicio);
+
+                    if(DateUtil::isSammeDate($fechaInicio, $fechaFin)){
+                        $isLastDate = true;
+                    }else{
+                        $fechaInicio = DateUtil::summOneDayToDate($fechaInicio);
+                    }
+                }
+            }
+        }
+
+        return $closingDate;
+    }
+
+    public static function getCotizationRoom($fechasCostos){
+        $finaliCost = new ArrayCollection();
+        if (count($fechasCostos) > Generalkeys::NUMBER_ZERO){
+            foreach($fechasCostos as $costo){
+                $hotelCompleteTO = new HotelCompleteTO();
+                $hotelCompleteTO->setIdHabitacion($costo['idhabitacion']);
+                $hotelCompleteTO->setAllotment($costo['allotment']);
+                $hotelCompleteTO->setCapacidadMaxima($costo['capacidadmaxima']);
+                $hotelCompleteTO->setNombreHabitacion($costo['nombre']);
+            }
+
+        }
+        return $finaliCost;
     }
 }

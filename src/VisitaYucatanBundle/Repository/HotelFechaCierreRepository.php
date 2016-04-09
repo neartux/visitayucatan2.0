@@ -13,11 +13,27 @@ use VisitaYucatanBundle\utils\Estatuskeys;
  */
 class HotelFechaCierreRepository extends \Doctrine\ORM\EntityRepository {
 
+    // TODO pasar contrato, ya que pasados los años, siempre traera las fechas de cierre que ya no son validas actualmente
     public function findFechasCierreByHotel($idHotel) {
         $em = $this->getEntityManager();
         $sql = "SELECT * FROM hotel_fecha_cierre WHERE hotel_fecha_cierre.id_hotel = :hotel AND hotel_fecha_cierre.id_estatus = :estatus ORDER BY hotel_fecha_cierre.id DESC";
         $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
         $params['hotel'] = $idHotel;
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
+
+    public function buscaFechasCierreByIdHotelAndIdContrato($idHotel, $idContrato) {
+        $em = $this->getEntityManager();
+        $sql = "SELECT hotel_fecha_cierre.id, hotel_fecha_cierre.fechainicio, hotel_fecha_cierre.fechafin
+                FROM hotel_fecha_cierre
+                INNER JOIN hotel_contrato ON hotel_contrato.id = :contrato AND hotel_contrato.id_hotel = :hotel AND hotel_contrato.id_estatus = :estatus
+                WHERE hotel_fecha_cierre.id_hotel = :hotel
+                AND hotel_fecha_cierre.id_estatus = :estatus";
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+        $params['hotel'] = $idHotel;
+        $params['contrato'] = $idContrato;
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();

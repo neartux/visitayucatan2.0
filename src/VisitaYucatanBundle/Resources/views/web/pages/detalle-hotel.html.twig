@@ -6,7 +6,7 @@
     {% block content %}
         <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-daterangepicker/daterangepicker-bs3.css') }}" type="text/css" rel="stylesheet" />
 
-        <section data-ng-controller="WebHotelController as ctrlWeb" ng-init="ctrlWeb.init('{{ dateFrom }}', '{{ dateTo }}');">
+        <section data-ng-controller="WebHotelController as ctrlWeb">
             <input type="hidden" value="" id="symbolCurrencyHidden"/>
             <div id="content">
 
@@ -29,8 +29,8 @@
                     <option value="4">4</option>
                 </select> <br>
 
-                Desde: <input type="text" name="fechaReserva" id="dateFrom" class="datepicker" readonly/>
-                Hasta: <input type="text" name="fechaReserva" id="dateTo" class="datepicker" readonly/> <br>
+                Desde: <input type="text" name="fechaReserva" id="dateFrom" class="datepicker" value="{{ dateFrom }}" readonly/>
+                Hasta: <input type="text" name="fechaReserva" id="dateTo" class="datepicker" value="{{ dateTo }}" readonly/> <br>
 
                 <button data-ng-click="">
                     Buscar

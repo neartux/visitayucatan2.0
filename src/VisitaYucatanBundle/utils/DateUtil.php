@@ -8,8 +8,13 @@
 namespace VisitaYucatanBundle\utils;
 
 
-class DateUtil
-{
+class DateUtil {
+
+    public static function diffDays($fechaInicio, $fechaFin){
+        $dias	= (strtotime($fechaInicio) - strtotime($fechaFin)) / 86400;
+        return floor($dias);
+    }
+
     // Metodo que convierte las fechas de formato dd/mm/yyyy a formato mm/dd/yyyy parametros en string return array con nuevos strings de fechas
     public static function getDates($fechaInicio, $fechaFin) {
         // dd/mm/yyyy
