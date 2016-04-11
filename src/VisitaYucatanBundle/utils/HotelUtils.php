@@ -9,7 +9,6 @@ namespace VisitaYucatanBundle\utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use VisitaYucatanBundle\utils\to\ContractTO;
 use VisitaYucatanBundle\utils\to\HabitacionTO;
-use VisitaYucatanBundle\utils\to\HotelCompleteTO;
 use VisitaYucatanBundle\utils\to\HotelidiomaTO;
 use VisitaYucatanBundle\utils\to\HotelTO;
 use VisitaYucatanBundle\utils\to\ImagenTO;
@@ -154,6 +153,8 @@ class HotelUtils {
         return $closingDate;
     }
 
+
+    // TODO pendiente , aun hay duda de como manejar las tarifas de las habitaciones
     public static function getCotizationRoom($fechasCostos){
         $finaliCost = new ArrayCollection();
         if (count($fechasCostos) > Generalkeys::NUMBER_ZERO){
@@ -167,5 +168,19 @@ class HotelUtils {
 
         }
         return $finaliCost;
+    }
+
+    public static function getDetailHotel($hotel, $imagenes){
+        $hotelTO = new HotelTO();
+        $hotelTO->setId($hotel['id']);
+        $hotelTO->setEstrellas($hotel['estrellas']);
+        $hotelTO->setNombreHotel($hotel['nombrehotel']);
+        $hotelTO->setDescripcion($hotel['descripcion']);
+        $hotelTO->setPrincipalImage($hotel['path']);
+        if(count($imagenes) > Generalkeys::NUMBER_ZERO){
+            $hotelTO->setImagenesHotel($imagenes);
+        }
+
+        return $hotelTO;
     }
 }

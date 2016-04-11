@@ -21,6 +21,7 @@ class HotelTO {
     private $tarifa;
     private $simboloMoneda;
     private $principalImage;
+    private $imagenesHotel;
 
     /**
      * @return mixed
@@ -214,5 +215,20 @@ class HotelTO {
         $this->principalImage = $principalImage;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getImagenesHotel()
+    {
+        return $this->imagenesHotel;
+    }
+
+    /**
+     * @param mixed $imagenesHotel
+     */
+    public function setImagenesHotel($imagenesHotel)
+    {
+        $this->imagenesHotel = $imagenesHotel;
+    }
 
 }

@@ -10,6 +10,16 @@
             <input type="hidden" value="" id="symbolCurrencyHidden"/>
             <div id="content">
 
+                Hotel => {{ hotel.nombreHotel }} <br>
+                Descripcion => {{ hotel.descripcion }} <br>
+                Estrellas => {{ hotel.estrellas }} <br>
+                Imangen => <img src="{{ asset(hotel.principalImage) }}"/> <br>
+
+                Imagenes ======>
+                {% for imagen in hotel.imagenesHotel %}
+                    <li>{{ imagen.path }}</li>
+                {% endfor %}
+
                 <b>Tarifas</b> <br>
 
                 Adultos:
