@@ -1,0 +1,17 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        .title-error {
+            text-align: center;
+            color: #000088;
+        }
+    </style>
+    <h1 class="title-error">Página no encontrada</h1>
+
+    <p style="text-align: center;">
+        No se ha podido localizar la página solicitada. Comprueba cualquier error
+        escribiendo la URL o <a href="{{ path('web_home') }}">vuelve al inicio</a>.
+    </p>
+{% endblock %}
