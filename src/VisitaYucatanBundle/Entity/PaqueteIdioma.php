@@ -44,6 +44,13 @@ class PaqueteIdioma {
     /**
      * @var string
      *
+     * @ORM\Column(name="circuito", type="string", length=255, nullable=true))
+     */
+    private $circuito;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="incluye", type="text")
      */
     private $incluye;
@@ -65,6 +72,7 @@ class PaqueteIdioma {
      * @ORM\JoinColumn(name="id_estatus", referencedColumnName="id", nullable=false)
      */
     private $estatus;
+
 
 
     /**
@@ -155,6 +163,30 @@ class PaqueteIdioma {
     public function getDescripcionLarga()
     {
         return $this->descripcionLarga;
+    }
+
+    /**
+     * Set circuito
+     *
+     * @param string $circuito
+     *
+     * @return PaqueteIdioma
+     */
+    public function setCircuito($circuito)
+    {
+        $this->circuito = $circuito;
+
+        return $this;
+    }
+
+    /**
+     * Get circuito
+     *
+     * @return string
+     */
+    public function getCircuito()
+    {
+        return $this->circuito;
     }
 
     /**

@@ -83,6 +83,12 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
         $paqueteUpdate->setCircuito($paqueteTO->getCircuito());
         $em->persist($paqueteUpdate);
 
+        /*$paqueteIdiomaTO = $em->getRepository('VisitaYucatanBundle:PaqueteIdioma')->find($paqueteTO->getId());
+        if (!$paqueteIdioma) {
+            throw new EntityNotFoundException('El paquete idioma ' . $paqueteIdiomaTO->getId() . " no se encontro");
+        }
+        $paqueteIdiomaTO->setDescripcion($paqueteTO->getDescripcion());*/
+
         // Actualiza la informacion de tarigas para el origen seleccionado
         /*$tourOrigen = $em->getRepository('VisitaYucatanBundle:TourOrigen')->find($tourTO->getIdtourorigen());
         if (!$tourOrigen) {

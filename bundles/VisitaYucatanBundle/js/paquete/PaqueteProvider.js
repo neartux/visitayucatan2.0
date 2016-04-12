@@ -49,6 +49,27 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
+        service.findAllLanguages = function(path){
+            return $http.get(path).then(function(data){
+                return data.data;
+            })
+        };
+        service.findPaqueteByIdAndLanguaje = function(path,idPaquete, idLanguage){
+            //var path = $("#pathTourByLanguage").val();
+            return $http.post(path, $.param({idPaquete : idPaquete, idLanguage : idLanguage}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                return data.data;
+                //service.tourIdiomaTO.data = data.data;
+            });
+        };
+
+        service.savePaqueteLanguage = function(path,paqueteIdiomaTO){
+            //var path = $("#pathSaveHotelLanguage").val();
+            return $http.post(path, $.param({paqueteLanguage : JSON.stringify(paqueteIdiomaTO)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
         /*service.findContactsHotel = function(idHotel){
             var path = $("#pathContacts").val();
             service.contactHotelList.data = [];

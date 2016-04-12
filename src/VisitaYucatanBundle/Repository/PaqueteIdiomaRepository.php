@@ -1,6 +1,9 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
+use VisitaYucatanBundle\Entity\PaqueteIdioma;
 
 /**
  * PaqueteIdiomaRepository
@@ -9,4 +12,45 @@ namespace VisitaYucatanBundle\Repository;
  * repository methods below.
  */
 class PaqueteIdiomaRepository extends \Doctrine\ORM\EntityRepository {
+	
+	public function findPaqueteByIdAndIdLanguage($idPaquete, $idIdioma) {
+		$em = $this->getEntityManager();
+		$query = $em->createQuery(
+		   'SELECT paqueteidioma
+            FROM VisitaYucatanBundle:PaqueteIdioma paqueteidioma
+            WHERE paqueteidioma.estatus = :estatusActivo
+            AND paqueteidioma.paquete = :idPaquete
+            AND paqueteidioma.idioma = :idIdioma'
+		)->setParameter('estatusActivo', Estatuskeys::ESTATUS_ACTIVO)->setParameter('idPaquete', $idPaquete)->setParameter('idIdioma', $idIdioma);
+
+		return $query->getOneOrNullResult();
+	}
+	public function savePaqueteLanguage($paqueteIdiomaTO) {
+        $em = $this->getEntityManager();
+        $paqueteIdioma = $this->findPaqueteByIdAndIdLanguage($paqueteIdiomaTO->getIdPaquete(), $paqueteIdiomaTO->getIdIdioma());
+        $isNew = Generalkeys::BOOLEAN_FALSE;
+        if (is_null($paqueteIdioma)) {
+            $isNew = Generalkeys::BOOLEAN_TRUE;
+            $paqueteIdioma = new PaqueteIdioma();
+            $paqueteIdioma->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+            $paqueteIdioma->setPaquete($em->getReference('VisitaYucatanBundle:Paquete', $paqueteIdiomaTO->getIdPaquete()));
+            $paqueteIdioma->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', $paqueteIdiomaTO->getIdIdioma()));
+        }
+        $paqueteIdioma->setDescripcion($paqueteIdiomaTO->getDescripcion());
+        $paqueteIdioma->setDescripcionCorta($paqueteIdiomaTO->getDescripcionCorta());
+        $paqueteIdioma->setIncluye('');
+        //$paqueteIdioma->setCircuito($tourIdiomaTO->getCircuito());
+        $paqueteIdioma->setDescripcionLarga($paqueteIdiomaTO->getDescripcionLarga());
+        // Valida que slo adultos no sea null
+        /*if(is_null($tourIdiomaTO->getSoloadultos()) || $tourIdiomaTO->getSoloadultos() == Generalkeys::BOOLEAN_FALSE){
+            $tourIdioma->setSoloadultos(Generalkeys::BOOLEAN_FALSE);
+        }else{
+            $tourIdioma->setSoloadultos(Generalkeys::BOOLEAN_TRUE);
+        }*/
+
+        $em->persist($paqueteIdioma);
+        $em->flush();
+
+        return $isNew;
+    }
 }

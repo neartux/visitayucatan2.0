@@ -47,7 +47,9 @@
             if(ctrlTour.tourIdiomaTo.data != undefined){
                 var idiomaTmp = ctrlTour.tourIdiomaTo.data.idIdioma;
                 return TourService.findTourByIdAndLanguaje(ctrlTour.idTourGlobal, ctrlTour.tourIdiomaTo.data.idIdioma).then(function(){
+                    console.info("tourIdiomaTo",ctrlTour.tourIdiomaTo.data);
                     ctrlTour.tourIdiomaTo.data.idIdioma = idiomaTmp;
+
                     if(! ctrlTour.tourIdiomaTo.data.status){
                         pNotifyView(ctrlTour.tourIdiomaTo.data.message, ctrlTour.tourIdiomaTo.data.typeStatus);
                     }

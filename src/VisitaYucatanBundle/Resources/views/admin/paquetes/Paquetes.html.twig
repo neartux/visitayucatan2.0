@@ -11,8 +11,8 @@
 
     <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/summernote/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
 
-    <div class="content-main" data-ng-app="AppPaquete" data-ng-controller="PaqueteController as paquetes"
-         ng-init="paquetes.init('Nuevo Paquete', 'Editar Paquete',
+    <div class="content-main" data-ng-app="AppPaquete" data-ng-controller="PaqueteController as paquetesVM"
+         ng-init="paquetesVM.init('Nuevo Paquete', 'Editar Paquete',
          '¿Seguro que desea eliminar el paquete?', 'Cargando',
          '¿Seguro que desea eliminar la image?')">
         <div class="row">
@@ -25,12 +25,12 @@
                         </h2>
                     </div>
                     <div class="panel-body">
-                        <!--data-ng-if="paquetes.listTour.data"-->
-                        <div data-widget-group="group1"  data-ng-show="!paquetes.configPaquete">
+                        <!--data-ng-if="paquetesVM.listTour.data"-->
+                        <div data-widget-group="group1"  data-ng-show="!paquetesVM.configPaquete">
                             <div class="row">
                                 <div class="col-md-12">
                                 <!--displayNewTour();-->
-                                    <button class="btn btn-primary" data-ng-click="paquetes.displayNewPaquete()">
+                                    <button class="btn btn-primary" data-ng-click="paquetesVM.displayNewPaquete()">
                                         <span class="fa fa-plus"></span>&nbsp;
                                         Nuevo Paquete
                                     </button>
@@ -55,21 +55,21 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr class="odd gradeX" data-ng-repeat="p in paquetes.listPaquetes">
+                                                <tr class="odd gradeX" data-ng-repeat="p in paquetesVM.listPaquetes">
                                                     <td>[[ p.id ]]</td>
                                                     <td>[[ p.nombrepaquete ]]</td>
                                                     <td>[[ p.circuito ]]</td>
                                                     <td>
-                                                        <a class="btn btn-success-alt" data-ng-click="paquetes.displayEditPaquete(p)" href="javascript:;"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-success-alt" data-ng-click="paquetes.configurateTour(p)" href="javascript:;"><i class="fa  fa-gears"></i></a>
-                                                        <a class="btn btn-danger-alt" data-ng-click="paquetes.deletePaquete(p.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
+                                                        <a class="btn btn-success-alt" data-ng-click="paquetesVM.displayEditPaquete(p)" href="javascript:;"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-success-alt" data-ng-click="paquetesVM.configuratePaquete(p)" href="javascript:;"><i class="fa  fa-gears"></i></a>
+                                                        <a class="btn btn-danger-alt" data-ng-click="paquetesVM.deletePaquete(p.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
                                                     </td>
                                                     <td>
                                                         <span data-ng-if="p.promovido == 0">
-                                                            <input type="checkbox" data-ng-click="paquetes.promovedTour(p.id);"/>
+                                                            <input type="checkbox" data-ng-click="paquetesVM.promovedTour(p.id);"/>
                                                         </span>
                                                         <span data-ng-if="p.promovido == 1">
-                                                            <input type="checkbox" checked data-ng-click="paquetes.removePromovedTour(p.id);"/>
+                                                            <input type="checkbox" checked data-ng-click="paquetesVM.removePromovedTour(p.id);"/>
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -82,8 +82,8 @@
                         </div>
 
                         <!--Seccion de configuracion de tour-->
-                        <div data-widget-group="group1" data-ng-show="paquetes.configPaquete">
-                            {% include '@VisitaYucatan/admin/tours/ConfigurationTour.html.twig' %}
+                        <div data-widget-group="group1" data-ng-show="paquetesVM.configPaquete">
+                            {% include '@VisitaYucatan/admin/paquetes/ConfigurationPaquete.html.twig' %}
                         </div>
 
                     </div>
@@ -100,7 +100,9 @@
         <input type="hidden" id="pathCreatePaquete" value="{{ path('paquete_create') }}"/>
         <input type="hidden" id="pathDeletePaquete" value="{{ path('paquete_delete') }}" />
         <input type="hidden" id="pathUpdatePaquete" value="{{ path('paquete_update') }}" />
-        
+        <input type="hidden" id="pathAllLenguages" value="{{ path('language_find_all') }}">   
+        <input type="hidden" id="pathPaqueteByIdioma" value=" {{ path('paquete_find_by_language') }}">
+        <input type="hidden" id="pathSavePaqueteLanguage" value="{{ path('paquete_save_paquetelanguage') }}">
         
     </div>
 

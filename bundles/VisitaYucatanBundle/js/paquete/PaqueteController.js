@@ -8,73 +8,76 @@
     }]);
 
     app.controller('PaqueteController', function ($scope, $http, PaqueteService) {
-        var paquetes = this;
-        paquetes.paquete = undefined;
-        /*paquetes.listPaquetes = PaqueteService.listTour;
-        paquetes.listLanguage = PaqueteService.listLanguage;
-        paquetes.paqueteIdiomaTo = PaqueteService.tourIdiomaTO;
-        paquetes.imagesPaquetes = PaqueteService.imagesTourList;*/
-        paquetes.titleCreate = '';
-        paquetes.titleEdit = '';
-        paquetes.msjLoading = '';
-        paquetes.msjDeleteImage = '';
-        paquetes.titleModal = '';
-        paquetes.isNewPaquete = true;
-        paquetes.configPaquete = false;
-        paquetes.idPaqueteGlobal = 0;
-        paquetes.nameTourTitl;
+        var paquetesVM = this;
+        paquetesVM.paquete = undefined;
+        /*paquetesVM.listPaquetes = PaqueteService.listTour;
+        paquetesVM.listLanguage = PaqueteService.listLanguage;
+        paquetesVM.paqueteIdiomaTo = PaqueteService.tourIdiomaTO;
+        paquetesVM.imagesPaquetes = PaqueteService.imagesTourList;*/
+        paquetesVM.paqueteIdiomaTo = {};
+        paquetesVM.titleCreate = '';
+        paquetesVM.titleEdit = '';
+        paquetesVM.msjLoading = '';
+        paquetesVM.msjDeleteImage = '';
+        paquetesVM.titleModal = '';
+        paquetesVM.isNewPaquete = true;
+        paquetesVM.configPaquete = false;
+        paquetesVM.idPaqueteGlobal = 0;
+        paquetesVM.nameTourTitl;
 
-        paquetes.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
-            paquetes.titleCreate = titleCreate;
-            paquetes.titleEdit = titleEdit;
-            paquetes.msjLoading = msjLoading;
-            paquetes.titleModal = titleCreate;
-            paquetes.confirmDelete = confirmDelete;
-            paquetes.msjDeleteImage = msjDeleteImg;
-            paquetes.initPaths();
-            paquetes.findAllPaquetes();
-            /*paquetes.findAllLanguages();*/
-            console.info("paquetes",paquetes);
+        paquetesVM.init = function (titleCreate, titleEdit, confirmDelete, msjLoading, msjDeleteImg) {
+            paquetesVM.titleCreate = titleCreate;
+            paquetesVM.titleEdit = titleEdit;
+            paquetesVM.msjLoading = msjLoading;
+            paquetesVM.titleModal = titleCreate;
+            paquetesVM.confirmDelete = confirmDelete;
+            paquetesVM.msjDeleteImage = msjDeleteImg;
+            paquetesVM.initPaths();
+            paquetesVM.findAllPaquetes();
+            paquetesVM.findAllLanguages();
+            //console.info("paquetes",paquetesVM);
             
         };
 
-        paquetes.findAllPaquetes = function () {
-            PaqueteService.findPaquetesList(paquetes.paths.findList).then(function(data){
-                paquetes.listPaquetes=data;
-                console.info("paquete list", paquetes.listPaquetes);
+        paquetesVM.findAllPaquetes = function () {
+            PaqueteService.findPaquetesList(paquetesVM.paths.findList).then(function(data){
+                paquetesVM.listPaquetes=data;
+                console.info("paquete list", paquetesVM.listPaquetes);
             });
-            console.info("paquetes paths in findAllPaquetes",paquetes);
         };
-        paquetes.initPaths = function(){
-            paquetes.paths = {
+        paquetesVM.initPaths = function(){
+            paquetesVM.paths = {
                 findList: angular.element(document.querySelector('#pathListPaquete')).context.value,
                 create: angular.element(document.querySelector('#pathCreatePaquete')).context.value,
                 deletePaquete:angular.element(document.querySelector('#pathDeletePaquete')).context.value,
-                updatePaquete:angular.element(document.querySelector('#pathUpdatePaquete')).context.value
+                updatePaquete:angular.element(document.querySelector('#pathUpdatePaquete')).context.value,
+                findListLanguage:angular.element(document.querySelector('#pathAllLenguages')).context.value,
+                paqueteByIdLanguage:angular.element(document.querySelector('#pathPaqueteByIdioma')).context.value,
+                savePaquteLanguage:angular.element(document.querySelector('#pathSavePaqueteLanguage')).context.value
             };
-            console.info("paths",paquetes.paths);
+            console.info("paths",paquetesVM.paths);
         }
-        paquetes.displayNewPaquete = function () {
-            paquetes.cleanForm();
-            paquetes.titleModal = paquetes.titleCreate;
-            paquetes.isNewPaquete = true;
-            //paquetes.newPaquete
+        paquetesVM.displayNewPaquete = function () {
+            paquetesVM.cleanForm();
+            paquetesVM.titleModal = paquetesVM.titleCreate;
+            paquetesVM.isNewPaquete = true;
+            //paquetesVM.newPaquete
             $("#modalPaquete").modal();
             setTimeout(function () {
                 $("#description").trigger('focus');
             }, 1000);
         };
-        paquetes.saveFormPaquete = function (isValid) {
+        paquetesVM.saveFormPaquete = function (isValid) {
             // check to make sure the form is completely valid
 
-            if (isValid && paquetes.newPaquete != undefined) {
-                startLoading(paquetes.msjLoading);
-                console.info("Paquetes item",paquetes.newPaquete);
-                return PaqueteService.createPaquete(paquetes.newPaquete,paquetes.paths.create).then(function (r) {
+            if (isValid && paquetesVM.newPaquete != undefined) {
+                startLoading(paquetesVM.msjLoading);
+                console.info("Paquetes item",paquetesVM.newPaquete);
+                return PaqueteService.createPaquete(paquetesVM.newPaquete,paquetesVM.paths.create).then(function (r) {
                     stopLoading();
                     console.info("data",r);
                     if (r.data.status) {
-                        paquetes.findAllPaquetes();
+                        paquetesVM.findAllPaquetes();
                         //updateDataTable();
                     }
                     pNotifyView(r.data.message, r.data.typeStatus);
@@ -83,38 +86,38 @@
             }
 
         };
-        paquetes.deletePaquete = function (idPaquete) {
-            if (confirm(paquetes.confirmDelete)) {
-                return PaqueteService.deletePaqueteById(paquetes.paths.deletePaquete,idPaquete).then(function (data) {
+        paquetesVM.deletePaquete = function (idPaquete) {
+            if (confirm(paquetesVM.confirmDelete)) {
+                return PaqueteService.deletePaqueteById(paquetesVM.paths.deletePaquete,idPaquete).then(function (data) {
                     if (data.data.status) {
-                        paquetes.findAllPaquetes();
+                        paquetesVM.findAllPaquetes();
                     }
                     pNotifyView(data.data.message, data.data.typeStatus);
                 });
             }
         };
-        paquetes.displayEditPaquete = function (paquete) {
-            paquetes.titleModal = paquetes.titleEdit;
+        paquetesVM.displayEditPaquete = function (paquete) {
+            paquetesVM.titleModal = paquetesVM.titleEdit;
             console.info("displayEditPaquete",paquete);
-            paquetes.newPaquete = {
+            paquetesVM.newPaquete = {
                 id:paquete.id,descripcion:paquete.nombrepaquete,circuito:paquete.circuito,promovido:paquete.promovido
             };
 
-            paquetes.isNewPaquete = false;
+            paquetesVM.isNewPaquete = false;
             $("#modalPaquete").modal();
             setTimeout(function () {
                 $("#description").trigger('focus');
             }, 1000);
         };
-        paquetes.updatePaquete = function (isValid) {
+        paquetesVM.updatePaquete = function (isValid) {
             // check to make sure the form is completely valid
-            if (isValid && paquetes.newPaquete != undefined) {
-                console.info("paquetes update",paquetes.newPaquete);
-                startLoading(paquetes.msjLoading);
-                return PaqueteService.updatePaquete(paquetes.paths.updatePaquete,paquetes.newPaquete).then(function (data) {
+            if (isValid && paquetesVM.newPaquete != undefined) {
+                console.info("paquetes update",paquetesVM.newPaquete);
+                startLoading(paquetesVM.msjLoading);
+                return PaqueteService.updatePaquete(paquetesVM.paths.updatePaquete,paquetesVM.newPaquete).then(function (data) {
                     stopLoading();
                     if (data.data.status) {
-                        paquetes.findAllPaquetes();
+                        paquetesVM.findAllPaquetes();
                     }
                     pNotifyView(data.data.message, data.data.typeStatus);
                     $("#modalPaquete").modal("hide");
@@ -122,32 +125,83 @@
             }
 
         };
-        paquetes.cleanForm = function(){
-            paquetes.newPaquete = {
+        paquetesVM.cleanForm = function(){
+            paquetesVM.newPaquete = {
                 descripcion:'',
                 circuito:''
             }
             $scope.formPaquete.$setPristine();
         };
-        /*ctrlPaquete.findAllLanguages = function () {
-            return PaqueteService.findLanguagesActives();
-        };
+        paquetesVM.configuratePaquete = function (paquete) {
+            console.info('configuratePaquete',paquete);
+            paquetesVM.namePaqueteTitle = paquete.nombrepaquete;
+            console.info('namePaqueteTitle',paquetesVM.namePaqueteTitle);
+            paquetesVM.idPaqueteGlobal = paquete.id;
+            paquetesVM.configPaquete =  true;
+            paquetesVM.paqueteIdiomaTo.data = undefined;
+            $(".summernote").code('');
 
-        ctrlPaquete.findTourByIdAndLanguage = function () {
-            if(ctrlPaquete.tourIdiomaTo.data != undefined){
-                var idiomaTmp = ctrlPaquete.tourIdiomaTo.data.idIdioma;
-                return PaqueteService.findTourByIdAndLanguaje(ctrlPaquete.idTourGlobal, ctrlPaquete.tourIdiomaTo.data.idIdioma).then(function(){
-                    ctrlPaquete.tourIdiomaTo.data.idIdioma = idiomaTmp;
-                    if(! ctrlPaquete.tourIdiomaTo.data.status){
-                        pNotifyView(ctrlPaquete.tourIdiomaTo.data.message, ctrlPaquete.tourIdiomaTo.data.typeStatus);
+            console.info("paquetesVM",paquetesVM.idPaqueteGlobal);
+            /*ctrlPaquete.nameTourTitle = tour.descripcion;
+            ctrlPaquete.idTourGlobal = tour.id;
+            ctrlPaquete.configTour = true;
+            ctrlPaquete.tourIdiomaTo.data = undefined;
+            $(".summernote").code('');
+            ctrlPaquete.findImagesByTour();*/
+        };
+        paquetesVM.findAllLanguages = function () {
+            PaqueteService.findAllLanguages(paquetesVM.paths.findListLanguage).then(function(data){
+                paquetesVM.listLanguage = data;
+                console.info("language",paquetesVM.listLanguage);
+            });
+        };
+        paquetesVM.returnListPaquete = function(){
+            paquetesVM.configPaquete = false;
+        };
+        paquetesVM.findPaqueteByIdAndLanguage = function () {
+            console.info('paqueteIdiomaTo',paquetesVM.paqueteIdiomaTo.data);
+            if(paquetesVM.paqueteIdiomaTo.data !== undefined){
+                var idiomaTmp = paquetesVM.paqueteIdiomaTo.data.idIdioma;
+                PaqueteService.findPaqueteByIdAndLanguaje(paquetesVM.paths.paqueteByIdLanguage,paquetesVM.idPaqueteGlobal, paquetesVM.paqueteIdiomaTo.data.idIdioma).then(function(data){
+                    
+                    //console.info("return find paquete by idioma",data.id);
+                    if(typeof(data.id)!=='null'){
+                        console.info("entro aki no es undefined",data);
+                        paquetesVM.paqueteIdiomaTo.data=data;
+                        paquetesVM.paqueteIdiomaTo.data.idIdioma = idiomaTmp;
+                    }else{
+                        console.info("cuando es undefined",data);
+                        
+                        paquetesVM.paqueteIdiomaTo.data=data;
+                        paquetesVM.paqueteIdiomaTo.data.idIdioma = data.idIdioma.toString();
+                    }
+                    
+                    //console.info("return find paquete by idioma",data);
+                    
+                    if(! paquetesVM.paqueteIdiomaTo.data.status){
+                        pNotifyView(paquetesVM.paqueteIdiomaTo.data.message, paquetesVM.paqueteIdiomaTo.data.typeStatus);
                     }
                     // El siguiente codigo para colocar el texto en el summernote, no se coloca de manera normal con el ng-model
-                    $(".summernote").code(ctrlPaquete.tourIdiomaTo.data.descripcion);
+                    $(".summernote").code(paquetesVM.paqueteIdiomaTo.data.descripcionLarga);
                 });
             }
         };
 
-        ctrlPaquete.findImagesByTour = function () {
+        paquetesVM.savePaqueteLanguage = function(isValid){
+            if(isValid){
+                startLoading(paquetesVM.msjLoading);
+                // Asignasiones
+                paquetesVM.paqueteIdiomaTo.data.descripcionCorta ='';
+                paquetesVM.paqueteIdiomaTo.data.descripcionLarga = $(".summernote").code();
+                paquetesVM.paqueteIdiomaTo.data.idPaquete = paquetesVM.idPaqueteGlobal;
+                return PaqueteService.savePaqueteLanguage(paquetesVM.paths.savePaquteLanguage,paquetesVM.paqueteIdiomaTo.data).then(function (data) {
+                    stopLoading();
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
+        };
+
+        /*ctrlPaquete.findImagesByTour = function () {
             setTimeout(function(){
                 return PaqueteService.findImagesTourByIdTour(ctrlPaquete.idTourGlobal);
             }, 1000);

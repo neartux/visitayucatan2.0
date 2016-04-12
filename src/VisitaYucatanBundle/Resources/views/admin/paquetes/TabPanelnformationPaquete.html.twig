@@ -1,0 +1,92 @@
+<form class="form-horizontal" name="formPaqueteLanguage" novalidate>
+
+    <div class="form-group"
+         ng-class="{ 'has-error' : formPaqueteLanguage.idiomaPaquete.$invalid && !formPaqueteLanguage.idiomaPaquete.$pristine }">
+        <label for="idiomaPaquete" class="col-sm-2 control-label text-bold text-uppercase">
+            Selecciona Idioma
+            <span class="required">*</span>
+        </label>
+        <div class="col-sm-8">
+            <select name="idiomaPaquete" id="idiomaPaquete" class="form-control" data-ng-model="paquetesVM.paqueteIdiomaTo.data.idIdioma" ng-change="paquetesVM.findPaqueteByIdAndLanguage()" required>
+                <option value="">SELECCIONA</option>
+                <option value="[[ idioma.id ]]" ng-repeat="idioma in paquetesVM.listLanguage">[[ idioma.descripcion | uppercase ]]</option>
+            </select>
+            <span ng-show="formPaqueteLanguage.idiomaPaquete.$invalid && !formPaqueteLanguage.idiomaPaquete.$pristine" class="help-block">
+                Seleccione un idioma
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{ 'has-error' : formPaqueteLanguage.nombrePaquete.$invalid && !formPaqueteLanguage.nombrePaquete.$pristine }">
+        <label class="col-sm-2 control-label text-bold text-uppercase">
+            Nombre
+            <span class="required">*</span>
+        </label>
+
+        <div class="col-sm-8">
+            <input type="text" id="nombrePaquete" ng-model="paquetesVM.paqueteIdiomaTo.data.descripcion" ng-disabled="!paquetesVM.paqueteIdiomaTo.data.idIdioma"
+                   name="nombrePaquete" class="form-control" required/>
+            <span ng-show="formPaqueteLanguage.nombrePaquete.$invalid && !formPaqueteLanguage.nombrePaquete.$pristine" class="help-block">
+                Nombre tour requerido
+            </span>
+        </div>
+    </div>
+
+    <!--<div class="form-group"
+         ng-class="{ 'has-error' : formPaqueteLanguage.circuitoPaquete.$invalid && !formPaqueteLanguage.circuitoPaquete.$pristine }">
+        <label class="col-sm-2 control-label text-bold text-uppercase">
+            Circuito
+            <span class="required">*</span>
+        </label>
+
+        <div class="col-sm-8">
+            <input type="text" id="circuitoPaquete" ng-model="paquetesVM.tourIdiomaTo.data.circuito" ng-disabled="!paquetesVM.paqueteIdiomaTo.data.idIdioma"
+                   name="circuitoPaquete" class="form-control" required/>
+            <span ng-show="formPaqueteLanguage.circuitoPaquete.$invalid && !formPaqueteLanguage.circuitoPaquete.$pristine" class="help-block">
+                Circuito tour requerido
+            </span>
+        </div>
+    </div>-->
+
+    <div class="form-group"
+         ng-class="{ 'has-error' : formPaqueteLanguage.descripcionLargaPaquete.$invalid && !formPaqueteLanguage.descripcionLargaPaquete.$pristine }">
+        <label class="col-sm-2 control-label text-bold text-uppercase">
+            Descripcion
+            <span class="required">*</span>
+        </label>
+
+        <div class="col-sm-8">
+            <textarea name="descripcionLargaPaquete" class="summernote" id="descripcionLargaPaquete"
+                      ng-model="paquetesVM.paqueteIdiomaTo.data.descripcionLarga"
+                      name="descripcionLargaPaquete">
+
+            </textarea>
+            <span ng-show="formPaqueteLanguage.descripcionLargaPaquete.$invalid && !formPaqueteLanguage.descripcionLargaPaquete.$pristine"
+                  class="help-block">
+                Descripcion tour requerido
+            </span>
+        </div>
+    </div>
+
+    <!--<div class="form-group"
+         ng-class="{ 'has-error' : formPaqueteLanguage.descripcionTour.$invalid && !formPaqueteLanguage.descripcionTour.$pristine }">
+        <label class="col-sm-2 control-label text-bold text-uppercase">
+            Solo adultos
+        </label>
+
+        <div class="col-sm-8">
+            <input type="checkbox" ng-model="paquetesVM.tourIdiomaTo.data.soloadultos" value="true" ng-disabled="!paquetesVM.tourIdiomaTo.data.idIdioma"/>
+        </div>
+    </div>-->
+
+    <div class="col-md-12 text-center">
+        <button type="button" class="btn btn-primary"
+                data-ng-click="paquetesVM.savePaqueteLanguage(formPaqueteLanguage.$valid)"
+                ng-disabled="formPaqueteLanguage.$invalid">
+            <span class="fa fa-save"></span> &nbsp;
+            Guardar
+        </button>
+    </div>
+
+</form>

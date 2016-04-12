@@ -12,6 +12,7 @@ use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\HotelUtils;
 use VisitaYucatanBundle\utils\to\ResponseTO;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use VisitaYucatanBundle\utils\PaqueteUtils;
 
 class PaqueteAdminController extends Controller {
 	/**
@@ -48,7 +49,7 @@ class PaqueteAdminController extends Controller {
 		   $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->createPaquete($paqueteTO);
 
 		   $translator = $this->get('translator');
-		   $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("tour.report.label.tour.created"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+		   $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("El paquete se ha creado"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
 		   return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
 		} catch (\Exception $e) {
@@ -101,4 +102,48 @@ class PaqueteAdminController extends Controller {
 		}
 
 	}
+
+	/**
+     * @Route("/admin/paquete/find/paquete/by/idtpaquete/idlanguage", name="paquete_find_by_language")
+     * @Method("POST")
+    */
+	public function findPaqueteByIdAndLanguageAction(Request $request) {
+		try {
+			$idPaquete = $request->get('idPaquete');
+			$idLanguage = $request->get('idLanguage');
+			$paquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteIdioma')->findPaqueteByIdAndIdLanguage($idPaquete, $idLanguage);
+			/*if(is_null($paquete)){
+				//echo "es nullo paquete";
+				$response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Es nullo', Generalkeys::RESPONSE_ERROR, Generalkeys::RESPONSE_CODE_OK);
+				return new Response($this->get('serializer')->serialize($response,Generalkeys::JSON_STRING));
+			}else
+			{*/
+				return new Response($this->get('serializer')->serialize(PaqueteUtils::convertEntityPaqueteiomaToPaqueteidiomaTO($paquete), Generalkeys::JSON_STRING));
+			//}
+			
+		} catch (\Exception $e) {
+			$response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+			return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+		}
+	}
+
+	/**
+     * @Route("/admin/paquete/save/paquetelanguage", name="paquete_save_paquetelanguage")
+     * @Method("POST")
+     */
+    public function savePaqueteLanguageAction(Request $request) {
+        $serializer = $this->get('serializer');
+        try {
+            $paqueteLanguageJson = $request->get('paqueteLanguage');
+            $paqueteIdiomaTO = $serializer->deserialize($paqueteLanguageJson, 'VisitaYucatanBundle\utils\to\PaqueteidiomaTO', Generalkeys::JSON_STRING);
+            $isNew = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteIdioma')->savePaqueteLanguage($paqueteIdiomaTO);
+            $message = 'Se ha modificado la información para el paquete ' . $paqueteIdiomaTO->getDescripcion();
+            if ($isNew) {
+                $message = 'Se ha agregado la informacion para un nuevo idioma del paquete ' . $paqueteIdiomaTO->getDescripcion();
+            }
+            return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_TRUE, $message, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK), Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
 }
