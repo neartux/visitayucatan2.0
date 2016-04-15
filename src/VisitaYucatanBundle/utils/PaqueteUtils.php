@@ -11,6 +11,7 @@ namespace VisitaYucatanBundle\utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use VisitaYucatanBundle\utils\to\PaqueteTO;
 use VisitaYucatanBundle\utils\to\PaqueteidiomaTO;
+use VisitaYucatanBundle\utils\to\PaqueteimagenTO;
 
 class PaqueteUtils {
 
@@ -56,6 +57,26 @@ class PaqueteUtils {
         }
 
         return $paquetesTO;
+    }
+    public static function getListImagenTO($imagesApp){
+        $imageList = new ArrayCollection();
+        if(count($imagesApp) > Generalkeys::NUMBER_ZERO){
+            foreach($imagesApp as $imageApp){
+                $image = new PaqueteimagenTO();
+                $image->setId($imageApp->getId());
+                $image->setIdPaquete($imageApp->getPaquete()->getId());
+                $image->setNombreOriginal($imageApp->getNombreOriginal());
+                $image->setNombre($imageApp->getNombre());
+                $image->setPath($imageApp->getPath());
+                $image->setTipoArchivo($imageApp->getTipoArchivo());
+                $image->setPrincipal($imageApp->getPrincipal());
+                $image->setFolio($imageApp->getFolio());
+                $image->setFechaCreacion($imageApp->getFechaCreacion());
+                $imageList->add($image);
+            }
+        }
+        return $imageList;
+
     }
 
 }

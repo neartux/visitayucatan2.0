@@ -146,4 +146,74 @@ class PaqueteAdminController extends Controller {
             return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
         }
     }
+   /**
+     * @Route("/admin/paquete/find/images", name="paquete_find_images")
+     * @Method("POST")
+     */
+	public function findImagesPaquetesByIdAction(Request $request) {
+		$idPaquete = $request->get('idPaquete');
+		$images = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteImagen')->findPaqueteImagesByIdPaquete($idPaquete);
+		return new Response($this->get('serializer')->serialize(PaqueteUtils::getListImagenTO($images), Generalkeys::JSON_STRING));
+	}
+	
+	/**
+     * @Route("/admin/paquete/upload/image", name="paquete_upload_image")
+     * @Method("POST")
+     */
+    public function uploadImagePaqueteAction(Request $request) {
+        try {
+            $em = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteImagen');
+            // Obtiene los datos enviados, imagen y el id del paquete
+            $image = $request->files->get('file');
+            $idPaquete = $request->get('idApplication');
+            // Instancia el archivo al un objeto
+            if (($image instanceof UploadedFile) && ($image->getError() == Generalkeys::NUMBER_ZERO)) {
+                // Busca el folio siguiente
+                $folio = $em->findNextFolio();
+                // Si no se pudo encontrar el folio regresa mensaje error
+                if ($folio == Generalkeys::NOT_FOUND_FOLIO) {
+                    return new JsonResponse(array('answer' => 'No se pudo encontrar folio, intentar de nuevo'));
+                }
+                // Arma un nuevo nombre para la imagen, esto es por si se sube diferentes imagenes con el mismo nombre
+                $newName = Generalkeys::PART_NAME_PAQUETE . $idPaquete . Generalkeys::PART_NAME_FOLIO . $folio . "." . $image->getClientOriginalExtension();
+                // Mueve la imagen a su carpeta
+                $image->move(Generalkeys::PATH_PAQUETES_IMAGE, $newName);
+                // Guarda el registro de la imagen tour
+                $em->uploadPaqueteImage($image->getClientOriginalName(), $newName, $folio, Generalkeys::PATH_PAQUETES_IMAGE . $newName, $image->getClientOriginalExtension(), $idPaquete);
+                return new JsonResponse(array('answer' => 'Se ha cargado la imagen correctamente'));
+            }
+        } catch (\Exception $e) {
+            return new JsonResponse(array('answer' => $e->getMessage()));
+        }
+    }
+   /**
+	* @Route("/admin/paquete/delete/image", name="paquete_delete_image")
+	* @Method("POST")
+	*/
+	public function deleteImagePaqueteAction(Request $request) {
+	  try {
+	      $idImagePaquete = $request->get('idImagePaquete');
+	      $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteImagen')->deleteImagePaquete($idImagePaquete);
+	      $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha eliminado correctamente la imagen con id ' . $idImagePaquete, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+	      return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+	  } catch (\Exception $e) {
+	      return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+	  }
+	}
+
+	/**
+	* @Route("/admin/paquete/principal/image", name="paquete_principal_image")
+	* @Method("POST")
+	*/
+	public function setPrincipalImagePaqueteAction(Request $request) {
+	  try {
+	      $idImagePaquete = $request->get('idImagePaquete');
+	      $idPaquete = $request->get('idPaquete');
+	      $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteImagen')->setPrincipalImagePaquete($idPaquete, $idImagePaquete);
+	      $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Nueva imagen principal asignada', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+	      return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+	  } catch (\Exception $e) {
+	      return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+	  }
+	}
 }

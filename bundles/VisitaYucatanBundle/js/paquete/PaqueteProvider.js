@@ -70,6 +70,24 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
+        service.findImagesPaqueteByIdPaquete = function(path,idPaquete) {
+            return $http.post(path, $.param({idPaquete : idPaquete}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                return data.data;
+            });
+        };
+        service.setPrincipalImage = function(path,idPaquete, idImagePaquete){
+            return $http.post(path, $.param({idPaquete : idPaquete, idImagePaquete: idImagePaquete}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+        service.deleteImagePaquete = function(path,idImagePaquete){
+            //var path = $("#pathDeleteImageHotel").val();
+            return $http.post(path, $.param({idImagePaquete : idImagePaquete}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
         /*service.findContactsHotel = function(idHotel){
             var path = $("#pathContacts").val();
             service.contactHotelList.data = [];

@@ -1,7 +1,11 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
-
+use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use VisitaYucatanBundle\Entity\PaqueteImagen;
+use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 /**
  * PaqueteImagenRepository
  *
@@ -9,4 +13,90 @@ namespace VisitaYucatanBundle\Repository;
  * repository methods below.
  */
 class PaqueteImagenRepository extends \Doctrine\ORM\EntityRepository {
+	
+	public function findPaqueteImagesByIdPaquete($idPaquete){
+        return $this->findBy(array('paquete' => $idPaquete, 'estatus' => Estatuskeys::ESTATUS_ACTIVO));
+   }
+
+   public function uploadPaqueteImage($originalName, $nameImage, $folio, $path, $tipoArchivo, $idPaquete){
+	  if(! $this->existPaquete($idPaquete)){
+	      throw new EntityNotFoundException('El paquete con id ' . $idPaquete . " no se encontro");
+	  }
+	  $em = $this->getEntityManager();
+
+	  $paqueteImage = new PaqueteImagen();
+	  $paqueteImage->setNombre($nameImage);
+	  $paqueteImage->setNombreOriginal($originalName);
+	  $paqueteImage->setFolio($folio);
+	  $paqueteImage->setPath($path);
+	  $paqueteImage->setTipoArchivo($tipoArchivo);
+	  $paqueteImage->setPrincipal(Generalkeys::BOOLEAN_FALSE);
+	  $paqueteImage->setFechaCreacion(new \DateTime());
+	  $paqueteImage->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+	  $paqueteImage->setPaquete($em->getReference('VisitaYucatanBundle:Paquete', $idPaquete));
+
+	  $em->persist($paqueteImage);
+	  $em->flush();
+	}
+	public function deleteImagePaquete($idImagePaquete){
+	  $em = $this->getEntityManager();
+	  $imagePaquete = $this->find($idImagePaquete);
+	  if(! $imagePaquete){
+	      throw new EntityNotFoundException('El La imagen con id ' . $idImagePaquete . " no se encontro");
+	  }
+	  if(! unlink($imagePaquete->getPath())){
+	      throw new FileException('No se pudo eliminar la imagen '.$imagePaquete->getNombreOriginal());
+	  }
+	  $imagePaquete->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
+	  $em->persist($imagePaquete);
+	  $em->flush();
+	}
+
+	public function setPrincipalImagePaquete($idPaquete, $idImagePaquete){
+	  $imagesPaquete =$this->findPaqueteImagesByIdPaquete($idPaquete);
+
+	  if(count($imagesPaquete) <= Generalkeys::NUMBER_ZERO){
+	      throw new \Exception('No se encontraron imagenes para el paquete '.$idPaquete);
+	  }
+	  $em = $this->getEntityManager();
+
+	  foreach($imagesPaquete as $image){
+	      if($image->getId() == $idImagePaquete){
+	          $image->setPrincipal(Generalkeys::BOOLEAN_TRUE);
+	      }else{
+	          $image->setPrincipal(Generalkeys::BOOLEAN_FALSE);
+	      }
+	      $em->persist($image);
+	      $em->flush();
+	  }
+	}
+	public function existPaquete($id){
+		$em = $this->getEntityManager();
+		if($em->getRepository('VisitaYucatanBundle:Paquete')->find($id)){
+		   return Generalkeys::BOOLEAN_TRUE;
+		}
+		return Generalkeys::BOOLEAN_FALSE;
+	}
+
+	public function findNextFolio(){
+
+        $sql = "SELECT MAX(paquete_imagen.folio) AS folio
+				FROM paquete_imagen
+				WHERE paquete_imagen.id_estatus=:estatusActivo LIMIT ".Generalkeys::NUMBER_ONE;
+        try{
+
+            $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute($params);
+            $result = $stmt->fetch();
+            $folio = (int)$result['folio'];
+
+            return ($folio + Generalkeys::NUMBER_ONE);
+
+        } catch(\Doctrine\ORM\NoResultException $e){
+
+            return Generalkeys::NOT_FOUND_FOLIO;
+        }
+    }
 }

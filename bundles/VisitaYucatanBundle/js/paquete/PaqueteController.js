@@ -53,7 +53,10 @@
                 updatePaquete:angular.element(document.querySelector('#pathUpdatePaquete')).context.value,
                 findListLanguage:angular.element(document.querySelector('#pathAllLenguages')).context.value,
                 paqueteByIdLanguage:angular.element(document.querySelector('#pathPaqueteByIdioma')).context.value,
-                savePaquteLanguage:angular.element(document.querySelector('#pathSavePaqueteLanguage')).context.value
+                savePaquteLanguage:angular.element(document.querySelector('#pathSavePaqueteLanguage')).context.value,
+                paqueteAllImages:angular.element(document.querySelector('#pathPaqueteAllImages')).context.value,
+                paqueteDeleteImage:angular.element(document.querySelector('#pathDeleteImagePaquete')).context.value,
+                paquetePrincipalImage:angular.element(document.querySelector('#pathPaquetePrincipalImagen')).context.value
             };
             console.info("paths",paquetesVM.paths);
         }
@@ -140,7 +143,7 @@
             paquetesVM.configPaquete =  true;
             paquetesVM.paqueteIdiomaTo.data = undefined;
             $(".summernote").code('');
-
+            paquetesVM.findImagesByPaquete();
             console.info("paquetesVM",paquetesVM.idPaqueteGlobal);
             /*ctrlPaquete.nameTourTitle = tour.descripcion;
             ctrlPaquete.idTourGlobal = tour.id;
@@ -201,30 +204,33 @@
             }
         };
 
-        /*ctrlPaquete.findImagesByTour = function () {
+        paquetesVM.findImagesByPaquete = function () {
             setTimeout(function(){
-                return PaqueteService.findImagesTourByIdTour(ctrlPaquete.idTourGlobal);
-            }, 1000);
+                PaqueteService.findImagesPaqueteByIdPaquete(paquetesVM.paths.paqueteAllImages,paquetesVM.idPaqueteGlobal).then(function(data){
+                    paquetesVM.imagesPaquetes = data;
+                    console.info("images paquetes",data);
+                });
+            },1000);
         };
 
-        ctrlPaquete.setPrincipalImageTour = function(idTour, idImageTour){
-            return PaqueteService.setPrincipalImage(idTour, idImageTour).then(function(data){
+        paquetesVM.setPrincipalImagePaquete = function(idPaquete, idImagePaquete){
+            return PaqueteService.setPrincipalImage(paquetesVM.paths.paquetePrincipalImage,idPaquete, idImagePaquete).then(function(data){
                 pNotifyView(data.data.message, data.data.typeStatus);
             });
         };
 
-        ctrlPaquete.deleteImageTour = function(idImageTour){
-            if(confirm(ctrlPaquete.msjDeleteImage)){
-                return PaqueteService.deleteImageTour(idImageTour).then(function(data){
+        paquetesVM.deleteImagePaquete = function(idImagePaquete){
+            if(confirm(paquetesVM.msjDeleteImage)){
+                return PaqueteService.deleteImagePaquete(paquetesVM.paths.paqueteDeleteImage,idImagePaquete).then(function(data){
                     pNotifyView(data.data.message, data.data.typeStatus);
                     if(data.data.status){
-                        ctrlPaquete.findImagesByTour();
+                        paquetes.findImagesByPaquete();
                     }
                 });
             }
         };
 
-        ctrlPaquete.saveTourLanguage = function(isValid){
+        /*ctrlPaquete.saveTourLanguage = function(isValid){
             if(isValid){
                 startLoading(ctrlPaquete.msjLoading);
                 // Asignasiones
