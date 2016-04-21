@@ -18,6 +18,7 @@
             children : '0',
             adults : '2'
         };
+        ctrlWeb.minimoPersonas = 0;
 
 
         ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate) {
@@ -25,22 +26,23 @@
             ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate);
         };
 
-        ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate){
+        ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson){
             console.info(fechaReserva);
             ctrlWeb.totalPersons = {
                 children : totalMenores,
                 adults : totalAdultos
             };
             $('.datepicker').val(fechaReserva);
-            ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate);
+            ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate, minimoPerson);
         };
 
-        ctrlWeb.configureParametersInit = function(rateChild, rateAdult, exchangeRate){
+        ctrlWeb.configureParametersInit = function(rateChild, rateAdult, exchangeRate, minimoPerson){
             ctrlWeb.symbolCurrency = angular.element(document.querySelector('#symbolCurrencyHidden')).context.value;
             console.info("simbolo ", ctrlWeb.symbolCurrency);
             ctrlWeb.exchangeRate = parseFloat(exchangeRate);
             ctrlWeb.rateChild = parseFloat(rateChild);
             ctrlWeb.rateAdult = parseFloat(rateAdult);
+            ctrlWeb.minimoPersonas = parseInt(minimoPerson);
         };
 
         ctrlWeb.recalculateCostTour = function(){

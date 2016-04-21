@@ -19,6 +19,13 @@ class HotelTarifaTO {
     private $idHabitacion;
     private $fechaInicio;
     private $fechaFin;
+    private $aplicaImpuesto;
+    private $ish;
+    private $markup;
+    private $iva;
+    private $fee;
+
+
 
     /**
      * @return mixed
@@ -196,5 +203,88 @@ class HotelTarifaTO {
     {
         $this->fechaFin = $fechaFin;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAplicaImpuesto()
+    {
+        return $this->aplicaImpuesto;
+    }
+
+    /**
+     * @param mixed $aplicaImpuesto
+     */
+    public function setAplicaImpuesto($aplicaImpuesto)
+    {
+        $this->aplicaImpuesto = $aplicaImpuesto;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsh()
+    {
+        return $this->ish;
+    }
+
+    /**
+     * @param mixed $ish
+     */
+    public function setIsh($ish)
+    {
+        $this->ish = $ish;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMarkup()
+    {
+        return $this->markup;
+    }
+
+    /**
+     * @param mixed $markup
+     */
+    public function setMarkup($markup)
+    {
+        $this->markup = $markup;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIva()
+    {
+        return $this->iva;
+    }
+
+    /**
+     * @param mixed $iva
+     */
+    public function setIva($iva)
+    {
+        $this->iva = $iva;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFee()
+    {
+        return $this->fee;
+    }
+
+    /**
+     * @param mixed $fee
+     */
+    public function setFee($fee)
+    {
+        $this->fee = $fee;
+    }
+
+
+
 
 }

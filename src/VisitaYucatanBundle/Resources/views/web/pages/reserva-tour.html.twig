@@ -4,7 +4,7 @@
 {% block section %}
 
     {% block content %}
-        <section data-ng-controller="WebTourController as ctrlWeb" ng-init="ctrlWeb.initReservaTour('{{ tour.fechaReserva }}', '{{ tour.totalAdultos }}', '{{ tour.totalMenores }}', {{ tour.tarifamenor }}, {{ tour.tarifaadulto }}, {{ tour.tipoCambio }});">
+        <section data-ng-controller="WebTourController as ctrlWeb" ng-init="ctrlWeb.initReservaTour('{{ tour.fechaReserva }}', '{{ tour.totalAdultos }}', '{{ tour.totalMenores }}', {{ tour.tarifamenor }}, {{ tour.tarifaadulto }}, {{ tour.tipoCambio }}, {{ tour.minimopersonas }});">
             <input type="hidden" value="{{ tour.simboloMoneda }}" id="symbolCurrencyHidden"/>
             <div id="content">
 
@@ -46,7 +46,8 @@
                 tour seleccionado = {{ tour.nombreTour }} <br>
                 precio adulto = {{ tour.tarifaAdultoFormat }} {{ tour.simboloMoneda }}<br>
                 precio menor = {{ tour.tarifaMenorFormat }} {{ tour.simboloMoneda }}<br><br>
-                Costo total = <span id="totalCostTour">${{ costoTotal }} {{ tour.simboloMoneda }}</span>
+                Costo total = <span id="totalCostTour">${{ costoTotal }} {{ tour.simboloMoneda }}</span><br><br>
+                Minimo de personas = {{ tour.minimopersonas }}
 
             </div>
 

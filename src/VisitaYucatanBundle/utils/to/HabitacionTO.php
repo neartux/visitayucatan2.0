@@ -20,16 +20,7 @@ class HabitacionTO {
     private $capacidadMaxima;
     private $allotment;
     private $hotelTarifasTOCollection;
-
-    public function addHotelHabitacion(\VisitaYucatanBundle\utils\to\HotelTarifaTO $hotelTarifasTOCollection) {
-        $this->hotelTarifasTOCollection[] = $hotelTarifasTOCollection;
-
-        return $this;
-    }
-
-    public function getHotelHabitacion() {
-        return $this->hotelTarifasTOCollection;
-    }
+    private $msjAllotment;
 
     /**
      * @return mixed
@@ -189,6 +180,32 @@ class HabitacionTO {
     public function setAllotment($allotment)
     {
         $this->allotment = $allotment;
+    }
+
+    public function addHotelHabitacion(\VisitaYucatanBundle\utils\to\HotelTarifaTO $hotelTarifasTOCollection) {
+        $this->hotelTarifasTOCollection[] = $hotelTarifasTOCollection;
+
+        return $this;
+    }
+
+    public function getHotelHabitacion() {
+        return $this->hotelTarifasTOCollection;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMsjAllotment()
+    {
+        return $this->msjAllotment;
+    }
+
+    /**
+     * @param mixed $msjAllotment
+     */
+    public function setMsjAllotment($msjAllotment)
+    {
+        $this->msjAllotment = $msjAllotment;
     }
 
 
