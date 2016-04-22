@@ -191,7 +191,9 @@ public function findPeninsulalByIdAndLanguageAction(Request $request) {
       // busca todos las peninsulas activos y publicados
       $peninsulas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Articulo')->getPeninsulas($datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], Generalkeys::OFFSET_ROWS_ZERO, Generalkeys::LIMIT_ROWS_TWENTY);
       // renderiza la vista y manda la informacion
-        return $this->render('VisitaYucatanBundle:web/pages:peninsulas.html.twig');
+        return $this->render('VisitaYucatanBundle:web/pages:peninsulas.html.twig',  array('peninsulas' => $peninsulas,
+             'monedas' => $currency,
+            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
 
      }
 

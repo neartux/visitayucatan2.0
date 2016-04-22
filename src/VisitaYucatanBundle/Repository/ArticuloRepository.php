@@ -115,14 +115,15 @@ class ArticuloRepository extends \Doctrine\ORM\EntityRepository {
    public function getPeninsulas($idioma, $offset, $limit){
 
     $em = $this->getEntityManager();
-    $sql = "SELECT articulo.id, articulo_idioma.nombre,articulo_idioma.descripcion AS descripcionidioma
+    $sql = "SELECT articulo.id, articulo_idioma.nombre AS nombre ,articulo_idioma.descripcion AS descripcionidioma
                 FROM articulo
-                inner JOIN articulo_idioma ON articulo.id = articulo_idioma.id_articulo AND articulo_idioma.id_idioma = :idioma
-                inner JOIN idioma ON idioma.id = articulo_idioma.id_idioma AND idioma.id = :idioma  AND idioma.id_estatus = :estatusActivo
+                INNER JOIN articulo_idioma ON articulo.id = articulo_idioma.id_articulo AND articulo_idioma.id_idioma = :idioma
+                INNER JOIN idioma ON idioma.id = articulo_idioma.id_idioma AND idioma.id = :idioma  AND idioma.id_estatus = :estatusActivo
                 WHERE articulo.tipoarticulo = 'peninsula'
                 AND articulo.id_estatus = :estatusActivo";
 
     $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+    $params['tipoArticulo'] = Generalkeys::TIPO_ARTICULO_PENINSULA;
     $params['idioma'] = $idioma;
     $stmt = $em->getConnection()->prepare($sql);
     $stmt->execute($params);
