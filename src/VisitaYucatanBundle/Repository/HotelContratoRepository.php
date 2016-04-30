@@ -4,6 +4,7 @@ namespace VisitaYucatanBundle\Repository;
 use Doctrine\ORM\EntityNotFoundException;
 use VisitaYucatanBundle\Entity\HotelContrato;
 use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\HotelUtils;
 
 /**
@@ -43,7 +44,11 @@ class HotelContratoRepository extends \Doctrine\ORM\EntityRepository {
         $contrato->setFechaInicio(new \DateTime($contractTO->getFechaInicio()));
         $contrato->setFechaFin(new \DateTime($contractTO->getFechaFin()));
         $contrato->setEdadMenor($contractTO->getEdadMenor());
-        $contrato->setAplicaImpuesto($contractTO->getAplicaImpuesto());
+        $applyTax = $contractTO->getAplicaImpuesto();
+        if(is_null($contractTO->getAplicaImpuesto())){
+            $applyTax =Generalkeys::BOOLEAN_FALSE;
+        }
+        $contrato->setAplicaImpuesto($applyTax);
         $contrato->setIsh($contractTO->getIsh());
         $contrato->setMarkup($contractTO->getMarkup());
         $contrato->setIva($contractTO->getIva());
