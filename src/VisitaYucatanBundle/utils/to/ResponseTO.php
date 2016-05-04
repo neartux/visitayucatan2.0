@@ -13,6 +13,7 @@ class ResponseTO{
     private $message;
     private $code;
     private $id;
+    private $data;
 
     /**
      * ResponseTO constructor.
@@ -97,5 +98,21 @@ class ResponseTO{
         $this->code = $code;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
 
+    /**
+     * @param mixed $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    
 }

@@ -7,6 +7,7 @@
 namespace VisitaYucatanBundle\utils;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Proxies\__CG__\VisitaYucatanBundle\Entity\Hotel;
 use VisitaYucatanBundle\utils\to\ContractTO;
 use VisitaYucatanBundle\utils\to\HabitacionTO;
 use VisitaYucatanBundle\utils\to\HotelidiomaTO;
@@ -156,89 +157,123 @@ class HotelUtils {
 
 
     // TODO pendiente , aun hay duda de como manejar las tarifas de las habitaciones, va a ser una lista de habitaciones con otra lista de tarifas
-    public static function getCotizationRoom($fechasCostos, $numeroPersonas){
+    public static function getCotizationRoom($roomsCosts, $numAdults, $numMinors, $fechasCierre, Hotel $hotel){
         $finaliCost = new ArrayCollection();
-        if (count($fechasCostos) > Generalkeys::NUMBER_ZERO){
-            $idCurrentRoom = Generalkeys::NUMBER_ZERO;
-            $habitacionTO = null;
-            $numRoomTotal = Generalkeys::NUMBER_ZERO;
-            $noRoomDisponible = false;
-
-            foreach($fechasCostos as $costo){
-                // Es cambio de habitacion
-                if($idCurrentRoom != $costo['idHabitacion']){
-                    if(! is_null($habitacionTO)){
-                        $finaliCost->add($habitacionTO);
-                    }
+        if (count($roomsCosts) > Generalkeys::NUMBER_ZERO){
+            // Variable para sumar costo de todos los dias de habitacion
+            $grandTotal = Generalkeys::NUMBER_ZERO;
+            // Obtiene el array de las fechas cierre
+            $closingDates = self::getArrayClosingDates($fechasCierre);
+            // Array temporal de costos por habitaciones
+            $dateCostTmp = new ArrayCollection();
+            // Variable para habitacion tmp
+            $idRoomTmp = Generalkeys::NUMBER_ZERO;
+            // Para contar los registros
+            $cont = Generalkeys::NUMBER_ZERO;
+            //
+            $habitacionTO = new HabitacionTO();
+            // Itera las fechas y sus costos
+            foreach ($roomsCosts as $cost) {
+                $nameRoom = $cost["nombre"];
+                $descriptionRoom = $cost["descripcion"];
+                // Convierte el registro en objeto
+                $tarifaTO = self::getDetailCost($cost);
+                
+                // si es el primer registro 
+                if ($idRoomTmp == Generalkeys::NUMBER_ZERO) {
+                    $habitacionTO->setNombre($nameRoom);
+                    $habitacionTO->setDescripcion($descriptionRoom);
+                }
+                // si es cambio de habitacion y la lista de fechas costos no esta vacia
+                if ($idRoomTmp != $tarifaTO->getIdHabitacion() && ! $dateCostTmp->isEmpty()){
+                    // agrega las fechas a la habitacion
+                    $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
+                    
                     $habitacionTO = new HabitacionTO();
-                    $habitacionTO->setNombre($costo['nombre']);
-                    $habitacionTO->setDescripcion($costo['descripcion']);
-                    $habitacionTO->setAllotment($costo['allotment']);
-                    $habitacionTO->setCapacidadMaxima($costo['capacidadmaxima']);
-
-                    // Calcula el numero de habitaciones que se necesita
-                    $numRoomTotal = ceil($numeroPersonas / $habitacionTO->getCapacidadMaxima());
-
-                    // Si hay habitaciones disponible, prosige a calcular tarifas de lo contrario guarda msj de no hay habitaciones disponibles
-                    if($numRoomTotal <= $habitacionTO->getAllotment()) {
-                        $noRoomDisponible = false;
-                    } else{
-                        $habitacionTO->setMsjAllotment("El maximo de habitaciones disponibles por el momentos son ".$habitacionTO->getAllotment());
-                        $noRoomDisponible = true;
-                    }
+                    $habitacionTO->setNombre($nameRoom);
+                    $habitacionTO->setDescripcion($descriptionRoom);
                 }
 
-                // Si hay habitaciones disponibles
-                if(! $noRoomDisponible){
-                    $tarifaHabitacionTO = new HotelTarifaTO();
-                    $tarifaHabitacionTO->setSencillo($costo['costosencillo']);
-                    $tarifaHabitacionTO->setDoble($costo['costodoble']);
-                    $tarifaHabitacionTO->setTriple($costo['costotriple']);
-                    $tarifaHabitacionTO->setCuadruple($costo['costocuadruple']);
-                    $tarifaHabitacionTO->setAplicaImpuesto($costo['aplicaimpuesto']);
-                    $tarifaHabitacionTO->setIva($costo['iva']);
-                    $tarifaHabitacionTO->setIsh($costo['ish']);
-                    $tarifaHabitacionTO->setMarkup($costo['markup']);
-                    $tarifaHabitacionTO->setFee($costo['fee']);
-
-                    //personas por habitacion llena una habitacion
-                    $personPerRoom = floor(($numeroPersonas / $habitacionTO->getCapacidadMaxima()));
+                if($closingDates->contains($tarifaTO->getFecha()) || $tarifaTO->getAllotment() == Generalkeys::NUMBER_ZERO) {
+                    // La fecha no esta disponible
+                    $tarifaTO->setIsAvailable(Generalkeys::BOOLEAN_FALSE);
+                    // Coloca mensaje de no disponible
+                    $tarifaTO->setMsjAvailable(Generalkeys::NOT_AVAILABLE_MSJ);
+                    // Agrega obj a lista
+                    $dateCostTmp->add($tarifaTO);
+                    continue;
                 }
+                // si esta disponible la fecha
+                $tarifaTO->setIsAvailable(Generalkeys::BOOLEAN_TRUE);
+                // calcula numero de habitaciones a ocupar
+                $numRooms = ceil(($numAdults + $numMinors) / $tarifaTO->getCapacidadMaxima());
 
+                // Si la habitacion es uno TODO aqui es la parte a mejorar cuando sean mas de una habitacion requerida
+                if($numRooms == Generalkeys::NUMBER_ONE) {
+                    // Obtiene el costo de la habitacion
+                    $rate = self::getRateByPersons($numAdults, $tarifaTO->getSencillo(), $tarifaTO->getDoble(), $tarifaTO->getTriple(), $tarifaTO->getCuadruple());
+                    // Calcula impuestos y suma a gran total
+                    $grandTotal += self::getTotalRate($rate, $tarifaTO->getIsh(), $tarifaTO->getMarkup(), $tarifaTO->getIva(), $tarifaTO->getFee(), $tarifaTO->getAplicaImpuesto());
+                    
+                }
+                // Agrega obj a lista
+                $dateCostTmp->add($tarifaTO);
+                // Si es el ultimo registro
+                if(count($roomsCosts) == $cont) {
+                    $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
+                }
             }
-
         }
         return $finaliCost;
     }
+
+    private static function getDetailCost($cost){
+        $habitacionTarifaTO = new HotelTarifaTO();
+        $habitacionTarifaTO->setAplicaImpuesto($cost["aplicaimpuesto"]);
+        $habitacionTarifaTO->setSencillo($cost["costosencillo"]);
+        $habitacionTarifaTO->setDoble($cost["costodoble"]);
+        $habitacionTarifaTO->setTriple($cost["costotriple"]);
+        $habitacionTarifaTO->setCuadruple($cost["costocuadruple"]);
+        $habitacionTarifaTO->setFecha($cost["fecha"]);
+        $habitacionTarifaTO->setIsh($cost["ish"]);
+        $habitacionTarifaTO->setIva($cost["iva"]);
+        $habitacionTarifaTO->setMarkup($cost["markup"]);
+        $habitacionTarifaTO->setFee($cost["fee"]);
+        $habitacionTarifaTO->setCapacidadMaxima($cost["capacidadmaxima"]);
+        $habitacionTarifaTO->setAllotment($cost["allotment"]);
+        $habitacionTarifaTO->setIdHabitacion($cost["idhabitacion"]);
+        
+        return $habitacionTarifaTO;
+    }
     // TODO la tarifa es con respecto al numero de personas que reservan, se calcula por la habitacion ocupada
-    private static function getRateRoomDate($tarifa, $ish, $markup, $iva, $fee, $appyTax){
+    private static function getTotalRate($tarifa, $ish, $markup, $iva, $fee, $appyTax){
         $finalyRate = floatval($tarifa);
         if($appyTax){
 
             $totalTax = floatval($iva) + floatval($ish);
 
-            $finalyRate = floatval($tarifa) + ($tarifa * ($totalTax / 100));
+            $finalyRate = floatval($tarifa) + ($tarifa * ($totalTax / Generalkeys::NUMBER_ONE_HUNDRED));
         }
 
         // Sumamos el markup
-        $finalyRate = $finalyRate / (1-(floatval($markup)/100));
+        $finalyRate = $finalyRate / (Generalkeys::NUMBER_ONE - (floatval($markup)/ Generalkeys::NUMBER_ONE_HUNDRED));
 
         return $finalyRate;
     }
 
-    private static function getRateByPersons($personas, $tarifaSencilla, $tarifaDoble, $tarifaTriple, $tarifaCuadruple){
+    private static function getRateByPersons($numAdults, $tarifaSencilla, $tarifaDoble, $tarifaTriple, $tarifaCuadruple){
         $tarifa = Generalkeys::NUMBER_ZERO;
-        switch ($personas){
-            case 1:
+        switch ($numAdults){
+            case Generalkeys::RATE_SIMPLE:
                 $tarifa = $tarifaSencilla;
                 break;
-            case 2:
+            case Generalkeys::RATE_DOUBLE:
                 $tarifa = $tarifaDoble;
                 break;
-            case 3:
+            case Generalkeys::RATE_TRIPLE:
                 $tarifa = $tarifaTriple;
                 break;
-            case 4:
+            case Generalkeys::RATE_QUADRUPLE:
                 $tarifa = $tarifaCuadruple;
                 break;
         }

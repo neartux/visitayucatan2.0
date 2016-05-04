@@ -20,7 +20,6 @@ class HabitacionTO {
     private $capacidadMaxima;
     private $allotment;
     private $hotelTarifasTOCollection;
-    private $msjAllotment;
 
     /**
      * @return mixed
@@ -195,18 +194,17 @@ class HabitacionTO {
     /**
      * @return mixed
      */
-    public function getMsjAllotment()
+    public function getHotelTarifasTOCollection()
     {
-        return $this->msjAllotment;
+        return $this->hotelTarifasTOCollection;
     }
 
     /**
-     * @param mixed $msjAllotment
+     * @param mixed $hotelTarifasTOCollection
      */
-    public function setMsjAllotment($msjAllotment)
+    public function setHotelTarifasTOCollection($hotelTarifasTOCollection)
     {
-        $this->msjAllotment = $msjAllotment;
+        $this->hotelTarifasTOCollection = $hotelTarifasTOCollection;
     }
-
-
+    
 }

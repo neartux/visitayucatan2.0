@@ -24,8 +24,10 @@ class HotelTarifaTO {
     private $markup;
     private $iva;
     private $fee;
-
-
+    private $capacidadMaxima;
+    private $allotment;
+    private $msjAvailable;
+    private $isAvailable;
 
     /**
      * @return mixed
@@ -284,7 +286,68 @@ class HotelTarifaTO {
         $this->fee = $fee;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCapacidadMaxima()
+    {
+        return $this->capacidadMaxima;
+    }
 
+    /**
+     * @param mixed $capacidadMaxima
+     */
+    public function setCapacidadMaxima($capacidadMaxima)
+    {
+        $this->capacidadMaxima = $capacidadMaxima;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getAllotment()
+    {
+        return $this->allotment;
+    }
 
+    /**
+     * @param mixed $allotment
+     */
+    public function setAllotment($allotment)
+    {
+        $this->allotment = $allotment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMsjAvailable()
+    {
+        return $this->msjAvailable;
+    }
+
+    /**
+     * @param mixed $msjAvailable
+     */
+    public function setMsjAvailable($msjAvailable)
+    {
+        $this->msjAvailable = $msjAvailable;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsAvailable()
+    {
+        return $this->isAvailable;
+    }
+
+    /**
+     * @param mixed $isAvailable
+     */
+    public function setIsAvailable($isAvailable)
+    {
+        $this->isAvailable = $isAvailable;
+    }
+       
 }

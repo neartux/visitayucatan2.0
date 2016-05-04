@@ -10,6 +10,7 @@ use VisitaYucatanBundle\utils\DateUtil;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\HotelUtils;
 use VisitaYucatanBundle\utils\StringUtils;
+use VisitaYucatanBundle\utils\to\ResponseTO;
 use VisitaYucatanBundle\utils\TourUtils;
 
 class HotelController extends Controller {
@@ -30,7 +31,6 @@ class HotelController extends Controller {
         $descripcionCorta = StringUtils::cutText($descriptionPage['descripcion'], Generalkeys::NUMBER_ZERO, Generalkeys::NUMBER_ONE_HUNDRED_FIFTEEN, Generalkeys::COLILLA_TEXT, Generalkeys::CIERRE_HTML_P);
         // busca todos los hoteles activos y publicados
         $hotels = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelsByDestino($datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], Generalkeys::ORIGEN_MERIDA ,Generalkeys::OFFSET_ROWS_ZERO, Generalkeys::LIMIT_ROWS_TWENTY);
-        //print_r($hotels);exit;
         // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:hotels.html.twig', array('hotels' => HotelUtils::getHotels($hotels),
             'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta, 'monedas' => $currency,
@@ -64,7 +64,7 @@ class HotelController extends Controller {
      * @Route("/hotel/detail/id/{id}", name="web_hotel_detail")
      * @Method("GET")
      */
-    public function detailTourAction($id, Request $request) {
+    public function detailHotelAction($id, Request $request) {
         $datos = $this->getParamsTour($request);
         $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
         $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
@@ -76,6 +76,24 @@ class HotelController extends Controller {
             'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL,
             'dateFrom' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_TWO)),
             'dateTo' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_THREE))));
+    }
+
+    public function getPricesRoom(Request $request) {
+        $serializer = $this->get('serializer');
+        try {
+            $adults = $request->get('adults');
+            $minors = $request->get('minors');
+            $dateFrom = $request->get('from');
+            $dateTo = $request->get('to');
+            // todo en esta parte me quede
+            $dateClosing = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->findClosingDateByContractAndHotel();
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, Generalkeys::EMPTY_STRING, Generalkeys::RESPONSE_ERROR, Generalkeys::RESPONSE_CODE_OK);
+            $response->setData();
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+            
+        }catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
     }
 
     private function getParamsTour($request){
@@ -108,3 +126,4 @@ class HotelController extends Controller {
         return $datos;
     }
 }
+// TODO cuando se aga reserva de hotel hay que actualizar el allotment

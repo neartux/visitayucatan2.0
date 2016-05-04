@@ -25,6 +25,7 @@ class Generalkeys{
     const NUMBER_THREE = 3;
     const STRING_SLASH = '/';
     const STRING_DASH = '-';
+    const NUMBER_ONE_HUNDRED = 100;
     const NUMBER_TWO_HUNDRED = 200;
     const NUMBER_ONE_HUNDRED_FIFTEEN = 156;
     const BOOLEAN_TRUE = true;
@@ -65,6 +66,12 @@ class Generalkeys{
     const f_capetillo_email = 'fcapetilloc@visitayucatan.com';
     const faustino_pech_email = 'faustinopech@posadatoledo.com';
     const no_responder_email = 'noresponder@visitayucatan.com';
+    const RATE_SIMPLE = 1;
+    const RATE_DOUBLE = 2;
+    const RATE_TRIPLE = 3;
+    const RATE_QUADRUPLE = 4;
+    const NOT_AVAILABLE_MSJ = "No disponible";
+    const EMPTY_STRING = "";
 
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);

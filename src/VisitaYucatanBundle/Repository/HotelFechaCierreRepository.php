@@ -24,7 +24,7 @@ class HotelFechaCierreRepository extends \Doctrine\ORM\EntityRepository {
         return $stmt->fetchAll();
     }
 
-    public function buscaFechasCierreByIdHotelAndIdContrato($idHotel, $idContrato) {
+    public function findClosingDateByContractAndHotel($idHotel, $idContrato) {
         $em = $this->getEntityManager();
         $sql = "SELECT hotel_fecha_cierre.id, hotel_fecha_cierre.fechainicio, hotel_fecha_cierre.fechafin
                 FROM hotel_fecha_cierre

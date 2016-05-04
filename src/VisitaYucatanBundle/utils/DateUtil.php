@@ -10,6 +10,18 @@ namespace VisitaYucatanBundle\utils;
 
 class DateUtil {
 
+    private static $month = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+    
+    public static function getMonth($numberMonth) {
+        return self::$month[$numberMonth];
+    }
+    
+    public static function getNumberMonth($date) {
+        // yyyy-mm-dd
+        $dateParts = explode("-", $date);
+        return $dateParts[Generalkeys::NUMBER_ONE];
+    }
+
     public static function diffDays($fechaInicio, $fechaFin){
         $dias	= (strtotime($fechaInicio) - strtotime($fechaFin)) / 86400;
         return floor($dias);
