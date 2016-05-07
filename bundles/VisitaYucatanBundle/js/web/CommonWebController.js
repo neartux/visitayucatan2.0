@@ -63,16 +63,20 @@
     app.controller("WebHotelController", function ($scope, $http, WebService) {
         var ctrlHotel = this;
         ctrlHotel.hotel = {};
+        ctrlHotel.formRate = {};
 
         ctrlHotel.init = function(dateFrom, dateTo, idHotel) {
             ctrlHotel.hotel.idHotel = idHotel;
-            console.info(dateFrom, dateTo);
+            console.info(dateFrom, dateTo, idHotel);
             angular.element(document.querySelector('#dateFrom')).context.value = dateFrom;
             angular.element(document.querySelector('#dateTo')).context.value = dateTo;
         };
 
         ctrlHotel.findTarifasHotel = function() {
-
+            console.info("buscando tarifas formRate= ", ctrlHotel.formRate);
+            ctrlHotel.formRate.dateFrom = angular.element(document.querySelector('#dateFrom')).context.value;
+            ctrlHotel.formRate.dateTo = angular.element(document.querySelector('#dateTo')).context.value;
+            return WebService.findRateRoomByHotel(ctrlHotel.formRate, ctrlHotel.hotel.idHotel);
         };
 
         ctrlHotel.isSammeDates = function (dateFrom, dateTo){

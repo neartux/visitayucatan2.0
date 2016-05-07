@@ -157,7 +157,7 @@ class HotelUtils {
 
 
     // TODO pendiente , aun hay duda de como manejar las tarifas de las habitaciones, va a ser una lista de habitaciones con otra lista de tarifas
-    public static function getCotizationRoom($roomsCosts, $numAdults, $numMinors, $fechasCierre, Hotel $hotel){
+     public static function getCotizationRoom($roomsCosts, $numAdults, $numMinors, $fechasCierre ){
         $finaliCost = new ArrayCollection();
         if (count($roomsCosts) > Generalkeys::NUMBER_ZERO){
             // Variable para sumar costo de todos los dias de habitacion
@@ -178,14 +178,19 @@ class HotelUtils {
                 $descriptionRoom = $cost["descripcion"];
                 // Convierte el registro en objeto
                 $tarifaTO = self::getDetailCost($cost);
+                echo "idHabitacion = ".$tarifaTO->getIdHabitacion()."<br>";
+                //print_r($tarifaTO);
                 
                 // si es el primer registro 
                 if ($idRoomTmp == Generalkeys::NUMBER_ZERO) {
+                    $idRoomTmp = $tarifaTO->getIdHabitacion();
                     $habitacionTO->setNombre($nameRoom);
                     $habitacionTO->setDescripcion($descriptionRoom);
                 }
                 // si es cambio de habitacion y la lista de fechas costos no esta vacia
                 if ($idRoomTmp != $tarifaTO->getIdHabitacion() && ! $dateCostTmp->isEmpty()){
+                    $idRoomTmp = $tarifaTO->getIdHabitacion();
+                    echo "es cambio de habitacion <BR> datos = ";print_r($dateCostTmp);
                     // agrega las fechas a la habitacion
                     $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
                     

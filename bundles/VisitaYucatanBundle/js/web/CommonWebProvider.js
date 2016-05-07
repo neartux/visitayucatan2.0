@@ -13,6 +13,21 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
+        
+        service.findRateRoomByHotel = function (formRate, idHotel) {
+            var path = angular.element(document.querySelector('#pathRatesFind')).context.value;
+            return $http.get(path, $.param(
+                {
+                    adults : formRate.adults,
+                    minors : formRate.minors,
+                    from : formRate.dateFrom,
+                    to : formRate.dateTo,
+                    idHotel : idHotel
+                }
+            ), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
 
         return service;
     });

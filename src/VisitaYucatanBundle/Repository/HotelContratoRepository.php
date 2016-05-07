@@ -14,6 +14,23 @@ use VisitaYucatanBundle\utils\HotelUtils;
  * repository methods below.
  */
 class HotelContratoRepository extends \Doctrine\ORM\EntityRepository {
+    
+    public function findIdContractActiveByHotel($idHotel){
+        $em = $this->getEntityManager();
+        $sql = "SELECT hotel_contrato.id
+                FROM hotel_contrato
+                WHERE hotel_contrato.id_hotel = :hotel
+                AND hotel_contrato.fechainicio <= now()
+                AND hotel_contrato.fechafin >= now()
+                AND hotel_contrato.id_estatus = :estatus
+                ORDER BY hotel_contrato.id DESC LIMIT 1;";
+        $params['hotel'] = $idHotel;
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchColumn(Generalkeys::NUMBER_ZERO);
+    }
 
     public function findContracts($idHotel) {
         $em = $this->getEntityManager();

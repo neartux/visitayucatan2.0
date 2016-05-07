@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\DateUtil;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\HotelUtils;
@@ -78,17 +79,40 @@ class HotelController extends Controller {
             'dateTo' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_THREE))));
     }
 
+    /**
+     * @Route("/hotel/find/rates", name="web_hotel_rates")
+     * @Method("GET")
+     */
     public function getPricesRoom(Request $request) {
         $serializer = $this->get('serializer');
         try {
+            // obtiene los datos de session moneda e idioma
+            $datos = $this->getParamsTour($request);
             $adults = $request->get('adults');
             $minors = $request->get('minors');
             $dateFrom = $request->get('from');
             $dateTo = $request->get('to');
-            // todo en esta parte me quede
-            $dateClosing = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->findClosingDateByContractAndHotel();
+            $idHotel = $request->get('idHotel');
+            //TODO path test = http://localhost/visitayucatan2.0/hotel/find/rates?adults=2&minors=3&from=08/05/2016&to=31/05/2016&idHotel=1
+            echo "adultos = ".$adults." menores = ".$minors." dateFrom = ".$dateFrom." dateTO = ".$dateTo." idHotel = ".$idHotel." ****<br> ";
+            // idcontrato actual 
+            $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($idHotel);
+            echo("idcontrato = ".$idContract."<br>");
+            $dateClosing = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->findClosingDateByContractAndHotel($idHotel, $idContract);
+            echo("fechas cierre ******************************************************<br>");
+                print_r($dateClosing); echo "<br>";
+            echo("fechas cierre ******************************************************<br>");
+            $costosRoom = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->getRateByRooms($idHotel, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
+            echo("COSTOS ******************************************************<br>");
+            print_r($costosRoom); echo "<br>";
+            echo("COSTOS ******************************************************<br><br><br><br><br>");
+            $costs = HotelUtils::getCotizationRoom($costosRoom, $adults, $minors, $dateClosing);
+            
+            print_r($costs);
             $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, Generalkeys::EMPTY_STRING, Generalkeys::RESPONSE_ERROR, Generalkeys::RESPONSE_CODE_OK);
-            $response->setData();
+
+            $response->setData($costs);
+
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
             
         }catch (\Exception $e) {
