@@ -174,11 +174,16 @@ class HotelUtils {
             $habitacionTO = new HabitacionTO();
             // Itera las fechas y sus costos
             foreach ($roomsCosts as $cost) {
+                $cont ++;
                 $nameRoom = $cost["nombre"];
                 $descriptionRoom = $cost["descripcion"];
                 // Convierte el registro en objeto
                 $tarifaTO = self::getDetailCost($cost);
-                echo "idHabitacion = ".$tarifaTO->getIdHabitacion()."<br>";
+
+                if($tarifaTO->getCapacidadMaxima() < ($numAdults + $numMinors)){
+                    continue;
+                }
+                //echo "idHabitacion = ".$tarifaTO->getIdHabitacion()."<br>";
                 //print_r($tarifaTO);
                 
                 // si es el primer registro 
@@ -190,10 +195,15 @@ class HotelUtils {
                 // si es cambio de habitacion y la lista de fechas costos no esta vacia
                 if ($idRoomTmp != $tarifaTO->getIdHabitacion() && ! $dateCostTmp->isEmpty()){
                     $idRoomTmp = $tarifaTO->getIdHabitacion();
-                    echo "es cambio de habitacion <BR> datos = ";print_r($dateCostTmp);
+                    echo "es cambio de habitacion <BR> numero de habitacion anterior = ".count($dateCostTmp)."<br>";
                     // agrega las fechas a la habitacion
                     $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
-                    
+                    $habitacionTO->setTotalCostoHabitacion(number_format(ceil($grandTotal), Generalkeys::NUMBER_TWO));
+                    $grandTotal = Generalkeys::NUMBER_ZERO;
+
+                    // agrega al array general
+                    $finaliCost->add($habitacionTO);
+
                     $habitacionTO = new HabitacionTO();
                     $habitacionTO->setNombre($nameRoom);
                     $habitacionTO->setDescripcion($descriptionRoom);
@@ -217,15 +227,21 @@ class HotelUtils {
                 if($numRooms == Generalkeys::NUMBER_ONE) {
                     // Obtiene el costo de la habitacion
                     $rate = self::getRateByPersons($numAdults, $tarifaTO->getSencillo(), $tarifaTO->getDoble(), $tarifaTO->getTriple(), $tarifaTO->getCuadruple());
+                  //  echo "costo por habitacion = ".$rate."<br>";
                     // Calcula impuestos y suma a gran total
-                    $grandTotal += self::getTotalRate($rate, $tarifaTO->getIsh(), $tarifaTO->getMarkup(), $tarifaTO->getIva(), $tarifaTO->getFee(), $tarifaTO->getAplicaImpuesto());
+                    $total = self::getTotalRate($rate, $tarifaTO->getIsh(), $tarifaTO->getMarkup(), $tarifaTO->getIva(), $tarifaTO->getFee(), $tarifaTO->getAplicaImpuesto());
+                    $tarifaTO->setCosto($total);
+                    $grandTotal += $total;
                     
                 }
                 // Agrega obj a lista
                 $dateCostTmp->add($tarifaTO);
                 // Si es el ultimo registro
                 if(count($roomsCosts) == $cont) {
+                    echo "este es el ultimo registro **************<br>";
                     $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
+                    $habitacionTO->setTotalCostoHabitacion(number_format(ceil($grandTotal), Generalkeys::NUMBER_TWO));
+                    $finaliCost->add($habitacionTO);
                 }
             }
         }
@@ -253,7 +269,8 @@ class HotelUtils {
     // TODO la tarifa es con respecto al numero de personas que reservan, se calcula por la habitacion ocupada
     private static function getTotalRate($tarifa, $ish, $markup, $iva, $fee, $appyTax){
         $finalyRate = floatval($tarifa);
-        if($appyTax){
+        //echo $appyTax;
+        if(! $appyTax){
 
             $totalTax = floatval($iva) + floatval($ish);
 

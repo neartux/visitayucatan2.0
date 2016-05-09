@@ -14,7 +14,7 @@ use VisitaYucatanBundle\utils\Generalkeys;
  * repository methods below.
  */
 class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
-    
+    // TODO falta pasar las fechas
     public function getRateByRooms($idHotel, $idIdioma, $idMoneda){
         $em = $this->getEntityManager();
         $sql = "SELECT hotel_habitacion.id AS idhabitacion,hotel_habitacion.allotment,hotel_habitacion.capacidadmaxima,hotel_habitacion.nombre,
@@ -30,7 +30,7 @@ class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
                 INNER JOIN moneda ON moneda.id = :moneda AND moneda.id_estatus = :estatusActivo
                 WHERE hotel_habitacion.id_hotel = :hotel AND hotel_habitacion.id_estatus = :estatusActivo
                 AND hotel_habitacion.allotment > 0
-                AND hotel_tarifa.fecha BETWEEN '2016-04-18' AND '2016-04-22'
+                AND hotel_tarifa.fecha BETWEEN '2016-05-10' AND '2016-05-31'
                 ORDER BY hotel_habitacion.id, hotel_tarifa.fecha ASC;";
 
         $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;

@@ -20,6 +20,7 @@ class HabitacionTO {
     private $capacidadMaxima;
     private $allotment;
     private $hotelTarifasTOCollection;
+    private $totalCostoHabitacion;
 
     /**
      * @return mixed
@@ -206,5 +207,21 @@ class HabitacionTO {
     {
         $this->hotelTarifasTOCollection = $hotelTarifasTOCollection;
     }
-    
+
+    /**
+     * @return mixed
+     */
+    public function getTotalCostoHabitacion()
+    {
+        return $this->totalCostoHabitacion;
+    }
+
+    /**
+     * @param mixed $totalCostoHabitacion
+     */
+    public function setTotalCostoHabitacion($totalCostoHabitacion)
+    {
+        $this->totalCostoHabitacion = $totalCostoHabitacion;
+    }
+       
 }

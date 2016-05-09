@@ -28,6 +28,7 @@ class HotelTarifaTO {
     private $allotment;
     private $msjAvailable;
     private $isAvailable;
+    private $costo;
 
     /**
      * @return mixed
@@ -349,5 +350,21 @@ class HotelTarifaTO {
     {
         $this->isAvailable = $isAvailable;
     }
-       
+
+    /**
+     * @return mixed
+     */
+    public function getCosto()
+    {
+        return $this->costo;
+    }
+
+    /**
+     * @param mixed $costo
+     */
+    public function setCosto($costo)
+    {
+        $this->costo = $costo;
+    }
+          
 }
