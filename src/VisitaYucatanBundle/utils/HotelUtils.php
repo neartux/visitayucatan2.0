@@ -154,9 +154,7 @@ class HotelUtils {
 
         return $closingDate;
     }
-
-
-    // TODO pendiente , aun hay duda de como manejar las tarifas de las habitaciones, va a ser una lista de habitaciones con otra lista de tarifas
+    
      public static function getCotizationRoom($roomsCosts, $numAdults, $numMinors, $fechasCierre ){
         $finaliCost = new ArrayCollection();
         if (count($roomsCosts) > Generalkeys::NUMBER_ZERO){
@@ -164,14 +162,13 @@ class HotelUtils {
             $grandTotal = Generalkeys::NUMBER_ZERO;
             // Obtiene el array de las fechas cierre
             $closingDates = self::getArrayClosingDates($fechasCierre);
-            echo "fechas de cierre = ".count($closingDates)."<br>";
             // Array temporal de costos por habitaciones
             $dateCostTmp = new ArrayCollection();
             // Variable para habitacion tmp
             $idRoomTmp = Generalkeys::NUMBER_ZERO;
             // Para contar los registros
             $cont = Generalkeys::NUMBER_ZERO;
-            //
+            // Objeto habitacion
             $habitacionTO = new HabitacionTO();
             // Itera las fechas y sus costos
             foreach ($roomsCosts as $cost) {
@@ -180,18 +177,20 @@ class HotelUtils {
                 $descriptionRoom = $cost["descripcion"];
                 // Convierte el registro en objeto
                 $tarifaTO = self::getDetailCost($cost);
-
+                // calcula numero de habitaciones a ocupar
+                $numRooms = ceil(($numAdults + $numMinors) / $tarifaTO->getCapacidadMaxima());
+                // Si la capacidad maxima de la habitacion es menor al total de personas a ocupar continua con el siguiente TODO verificar si esta condicion aplica cuando es mas de una habitacion
                 if($tarifaTO->getCapacidadMaxima() < ($numAdults + $numMinors)){
                     continue;
                 }
-                //echo "idHabitacion = ".$tarifaTO->getIdHabitacion()."<br>";
-                //print_r($tarifaTO);
                 
                 // si es el primer registro 
                 if ($idRoomTmp == Generalkeys::NUMBER_ZERO) {
                     $idRoomTmp = $tarifaTO->getIdHabitacion();
                     $habitacionTO->setNombre($nameRoom);
                     $habitacionTO->setDescripcion($descriptionRoom);
+                    $habitacionTO->setCapacidadMaxima($tarifaTO->getCapacidadMaxima());
+                    $habitacionTO->setHabitacionesRequeridas($numRooms);
                 }
                 // si es cambio de habitacion y la lista de fechas costos no esta vacia
                 if ($idRoomTmp != $tarifaTO->getIdHabitacion() && ! $dateCostTmp->isEmpty()){
@@ -199,6 +198,7 @@ class HotelUtils {
                     // agrega las fechas a la habitacion
                     $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
                     $habitacionTO->setTotalCostoHabitacion(number_format(ceil($grandTotal), Generalkeys::NUMBER_TWO));
+                    // reinicia el gran total para la siguiente habitacion
                     $grandTotal = Generalkeys::NUMBER_ZERO;
 
                     // agrega al array general
@@ -207,10 +207,14 @@ class HotelUtils {
                     $habitacionTO = new HabitacionTO();
                     $habitacionTO->setNombre($nameRoom);
                     $habitacionTO->setDescripcion($descriptionRoom);
+                    $habitacionTO->setCapacidadMaxima($tarifaTO->getCapacidadMaxima());
+                    $habitacionTO->setHabitacionesRequeridas($numRooms);
+                    // limpia el array temporal para cambio de tarifas
+                    $dateCostTmp = new ArrayCollection();
                 }
-                //echo "fecha = ".$tarifaTO->getFecha();
+                
+                // si la fecha actual esta en fecha cierre o el allotment es cero
                 if($closingDates->contains($tarifaTO->getFecha()) || $tarifaTO->getAllotment() == Generalkeys::NUMBER_ZERO) {
-                    echo "esta en fecha de cierre <br>";
                     // La fecha no esta disponible
                     $tarifaTO->setIsAvailable(Generalkeys::BOOLEAN_FALSE);
                     // Coloca mensaje de no disponible
@@ -227,14 +231,11 @@ class HotelUtils {
                 }
                 // si esta disponible la fecha
                 $tarifaTO->setIsAvailable(Generalkeys::BOOLEAN_TRUE);
-                // calcula numero de habitaciones a ocupar
-                $numRooms = ceil(($numAdults + $numMinors) / $tarifaTO->getCapacidadMaxima());
 
                 // Si la habitacion es uno TODO aqui es la parte a mejorar cuando sean mas de una habitacion requerida
                 if($numRooms == Generalkeys::NUMBER_ONE) {
                     // Obtiene el costo de la habitacion
                     $rate = self::getRateByPersons($numAdults, $tarifaTO->getSencillo(), $tarifaTO->getDoble(), $tarifaTO->getTriple(), $tarifaTO->getCuadruple());
-                  //  echo "costo por habitacion = ".$rate."<br>";
                     // Calcula impuestos y suma a gran total
                     $total = self::getTotalRate($rate, $tarifaTO->getIsh(), $tarifaTO->getMarkup(), $tarifaTO->getIva(), $tarifaTO->getFee(), $tarifaTO->getAplicaImpuesto());
                     $tarifaTO->setCosto($total);
@@ -276,7 +277,6 @@ class HotelUtils {
     // TODO la tarifa es con respecto al numero de personas que reservan, se calcula por la habitacion ocupada
     private static function getTotalRate($tarifa, $ish, $markup, $iva, $fee, $appyTax){
         $finalyRate = floatval($tarifa);
-        //echo $appyTax;
         if(! $appyTax){
 
             $totalTax = floatval($iva) + floatval($ish);

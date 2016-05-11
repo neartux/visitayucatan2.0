@@ -81,7 +81,7 @@ class HotelController extends Controller {
 
     /**
      * @Route("/hotel/find/rates", name="web_hotel_rates")
-     * @Method("GET")
+     * @Method("POST")
      */
     public function getPricesRoom(Request $request) {
         $serializer = $this->get('serializer');
@@ -93,9 +93,8 @@ class HotelController extends Controller {
             $dateFrom = $request->get('from');
             $dateTo = $request->get('to');
             $idHotel = $request->get('idHotel');
+            //echo "adultos = ".$adults;
             //TODO path test = http://localhost/visitayucatan2.0/hotel/find/rates?adults=2&minors=3&from=08/05/2016&to=31/05/2016&idHotel=1
-            echo "adultos = ".$adults." menores = ".$minors." dateFrom = ".$dateFrom." dateTO = ".$dateTo." idHotel = ".$idHotel." ****<br> ";
-            // idcontrato actual 
             $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($idHotel);
             $dateClosing = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->findClosingDateByContractAndHotel($idHotel, $idContract);
 
@@ -104,11 +103,11 @@ class HotelController extends Controller {
             $costs = HotelUtils::getCotizationRoom($costosRoom, $adults, $minors, $dateClosing);
             
             //print_r($costs);
-            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, Generalkeys::EMPTY_STRING, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, Generalkeys::EMPTY_STRING, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
 
             $response->setData($costs);
-            echo "<br><br>";
-            foreach ($response->getData() as $value) {
+            // TODO siguiente codigo comentado para impresion de fechas y costos mas rapido
+            /*foreach ($response->getData() as $value) {
                 echo "habitacion = ".$value->getNombre()."<br> descripcion = ".$value->getDescripcion()."<br>";
                 echo "<br><br>";
                 foreach ($value->getHotelTarifasTOCollection() as $item) {
@@ -120,11 +119,9 @@ class HotelController extends Controller {
                 echo "cambio de habitacion *****************************************************************************************************************************";
                 echo "<br><br>";
 
-            }
-            echo "<br><br>";
-            echo "<br><br>";
+            }*/
 
-            //return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
             
         }catch (\Exception $e) {
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));

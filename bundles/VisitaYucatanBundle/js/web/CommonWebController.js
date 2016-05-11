@@ -7,6 +7,8 @@
         $interpolateProvider.endSymbol(']]');
     }]);
 
+    app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
+
     app.controller('WebTourController', function ($scope, $http, WebService) {
         var ctrlWeb = this;
         ctrlWeb.symbolCurrency = 'MXP';
@@ -64,6 +66,7 @@
         var ctrlHotel = this;
         ctrlHotel.hotel = {};
         ctrlHotel.formRate = {};
+        ctrlHotel.listRoomsHotelToSale = WebService.listRoomsHotelToSale;
 
         ctrlHotel.init = function(dateFrom, dateTo, idHotel) {
             ctrlHotel.hotel.idHotel = idHotel;
@@ -78,13 +81,7 @@
             ctrlHotel.formRate.dateTo = angular.element(document.querySelector('#dateTo')).context.value;
             return WebService.findRateRoomByHotel(ctrlHotel.formRate, ctrlHotel.hotel.idHotel);
         };
-
-        ctrlHotel.isSammeDates = function (dateFrom, dateTo){
-            console.info(dateFrom, dateTo);
-            if(dateFrom == dateTo){
-                alert("es misma fecha");
-            }
-        };
+        
     });
 
     app.controller('WebCommonsController', function($scope, $http, WebService){

@@ -21,6 +21,7 @@ class HabitacionTO {
     private $allotment;
     private $hotelTarifasTOCollection;
     private $totalCostoHabitacion;
+    private $habitacionesRequeridas;
 
     /**
      * @return mixed
@@ -223,5 +224,21 @@ class HabitacionTO {
     {
         $this->totalCostoHabitacion = $totalCostoHabitacion;
     }
-       
+
+    /**
+     * @return mixed
+     */
+    public function getHabitacionesRequeridas()
+    {
+        return $this->habitacionesRequeridas;
+    }
+
+    /**
+     * @param mixed $habitacionesRequeridas
+     */
+    public function setHabitacionesRequeridas($habitacionesRequeridas)
+    {
+        $this->habitacionesRequeridas = $habitacionesRequeridas;
+    }
+          
 }

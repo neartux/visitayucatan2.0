@@ -49,6 +49,27 @@
                 <button data-ng-click="ctrlWeb.findTarifasHotel()">
                     Buscar
                 </button>
+                <br><br><br>
+
+                *************************************************************************************************************************************************
+
+                <div data-ng-repeat="habitacion in ctrlWeb.listRoomsHotelToSale.data">
+                    <h1>[[ habitacion.nombre ]]</h1>
+                    <h5 ng-bind-html="habitacion.descripcion"></h5>
+                    <br>
+                    <strong>Ocupacion maxima por habitacion:</strong> [[ habitacion.capacidadMaxima ]] (incluyendo menores)
+                    <br><br>
+                    <ul>
+                        <li data-ng-repeat="tarifa in habitacion.hotelTarifasTOCollection">
+                            fech = [[ tarifa.smallDate ]] <br>
+                            costo = [[ tarifa.costo ]] <br>
+                            <span ng-if="! tarifa.isAvailable">[[ tarifa.msjAvailable ]]</span>
+
+                        </li>
+                    </ul>
+                    <br><br>
+                    Habitaciones Requeridas : [[ habitacion.habitacionesRequeridas ]]
+                </div>
 
 
             </div>

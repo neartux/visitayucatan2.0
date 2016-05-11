@@ -6,6 +6,9 @@
     app.factory('WebService', function($http, $q){
 
         var service = {};
+        service.listRoomsHotelToSale = {
+            data: undefined
+        };
 
         service.changeCurrencyOrLanguageSession = function(language, currency){
             var path = angular.element(document.querySelector('#pathCatalogsReload')).context.value;
@@ -15,8 +18,10 @@
         };
         
         service.findRateRoomByHotel = function (formRate, idHotel) {
+            console.info("buscando ", formRate, idHotel);
+            service.listRoomsHotelToSale.data = undefined;
             var path = angular.element(document.querySelector('#pathRatesFind')).context.value;
-            return $http.get(path, $.param(
+            return $http.post(path, $.param(
                 {
                     adults : formRate.adults,
                     minors : formRate.minors,
@@ -26,6 +31,9 @@
                 }
             ), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response) {
+                console.info(response);
+                service.listRoomsHotelToSale.data = response.data.data;
             });
         };
 
