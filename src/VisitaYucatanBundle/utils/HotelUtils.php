@@ -164,6 +164,7 @@ class HotelUtils {
             $grandTotal = Generalkeys::NUMBER_ZERO;
             // Obtiene el array de las fechas cierre
             $closingDates = self::getArrayClosingDates($fechasCierre);
+            echo "fechas de cierre = ".count($closingDates)."<br>";
             // Array temporal de costos por habitaciones
             $dateCostTmp = new ArrayCollection();
             // Variable para habitacion tmp
@@ -195,7 +196,6 @@ class HotelUtils {
                 // si es cambio de habitacion y la lista de fechas costos no esta vacia
                 if ($idRoomTmp != $tarifaTO->getIdHabitacion() && ! $dateCostTmp->isEmpty()){
                     $idRoomTmp = $tarifaTO->getIdHabitacion();
-                    echo "es cambio de habitacion <BR> numero de habitacion anterior = ".count($dateCostTmp)."<br>";
                     // agrega las fechas a la habitacion
                     $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
                     $habitacionTO->setTotalCostoHabitacion(number_format(ceil($grandTotal), Generalkeys::NUMBER_TWO));
@@ -208,14 +208,21 @@ class HotelUtils {
                     $habitacionTO->setNombre($nameRoom);
                     $habitacionTO->setDescripcion($descriptionRoom);
                 }
-
+                //echo "fecha = ".$tarifaTO->getFecha();
                 if($closingDates->contains($tarifaTO->getFecha()) || $tarifaTO->getAllotment() == Generalkeys::NUMBER_ZERO) {
+                    echo "esta en fecha de cierre <br>";
                     // La fecha no esta disponible
                     $tarifaTO->setIsAvailable(Generalkeys::BOOLEAN_FALSE);
                     // Coloca mensaje de no disponible
                     $tarifaTO->setMsjAvailable(Generalkeys::NOT_AVAILABLE_MSJ);
                     // Agrega obj a lista
                     $dateCostTmp->add($tarifaTO);
+                    // Si es el ultimo registro
+                    if(count($roomsCosts) == $cont) {
+                        $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
+                        $habitacionTO->setTotalCostoHabitacion(number_format(ceil($grandTotal), Generalkeys::NUMBER_TWO));
+                        $finaliCost->add($habitacionTO);
+                    }
                     continue;
                 }
                 // si esta disponible la fecha
@@ -238,7 +245,6 @@ class HotelUtils {
                 $dateCostTmp->add($tarifaTO);
                 // Si es el ultimo registro
                 if(count($roomsCosts) == $cont) {
-                    echo "este es el ultimo registro **************<br>";
                     $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
                     $habitacionTO->setTotalCostoHabitacion(number_format(ceil($grandTotal), Generalkeys::NUMBER_TWO));
                     $finaliCost->add($habitacionTO);
@@ -256,6 +262,7 @@ class HotelUtils {
         $habitacionTarifaTO->setTriple($cost["costotriple"]);
         $habitacionTarifaTO->setCuadruple($cost["costocuadruple"]);
         $habitacionTarifaTO->setFecha($cost["fecha"]);
+        $habitacionTarifaTO->setSmallDate(DateUtil::getDateReserveRoom($cost["fecha"]));
         $habitacionTarifaTO->setIsh($cost["ish"]);
         $habitacionTarifaTO->setIva($cost["iva"]);
         $habitacionTarifaTO->setMarkup($cost["markup"]);

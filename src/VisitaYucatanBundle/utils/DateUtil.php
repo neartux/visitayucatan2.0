@@ -15,11 +15,22 @@ class DateUtil {
     public static function getMonth($numberMonth) {
         return self::$month[$numberMonth];
     }
+
+    public static function getDateReserveRoom($date) {
+        $month = self::getNumberMonth($date);
+        $nameMonth = self::getMonth((int)$month - Generalkeys::NUMBER_ONE);
+        return self::getDayFromDate($date)." ".$nameMonth;
+    }
     
     public static function getNumberMonth($date) {
         // yyyy-mm-dd
         $dateParts = explode("-", $date);
         return $dateParts[Generalkeys::NUMBER_ONE];
+    }
+
+    public static function getDayFromDate($date) {
+        $dateParts = explode("-", $date);
+        return $dateParts[Generalkeys::NUMBER_TWO];
     }
 
     public static function diffDays($fechaInicio, $fechaFin){

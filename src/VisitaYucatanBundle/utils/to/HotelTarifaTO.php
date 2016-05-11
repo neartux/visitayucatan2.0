@@ -29,6 +29,7 @@ class HotelTarifaTO {
     private $msjAvailable;
     private $isAvailable;
     private $costo;
+    private $smallDate;
 
     /**
      * @return mixed
@@ -366,5 +367,20 @@ class HotelTarifaTO {
     {
         $this->costo = $costo;
     }
-          
+
+    /**
+     * @return mixed
+     */
+    public function getSmallDate()
+    {
+        return $this->smallDate;
+    }
+
+    /**
+     * @param mixed $smallDate
+     */
+    public function setSmallDate($smallDate)
+    {
+        $this->smallDate = $smallDate;
+    }
 }

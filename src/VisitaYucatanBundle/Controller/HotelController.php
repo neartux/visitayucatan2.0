@@ -99,7 +99,7 @@ class HotelController extends Controller {
             $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($idHotel);
             $dateClosing = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->findClosingDateByContractAndHotel($idHotel, $idContract);
 
-            $costosRoom = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->getRateByRooms($idHotel, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
+            $costosRoom = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->getRateByRooms(DateUtil::formatDate($dateFrom), DateUtil::formatDate($dateTo), $idHotel, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
 
             $costs = HotelUtils::getCotizationRoom($costosRoom, $adults, $minors, $dateClosing);
             
@@ -112,10 +112,12 @@ class HotelController extends Controller {
                 echo "habitacion = ".$value->getNombre()."<br> descripcion = ".$value->getDescripcion()."<br>";
                 echo "<br><br>";
                 foreach ($value->getHotelTarifasTOCollection() as $item) {
-                    echo "capacidad maxima = ".$item->getCapacidadMaxima()." fecha = ".$item->getFecha()." costo = ".$item->getCosto();
+                    echo "capacidad maxima = ".$item->getCapacidadMaxima()." fecha = ".$item->getSmallDate()." costo = ".$item->getCosto()." disponible = ".$item->getIsAvailable()." msj = ".$item->getMsjAvailable();
                     echo "<br>";
                 }
                 echo "GRAND TOTAL = ".$value->getTotalCostoHabitacion();
+                echo "<br><br>";
+                echo "cambio de habitacion *****************************************************************************************************************************";
                 echo "<br><br>";
 
             }
