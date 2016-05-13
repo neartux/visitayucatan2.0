@@ -9,7 +9,7 @@
         </style>
         <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-daterangepicker/daterangepicker-bs3.css') }}" type="text/css" rel="stylesheet" />
 
-        <section data-ng-controller="WebHotelController as ctrlWeb" ng-init="ctrlWeb.init({{ dateFrom }}, {{ dateTo }}, {{ hotel.id }})">
+        <section data-ng-controller="WebHotelController as ctrlWeb" ng-init="ctrlWeb.init({{ hotel.id }})">
             <input type="hidden" value="{{ hotel.simboloMoneda }}" id="symbolCurrencyHidden"/>
             <input type="hidden" value="{{ path('web_hotel_rates') }}" id="pathRatesFind"/>
             <div id="content">
@@ -36,15 +36,26 @@
 
                 Menores:
                 <select name="" id="" ng-model="ctrlWeb.formRate.minors">
-                    <option value="0" selected>0</option>
+                    <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                 </select> <br>
 
-                Desde: <input type="text" name="fechaReserva" id="dateFrom" class="datepicker" value="{{ dateFrom }}" readonly ng-model="ctrlWeb.formRate.dateFrom"/>
-                Hasta: <input type="text" name="fechaReserva" id="dateTo" class="datepicker" value="{{ dateTo }}" readonly ng-model="ctrlWeb.formRate.dateTo"/> <br>
+                <br>
+                <table>
+                    <tr>
+                        <td data-ng-repeat="inputMinor in [] | range:10">
+                            Menor [[ $index + 1 ]] <br>
+                            <input type="text"/>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+
+                Desde: <input type="text" name="fechaReserva" id="dateFrom" class="datepicker" value="{{ dateFrom }}"/>
+                Hasta: <input type="text" name="fechaReserva" id="dateTo" class="datepicker" value="{{ dateTo }}" readonly/> <br>
 
                 <button data-ng-click="ctrlWeb.findTarifasHotel()">
                     Buscar

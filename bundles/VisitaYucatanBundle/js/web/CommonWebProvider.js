@@ -17,8 +17,8 @@
             });
         };
         
-        service.findRateRoomByHotel = function (formRate, idHotel) {
-            console.info("buscando ", formRate, idHotel);
+        service.findRateRoomByHotel = function (formRate) {
+            console.info("buscando ", formRate);
             service.listRoomsHotelToSale.data = undefined;
             var path = angular.element(document.querySelector('#pathRatesFind')).context.value;
             return $http.post(path, $.param(
@@ -27,7 +27,7 @@
                     minors : formRate.minors,
                     from : formRate.dateFrom,
                     to : formRate.dateTo,
-                    idHotel : idHotel
+                    idHotel : formRate.idHotel
                 }
             ), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -35,6 +35,14 @@
                 console.info(response);
                 service.listRoomsHotelToSale.data = response.data.data;
             });
+        };
+
+        service.isRangeDateValid = function (firstDate, endDate) {
+            var firstDateParts = firstDate.split("/");
+            var endDateParts = endDate.split("/");
+            var date1 = new Date(firstDateParts[2]+'-'+firstDateParts[1]+'-'+firstDateParts[0]);
+            var date2 = new Date(endDateParts[2]+'-'+endDateParts[1]+'-'+endDateParts[0]);
+            return date1.getTime() <= date2.getTime();
         };
 
         return service;

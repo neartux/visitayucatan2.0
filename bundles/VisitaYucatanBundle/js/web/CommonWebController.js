@@ -2,12 +2,10 @@
  * Created by ricardo on 26/03/16.
  */
 (function () {
-    var app = angular.module('Web', ['WebProvider']).config(['$interpolateProvider', function ($interpolateProvider) {
+    var app = angular.module('Web', ['ngSanitize', 'WebProvider']).config(['$interpolateProvider', function ($interpolateProvider) {
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
     }]);
-
-    app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
 
     app.controller('WebTourController', function ($scope, $http, WebService) {
         var ctrlWeb = this;
@@ -64,22 +62,24 @@
 
     app.controller("WebHotelController", function ($scope, $http, WebService) {
         var ctrlHotel = this;
-        ctrlHotel.hotel = {};
         ctrlHotel.formRate = {};
         ctrlHotel.listRoomsHotelToSale = WebService.listRoomsHotelToSale;
 
-        ctrlHotel.init = function(dateFrom, dateTo, idHotel) {
-            ctrlHotel.hotel.idHotel = idHotel;
-            console.info(dateFrom, dateTo, idHotel);
-            angular.element(document.querySelector('#dateFrom')).context.value = dateFrom;
-            angular.element(document.querySelector('#dateTo')).context.value = dateTo;
+        ctrlHotel.init = function(idHotel) {
+            ctrlHotel.formRate = {
+                idHotel: idHotel,
+                adults: "2",
+                minors: "0"
+            };
         };
 
         ctrlHotel.findTarifasHotel = function() {
-            console.info("buscando tarifas formRate= ", ctrlHotel.formRate);
             ctrlHotel.formRate.dateFrom = angular.element(document.querySelector('#dateFrom')).context.value;
             ctrlHotel.formRate.dateTo = angular.element(document.querySelector('#dateTo')).context.value;
-            return WebService.findRateRoomByHotel(ctrlHotel.formRate, ctrlHotel.hotel.idHotel);
+            console.info("buscando tarifas formRate= ", ctrlHotel.formRate);
+            if(WebService.isRangeDateValid(ctrlHotel.formRate.dateFrom, ctrlHotel.formRate.dateTo)){
+                return WebService.findRateRoomByHotel(ctrlHotel.formRate);
+            }
         };
         
     });

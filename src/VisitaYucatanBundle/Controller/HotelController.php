@@ -72,7 +72,6 @@ class HotelController extends Controller {
 
         $hotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelById($id, $datos[Generalkeys::NUMBER_ZERO]);
         $images = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelimagen')->findHotelImagesByIdHotel($id);
-
         return $this->render('VisitaYucatanBundle:web/pages:detalle-hotel.html.twig', array('monedas' => $currency, 'hotel' => HotelUtils::getDetailHotel($hotel, $images),
             'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL,
             'dateFrom' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_TWO)),
