@@ -1,7 +1,10 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
-
+use Doctrine\ORM\EntityNotFoundException;
+use VisitaYucatanBundle\Entity\PaqueteCombinacionHotel;
+use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 /**
  * PaqueteCombinacionHotelRepository
  *
@@ -9,4 +12,28 @@ namespace VisitaYucatanBundle\Repository;
  * repository methods below.
  */
 class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
+
+	public function findPaqueteHotelesCombinacion(){
+		$em = $this->getEntityManager();
+		$sql='SELECT  *
+			  FROM hotel h
+			  WHERE h.id_estatus = :estatusActivo';
+		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+		$stmt = $em->getConnection()->prepare($sql);
+		$stmt->execute($params);
+		return $stmt->fetchAll();
+	}
+
+	public function findPaqueteByIdCombiHotel($idPaquete,$idHotel){
+		$em = $this->getEntityManager();
+		$query = $em->createQuery(
+		   'SELECT paquetecombhotel
+            FROM VisitaYucatanBundle:PaqueteCombinacionHotel paquetecombhotel
+            WHERE paquetecombhotel.estatus = :estatusActivo
+            AND paquetecombhotel.paquete = :idPaquete
+            AND paquetecombhotel.hotel = :idHotel'
+		)->setParameter('estatusActivo', Estatuskeys::ESTATUS_ACTIVO)->setParameter('idPaquete', $idPaquete)->setParameter('idHotel', $idHotel);
+
+		return $query->getOneOrNullResult();
+	}
 }

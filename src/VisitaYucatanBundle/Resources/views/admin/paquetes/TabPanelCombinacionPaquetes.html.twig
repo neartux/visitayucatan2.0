@@ -1,0 +1,76 @@
+<form>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-2 control-label text-bold text-uppercase">
+	            Hotel
+	        	</label>
+				<select class="form-control">
+					<option >SELECCIONA</option>
+					<option value="[[h.id]]" ng-repeat="h in paquetesVM.hoteles">[[h.descripcion]]</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-2 control-label text-bold text-uppercase">
+	            Dias:
+	            <span class="required">*</span>
+	        	</label>
+	        	<input type="text" class="form-control" ng-model="paquetesVM.paqComHotel.dias">
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-2 control-label text-bold text-uppercase">
+	            Noches:
+	            <span class="required">*</span>
+	        	</label>
+	        	<input type="text" class="form-control" ng-model="paquetesVM.paqComHotel.noches">
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-2 control-label text-bold text-uppercase">
+	            Habitación sencilla:
+	            <span class="required">*</span>
+	        	</label>
+	        	<input type="text" class="form-control" ng-model="paquetesVM.paqComHotel.costoSencillo">
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-2 control-label text-bold text-uppercase">
+	            Habitación doble:
+	            <span class="required">*</span>
+	        	</label>
+	        	<input type="text" class="form-control" ng-model="paquetesVM.paqComHotel.costoDoble">
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-2 control-label text-bold text-uppercase">
+	            Habitación triple:
+	            <span class="required">*</span>
+	        	</label>
+	        	<input type="text" class="form-control" ng-model="paquetesVM.paqComHotel.costoTriple">
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-2 control-label text-bold text-uppercase">
+	           	Habitación cuadruple:
+	            <span class="required">*</span>
+	        	</label>
+	        	<input type="text" class="form-control" ng-model="paquetesVM.paqComHotel.costroCuadruple">
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="col-sm-2 control-label text-bold text-uppercase">
+	            Tarifa Menor:
+	            <span class="required">*</span>
+	        	</label>
+	        	<input type="text" class="form-control" ng-model="paquetesVM.paqComHotel.costoMenor">
+			</div>
+		</div>
+</form>

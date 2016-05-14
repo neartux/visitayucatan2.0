@@ -27,6 +27,9 @@
                         <li><a href="#images-paquete" data-toggle="tab" data-ng-click="ctrlFile.setIdApplication(paquetesVM.idPaqueteGlobal)">
                                 <i class="fa fa-image text-info"></i>&nbsp;&nbsp;Fotografías</a>
                         </li>
+                        <li><a href="#combinacion-paquete" data-toggle="tab">
+                                <i class="fa fa-money text-info"></i>&nbsp;&nbsp; Combinaciones</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -41,6 +44,9 @@
 
                         {% include '@VisitaYucatan/admin/paquetes/TabPaneImagesPaquetesLanguage.html.twig' %}
 
+                    </div>
+                    <div class="tab-pane" id="combinacion-paquete">
+                        {% include '@VisitaYucatan/admin/paquetes/TabPanelCombinacionPaquetes.html.twig' %}
                     </div>
                 </div>
             </div>

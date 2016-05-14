@@ -216,4 +216,30 @@ class PaqueteAdminController extends Controller {
 	      return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
 	  }
 	}
+
+	/**
+	* @Route("/admin/paquete/find/hoteles", name="paquete_find_hoteles")
+	* @Method("GET")
+	*/
+	public function findAllPaqueteHoteles(Request $request){
+
+		$hoteles = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findPaqueteHotelesCombinacion();
+		return new Response($this->get('serializer')->serialize(PaqueteUtils::getListHotelesTO($hoteles),Generalkeys::JSON_STRING));
+	}
+
+	/**
+	* @Route("/admin/paquete/find/id/combinacionhotel", name="paquete_find_combinacion_hotel")
+	* @Method("POST")
+	*/
+	public function findPaqueteByIdCombiHotel(Request $request){
+		try {
+			$idPaquete = $request->get('idPaquete');
+			$idHotel = $request->get('idHotel');
+			$paqueteComHotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findPaqueteByIdCombiHotel($idPaquete, $idHotel);
+			return new Response($this->get('serializer')->serialize(PaqueteUtils::convertEntityPaquetecombinacionhotelTO($paqueteComHotel), Generalkeys::JSON_STRING));
+		} catch (Exception $e) {
+			return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+		}
+	}
+	
 }

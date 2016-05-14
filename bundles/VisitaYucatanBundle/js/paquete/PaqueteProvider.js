@@ -88,6 +88,18 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
+        service.findAllHoteles = function(path){
+            return $http.get(path).then(function(data){
+                return data.data;
+            });
+        }
+        service.findByIdCombiHotel = function(path,json){
+            return $http.post(path, $.param({idPaquete : json.idPaquete,idHotel:json.idHotel}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                return data.data;
+            });
+        }
         /*service.findContactsHotel = function(idHotel){
             var path = $("#pathContacts").val();
             service.contactHotelList.data = [];

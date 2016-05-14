@@ -56,7 +56,9 @@
                 savePaquteLanguage:angular.element(document.querySelector('#pathSavePaqueteLanguage')).context.value,
                 paqueteAllImages:angular.element(document.querySelector('#pathPaqueteAllImages')).context.value,
                 paqueteDeleteImage:angular.element(document.querySelector('#pathDeleteImagePaquete')).context.value,
-                paquetePrincipalImage:angular.element(document.querySelector('#pathPaquetePrincipalImagen')).context.value
+                paquetePrincipalImage:angular.element(document.querySelector('#pathPaquetePrincipalImagen')).context.value,
+                findAllHoteles:angular.element(document.querySelector("#pathFindAllHoteles")).context.value,
+                findPaqueteByIdCombiHotel:angular.element(document.querySelector("#pathFindPaqueteByIdCombiHotel")).context.value,
             };
             console.info("paths",paquetesVM.paths);
         }
@@ -144,6 +146,7 @@
             paquetesVM.paqueteIdiomaTo.data = undefined;
             $(".summernote").code('');
             paquetesVM.findImagesByPaquete();
+            paquetesVM.findAllHoteles();
             console.info("paquetesVM",paquetesVM.idPaqueteGlobal);
             /*ctrlPaquete.nameTourTitle = tour.descripcion;
             ctrlPaquete.idTourGlobal = tour.id;
@@ -162,7 +165,7 @@
             paquetesVM.configPaquete = false;
         };
         paquetesVM.findPaqueteByIdAndLanguage = function () {
-            console.info('paqueteIdiomaTo',paquetesVM.paqueteIdiomaTo.data);
+            //console.info('paqueteIdiomaTo',paquetesVM.paqueteIdiomaTo.data);
             if(paquetesVM.paqueteIdiomaTo.data !== undefined){
                 var idiomaTmp = paquetesVM.paqueteIdiomaTo.data.idIdioma;
                 PaqueteService.findPaqueteByIdAndLanguaje(paquetesVM.paths.paqueteByIdLanguage,paquetesVM.idPaqueteGlobal, paquetesVM.paqueteIdiomaTo.data.idIdioma).then(function(data){
@@ -230,6 +233,20 @@
             }
         };
 
+        paquetesVM.findAllHoteles = function(){
+            console.info("ruta",paquetesVM.paths.findAllHoteles);
+            PaqueteService.findAllHoteles(paquetesVM.paths.findAllHoteles).then(function (data){
+                console.info("hoteles",data);
+                paquetesVM.hoteles = data;
+            })
+        };
+
+        paquetesVM.findPaqueteByIdCombiHotel = function(idPaquete,idHotel){
+            var $json = {idPaquete:idPaquete,idHotel:idHotel};
+            PaqueteService.findByIdCombiHotel(paquetesVM.paths.findPaqueteByIdCombiHotel,$json).then(function (data){
+                console.info("combinacion tarifa",data);
+            })
+        }
         /*ctrlPaquete.saveTourLanguage = function(isValid){
             if(isValid){
                 startLoading(ctrlPaquete.msjLoading);

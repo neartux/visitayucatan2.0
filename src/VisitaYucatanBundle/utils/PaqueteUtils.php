@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use VisitaYucatanBundle\utils\to\PaqueteTO;
 use VisitaYucatanBundle\utils\to\PaqueteidiomaTO;
 use VisitaYucatanBundle\utils\to\PaqueteimagenTO;
+use VisitaYucatanBundle\utils\to\HotelTO;
 
 class PaqueteUtils {
 
@@ -77,6 +78,24 @@ class PaqueteUtils {
         }
         return $imageList;
 
+    }
+
+    public static function getListHotelesTO($hoteles){
+        $hotelesList = new ArrayCollection();
+        if(count($hoteles)>Generalkeys::NUMBER_ZERO){
+            foreach ($hoteles as $h) {
+                $hotls = new HotelTO();
+                $hotls->setId($h['id']);
+                $hotls->setIdEstatus($h['id_estatus']);
+                $hotls->setIdDestino($h['id_destino']);
+                $hotls->setDescripcion($h['descripcion']);
+                $hotls->setEstrellas($h['estrellas']);
+                $hotls->setPromovido($h['promovido']);
+                $hotelesList->add($hotls);
+            }
+        }
+
+        return $hotelesList;
     }
 
 }
