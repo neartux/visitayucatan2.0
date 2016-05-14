@@ -9,7 +9,7 @@
         </style>
         <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-daterangepicker/daterangepicker-bs3.css') }}" type="text/css" rel="stylesheet" />
 
-        <section data-ng-controller="WebHotelController as ctrlWeb" ng-init="ctrlWeb.init({{ hotel.id }})">
+        <section data-ng-controller="WebHotelController as ctrlWeb" ng-init="ctrlWeb.init({{ hotel.id }}, {{ ageMinor }})">
             <input type="hidden" value="{{ hotel.simboloMoneda }}" id="symbolCurrencyHidden"/>
             <input type="hidden" value="{{ path('web_hotel_rates') }}" id="pathRatesFind"/>
             <div id="content">
@@ -35,27 +35,21 @@
                 </select>
 
                 Menores:
-                <select name="" id="" ng-model="ctrlWeb.formRate.minors">
+                <select name="" id="" ng-model="ctrlWeb.formRate.minors" ng-change="ctrlWeb.displayInputsMinors()">
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                </select> <br>
+                </select> Edad Maxima del menor = {{ ageMinor }} <br>
 
                 <br>
-                <table>
-                    <tr>
-                        <td data-ng-repeat="inputMinor in [] | range:10">
-                            Menor [[ $index + 1 ]] <br>
-                            <input type="text"/>
-                        </td>
-                    </tr>
+                <table id="tableMenors">
                 </table>
                 <br>
 
-                Desde: <input type="text" name="fechaReserva" id="dateFrom" class="datepicker" value="{{ dateFrom }}"/>
-                Hasta: <input type="text" name="fechaReserva" id="dateTo" class="datepicker" value="{{ dateTo }}" readonly/> <br>
+                Desde: <input type="text" id="dateFrom" class="datepicker" value="{{ dateFrom }}"/>
+                Hasta: <input type="text" id="dateTo" class="datepicker" value="{{ dateTo }}" readonly/> <br>
 
                 <button data-ng-click="ctrlWeb.findTarifasHotel()">
                     Buscar
@@ -79,7 +73,17 @@
                         </li>
                     </ul>
                     <br><br>
-                    Habitaciones Requeridas : [[ habitacion.habitacionesRequeridas ]]
+                    Habitaciones Requeridas : [[ habitacion.habitacionesRequeridas ]] <br>
+                    <form>
+                        <input type="hidden" name="idHotel" value="{{ hotel.id }}"/>
+                        <input type="hidden" name="idHabitacion" value="[[ habitacion.id ]]"/>
+                        <input type="hidden" name="fechaInicio"/>
+                        <input type="hidden" name="fechaFin"/>
+                        <button onclick="return ">
+                            Reserva por solo [[ habitacion.totalCostoHabitacion ]]
+                        </button>
+                    </form>
+                    <br> <br>
                 </div>
 
 

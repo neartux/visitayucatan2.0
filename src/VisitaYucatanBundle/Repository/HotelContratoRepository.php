@@ -32,6 +32,20 @@ class HotelContratoRepository extends \Doctrine\ORM\EntityRepository {
         return $stmt->fetchColumn(Generalkeys::NUMBER_ZERO);
     }
 
+    public function findAgeMinorByContract($idContract) {
+        $em = $this->getEntityManager();
+        $sql = "SELECT hotel_contrato.edadmenor
+                FROM hotel_contrato
+                WHERE hotel_contrato.id = :idContract
+                AND hotel_contrato.id_estatus = :estatus;";
+        $params['idContract'] = $idContract;
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchColumn(Generalkeys::NUMBER_ZERO);
+    }
+
     public function findContracts($idHotel) {
         $em = $this->getEntityManager();
         $sql = "SELECT hotel_contrato.id, hotel_contrato.descripcion

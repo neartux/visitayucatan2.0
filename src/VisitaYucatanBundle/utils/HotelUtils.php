@@ -187,6 +187,7 @@ class HotelUtils {
                 // si es el primer registro 
                 if ($idRoomTmp == Generalkeys::NUMBER_ZERO) {
                     $idRoomTmp = $tarifaTO->getIdHabitacion();
+                    $habitacionTO->setId($tarifaTO->getIdHabitacion());
                     $habitacionTO->setNombre($nameRoom);
                     $habitacionTO->setDescripcion($descriptionRoom);
                     $habitacionTO->setCapacidadMaxima($tarifaTO->getCapacidadMaxima());
@@ -205,6 +206,7 @@ class HotelUtils {
                     $finaliCost->add($habitacionTO);
 
                     $habitacionTO = new HabitacionTO();
+                    $habitacionTO->setId($tarifaTO->getIdHabitacion());
                     $habitacionTO->setNombre($nameRoom);
                     $habitacionTO->setDescripcion($descriptionRoom);
                     $habitacionTO->setCapacidadMaxima($tarifaTO->getCapacidadMaxima());

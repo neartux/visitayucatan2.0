@@ -65,20 +65,55 @@
         ctrlHotel.formRate = {};
         ctrlHotel.listRoomsHotelToSale = WebService.listRoomsHotelToSale;
 
-        ctrlHotel.init = function(idHotel) {
+        ctrlHotel.init = function(idHotel, ageMinor) {
             ctrlHotel.formRate = {
                 idHotel: idHotel,
                 adults: "2",
-                minors: "0"
+                minors: "0",
+                ageMinor: ageMinor
             };
+            ctrlHotel.findTarifasHotel();
         };
 
         ctrlHotel.findTarifasHotel = function() {
             ctrlHotel.formRate.dateFrom = angular.element(document.querySelector('#dateFrom')).context.value;
             ctrlHotel.formRate.dateTo = angular.element(document.querySelector('#dateTo')).context.value;
             console.info("buscando tarifas formRate= ", ctrlHotel.formRate);
-            if(WebService.isRangeDateValid(ctrlHotel.formRate.dateFrom, ctrlHotel.formRate.dateTo)){
-                return WebService.findRateRoomByHotel(ctrlHotel.formRate);
+            var isValid = ctrlHotel.validateAgeMinors();
+            console.info("is valid = ", isValid);
+            if(isValid){
+                if(WebService.isRangeDateValid(ctrlHotel.formRate.dateFrom, ctrlHotel.formRate.dateTo)){
+                    return WebService.findRateRoomByHotel(ctrlHotel.formRate);
+                }
+            }
+        };
+
+        ctrlHotel.validateAgeMinors = function () {
+            var isValid = true;
+            if(ctrlHotel.formRate.minors > 0){
+                for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
+                    var ageMinor = parseInt($("#minor_"+(i+1)).val());
+                    if(ageMinor > ctrlHotel.formRate.ageMinor){
+                        isValid = false;
+                    }
+                }
+            }
+            return isValid;
+        };
+
+        ctrlHotel.displayInputsMinors = function () {
+            console.info("en metodo = ", ctrlHotel.formRate.minors);
+            if(ctrlHotel.formRate.minors > 0){
+                var inputs = "<tr>";
+                console.info("ctrlHotel.formRate.minors = ", ctrlHotel.formRate.minors);
+                for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
+                    inputs += "<td>Menor " + (i+1) + " <br>" +
+                        "<input type='text' id='minor_"+(i+1)+"'/></td>";
+                }
+                inputs += "</tr>";
+                $("#tableMenors").html(inputs);
+            } else {
+                $("#tableMenors").html('');
             }
         };
         
