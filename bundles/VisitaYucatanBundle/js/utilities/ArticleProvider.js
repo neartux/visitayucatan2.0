@@ -3,8 +3,8 @@
  */
 
  (function () {
- 	var app = angular.module('PeninsulaProvider', []);
- 	app.factory('PeninsulaService', function($http, $q){
+ 	var app = angular.module('ArticleProvider', []);
+ 	app.factory('ArticleService', function($http, $q){
      var service = {};
 
      service.listPeninsula = {
@@ -28,10 +28,9 @@
 
      };
 
-     service.createPeninsula = function(peninsula){
-         
-          var path = $("#pathCreatePeninsula").val();
-          return $http.post(path, $.param({peninsula : peninsula}), {
+     service.createArticle = function(article){
+          var path = $("#pathCreateArticle").val();
+          return $http.post(path, $.param({article : article}), {
                headers:{'Content-Type': 'application/x-www-form-urlencoded'}
           });
      };
@@ -95,6 +94,7 @@
 
 
         service.findPeninsulaByIdAndLanguaje = function(idPeninsula, idLanguage){
+            console.info(idPeninsula, idLanguage);
             var path = $("#pathPeninsulaByLanguage").val();
             return $http.post(path, $.param({idPeninsula : idPeninsula, idLanguage : idLanguage}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

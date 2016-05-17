@@ -47,11 +47,11 @@
                                                     <th>Descripción</th>
                                                     <th width="10%">Estrellas</th>
                                                     <th width="10%">Destino</th>
-                                                    <th width="5%">Dirección</th>
+                                                    <th width="0%">Dirección</th>
                                                     <th width="5%">Télefono</th>
                                                     <!--Columna para promover o remover promover, (0) es no promovido, (1) es promovido-->
                                                     <th width="15%">&nbsp;</th>
-                                                    <th width="5%">Promover</th>
+                                                    <th width="5%"></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -63,17 +63,29 @@
                                                     <td>[[ hotel.direccion ]]</td>
                                                     <td>[[ hotel.telefono ]]</td>
                                                     <td>
-                                                        <a class="btn btn-info-alt" data-ng-click="ctrlHotel.findContactsHotel(hotel.id)" href="javascript:;"><i class="fa fa-book"></i></a>
-                                                        <a class="btn btn-success-alt" data-ng-click="ctrlHotel.displayEditHotel(hotel)" href="javascript:;"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-success-alt" data-ng-click="ctrlHotel.configurateHotel(hotel);ctrlHotel.configTour = true;" href="javascript:;"><i class="fa  fa-gears"></i></a>
-                                                        <a class="btn btn-danger-alt" data-ng-click="ctrlHotel.deleteHotel(hotel.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
+                                                        <a class="btn btn-info-alt" data-ng-click="ctrlHotel.findContactsHotel(hotel.id)" href="javascript:;"
+                                                        title="Agregar Contactos de hotel">
+                                                            <i class="fa fa-book"></i>
+                                                        </a>
+                                                        <a class="btn btn-success-alt" data-ng-click="ctrlHotel.displayEditHotel(hotel)" href="javascript:;"
+                                                        title="Editar [[ hotel.descripcion ]]">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <a class="btn btn-success-alt" data-ng-click="ctrlHotel.configurateHotel(hotel);ctrlHotel.configTour = true;"
+                                                           href="javascript:;" title="Configurar hotel [[ hotel.descripcion ]]">
+                                                            <i class="fa fa-gears"></i>
+                                                        </a>
+                                                        <a class="btn btn-danger-alt" data-ng-click="ctrlHotel.deleteHotel(hotel.id)" href="javascript:;"
+                                                        title="Eliminar Hotel [[ hotel.descripcion ]]">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
                                                     </td>
                                                     <td>
-                                                        <span data-ng-if="hotel.promovido == 0">
-                                                            <input type="checkbox" data-ng-click="ctrlHotel.promovedHotel(hotel.id);"/>
+                                                        <span ng-if="hotel.promovido == 1">
+                                                            <input type="checkbox" checked="checked" data-ng-click="ctrlHotel.promovedHotel(hotel);"/>
                                                         </span>
-                                                        <span data-ng-if="hotel.promovido == 1">
-                                                            <input type="checkbox" checked data-ng-click="ctrlHotel.removePromovedHotel(hotel.id);"/>
+                                                        <span ng-if="hotel.promovido == 0">
+                                                            <input type="checkbox" data-ng-click="ctrlHotel.promovedHotel(hotel);"/>
                                                         </span>
                                                     </td>
                                                 </tr>

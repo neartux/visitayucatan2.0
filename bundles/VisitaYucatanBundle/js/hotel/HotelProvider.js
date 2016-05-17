@@ -302,6 +302,13 @@
             });
         };
 
+        service.initValues = function () {
+            service.listaFechas.data = [];
+            service.listaContratos.data = [];
+            service.listaHabitacionesHotel.data = [];
+            service.listaTarifasHotel.data = [];
+        };
+
         return service;
     });
 })();

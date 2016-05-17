@@ -4,7 +4,7 @@
 {% block section %}
 
     {% block content %}
-   
+
 
         <style type="text/css" media="screen">
             #center{
@@ -51,111 +51,111 @@
             }
 
             #description{
-             background-color: #FFFFFF;
-             float: right;
-             width: 68%;
-             min-height: 500px;
-             padding: 11px;
-             margin-right: 6px;
+                background-color: #FFFFFF;
+                float: right;
+                width: 68%;
+                min-height: 500px;
+                padding: 11px;
+                margin-right: 6px;
 
-             -webkit-box-shadow: 0px 0px 5px 0px rgba(97,96,97,1);
-             -moz-box-shadow: 0px 0px 5px 0px rgba(97,96,97,1);
-             box-shadow: 0px 0px 5px 0px rgba(97,96,97,1);
+                -webkit-box-shadow: 0px 0px 5px 0px rgba(97,96,97,1);
+                -moz-box-shadow: 0px 0px 5px 0px rgba(97,96,97,1);
+                box-shadow: 0px 0px 5px 0px rgba(97,96,97,1);
 
-         }
+            }
 
-         #menu{
-            float: left;
-            margin-left: 11px;
-        }
+            #menu{
+                float: left;
+                margin-left: 11px;
+            }
 
-        #content{
-            margin-top: 2em;
-            width: 82%;
-        }
+            #content{
+                margin-top: 2em;
+                width: 82%;
+            }
 
-        h1.title{
-            font-size: 1.5em;
-            padding: 7px 0;
+            h1.title{
+                font-size: 1.5em;
+                padding: 7px 0;
 
-        }
+            }
 
-        ul.tabs li.activa a{
-            background-color:#E4FAFA;
-            color: black;
-        }
-
-
-
-
-    </style>
-
-
-    <section>
-
-        <div id="content">
-
-            <div id="menu">
-
-                <div class="menu_simple">
-                    <ul class="tabs" style="background-position-y: 195px;">
-                        {% for peninsula in peninsulas %}
-                        <li><a href="#{{ peninsula.id }}">{{ peninsula.nombre }}</a></li>
-                        {% endfor %}
+            ul.tabs li.activa a{
+                background-color:#E4FAFA;
+                color: black;
+            }
 
 
 
-                    </ul>
-                </div>
-            </div>
 
-            <section id="description">
+        </style>
 
-                <div class="descPeninsula currentdesc  El-Inicio" style="">
-                    <div class="contenedor_tab">
-                        {% for peninsula in peninsulas %}
-                        <div id="{{ peninsula.id }}" style="display:none;" class="contenido_tab">
-                            
-                       
-                        <h1 class="title">{{peninsula.nombre}}</h1>
-                        <p>{{ peninsula.descripcionidioma | raw }}</p>
-                         </div>
-                     {% endfor %}
+
+        <section>
+
+            <div id="content">
+
+                <div id="menu">
+
+                    <div class="menu_simple">
+                        <ul class="tabs" style="background-position-y: 195px;">
+                            {% for peninsula in peninsulas %}
+                                <li><a href="#{{ peninsula.id }}">{{ peninsula.nombre }}</a></li>
+                            {% endfor %}
+
+
+
+                        </ul>
                     </div>
-                    
-             </div>
-         </section> 
-     </div>
-     {% block aside %}
-        {{ parent() }}
-    {% endblock %}
+                </div>
 
-</section>
-{% endblock %}
-{% block scripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $(document).ready(function() {
+                <section id="description">
+
+                    <div class="descPeninsula currentdesc  El-Inicio" style="">
+                        <div class="contenedor_tab" style="width:100%;">
+                            {% for peninsula in peninsulas %}
+                                <div id="{{ peninsula.id }}" style="display:none;" class="contenido_tab">
+
+
+                                    <h1 class="title">{{peninsula.nombre}}</h1>
+                                    {{ peninsula.descripcionidioma | raw }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+            {% block aside %}
+                {{ parent() }}
+            {% endblock %}
+
+        </section>
+    {% endblock %}
+    {% block scripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            $(document).ready(function() {
 //$(".contenido_tab").hide(); //Ocultar capas
-$("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
-$(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
+                $("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
+                $(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
 
 // Sucesos al hacer click en una pestaña
-$("ul.tabs li").click(function() {
-$("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
-$(this).addClass("activa"); //Añadir clase "activa" a la pestaña seleccionada
-$(".contenido_tab").hide(); //Ocultar todo el contenido de la pestaña
-var activatab = $(this).find("a").attr("href"); //Leer el valor de href para identificar la pestaña activa 
-$(activatab).fadeIn(); //Visibilidad con efecto fade del contenido activo
-return false;
-});
-});
-</script>
+                $("ul.tabs li").click(function() {
+                    $("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
+                    $(this).addClass("activa"); //Añadir clase "activa" a la pestaña seleccionada
+                    $(".contenido_tab").hide(); //Ocultar todo el contenido de la pestaña
+                    var activatab = $(this).find("a").attr("href"); //Leer el valor de href para identificar la pestaña activa
+                    $(activatab).fadeIn(); //Visibilidad con efecto fade del contenido activo
+                    return false;
+                });
+            });
+        </script>
     {% endblock %}
 
 
-{% block footer %}
-    {{ parent() }}
-{% endblock %}
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
 
 {% endblock %}

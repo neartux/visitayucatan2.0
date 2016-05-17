@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times"></span></button>
                 <h2 class="modal-title">[[ ctrlHotel.titleModal ]]</h2>
             </div>
-            <form class="form-horizontal row-border" name="formHotel" novalidate>
+            <form action="" class="form-horizontal row-border" name="formHotel" novalidate>
                 <div class="modal-body">
                     
                     <div class="row">
@@ -18,7 +18,7 @@
                                         Destino <span class="required">*</span>
                                     </label>
                                     <div class="col-sm-8">
-                                        <select name="destinoHotel" id="destinoHotel" class="form-control" data-ng-model="ctrlHotel.hotelTO.idDestino" required>
+                                        <select name="destinoHotel" id="destinoHotel" class="form-control" ng-model="ctrlHotel.hotelTO.idDestino" required>
                                             <option value="">SELECCIONA</option>
                                             <option value="[[ destino.id ]]" ng-repeat="destino in ctrlHotel.listDestino.data">[[ destino.descripcion | uppercase ]]</option>
                                         </select>
@@ -45,7 +45,7 @@
                                         Estrellas <span class="required">*</span>
                                     </label>
                                     <div class="col-sm-8">
-                                        <select name="estrellas" id="estrellas" class="form-control" data-ng-model="ctrlHotel.hotelTO.estrellas" required>
+                                        <select name="estrellas" id="estrellas" class="form-control" ng-model="ctrlHotel.hotelTO.estrellas" required>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>

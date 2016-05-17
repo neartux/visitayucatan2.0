@@ -2,20 +2,20 @@
  * Created by rafael on 20/03/16.
  */
 (function (){
- 	var app = angular.module('Peninsula', ['PeninsulaProvider']).config(['$interpolateProvider',function($interpolateProvider) {
+ 	var app = angular.module('Peninsula', ['ngSanitize', 'ArticleProvider']).config(['$interpolateProvider',function($interpolateProvider) {
          $interpolateProvider.startSymbol('[[');
          $interpolateProvider.endSymbol(']]'); 		
  	}]);
 
-    app.controller('PeninsulaController', function($scope, $http, PeninsulaService){
-    	var ctrlPeninsula = this
+    app.controller('PeninsulaController', function($scope, $http, ArticleService){
+    	var ctrlPeninsula = this;
     	ctrlPeninsula.peninsula = undefined;
-    	ctrlPeninsula.listPeninsula = PeninsulaService.listPeninsula;
+    	ctrlPeninsula.listPeninsula = ArticleService.listPeninsula;
     	ctrlPeninsula.configPeninsula = false;
         ctrlPeninsula.isNewPeninsula = true;
-        ctrlPeninsula.listLanguage = PeninsulaService.listLanguage;
+        ctrlPeninsula.listLanguage = ArticleService.listLanguage;
         ctrlPeninsula.peninsula = {};
-        ctrlPeninsula.peninsulaIdiomaTo = PeninsulaService.peninsulaIdiomaTO;
+        ctrlPeninsula.peninsulaIdiomaTo = ArticleService.peninsulaIdiomaTO;
         ctrlPeninsula.namePeninsulaTitle = 'Confif';
         ctrlPeninsula.confirmDeletePeninsula = '¿Esta seguro de eliminar esta Península?';
         ctrlPeninsula.idPeninsulaGlobal = 0;
@@ -35,11 +35,11 @@
         };
 
          ctrlPeninsula.findAllPeninsulas = function () {
-            return PeninsulaService.findPeninsulasActives();
+            return ArticleService.findPeninsulasActives();
         };
 
         ctrlPeninsula.findAllLanguages = function () {
-            return PeninsulaService.findLanguagesActives();
+            return ArticleService.findLanguagesActives();
         };
 
         ctrlPeninsula.displayNewPeninsula = function(){
@@ -58,14 +58,14 @@
             if (isValid && ctrlPeninsula.peninsula != undefined) {
                 startLoading(ctrlPeninsula.msjLoading);
               
-                return PeninsulaService.createPeninsula(ctrlPeninsula.peninsula.descripcion).then(function(data){
+                return ArticleService.createArticle(ctrlPeninsula.peninsula.descripcion).then(function(data){
                     $("#modalPeninsula").modal("hide");
                     stopLoading();
 
                     if (data.data.status) {
                         
                         ctrlPeninsula.peninsula.id = data.data.id;
-                        PeninsulaService.addPeninsula(ctrlPeninsula.peninsula);
+                        ArticleService.addPeninsula(ctrlPeninsula.peninsula);
 
                     }
                     
@@ -91,14 +91,14 @@
                
                 startLoading(ctrlPeninsula.msjLoading);
                 
-                return PeninsulaService.updatePeninsula(ctrlPeninsula.peninsula.id, ctrlPeninsula.peninsula.descripcion).then(
+                return ArticleService.updatePeninsula(ctrlPeninsula.peninsula.id, ctrlPeninsula.peninsula.descripcion).then(
                    
                     function(data){
                        
                     $("#modalPeninsula").modal("hide");
                     stopLoading();
                     if (data.data.status) {
-                        PeninsulaService.updatePeninsulaOfTheList(ctrlPeninsula.peninsula);
+                        ArticleService.updatePeninsulaOfTheList(ctrlPeninsula.peninsula);
                         //para crear un nuevo registro
                        ctrlPeninsula.peninsula = undefined;
                     }
@@ -110,9 +110,9 @@
         ctrlPeninsula.deletePeninsula = function(idPeninsula){
             if(confirm(ctrlPeninsula.confirmDeletePeninsula)){
 
-                return PeninsulaService.deletePeninsulaById(idPeninsula).then(function(data){
+                return ArticleService.deletePeninsulaById(idPeninsula).then(function(data){
                     if(data.data.status){
-                        PeninsulaService.deletePeninsula(idPeninsula);
+                        ArticleService.deletePeninsula(idPeninsula);
                     }
                     pNotifyView(data.data.message, data.data.typeStatus);
                 });
@@ -135,11 +135,11 @@
         };
 
         ctrlPeninsula.findPeninsulaByIdAndLanguage = function () {
-           
             if(ctrlPeninsula.peninsulaIdiomaTo.data != undefined){
                 var idiomaTmp = ctrlPeninsula.peninsulaIdiomaTo.data.idIdioma;
-                return PeninsulaService.findPeninsulaByIdAndLanguaje(ctrlPeninsula.idPeninsulaGlobal, ctrlPeninsula.peninsulaIdiomaTo.data.idIdioma).then(function(){
-
+                console.info("llego al if");
+                return ArticleService.findPeninsulaByIdAndLanguaje(ctrlPeninsula.idPeninsulaGlobal, ctrlPeninsula.peninsulaIdiomaTo.data.idIdioma).then(function(){
+                    console.info("esta en return")
                     ctrlPeninsula.peninsulaIdiomaTo.data.idIdioma = idiomaTmp;
                     if(! ctrlPeninsula.peninsulaIdiomaTo.data.status){
                         pNotifyView(ctrlPeninsula.peninsulaIdiomaTo.data.message, ctrlPeninsula.peninsulaIdiomaTo.data.typeStatus);
@@ -156,21 +156,25 @@
             ctrlPeninsula.peninsulaIdiomaTo.data.descripcion = $(".summernote").code();
             ctrlPeninsula.peninsulaIdiomaTo.data.idPeninsula = ctrlPeninsula.idPeninsulaGlobal;
             if (ctrlPeninsula.peninsulaIdiomaTo.data.idarticuloidioma) {
-                return PeninsulaService.updatePeninsulaLanguage(ctrlPeninsula.peninsulaIdiomaTo.data.idarticuloidioma, ctrlPeninsula.peninsulaIdiomaTo.data.nombre, ctrlPeninsula.peninsulaIdiomaTo.data.descripcion).then(function(data){
+                return ArticleService.updatePeninsulaLanguage(ctrlPeninsula.peninsulaIdiomaTo.data.idarticuloidioma, ctrlPeninsula.peninsulaIdiomaTo.data.nombre, ctrlPeninsula.peninsulaIdiomaTo.data.descripcion).then(function(data){
                     stopLoading();
                     pNotifyView(data.data.message, data.data.typeStatus);
+                    ctrlPeninsula.peninsulaIdiomaTo.data = {
+                        idIdioma: ""
+                    };
+                    $(".summernote").code('');
                 });
             }else{
-            return PeninsulaService.savePeninsulaLanguage(ctrlPeninsula.peninsulaIdiomaTo.data.descripcion,
-                //
-             ctrlPeninsula.peninsulaIdiomaTo.data.nombre, ctrlPeninsula.idPeninsulaGlobal, ctrlPeninsula.peninsulaIdiomaTo.data.idIdioma).then(function(data){
-                stopLoading();
-                pNotifyView(data.data.message, data.data.typeStatus);
-
-
-            });
+                return ArticleService.savePeninsulaLanguage(ctrlPeninsula.peninsulaIdiomaTo.data.descripcion,
+                    //
+                 ctrlPeninsula.peninsulaIdiomaTo.data.nombre, ctrlPeninsula.idPeninsulaGlobal, ctrlPeninsula.peninsulaIdiomaTo.data.idIdioma).then(function(data){
+                    stopLoading();
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                    ctrlPeninsula.peninsulaIdiomaTo.data = undefined;
+                    $(".summernote").code('');
+                });
             }
-           
+
           }
 
         };

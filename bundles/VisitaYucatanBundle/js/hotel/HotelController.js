@@ -246,6 +246,29 @@
             ctrlHotel.configHotel = true;
             $(".summernote").code('');
             ctrlHotel.findImagesByHotel();
+            // todo meter esto en un metodo
+            HotelService.initValues();
+            ctrlHotel.showIdiomaHabitacionBolean = false;
+            ctrlHotel.showIdiomaHabitacionDescripcion = false;
+            ctrlHotel.hotelHabitacionIdiomaTO = {
+                id: ""
+            };
+            ctrlHotel.displayFormContract = false;
+            ctrlHotel.hotelContratoTO = {
+                data: {
+                    idContract: ""
+                }
+            };
+            ctrlHotel.displayFormHabitacion = false;
+            ctrlHotel.hotelHabitacionTO = {
+                id: ""  
+            };
+            ctrlHotel.tarifaHabitacionTO = {
+                idContrato: ""  
+            };
+            ctrlHotel.showSelectRoomRate = false;
+            ctrlHotel.showSearchRate = false;
+            ctrlHotel.showEditRate = false;
         };
 
         ctrlHotel.returnListTour = function(){
@@ -273,6 +296,7 @@
         };
 
         ctrlHotel.saveFormHotel = function (isValid) {
+            console.info("is valida el form = ", isValid, " = ctrlHotel.hotelTO = ", ctrlHotel.hotelTO);
             // check to make sure the form is completely valid
             if (isValid && ctrlHotel.hotelTO != undefined) {
                 startLoading(ctrlHotel.msjLoading);
@@ -315,19 +339,29 @@
             }
         };
 
-        ctrlHotel.promovedHotel = function (idHotel) {
-            return HotelService.promovedHotel(idHotel).then(function (data) {
-                pNotifyView(data.data.message, data.data.typeStatus);
-            });
+        ctrlHotel.promovedHotel = function (hotel) {
+            console.info("promovedHotel = ", hotel);
+            if(hotel.promovido == 0){
+                console.info("promover");
+                return HotelService.promovedHotel(hotel.id).then(function (data) {
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                    hotel.promovido = "1";
+                });
+            }else {
+                console.info("remover");
+                return HotelService.removePromovedHotel(hotel.id).then(function (data) {
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                    hotel.promovido = "0";
+                });
+            }
         };
 
         ctrlHotel.removePromovedHotel = function (idHotel) {
-            return HotelService.removePromovedHotel(idHotel).then(function (data) {
-                pNotifyView(data.data.message, data.data.typeStatus);
-            });
+
         };
 
         ctrlHotel.cleanForm = function () {
+            $scope.formHotel.$setPristine();
             ctrlHotel.hotelTO = undefined;
             ctrlHotel.hotelTO = {
                 estrellas: '1'
