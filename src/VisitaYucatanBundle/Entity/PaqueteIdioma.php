@@ -56,6 +56,20 @@ class PaqueteIdioma {
     private $incluye;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="itinerario", type="text")
+     */
+    private $itinerario;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="dias", type="integer")
+     */
+    private $dias;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Paquete", inversedBy="paqueteIdioma")
      * @ORM\JoinColumn(name="id_paquete", referencedColumnName="id", nullable=false)
      */
@@ -211,6 +225,54 @@ class PaqueteIdioma {
     public function getIncluye()
     {
         return $this->incluye;
+    }
+
+    /**
+     * Set itinerario
+     *
+     * @param string $itinerario
+     *
+     * @return PaqueteIdioma
+     */
+    public function setItinerario($itinerario)
+    {
+        $this->itinerario = $itinerario;
+
+        return $this;
+    }
+
+    /**
+     * Get itinerario
+     *
+     * @return string
+     */
+    public function getItinerario()
+    {
+        return $this->itinerario;
+    }
+
+    /**
+     * Set dias
+     *
+     * @param int $dias
+     *
+     * @return PaqueteIdioma
+     */
+    public function setDias($dias)
+    {
+        $this->dias = $dias;
+
+        return $this;
+    }
+
+    /**
+     * Get dias
+     *
+     * @return int
+     */
+    public function getDias()
+    {
+        return $this->dias;
     }
 
     /**

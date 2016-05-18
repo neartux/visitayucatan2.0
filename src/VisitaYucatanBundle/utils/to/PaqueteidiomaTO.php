@@ -11,10 +11,12 @@ class PaqueteidiomaTO{
 	private $idPaquete;
 	private $idIdioma;
 	private $descripcion;
-	private $descripcioncorta;
-	private $descripcionlarga;
+	private $descripcionCorta;
+	private $descripcionLarga;
 	private $incluye;
 	private $circuito;
+	private $itinerario;
+	private $dias;
 	
 	/**
      * @return mixed
@@ -84,15 +86,15 @@ class PaqueteidiomaTO{
      */
 	public function getDescripcionCorta()
 	{
-	  return $this->descripcioncorta;
+	  return $this->descripcionCorta;
 	}
 
 	/**
-	* @param mixed $descripcioncorta
+	* @param mixed $descripcionCorta
 	*/
-	public function setDescripcionCorta($descripcioncorta)
+	public function setDescripcionCorta($descripcionCorta)
 	{
-	  $this->descripcioncorta = $descripcioncorta;
+	  $this->descripcionCorta = $descripcionCorta;
 	}
 
 	/**
@@ -100,15 +102,15 @@ class PaqueteidiomaTO{
      */
 	public function getDescripcionLarga()
 	{
-	  return $this->descripcionlarga;
+	  return $this->descripcionLarga;
 	}
 
 	/**
-	* @param mixed $descripcionlarga
+	* @param mixed $descripcionLarga
 	*/
-	public function setDescripcionLarga($descripcionlarga)
+	public function setDescripcionLarga($descripcionLarga)
 	{
-	  $this->descripcionlarga = $descripcionlarga;
+	  $this->descripcionLarga = $descripcionLarga;
 	}
 
 	/**
@@ -141,6 +143,38 @@ class PaqueteidiomaTO{
 	public function setCircuito($circuito)
 	{
 	  $this->circuito = $circuito;
+	}
+
+	/**
+     * @return mixed
+     */
+	public function getItinerario()
+	{
+	  return $this->itinerario;
+	}
+
+	/**
+	* @param mixed $itinerario
+	*/
+	public function setItinerario($itinerario)
+	{
+	  $this->itinerario = $itinerario;
+	}
+
+	/**
+     * @return mixed
+     */
+	public function getDias()
+	{
+	  return $this->dias;
+	}
+
+	/**
+	* @param mixed $itinerario
+	*/
+	public function setDias($dias)
+	{
+	  $this->dias = $dias;
 	}
 }
 ?>

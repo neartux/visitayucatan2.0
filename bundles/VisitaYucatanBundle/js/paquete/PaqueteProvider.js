@@ -100,6 +100,31 @@
                 return data.data;
             });
         }
+        service.savePaqueteCombinacion = function(path,json){
+            return $http.post(path, $.param({paqueteCombinacion : JSON.stringify(json)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                return data.data;
+            });
+        }
+        service.listPaqueteCombinacion = function(path,idPaquete){
+            return $http.post(path, $.param({idPaquete : idPaquete}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                return data.data;
+            });
+        }
+        service.deletePaqueteCombinacionById = function(path,idPaqueteCombinacion){
+            return $http.post(path, $.param({idPaqueteCombinacion : idPaqueteCombinacion}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        }
+        service.updatePaqueteCombinacion = function(path,paqueteCombinacion){
+            //var path = $("#pathUpdateTour").val();
+            return $http.post(path, $.param({paqueteCombinacion : JSON.stringify(paqueteCombinacion)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
         /*service.findContactsHotel = function(idHotel){
             var path = $("#pathContacts").val();
             service.contactHotelList.data = [];

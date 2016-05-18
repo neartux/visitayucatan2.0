@@ -85,7 +85,7 @@ class PaqueteAdminController extends Controller {
      * @Route("/admin/paquete/delete", name="paquete_delete")
      * @Method("POST")
    */
-	public function deleteTourAction(Request $request) {
+	public function deletePaqueteAction(Request $request) {
 		$serializer = $this->get('serializer');
 		try {
 		   $idPaquete = $request->get('idPaquete');
@@ -242,4 +242,77 @@ class PaqueteAdminController extends Controller {
 		}
 	}
 	
+	/**
+	* @Route("/admin/paquete/create/combinacion", name="paquete_combinacion_create")
+	* @Method("POST")
+	*/
+	public function createPaqueteCombinacionAction(Request $request){
+		$serializer = $this->get('serializer');
+		try {
+			$paqueteCombinacion = $request->get('paqueteCombinacion');
+			$paqueteCombinacionTO = $serializer->deserialize($paqueteCombinacion,'VisitaYucatanBundle\utils\to\PaquetecombinacionhotelTO',Generalkeys::JSON_STRING);
+
+			$this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->createPaqueteCombinacion($paqueteCombinacionTO);
+			$translator = $this->get('translator');
+		   $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, $translator->trans("El paquete combinación se ha creado"), Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+		   return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+		} catch (\Exception $e) {
+
+		   $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+		   return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+		}
+	}
+
+	/**
+	* @Route("/admin/paquete/find/combinacion/all", name="paquete_combinacion_find_all")
+	* @Method("POST")
+	*/
+	public function findAllPaqueteCombinacionAction(Request $request){
+		$idPaquete = $request->get('idPaquete');
+		$paqueteCombinacion = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findAllPaqueteHotelesCombinacionById($idPaquete);
+		return new Response($this->get('serializer')->serialize(PaqueteUtils::getListPaqueteCombinacionTO($paqueteCombinacion),Generalkeys::JSON_STRING));
+	}
+
+	/**
+     * @Route("/admin/paquete/combinacion/delete", name="paquete_combinacion_delete")
+     * @Method("POST")
+   */
+	public function deletePaqueteCombinacionAction(Request $request) {
+		$serializer = $this->get('serializer');
+		try {
+		   $idPaqueteCombinacion = $request->get('idPaqueteCombinacion');
+		   $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->deletePaqueteCombinacion($idPaqueteCombinacion);
+
+		   $translator = $this->get('translator');
+		   $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Paquete combinación se ha eliminado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+		   return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+		} catch (\Exception $e) {
+
+		   $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+		   return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+		}
+
+	}
+	/**
+     * @Route("/admin/paquete/combinacion/update", name="paquete_combinacion_update")
+     * @Method("POST")
+   */
+	public function updatePaqueteCombinacionAction(Request $request) {
+		$serializer = $this->get('serializer');
+        try {
+            $paqueteCombinacionJson = $request->get('paqueteCombinacion');
+            $paqueteCombinacionTO = $serializer->deserialize($paqueteCombinacionJson, 'VisitaYucatanBundle\utils\to\PaquetecombinacionhotelTO', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->updatePaqueteCombinacion($paqueteCombinacionTO);
+
+            $translator = $this->get('translator');
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Paquete actualizado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        } catch (\Exception $e) {
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
+	}
 }

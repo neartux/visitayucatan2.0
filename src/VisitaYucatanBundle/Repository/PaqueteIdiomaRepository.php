@@ -35,10 +35,19 @@ class PaqueteIdiomaRepository extends \Doctrine\ORM\EntityRepository {
             $paqueteIdioma->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
             $paqueteIdioma->setPaquete($em->getReference('VisitaYucatanBundle:Paquete', $paqueteIdiomaTO->getIdPaquete()));
             $paqueteIdioma->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', $paqueteIdiomaTO->getIdIdioma()));
+            $paqueteIdioma->setDescripcion($paqueteIdiomaTO->getDescripcion());
+            $paqueteIdioma->setDescripcionLarga($paqueteIdiomaTO->getDescripcionLarga());
+            $paqueteIdioma->setDescripcionCorta('');
+            $paqueteIdioma->setCircuito('');
+            $paqueteIdioma->setIncluye('');
+            $paqueteIdioma->setDias($paqueteIdiomaTO->getDias());
+            $paqueteIdioma->setItinerario('');
         }
         $paqueteIdioma->setDescripcion($paqueteIdiomaTO->getDescripcion());
         $paqueteIdioma->setDescripcionCorta($paqueteIdiomaTO->getDescripcionCorta());
         $paqueteIdioma->setIncluye('');
+        $paqueteIdioma->setItinerario('');
+        $paqueteIdioma->setDias($paqueteIdiomaTO->getDias());
         //$paqueteIdioma->setCircuito($tourIdiomaTO->getCircuito());
         $paqueteIdioma->setDescripcionLarga($paqueteIdiomaTO->getDescripcionLarga());
         // Valida que slo adultos no sea null

@@ -92,9 +92,10 @@
             </div>
         </div>
 
-        <!--Modal creacion y modificacion de tour-->
+        <!--Modal creacion y modificacion de paquete-->
         {% include '@VisitaYucatan/admin/paquetes/ModalPaquete.html.twig' %}
-
+        <!--Modal creacion y modificacion de paquete combinacion hotel-->
+        {% include '@VisitaYucatan/admin/paquetes/ModalPaqueteCombinacion.html.twig' %}
         <!--Paths-->
         <input type="hidden" id="pathListPaquete" value="{{ path('paquete_find_list') }}"/>
         <input type="hidden" id="pathCreatePaquete" value="{{ path('paquete_create') }}"/>
@@ -109,6 +110,11 @@
         <input type="hidden" id="pathPaquetePrincipalImagen" value="{{ path('paquete_principal_image') }}">
         <input type="hidden" id="pathFindAllHoteles" value="{{ path('paquete_find_hoteles') }}">
         <input type="hidden" id="pathFindPaqueteByIdCombiHotel" value="{{ path('paquete_find_combinacion_hotel')}}">
+        <input type="hidden" id="pathCreatePaqueteCombinacion" value="{{ path('paquete_combinacion_create')}} ">
+        <input type="hidden" id="pathListPaqueteCombinacion" value="{{ path('paquete_combinacion_find_all')}} ">
+        <input type="hidden" id="pathUpdatePaqueteCombinacion" value="{{ path('paquete_combinacion_update')}} ">
+        <input type="hidden" id="pathDeletePaqueteCombinacion" value="{{ path('paquete_combinacion_delete')}} ">
+        
     </div>
 
 {% endblock %}

@@ -42,7 +42,6 @@
         paquetesVM.findAllPaquetes = function () {
             PaqueteService.findPaquetesList(paquetesVM.paths.findList).then(function(data){
                 paquetesVM.listPaquetes=data;
-                console.info("paquete list", paquetesVM.listPaquetes);
             });
         };
         paquetesVM.initPaths = function(){
@@ -59,8 +58,11 @@
                 paquetePrincipalImage:angular.element(document.querySelector('#pathPaquetePrincipalImagen')).context.value,
                 findAllHoteles:angular.element(document.querySelector("#pathFindAllHoteles")).context.value,
                 findPaqueteByIdCombiHotel:angular.element(document.querySelector("#pathFindPaqueteByIdCombiHotel")).context.value,
+                createPaqueteCombinacion:angular.element(document.querySelector('#pathCreatePaqueteCombinacion')).context.value,
+                findAllPaquetesCombinacion:angular.element(document.querySelector('#pathListPaqueteCombinacion')).context.value,
+                updatePaqueteCombinacion:angular.element(document.querySelector('#pathUpdatePaqueteCombinacion')).context.value,
+                DeletePaqueteCombinacion:angular.element(document.querySelector('#pathDeletePaqueteCombinacion')).context.value
             };
-            console.info("paths",paquetesVM.paths);
         }
         paquetesVM.displayNewPaquete = function () {
             paquetesVM.cleanForm();
@@ -77,10 +79,8 @@
 
             if (isValid && paquetesVM.newPaquete != undefined) {
                 startLoading(paquetesVM.msjLoading);
-                console.info("Paquetes item",paquetesVM.newPaquete);
                 return PaqueteService.createPaquete(paquetesVM.newPaquete,paquetesVM.paths.create).then(function (r) {
                     stopLoading();
-                    console.info("data",r);
                     if (r.data.status) {
                         paquetesVM.findAllPaquetes();
                         //updateDataTable();
@@ -103,7 +103,6 @@
         };
         paquetesVM.displayEditPaquete = function (paquete) {
             paquetesVM.titleModal = paquetesVM.titleEdit;
-            console.info("displayEditPaquete",paquete);
             paquetesVM.newPaquete = {
                 id:paquete.id,descripcion:paquete.nombrepaquete,circuito:paquete.circuito,promovido:paquete.promovido
             };
@@ -117,7 +116,6 @@
         paquetesVM.updatePaquete = function (isValid) {
             // check to make sure the form is completely valid
             if (isValid && paquetesVM.newPaquete != undefined) {
-                console.info("paquetes update",paquetesVM.newPaquete);
                 startLoading(paquetesVM.msjLoading);
                 return PaqueteService.updatePaquete(paquetesVM.paths.updatePaquete,paquetesVM.newPaquete).then(function (data) {
                     stopLoading();
@@ -138,16 +136,14 @@
             $scope.formPaquete.$setPristine();
         };
         paquetesVM.configuratePaquete = function (paquete) {
-            console.info('configuratePaquete',paquete);
             paquetesVM.namePaqueteTitle = paquete.nombrepaquete;
-            console.info('namePaqueteTitle',paquetesVM.namePaqueteTitle);
             paquetesVM.idPaqueteGlobal = paquete.id;
             paquetesVM.configPaquete =  true;
             paquetesVM.paqueteIdiomaTo.data = undefined;
             $(".summernote").code('');
             paquetesVM.findImagesByPaquete();
             paquetesVM.findAllHoteles();
-            console.info("paquetesVM",paquetesVM.idPaqueteGlobal);
+            paquetesVM.getPaqueteCombinacion();
             /*ctrlPaquete.nameTourTitle = tour.descripcion;
             ctrlPaquete.idTourGlobal = tour.id;
             ctrlPaquete.configTour = true;
@@ -158,7 +154,6 @@
         paquetesVM.findAllLanguages = function () {
             PaqueteService.findAllLanguages(paquetesVM.paths.findListLanguage).then(function(data){
                 paquetesVM.listLanguage = data;
-                console.info("language",paquetesVM.listLanguage);
             });
         };
         paquetesVM.returnListPaquete = function(){
@@ -170,14 +165,11 @@
                 var idiomaTmp = paquetesVM.paqueteIdiomaTo.data.idIdioma;
                 PaqueteService.findPaqueteByIdAndLanguaje(paquetesVM.paths.paqueteByIdLanguage,paquetesVM.idPaqueteGlobal, paquetesVM.paqueteIdiomaTo.data.idIdioma).then(function(data){
                     
-                    //console.info("return find paquete by idioma",data.id);
+                    console.info("return find paquete by idioma",data);
                     if(typeof(data.id)!=='null'){
-                        console.info("entro aki no es undefined",data);
                         paquetesVM.paqueteIdiomaTo.data=data;
                         paquetesVM.paqueteIdiomaTo.data.idIdioma = idiomaTmp;
-                    }else{
-                        console.info("cuando es undefined",data);
-                        
+                    }else{                        
                         paquetesVM.paqueteIdiomaTo.data=data;
                         paquetesVM.paqueteIdiomaTo.data.idIdioma = data.idIdioma.toString();
                     }
@@ -189,6 +181,7 @@
                     }
                     // El siguiente codigo para colocar el texto en el summernote, no se coloca de manera normal con el ng-model
                     $(".summernote").code(paquetesVM.paqueteIdiomaTo.data.descripcionLarga);
+                    $(".itinerario .itinerario").code(paquetesVM.paqueteIdiomaTo.data.itinerario);
                 });
             }
         };
@@ -211,7 +204,6 @@
             setTimeout(function(){
                 PaqueteService.findImagesPaqueteByIdPaquete(paquetesVM.paths.paqueteAllImages,paquetesVM.idPaqueteGlobal).then(function(data){
                     paquetesVM.imagesPaquetes = data;
-                    console.info("images paquetes",data);
                 });
             },1000);
         };
@@ -234,9 +226,7 @@
         };
 
         paquetesVM.findAllHoteles = function(){
-            console.info("ruta",paquetesVM.paths.findAllHoteles);
             PaqueteService.findAllHoteles(paquetesVM.paths.findAllHoteles).then(function (data){
-                console.info("hoteles",data);
                 paquetesVM.hoteles = data;
             })
         };
@@ -246,7 +236,76 @@
             PaqueteService.findByIdCombiHotel(paquetesVM.paths.findPaqueteByIdCombiHotel,$json).then(function (data){
                 console.info("combinacion tarifa",data);
             })
+        };
+        paquetesVM.displayNewPaqueteCombinacion = function () {
+            paquetesVM.titleModal = 'Nuevo Paquete Combinación';
+            paquetesVM.isNewPaqueteCombinacion = true;
+            paquetesVM.cleanFormPaqueteCombinacion();
+            //paquetesVM.newPaquete
+            $("#modalPaqueteCombinacion").modal();
+            setTimeout(function () {
+                $("#hotel").trigger('focus');
+            }, 1000);
+        };
+        paquetesVM.savePaqueteCombinacion = function(isValid,combinacion){
+            
+            //paquetesVM.newPaquete
+            if (isValid && combinacion != undefined) {
+                startLoading(paquetesVM.msjLoading);
+                combinacion.idPaquete = paquetesVM.idPaqueteGlobal;
+                PaqueteService.savePaqueteCombinacion(paquetesVM.paths.createPaqueteCombinacion,combinacion).then(function(data){
+                    stopLoading();
+                    pNotifyView(data.message, data.typeStatus);
+                });
+            } 
+        };
+        paquetesVM.getPaqueteCombinacion = function(){
+            PaqueteService.listPaqueteCombinacion(paquetesVM.paths.findAllPaquetesCombinacion,paquetesVM.idPaqueteGlobal).then(function(data){
+                paquetesVM.listPaquetesCombinacion = data;
+                console.info("listPaquetesCombinacion",data);
+            });
+        };
+        paquetesVM.displayEditPaqueteCombinacion = function (paqueteCombinacion) {
+            paquetesVM.titleModal = 'Editar Paquete Combinación';
+            //console.info("displayEditPaquete",paqueteCombinacion);
+            /*paquetesVM.newPaquete = {
+                id:paquete.id,descripcion:paquete.nombrepaquete,circuito:paquete.circuito,promovido:paquete.promovido
+            };*/
+            paquetesVM.paqComHotel = paqueteCombinacion;
+            paquetesVM.isNewPaqueteCombinacion = false;
+            $("#modalPaqueteCombinacion").modal();
+            setTimeout(function () {
+                $("#hotel").trigger('focus');
+            }, 1000);
+        };
+        paquetesVM.updatePaqueteCombinacion = function(isValid,paqueteCombinacion){
+            if (isValid && paqueteCombinacion != undefined) {
+                startLoading(paquetesVM.msjLoading);
+                return PaqueteService.updatePaqueteCombinacion(paquetesVM.paths.updatePaqueteCombinacion,paqueteCombinacion).then(function (data) {
+                    stopLoading();
+                    if (data.data.status) {
+                        paquetesVM.findAllPaquetes();
+                    }
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                    $("#modalPaqueteCombinacion").modal("hide");
+                });
+            }
         }
+        paquetesVM.deletePaqueteCombinacion = function (idPaqueteCombinacion) {
+            if (confirm('¿Seguro que desea eliminar el paquete combinación?')) {
+                return PaqueteService.deletePaqueteCombinacionById(paquetesVM.paths.DeletePaqueteCombinacion,idPaqueteCombinacion).then(function (data) {
+                    if (data.data.status) {
+                        paquetesVM.getPaqueteCombinacion();
+                    }
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
+        };
+
+        paquetesVM.cleanFormPaqueteCombinacion = function(){
+            paquetesVM.paqComHotel = undefined;
+            $scope.formPaqueteCombinacion.$setPristine();
+        };
         /*ctrlPaquete.saveTourLanguage = function(isValid){
             if(isValid){
                 startLoading(ctrlPaquete.msjLoading);

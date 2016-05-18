@@ -36,4 +36,65 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 
 		return $query->getOneOrNullResult();
 	}
+	public function createPaqueteCombinacion($paqueteCombinacionTO){
+
+		//echo "idPaquete".(int)$paqueteCombinacionTO->getIdPaquete();
+		$em = $this->getEntityManager();
+		$paqueteCombinacion = new PaqueteCombinacionHotel();
+		$paqueteCombinacion->setNoches((int)$paqueteCombinacionTO->getNoches());
+		$paqueteCombinacion->setDias((int)$paqueteCombinacionTO->getDias());
+		$paqueteCombinacion->setCostoSencillo((float)$paqueteCombinacionTO->getCostoSencillo());
+		$paqueteCombinacion->setCostoDoble((float)$paqueteCombinacionTO->getCostoDoble());
+		$paqueteCombinacion->setCostoTriple((float)$paqueteCombinacionTO->getCostoTriple());
+		$paqueteCombinacion->setCostoCuadruple((float)$paqueteCombinacionTO->getCostoCuadruple());
+		$paqueteCombinacion->setCostoMenor((float)$paqueteCombinacionTO->getCostoMenor());
+		$paqueteCombinacion->setPaquete($em->getReference('VisitaYucatanBundle:Paquete',(int)$paqueteCombinacionTO->getIdPaquete()));
+		$paqueteCombinacion->setHotel($em->getReference('VisitaYucatanBundle:Hotel',(int)$paqueteCombinacionTO->getIdHotel()));
+		$paqueteCombinacion->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+
+		
+		$em->persist($paqueteCombinacion);
+
+		$em->flush();
+	}
+
+	public function findAllPaqueteHotelesCombinacionById($idPaquete){
+		$em = $this->getEntityManager();
+		$sql='SELECT  p.*
+			  FROM paquete_combinacion_hotel p
+			  WHERE p.id_estatus = :estatusActivo AND p.id_paquete=:idPaquete';
+		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+		$params['idPaquete'] = $idPaquete;
+		$stmt = $em->getConnection()->prepare($sql);
+		$stmt->execute($params);
+		return $stmt->fetchAll();
+	}
+
+	public function updatePaqueteCombinacion($paqueteCombinacionTO) {
+        $em = $this->getEntityManager();
+        $paqueteCombinacionUpdate = $this->find($paqueteCombinacionTO->getId());
+        if (!$paqueteCombinacionUpdate) {
+            throw new EntityNotFoundException('El paquete combinación con id ' . $paqueteCombinacionTO->getId() . " no se encontro");
+        }
+        // Actualiza la informacion del  paquete combinacion
+        	$paqueteCombinacionUpdate->setNoches((int)$paqueteCombinacionTO->getNoches());
+			$paqueteCombinacionUpdate->setDias((int)$paqueteCombinacionTO->getDias());
+			$paqueteCombinacionUpdate->setCostoSencillo((float)$paqueteCombinacionTO->getCostoSencillo());
+			$paqueteCombinacionUpdate->setCostoDoble((float)$paqueteCombinacionTO->getCostoDoble());
+			$paqueteCombinacionUpdate->setCostoTriple((float)$paqueteCombinacionTO->getCostoTriple());
+			$paqueteCombinacionUpdate->setCostoCuadruple((float)$paqueteCombinacionTO->getCostoCuadruple());
+			$paqueteCombinacionUpdate->setCostoMenor((float)$paqueteCombinacionTO->getCostoMenor());
+        	$em->persist($paqueteCombinacionUpdate);
+        	$em->flush();
+    }
+	public function deletePaqueteCombinacion($idPaqueteCombinacion){
+		$em = $this->getEntityManager();
+		$paqueteCombinacion = $em->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->find($idPaqueteCombinacion);
+		if (!$paqueteCombinacion) {
+		   throw new EntityNotFoundException('El paquete combinación con id ' . $idPaqueteCombinacion . " no se encontro");
+		}
+		$paqueteCombinacion->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
+		$em->persist($paqueteCombinacion);
+		$em->flush();
+	}
 }

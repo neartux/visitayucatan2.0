@@ -1,0 +1,151 @@
+<div class="modal fade in" id="modalPaqueteCombinacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+	<div class="modal-backdrop fade in" style="height: 1037px;"></div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+         <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times"></span></button>
+             <h2 class="modal-title">[[ paquetesVM.titleModal ]]</h2>
+         </div>
+         <form class="mt" name="formPaqueteCombinacion" novalidate>
+				<div class="row pr pl" >
+					<div class="col-md-6">
+						<div class="row pr-md pl-md">
+							<div class="col-md-12">
+								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.hotel.$invalid && !formPaqueteCombinacion.hotel.$pristine }">
+									<label class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
+						            Hotel
+						        	</label>
+									<select name="hotel" id="hotel" class="form-control" ng-model="paquetesVM.paqComHotel.idHotel" required>
+										<option>SELECCIONA</option>
+										<option value="[[h.id]]" ng-repeat="h in paquetesVM.hoteles">[[h.descripcion]]</option>
+									</select>
+									<span ng-show="formPaqueteCombinacion.hotel.$invalid && !formPaqueteCombinacion.hotel.$pristine" class="help-block">
+		                        Seleccione hotel
+		                    	</span>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.dias.$invalid && !formPaqueteCombinacion.dias.$pristine }">
+									<label for="dias" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
+						            Dias:
+						            <span class="required">*</span>
+						        	</label>
+						        	<input type="text" class="form-control" name="dias" id="dias" ng-model="paquetesVM.paqComHotel.dias" required>
+						        	<span ng-show="formPaqueteCombinacion.dias.$invalid && !formPaqueteCombinacion.dias.$pristine" class="help-block">
+		                        Dias es requerido
+		                    	</span>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.noches.$invalid && !formPaqueteCombinacion.noches.$pristine }">
+									<label for="noches" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
+						            Noches:
+						            <span class="required">*</span>
+						        	</label>
+						        	<input type="text" class="form-control" name="noches" id="noches" ng-model="paquetesVM.paqComHotel.noches" required>
+						        	<span ng-show="formPaqueteCombinacion.dias.$invalid && !formPaqueteCombinacion.dias.$pristine" class="help-block">
+		                        Noches es requerido
+		                    	</span>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoSencillo.$invalid && !formPaqueteCombinacion.costoSencillo.$pristine }">
+									<label for="costoSencillo" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
+						            Habitación sencilla:
+						            <span class="required">*</span>
+						        	</label>
+						        	<input type="text" class="form-control" name="costoSencillo" id="costoSencillo" ng-model="paquetesVM.paqComHotel.costoSencillo" required>
+						        	<span ng-show="formPaqueteCombinacion.costoSencillo.$invalid && !formPaqueteCombinacion.costoSencillo.$pristine" class="help-block">
+		                        Habitación sencilla es requerido
+		                    	</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row pr-md pl-md">
+							<div class="col-md-12">
+								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoDoble.$invalid && !formPaqueteCombinacion.costoDoble.$pristine }">
+									<label for="costoDoble" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
+						            Habitación doble:
+						            <span class="required">*</span>
+						        	</label>
+						        	<input type="text" class="form-control" name="costoDoble" id="costoDoble" ng-model="paquetesVM.paqComHotel.costoDoble" required>
+						        	<span ng-show="formPaqueteCombinacion.costoDoble.$invalid && !formPaqueteCombinacion.costoDoble.$pristine" class="help-block">
+		                        Habitación doble es requerido
+		                    	</span>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoTriple.$invalid && !formPaqueteCombinacion.costoTriple.$pristine }">
+									<label for="costoTriple" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
+						            Habitación triple:
+						            <span class="required">*</span>
+						        	</label>
+						        	<input type="text" class="form-control" name="costoTriple" id="costoTriple" ng-model="paquetesVM.paqComHotel.costoTriple" required>
+						        	<span ng-show="formPaqueteCombinacion.costoTriple.$invalid && !formPaqueteCombinacion.costoTriple.$pristine" class="help-block">
+		                        Habitación triple es requerido
+		                    	</span>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoCuadruple.$invalid && !formPaqueteCombinacion.costoCuadruple.$pristine }">
+									<label for="costoCuadruple" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
+						           	Habitación cuadruple:
+						            <span class="required">*</span>
+						        	</label>
+						        	<input type="text" class="form-control" name="costoCuadruple" id="costoCuadruple" ng-model="paquetesVM.paqComHotel.costoCuadruple" required>
+						        	<span ng-show="formPaqueteCombinacion.costoCuadruple.$invalid && !formPaqueteCombinacion.costoCuadruple.$pristine" class="help-block">
+		                        Habitación cuadruple es requerido
+		                    	</span>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoMenor.$invalid && !formPaqueteCombinacion.costoMenor.$pristine }">
+									<label for="costoMenor" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
+						            Tarifa Menor:
+						            <span class="required">*</span>
+						        	</label>
+						        	<input type="text" class="form-control" name="costoMenor" id="costoMenor" ng-model="paquetesVM.paqComHotel.costoMenor" required>
+						        	<span ng-show="formPaqueteCombinacion.costoMenor.$invalid && !formPaqueteCombinacion.costoMenor.$pristine" class="help-block">
+		                        Tarifa menor es requerido
+		                    	</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="modal-footer">
+						<div class="col-md-12">
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times-circle-o"></span> &nbsp;
+                        {% trans %}button.label.close{% endtrans %}
+                    </button>
+							<button type="button" class="btn btn-primary pull-right" data-ng-click="paquetesVM.savePaqueteCombinacion(formPaqueteCombinacion.$valid,paquetesVM.paqComHotel)" ng-disabled="formPaqueteCombinacion.$invalid" ng-show="paquetesVM.isNewPaqueteCombinacion">
+								<span class="fa fa-save"></span> &nbsp;Guardar
+							</button>
+							<button data-ng-show="!paquetesVM.isNewPaqueteCombinacion" type="button" class="btn btn-primary" data-ng-click="paquetesVM.updatePaqueteCombinacion(formPaqueteCombinacion.$valid,paquetesVM.paqComHotel)" ng-disabled="formPaqueteCombinacion.$invalid">
+                        <span class="fa fa-save"></span> &nbsp;
+                        Editar
+                    </button>
+						</div>
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times-circle-o"></span> &nbsp;
+                        {% trans %}button.label.close{% endtrans %}
+                    </button>
+                    <button data-ng-show="paquetesVM.isNewPaquete" type="button" class="btn btn-primary" data-ng-click="paquetesVM.saveFormPaquete(formPaquete.$valid)" ng-disabled="formPaquete.$invalid">
+                        <span class="fa fa-save"></span> &nbsp;
+                        {% trans %}button.label.save{% endtrans %}
+                    </button>
+                    <button data-ng-show="!paquetesVM.isNewPaquete" type="button" class="btn btn-primary" data-ng-click="paquetesVM.updatePaquete(formPaquete.$valid)" ng-disabled="formPaquete.$invalid">
+                        <span class="fa fa-save"></span> &nbsp;
+                        {% trans %}button.label.edit{% endtrans %}
+                    </button>-->
+                </div>
+			</form>
+      </div>
+      
+	</div>
+</div>

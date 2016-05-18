@@ -13,6 +13,7 @@ use VisitaYucatanBundle\utils\to\PaqueteTO;
 use VisitaYucatanBundle\utils\to\PaqueteidiomaTO;
 use VisitaYucatanBundle\utils\to\PaqueteimagenTO;
 use VisitaYucatanBundle\utils\to\HotelTO;
+use VisitaYucatanBundle\utils\to\PaquetecombinacionhotelTO;
 
 class PaqueteUtils {
 
@@ -25,6 +26,8 @@ class PaqueteUtils {
             $paqueteIdioma->setDescripcion($paqueteEntity->getDescripcion());
             //$paqueteIdioma->setCircuito($paqueteEntity->getCircuito());
             $paqueteIdioma->setDescripcionLarga($paqueteEntity->getDescripcionLarga());
+            $paqueteIdioma->setItinerario($paqueteEntity->getItinerario());
+            $paqueteIdioma->setDias($paqueteEntity->getDias());
             //$paqueteIdioma->setSoloadultos($paqueteEntity->getSoloadultos());
         }
 
@@ -96,6 +99,30 @@ class PaqueteUtils {
         }
 
         return $hotelesList;
+    }
+
+    public static function getListPaqueteCombinacionTO($paqueteCombinacion){
+        $paqueteCombiList = new ArrayCollection();
+        //print_r($paqueteCombinacion);
+        if(count($paqueteCombinacion)>Generalkeys::NUMBER_ZERO){
+            foreach ($paqueteCombinacion as $pc) {
+                $paqCombi = new PaquetecombinacionhotelTO();
+                $paqCombi->setId($pc['id']);
+                $paqCombi->setIdEstatus($pc['id_estatus']);
+                $paqCombi->setIdHotel($pc['id_hotel']);
+                $paqCombi->setIdPaquete($pc['id_paquete']);
+                $paqCombi->setNoches($pc['noches']);
+                $paqCombi->setDias($pc['dias']);
+                $paqCombi->setCostoSencillo($pc['costosencillo']);
+                $paqCombi->setCostoDoble($pc['costodoble']);
+                $paqCombi->setCostoTriple($pc['costotriple']);
+                $paqCombi->setCostoCuadruple($pc['costocuadruple']);
+                $paqCombi->setCostoMenor($pc['costomenor']);
+                $paqueteCombiList->add($paqCombi);
+            }
+        }
+
+        return $paqueteCombiList;
     }
 
 }

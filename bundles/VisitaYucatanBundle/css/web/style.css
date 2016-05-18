@@ -2700,3 +2700,8 @@ footer .column-img {
     /*****FIN-FOOTER*******/
 
 }
+
+/*margins**/
+.m-l-n-16{
+    margin-left: -16px !important;
+}

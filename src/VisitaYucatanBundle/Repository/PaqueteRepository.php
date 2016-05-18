@@ -78,7 +78,7 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
         if (!$paqueteUpdate) {
             throw new EntityNotFoundException('El paquete con id ' . $paqueteTO->getId() . " no se encontro");
         }
-        // Actualiza la informacion del tour
+        // Actualiza la informacion del  paquete
         $paqueteUpdate->setDescripcion($paqueteTO->getDescripcion());
         $paqueteUpdate->setCircuito($paqueteTO->getCircuito());
         $em->persist($paqueteUpdate);
