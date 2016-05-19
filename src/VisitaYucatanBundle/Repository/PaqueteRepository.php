@@ -109,4 +109,15 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
 		$em->persist($paquete);
 		$em->flush();
 	}
+	public function promoveOrNotPromovePaquete($idPaquete, $boobleanPromove) {
+        $em = $this->getEntityManager();
+        $paquete = $em->getRepository('VisitaYucatanBundle:Paquete')->find($idPaquete);
+        if (!$paquete) {
+            throw new EntityNotFoundException('El paquete con id ' . $idPaquete . " no se encontro");
+        }
+       $paquete->setPromovido($boobleanPromove);
+
+        $em->persist($paquete);
+        $em->flush();
+    }
 }

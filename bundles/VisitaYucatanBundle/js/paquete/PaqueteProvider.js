@@ -49,6 +49,16 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
+        service.promovedPaquete = function(path,idPaquete){
+            return $http.post(path, $.param({idPaquete : idPaquete}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+        service.removePromovedPaquete = function(path,idPaquete){
+            return $http.post(path, $.param({idPaquete : idPaquete}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
         service.findAllLanguages = function(path){
             return $http.get(path).then(function(data){
                 return data.data;

@@ -50,6 +50,8 @@
                 create: angular.element(document.querySelector('#pathCreatePaquete')).context.value,
                 deletePaquete:angular.element(document.querySelector('#pathDeletePaquete')).context.value,
                 updatePaquete:angular.element(document.querySelector('#pathUpdatePaquete')).context.value,
+                promovedPaquete:angular.element(document.querySelector('#pathPromovePaquete')).context.value,
+                removePromovedPaquete:angular.element(document.querySelector('#pathRemovePromovedPaquete')).context.value,
                 findListLanguage:angular.element(document.querySelector('#pathAllLenguages')).context.value,
                 paqueteByIdLanguage:angular.element(document.querySelector('#pathPaqueteByIdioma')).context.value,
                 savePaquteLanguage:angular.element(document.querySelector('#pathSavePaqueteLanguage')).context.value,
@@ -150,6 +152,16 @@
             ctrlPaquete.tourIdiomaTo.data = undefined;
             $(".summernote").code('');
             ctrlPaquete.findImagesByTour();*/
+        };
+        paquetesVM.promovedPaquete = function (idPaquete) {
+            return PaqueteService.promovedPaquete(paquetesVM.paths.promovedPaquete,idPaquete).then(function (data) {
+                pNotifyView(data.data.message, data.data.typeStatus);
+            });
+        };
+        paquetesVM.removePromovedPaquete = function (idPaquete) {
+            return PaqueteService.removePromovedPaquete(paquetesVM.paths.removePromovedPaquete,idPaquete).then(function (data) {
+                pNotifyView(data.data.message, data.data.typeStatus);
+            });
         };
         paquetesVM.findAllLanguages = function () {
             PaqueteService.findAllLanguages(paquetesVM.paths.findListLanguage).then(function(data){
@@ -256,6 +268,7 @@
                 PaqueteService.savePaqueteCombinacion(paquetesVM.paths.createPaqueteCombinacion,combinacion).then(function(data){
                     stopLoading();
                     pNotifyView(data.message, data.typeStatus);
+                    $("#modalPaqueteCombinacion").modal("hide");
                 });
             } 
         };

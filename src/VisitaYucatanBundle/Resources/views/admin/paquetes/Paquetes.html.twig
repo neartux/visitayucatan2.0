@@ -66,10 +66,10 @@
                                                     </td>
                                                     <td>
                                                         <span data-ng-if="p.promovido == 0">
-                                                            <input type="checkbox" data-ng-click="paquetesVM.promovedTour(p.id);"/>
+                                                            <input type="checkbox" data-ng-click="paquetesVM.promovedPaquete(p.id);"/>
                                                         </span>
                                                         <span data-ng-if="p.promovido == 1">
-                                                            <input type="checkbox" checked data-ng-click="paquetesVM.removePromovedTour(p.id);"/>
+                                                            <input type="checkbox" checked data-ng-click="paquetesVM.removePromovedPaquete(p.id);"/>
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -101,6 +101,8 @@
         <input type="hidden" id="pathCreatePaquete" value="{{ path('paquete_create') }}"/>
         <input type="hidden" id="pathDeletePaquete" value="{{ path('paquete_delete') }}" />
         <input type="hidden" id="pathUpdatePaquete" value="{{ path('paquete_update') }}" />
+        <input type="hidden" id="pathPromovePaquete" value="{{ path('paquete_promove') }}" />
+        <input type="hidden" id="pathRemovePromovedPaquete" value="{{ path('paquete_remove_promove') }}" />
         <input type="hidden" id="pathAllLenguages" value="{{ path('language_find_all') }}">   
         <input type="hidden" id="pathPaqueteByIdioma" value=" {{ path('paquete_find_by_language') }}">
         <input type="hidden" id="pathSavePaqueteLanguage" value="{{ path('paquete_save_paquetelanguage') }}">
