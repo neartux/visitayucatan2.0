@@ -5,6 +5,7 @@ namespace VisitaYucatanBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\Generalkeys;
@@ -21,7 +22,6 @@ class ArticleAdminController extends Controller {
             return $this->redirectToRoute('admin_login');
         }
         return $this->render('VisitaYucatanBundle:admin/articles:Peninsula.html.twig');
-
     }
 
     /**
@@ -160,8 +160,31 @@ class ArticleAdminController extends Controller {
             $message = 'Se ha modificado la información para el Artículo ' . $nombre;
             return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_TRUE, $message, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK), Generalkeys::JSON_STRING));
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return new Response($serializer->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
         }
+    }
+
+    /**
+     * @Route("/admin/pages", name="page_display_list")
+     * @Method("GET")
+     */
+    public function displayArticlePageAction(Request $request){
+        if (!$request->getSession()->get(Generalkeys::LABEL_STATUS)) {
+            return $this->redirectToRoute('admin_login');
+        }
+        return $this->render('VisitaYucatanBundle:admin/articles/page:Page.html.twig');
+    }
+
+    /**
+     * @Route("/admin/pages/findSeccion", name="page_find_seccion")
+     * @Method("POST")
+     */
+    public function findPageDescriptionAction(Request $request) {
+        $page = $request->get('page');
+        $idioma = $request->get('idioma');
+        $descriptionPage = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Articulo')->getArticuloPage(Generalkeys::TIPO_ARTICULO_PAGINA, $page, $idioma);
+        echo "page = ",$descriptionPage;
+        return new JsonResponse($descriptionPage);
     }
 }

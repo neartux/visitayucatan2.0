@@ -6,80 +6,89 @@
         <section>
             <div id="content">
 
-                <div class="introduccion">
-                    <div id="izquierdo">
-                        <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/paquetes-adorno.png') }}">
-                    </div>
-                    <div id="read-left">
-                        <div class="publireportaje">
-                            <div>
-                                Nuestros paquetes están diseñados con la finalidad de que Usted pueda planear enteramente su viaje, nuestra selección de tours y excursiones en cada paquete le ayuda a maximizar su tiempo y...
-                            </div>
+                {% if(pageDescription) %}
+
+                    <div class="introduccion">
+                        <div id="izquierdo">
+                            <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/paquetes-adorno.png') }}">
+                        </div>
+                        <div id="read-left">
+                            <div class="publireportaje">
+                                <div>
+                                    {{ descripcionCorta | raw }}
+                                </div>
                         <span id="btnleermas" class="lectura">{% trans %}
                             page.web.label.tours.read.more{% endtrans %}</span>
-                        </div>
-                        <div id="contenedorreportajeb" class="publireportajeb" style="display:none;">
-                            <div>
-                                Nuestros paquetes están diseñados con la finalidad de que Usted pueda planear enteramente su viaje, nuestra selección de tours y excursiones en cada paquete le ayuda a maximizar su tiempo y experiencia con los atractivos que tenemos para ofrecerle de acuerdo, al número de noches de estancia en Mérida y el estado de Yucatán.
-                                Así mismo le presentamos una variedad de hoteles de distintas categorías para que escoja el que más se adapte a su gusto y presupuesto.
                             </div>
+                            <div id="contenedorreportajeb" class="publireportajeb" style="display:none;">
+                                <div>
+                                    {{ pageDescription | raw }}
+                                </div>
                         <span id="btnleermenos" class="lectura">{% trans %}
                             page.web.label.tours.read.less{% endtrans %}</span>
-                        </div>
-                    </div>
-                </div>
-
-                {% for paquete in paquetes %}
-                    <article>
-                        <div class="border-top"></div>
-                        <div class="section-left">
-                            <h2 class="titulo-top">{{ paquete.nombrePaquete }}</h2>
-                            <figure class="img1 view">
-                                <a href="toulink">
-                                    <img src="{{ asset(paquete.principalImage) }}">
-                                </a>
-
-                                <div class="mask">
-                                    <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div class="detalles">
-
-                            <hgroup class="titulos">
-                                <h2>{{ paquete.nombrepaquete }}</h2>
-
-                                <h3>{{paquete.circuito}}</h3>
-                            </hgroup>
-                            <p class="descripciones">
-                                {{ paquete.descripcioncorta | raw }}
-                            </p>
-
-                        </div>
-                        <div class="img3">
-                            <div class="detalles-precio">
-
-                                <p class="parrafo-detalle arriba">{% trans %}page.web.label.hotels.price.since{% endtrans %}:</p>
-
-                                <p class="parrafo-detalle abajo">
-                                    ${{ paquete.costoSencilla }} {{ paquete.simboloMoneda }}
-                                </p>
-
-                                <div class="">
-                                    <p>&nbsp;</p>
-                                </div>
-                                <div class="informacion-detalles">
-                                    <p class="first-texto">
-                                        <a href="<? echo $link; ?>">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
-                                    </p>
-
-                                    <p class="second-texto"><span class="icon-play3"></span></p>
-                                </div>
-
                             </div>
                         </div>
-                    </article>
-                {% endfor %}
+                    </div>
+
+                {% endif %}
+
+                {% if(paquetes.count) %}
+                    {% for paquete in paquetes %}
+                        <article>
+                            <div class="border-top"></div>
+                            <div class="section-left">
+                                <h2 class="titulo-top">{{ paquete.nombrePaquete }}</h2>
+                                <figure class="img1 view">
+                                    <a href="toulink">
+                                        <img src="{{ asset(paquete.principalImage) }}">
+                                    </a>
+
+                                    <div class="mask">
+                                        <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
+                                    </div>
+                                </figure>
+                            </div>
+                            <div class="detalles">
+
+                                <hgroup class="titulos">
+                                    <h2>{{ paquete.nombrepaquete }}</h2>
+
+                                    <h3>{{paquete.circuito}}</h3>
+                                </hgroup>
+                                <p class="descripciones">
+                                    {{ paquete.descripcioncorta | raw }}
+                                </p>
+
+                            </div>
+                            <div class="img3">
+                                <div class="detalles-precio">
+
+                                    <p class="parrafo-detalle arriba">{% trans %}page.web.label.hotels.price.since{% endtrans %}:</p>
+
+                                    <p class="parrafo-detalle abajo">
+                                        ${{ paquete.costoSencilla }} {{ paquete.simboloMoneda }}
+                                    </p>
+
+                                    <div class="">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="informacion-detalles">
+                                        <p class="first-texto">
+                                            <a href="<? echo $link; ?>">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
+                                        </p>
+
+                                        <p class="second-texto"><span class="icon-play3"></span></p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                {% else %}
+                    <div class="not-found">
+                        {% trans %}page.web.label.packages.not.found{% endtrans %}
+                    </div>
+                {% endif %}
 
             </div>
 

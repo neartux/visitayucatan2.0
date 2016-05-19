@@ -54,7 +54,7 @@
                                                 <tr class="odd gradeX" data-ng-repeat="peninsula in ctrlPeninsula.listPeninsula.data">
                                                     <td>[[ $index + 1 ]]</td>
                                                     <td>[[ peninsula.descripcion ]]</td>
-                                                    <td ng-bind-html="[[ peninsula.descripcionidioma ]]"></td>
+                                                    <td ng-bind-html="[[ peninsula.descripcionidioma | str ]]"></td>
                                                     <td>
                                                         <a class="btn btn-success-alt" data-ng-click="ctrlPeninsula.displayEditPeninsula(peninsula)" href="javascript:;"><i class="fa fa-pencil"></i></a>
                                                         <a class="btn btn-success-alt" data-ng-click="ctrlPeninsula.configuratePeninsula(peninsula)" href="javascript:;"><i class="fa  fa-gears"></i></a>

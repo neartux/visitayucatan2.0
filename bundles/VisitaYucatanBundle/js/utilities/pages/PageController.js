@@ -2,24 +2,29 @@
  * Created by ricardo on 15/05/16.
  */
 (function (){
-    var app = angular.module('Peninsula', ['ngSanitize', 'PeninsulaProvider']).config(['$interpolateProvider',function($interpolateProvider) {
+    var app = angular.module('Page', ['ArticleProvider']).config(['$interpolateProvider',function($interpolateProvider) {
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
     }]);
 
-    app.controller('PeninsulaController', function($scope, $http, PeninsulaService){
-        var ctrlPeninsula = this;
-        ctrlPeninsula.listLanguage = PeninsulaService.listLanguage;
+    app.controller('PageController', function($scope, $http, ArticleService){
+        var ctrl = this;
+        ctrl.msjLoading = 'Cargando';
+        ctrl.TIPO_ARTICULO_PAGINA_TOUR = 'tour';
+        ctrl.TIPO_ARTICULO_PAGINA_PAQUETE = 'paquete';
+        ctrl.TIPO_ARTICULO_PAGINA_HOTEL = 'hotel';
+        ctrl.seccionActive = '';
+        
+        ctrl.initPage = function () {
+            ctrl.seccionActive = ctrl.TIPO_ARTICULO_PAGINA_PAQUETE;
+            return ArticleService.findPageBySeccionAndIdioma(ctrl.TIPO_ARTICULO_PAGINA_PAQUETE, 1).then(function (response) {
+                console.info(response);
+                $(".summernote").code(response.data);
+            });
+        };
 
-        ctrlPeninsula.init = function () {
-
-            ctrlPeninsula.titleCreate = 'Nueva Península';
-            ctrlPeninsula.titleEdit = 'Editar Península';
-            ctrlPeninsula.msjLoading = 'Cargando';
-            ctrlPeninsula.titleModal = 'Crear';
-            ctrlPeninsula.confirmDelete = 'Se ha elimino con éxito';
-
-
+        ctrl.findPageBySeccionAndIdioma = function () {
+            return ArticleService.findPageBySeccionAndIdioma(ctrl.seccionActive, ctrl.idIdioma);
         };
 
 

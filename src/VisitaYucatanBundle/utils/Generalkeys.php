@@ -72,6 +72,7 @@ class Generalkeys{
     const RATE_QUADRUPLE = 4;
     const NOT_AVAILABLE_MSJ = "No disponible";
     const EMPTY_STRING = "";
+    const ID_USER_ADMIN = 4;
 
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);

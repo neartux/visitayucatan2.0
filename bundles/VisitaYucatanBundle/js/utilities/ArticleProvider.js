@@ -111,7 +111,7 @@
             service.peninsulaIdiomaTO.data = {
                 idIdioma : idioma,
                 nombre : '',
-                descripcion: '',
+                descripcion: ''
             }
         };
 
@@ -129,7 +129,12 @@
         });
         };
 
-
+        service.findPageBySeccionAndIdioma = function (seccionPage, idioma) {
+            var path = $("#pathSeccionPage").val();
+            return $http.post(path, $.param({page : seccionPage, idioma : idioma}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }); 
+        };
 
      return service;
 
