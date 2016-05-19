@@ -10,6 +10,17 @@
 {% block content %}
 
     <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/summernote/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
+    <style>
+        .trim-info {
+            max-width: 470px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            line-height: 0px !important;
+            position: relative;
+        }
+    </style>
 
     <div class="content-main" data-ng-app="AppPeninsula" data-ng-controller="PeninsulaController as ctrlPeninsula"
          ng-init="ctrlPeninsula.init()">
@@ -54,7 +65,7 @@
                                                 <tr class="odd gradeX" data-ng-repeat="peninsula in ctrlPeninsula.listPeninsula.data">
                                                     <td>[[ $index + 1 ]]</td>
                                                     <td>[[ peninsula.descripcion ]]</td>
-                                                    <td ng-bind-html="[[ peninsula.descripcionidioma | str ]]"></td>
+                                                    <td class="trim-info" ng-bind-html="[[ peninsula.descripcionidioma ]]"></td>
                                                     <td>
                                                         <a class="btn btn-success-alt" data-ng-click="ctrlPeninsula.displayEditPeninsula(peninsula)" href="javascript:;"><i class="fa fa-pencil"></i></a>
                                                         <a class="btn btn-success-alt" data-ng-click="ctrlPeninsula.configuratePeninsula(peninsula)" href="javascript:;"><i class="fa  fa-gears"></i></a>
