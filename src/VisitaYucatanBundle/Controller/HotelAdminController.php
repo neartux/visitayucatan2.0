@@ -181,7 +181,7 @@ class HotelAdminController extends Controller {
         $serializer = $this->get('serializer');
         try {
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->promoveOrNotPromoveHotel($request->get('idHotel'), Generalkeys::BOOLEAN_FALSE);
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Accion realizado correctamente', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'El hotel ya no esta promovido', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch (\Exception $e) {

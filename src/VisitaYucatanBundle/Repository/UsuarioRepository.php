@@ -27,8 +27,10 @@ class UsuarioRepository extends \Doctrine\ORM\EntityRepository
                 FROM usuario
                 INNER JOIN datos_personales ON datos_personales.id = usuario.id_datospersonales
                 INNER JOIN datos_ubicacion ON datos_ubicacion.id = usuario.id_datosubicacion
-                WHERE usuario.id_estatus = :estatus";
+                WHERE usuario.id_estatus = :estatus
+                AND usuario.id != :useradmin";
         $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+        $params['useradmin'] = Generalkeys::ID_USER_ADMIN;
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();

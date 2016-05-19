@@ -1,0 +1,99 @@
+{% extends '::BaseTemplate.html.twig' %}
+
+{% block breadcrumb %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block content %}
+
+    <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/summernote/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
+
+    <div class="content-main" data-ng-app="Page" data-ng-controller="PageController as ctrl" ng-init="ctrl.initPage()">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-bluegray" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                    <div class="panel-heading">
+                        <h2>
+                            Paginas
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+
+                        <div data-widget-group="group1">
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="tab-container tab-left tab-default">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#package" data-toggle="tab">Paquete</a></li>
+                                            <li><a href="#package" data-toggle="tab">Tours</a></li>
+                                            <li><a href="#package" data-toggle="tab">Hoteles</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="package">
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <strong>Idioma</strong>
+                                                        <select class="form-control"
+                                                                data-ng-model="ctrl.idIdioma"
+                                                                ng-change="ctrl.findPeninsulaByIdAndLanguage()" required>
+                                                            <option value="">SELECCIONA</option>
+                                                            <option value="[[ idioma.id ]]" ng-repeat="idioma in ctrlPeninsula.listLanguage.data">[[
+                                                                idioma.descripcion | uppercase ]]
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-sm-12">
+                                                     <br><br>
+                                                     <textarea class="summernote" cols="30" rows="10"></textarea>
+                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <input type="hidden" id="pathSeccionPage" value="{{ path('page_find_seccion') }}"/>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            $('.summernote').summernote({
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ],
+                height:200
+            });
+        });
+
+
+    </script>
+    <script src="{{ asset('bundles/VisitaYucatanBundle/js/utilities/ArticleProvider.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/VisitaYucatanBundle/js/utilities/pages/PageController.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/summernote/dist/summernote.min.js') }}" type="text/javascript"></script>
+{% endblock %}

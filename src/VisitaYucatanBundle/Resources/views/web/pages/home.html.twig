@@ -544,8 +544,8 @@
                                 <li><a href="{{ path('web_hoteles_merida') }}">{% trans %}page.web.menu.label.hotel.merida{% endtrans %}</a><li>
                             </ul>
                         </li>
-                        <li><a href="{{ path('web_peninsulas') }}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
-                        <li  class="ultimo"><a href="contacto">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
+                        <li><a href="{{ path('web_peninsula') }}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
+                        <li class="ultimo"><a href="{{ path('web_contacto') }}">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
                     </ul>
                     <div class="limpiar"></div>
                 </nav>
@@ -586,7 +586,7 @@
                     </div>
                 </a>
 
-                <a href="http://www.visitayucatan.com/yucatan-mexico">
+                <a href="{{ path('web_peninsula') }}">
                     <div class="productos margen-top producto-peninsula first">
                         <div>
                             <p class="texto-title text-to-uppercase">{% trans %}page.web.label.home.peninsula.title{% endtrans %}</p>
@@ -636,8 +636,8 @@
             <div class="renglon2">
                 <ul class="menu-footer text-to-uppercase">
                     <li><a href="{{ path('web_hoteles_merida') }}">{% trans %}page.web.menu.label.hotels{% endtrans %}</a></li>
-                    <li><a href="yucatan-mexico">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
-                    <li><a href="contacto">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_peninsula') }}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_contacto') }}">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
                 </ul>
             </div>
             <div class="renglon3 text-to-uppercase">

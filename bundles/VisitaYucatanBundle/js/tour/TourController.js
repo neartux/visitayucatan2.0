@@ -60,8 +60,11 @@
         };
 
         ctrlTour.findImagesByTour = function () {
+            startLoading(ctrlTour.msjLoading);
             setTimeout(function(){
-                return TourService.findImagesTourByIdTour(ctrlTour.idTourGlobal);
+                return TourService.findImagesTourByIdTour(ctrlTour.idTourGlobal).then(function () {
+                    stopLoading();
+                });
             }, 1000);
         };
 
@@ -175,19 +178,22 @@
             }
         };
 
-        ctrlTour.promovedTour = function (idTour) {
-            return TourService.promovedTour(idTour).then(function (data) {
-                pNotifyView(data.data.message, data.data.typeStatus);
-            });
-        };
-
-        ctrlTour.removePromovedTour = function (idTour) {
-            return TourService.removePromovedTour(idTour).then(function (data) {
-                pNotifyView(data.data.message, data.data.typeStatus);
-            });
+        ctrlTour.promovedTour = function (tour) {
+            if(tour.promovido == 1){
+                return TourService.removePromovedTour(tour.id).then(function (data) {
+                    tour.promovido = "0";
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }else {
+                return TourService.promovedTour(tour.id).then(function (data) {
+                    tour.promovido = "1";
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
         };
 
         ctrlTour.cleanForm = function () {
+            $scope.formTour.$setPristine();
             $("#description").val("");
             $("#symbolo").val("");
             $("#tipoCambio").val("");

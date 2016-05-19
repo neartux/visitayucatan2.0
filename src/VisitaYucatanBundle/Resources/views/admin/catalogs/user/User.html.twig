@@ -31,13 +31,13 @@
                                     <thead class="text-uppercase text-bold">
                                     <tr>
                                         <th width="10%">{% trans %}catalog.user.report.label.username{% endtrans %}</th>
-                                        <th width="10%">{% trans %}catalog.user.report.label.names{% endtrans %}</th>
-                                        <th width="10%">{% trans %}catalog.user.report.label.last.names{% endtrans %}</th>
+                                        <th width="7%">{% trans %}catalog.user.report.label.names{% endtrans %}</th>
+                                        <th width="7%">{% trans %}catalog.user.report.label.last.names{% endtrans %}</th>
                                         <th>{% trans %}catalog.user.report.label.address{% endtrans %}</th>
                                         <th width="10%">{% trans %}catalog.user.report.label.phone{% endtrans %}</th>
                                         <th width="10%">{% trans %}catalog.user.report.label.movil{% endtrans %}</th>
-                                        <th width="15%">{% trans %}catalog.user.report.label.email{% endtrans %}</th>
-                                        <th width="15%">{% trans %}general.message.panel{% endtrans %}</th>
+                                        <th width="10%">{% trans %}catalog.user.report.label.email{% endtrans %}</th>
+                                        <th width="20%">{% trans %}general.message.panel{% endtrans %}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -50,8 +50,8 @@
                                         <td>[[ user.celular ]]</td>
                                         <td>[[ user.email ]]</td>
                                         <td>
-                                            <a class="btn btn-success-alt" data-ng-click="ctrlUser.displayEditUser(user)" href="javascript:;"><i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger-alt" data-ng-click="ctrlUser.deleteUser(user.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
+                                            <a class="btn btn-success-alt" data-ng-click="ctrlUser.displayEditUser(user)" title="Editar" href="javascript:;"><i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-danger-alt" data-ng-click="ctrlUser.deleteUser(user.id)" title="Eliminar" href="javascript:;"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     </tbody>

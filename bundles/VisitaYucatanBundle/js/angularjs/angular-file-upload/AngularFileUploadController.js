@@ -6,16 +6,22 @@
 
     app.controller('AngularFileUploadController', ['$scope', 'FileUploader', function($scope, FileUploader) {
         var pathImage = $("#pathUploadImage").val();
-        this.setIdApplication = function(idTour){
+
+        this.setIdApplication = function(id, nameApp){
             // Reasigna el id id de la aplicacion
-            uploader.formData[0].idApplication = idTour;
+            uploader.formData[0].idApplication = id;
+            // Coloca el nombre de la aplicacion actual
+            uploader.formData[0].nameApp = nameApp;
         };
 
         var uploader = $scope.uploader = new FileUploader({
             url: pathImage,
             removeAfterUpload: true,
             formData: [
-                { "idApplication": undefined }
+                {
+                    "idApplication": undefined,
+                    "nameApp": ''
+                }
             ]
         });
 
@@ -62,10 +68,19 @@
             console.info('onCompleteItem', fileItem, response, status, headers);
         };
         uploader.onCompleteAll = function() {
-            console.info('onCompleteAll');
+            uploader.findImagesByApp();
         };
-
-        console.info('uploader', uploader);
+        // TODO: pendiente buscar imagenes de aplicaciones cuando temine de subir todas las imgenes seleccionadas
+        uploader.findImagesByApp = function () {
+            console.info('onCompleteAll uploader.formData[0].idApplication = ', uploader.formData[0].idApplication, " this.nameAppCurrent = ", uploader.formData[0].nameApp);
+            if(uploader.formData[0].nameApp == 'tours') {
+                //TourService.findImagesTourByIdTour(uploader.formData[0].idApplication);
+            } else if(uploader.formData[0].nameApp = 'hotels') {
+                console.info("buscando imagenes de hoteles");
+            }else if(uploader.formData[0].nameApp = 'packages'){
+                console.info("buscando imagenes de paquetes");
+            }
+        };
 
     }]);
 
