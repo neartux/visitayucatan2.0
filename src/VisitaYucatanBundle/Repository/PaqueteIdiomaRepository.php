@@ -39,14 +39,14 @@ class PaqueteIdiomaRepository extends \Doctrine\ORM\EntityRepository {
             $paqueteIdioma->setDescripcionLarga($paqueteIdiomaTO->getDescripcionLarga());
             $paqueteIdioma->setDescripcionCorta('');
             $paqueteIdioma->setCircuito('');
-            $paqueteIdioma->setIncluye('');
+            $paqueteIdioma->setIncluye($paqueteIdiomaTO->getIncluye());
             $paqueteIdioma->setDias($paqueteIdiomaTO->getDias());
-            $paqueteIdioma->setItinerario('');
+            $paqueteIdioma->setItinerario($paqueteIdiomaTO->getItinerario());
         }
         $paqueteIdioma->setDescripcion($paqueteIdiomaTO->getDescripcion());
         $paqueteIdioma->setDescripcionCorta($paqueteIdiomaTO->getDescripcionCorta());
-        $paqueteIdioma->setIncluye('');
-        $paqueteIdioma->setItinerario('');
+        $paqueteIdioma->setIncluye($paqueteIdiomaTO->getIncluye());
+        $paqueteIdioma->setItinerario($paqueteIdiomaTO->getItinerario());
         $paqueteIdioma->setDias($paqueteIdiomaTO->getDias());
         //$paqueteIdioma->setCircuito($tourIdiomaTO->getCircuito());
         $paqueteIdioma->setDescripcionLarga($paqueteIdiomaTO->getDescripcionLarga());

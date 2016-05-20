@@ -120,4 +120,35 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
         $em->persist($paquete);
         $em->flush();
     }
+   public function getPaqueteById($idPaquete, $idioma, $idMoneda){
+        	$em = $this->getEntityManager();
+
+        	/*$sql = "SELECT tour.id, tour.descripcion AS nombre,tour_idioma.circuito,tour_idioma.descripcion,tour_idioma.soloadultos,tour.minimopersonas,
+                (tour_origen.tarifaadulto/moneda.tipo_cambio) AS tarifaadulto,(tour_origen.tarifamenor/moneda.tipo_cambio) AS tarifamenor,
+                tour_imagen.path AS imagen,moneda.simbolo AS simbolomoneda,origen.descripcion AS origen, moneda.tipo_cambio AS tipocambio
+                FROM tour
+                INNER JOIN tour_idioma ON tour.id = tour_idioma.id_tour AND tour_idioma.id_idioma = :idioma AND tour_idioma.id_estatus = :estatusActivo
+                INNER JOIN tour_origen ON tour.id = tour_origen.id_tour AND tour_origen.id_origen = :origen AND tour_origen.id_estatus = :estatusActivo
+                INNER JOIN idioma ON idioma.id = tour_idioma.id_idioma AND idioma.id = :idioma
+                INNER JOIN moneda ON moneda.id = :moneda
+                LEFT JOIN tour_imagen ON tour.id = tour_imagen.id_tour AND tour_imagen.id_estatus = :estatusActivo AND tour_imagen.principal = TRUE,origen
+                WHERE tour.id = :idTour
+                AND tour.id_estatus = :estatusActivo
+                AND tour.promovido = TRUE
+                AND origen.id = tour_origen.id_origen";*/
+
+         $sql ="SELECT paquete.id,pIdioma.descripcion as nombre,paquete.circuito,pIdioma.descripcioncorta,pIdioma.descripcionlarga,pIdioma.itinerario, pIdioma.incluye,pIdioma.dias,pImg.path as imagen
+				  FROM paquete
+				  INNER JOIN paquete_idioma pIdioma ON pIdioma.id_paquete = paquete.id AND pIdioma.id_estatus = :estatusActivo AND pIdioma.id_idioma = :idioma
+				  INNER JOIN paquete_imagen pImg ON paquete.id=pImg.id_paquete AND pImg.id_estatus= :estatusActivo AND pImg.principal = TRUE
+				  WHERE paquete.id = :idPaquete
+				  AND paquete.id_estatus= :estatusActivo
+				  AND paquete.promovido = TRUE";
+			$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+			$params['idioma'] = $idioma;
+			$params['idPaquete'] = $idPaquete;
+			$stmt = $em->getConnection()->prepare($sql);
+			$stmt->execute($params);
+			return $stmt->fetch();
+    }
 }

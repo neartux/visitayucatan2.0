@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="informacion-detalles">
                                         <p class="first-texto">
-                                            <a href="<? echo $link; ?>">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
+                                            <a href="{{ path('web_paquete_detail', {'id': paquete.id}) }}">{% trans %}page.web.label.tours.more.information{% endtrans %}</a>
                                         </p>
 
                                         <p class="second-texto"><span class="icon-play3"></span></p>

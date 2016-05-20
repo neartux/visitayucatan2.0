@@ -24,7 +24,7 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 		return $stmt->fetchAll();
 	}
 
-	public function findPaqueteByIdCombiHotel($idPaquete,$idHotel){
+	/*public function findPaqueteByIdCombiHotel($idPaquete,$idHotel){
 		$em = $this->getEntityManager();
 		$query = $em->createQuery(
 		   'SELECT paquetecombhotel
@@ -35,6 +35,17 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 		)->setParameter('estatusActivo', Estatuskeys::ESTATUS_ACTIVO)->setParameter('idPaquete', $idPaquete)->setParameter('idHotel', $idHotel);
 
 		return $query->getOneOrNullResult();
+	}*/
+	public function findPaqueteCombinacionById($idPaquete){
+		$em = $this->getEntityManager();
+		$sql = "SELECT * FROM paquete_combinacion_hotel 
+				WHERE id_paquete = :idPaquete 
+				AND id_estatus = :estatusActivo;";
+		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+		$params['idPaquete'] = $idPaquete;
+		$stmt = $em->getConnection()->prepare($sql);
+		$stmt->execute($params);
+		return $stmt->fetchAll();
 	}
 	public function createPaqueteCombinacion($paqueteCombinacionTO){
 
@@ -60,8 +71,9 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 
 	public function findAllPaqueteHotelesCombinacionById($idPaquete){
 		$em = $this->getEntityManager();
-		$sql='SELECT  p.*
+		$sql='SELECT  p.*,h.descripcion as nomhotel
 			  FROM paquete_combinacion_hotel p
+			  INNER JOIN hotel h ON p.id_hotel=h.id
 			  WHERE p.id_estatus = :estatusActivo AND p.id_paquete=:idPaquete';
 		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
 		$params['idPaquete'] = $idPaquete;
