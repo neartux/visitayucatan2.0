@@ -1,0 +1,66 @@
+{% extends ':web:TemplateVisitaYucatan.html.twig' %}
+
+
+{% block section %}
+
+    {% block content %}
+        <style>
+
+        </style>
+        <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-daterangepicker/daterangepicker-bs3.css') }}" type="text/css" rel="stylesheet" />
+
+        <section data-ng-controller="WebHotelController as ctrlWeb">
+            <input type="hidden" value="" id="symbolCurrencyHidden"/>
+            <div id="content">
+
+                <h2>Preparemos su reservacion</h2>
+                <form action="">
+                    Nombre:
+                    <input type="text"/> <br>
+                    Lada:
+                    <input type="text"/> <br>
+                    Correo:
+                    <input type="text"/> <br>
+                    Ciudad:
+                    <input type="text"> <br>
+                    Seleccione la fecha de su paquete
+                    <input type="text"/> <br>
+                    Fecha salida
+                    <input type="text"/> <br>
+                    Adultos:
+                    algo <br>
+                    Menores:
+                    Algo
+                </form>
+
+            </div>
+
+            {% block aside %}
+                {{ parent() }}
+            {% endblock %}
+
+        </section>
+    {% endblock %}
+
+    {% block scripts %}
+        {{ parent() }}
+        <script src="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
+        <script>
+            $(function(){
+
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    format: 'dd/mm/yyyy',
+                    startDate: '+1d'
+                });
+            });
+        </script>
+
+    {% endblock %}
+
+
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+{% endblock %}

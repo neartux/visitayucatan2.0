@@ -74,13 +74,15 @@
                     </ul>
                     <br><br>
                     Habitaciones Requeridas : [[ habitacion.habitacionesRequeridas ]] <br>
-                    <form>
+                    <form action="{{ path('web_hotel_reserva') }}">
                         <input type="hidden" name="idHotel" value="{{ hotel.id }}"/>
                         <input type="hidden" name="idHabitacion" value="[[ habitacion.id ]]"/>
                         <input type="hidden" name="fechaInicio"/>
                         <input type="hidden" name="fechaFin"/>
+                        <input type="hidden" name="adultos" id="adultsHidden"/>
+                        <input type="hidden" name="menores" id="minorsHidden"/>
                         <button onclick="return ">
-                            Reserva por solo [[ habitacion.totalCostoHabitacion ]]
+                            Reserva por solo [[ habitacion.totalCostoHabitacion ]] [[ ctrlWeb.symbolCurrency ]]
                         </button>
                     </form>
                     <br> <br>

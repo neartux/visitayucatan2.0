@@ -289,7 +289,7 @@ class HotelUtils {
         // Sumamos el markup
         $finalyRate = $finalyRate / (Generalkeys::NUMBER_ONE - (floatval($markup)/ Generalkeys::NUMBER_ONE_HUNDRED));
 
-        return $finalyRate;
+        return number_format($finalyRate, 2);;
     }
 
     private static function getRateByPersons($numAdults, $tarifaSencilla, $tarifaDoble, $tarifaTriple, $tarifaCuadruple){
@@ -319,6 +319,7 @@ class HotelUtils {
         $hotelTO->setNombreHotel($hotel['nombrehotel']);
         $hotelTO->setDescripcion($hotel['descripcion']);
         $hotelTO->setPrincipalImage($hotel['path']);
+        $hotelTO->setSimboloMoneda($hotel['simbolo']);
         if(count($imagenes) > Generalkeys::NUMBER_ZERO){
             $hotelTO->setImagenesHotel($imagenes);
         }
