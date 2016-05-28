@@ -38,9 +38,10 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 	}*/
 	public function findPaqueteCombinacionById($idPaquete){
 		$em = $this->getEntityManager();
-		$sql = "SELECT * FROM paquete_combinacion_hotel 
-				WHERE id_paquete = :idPaquete 
-				AND id_estatus = :estatusActivo;";
+		$sql = "SELECT pc.*,h.descripcion as nomHotel FROM paquete_combinacion_hotel pc
+        		INNER JOIN hotel h ON pc.id_hotel =h.id AND h.id_estatus = :estatusActivo
+				WHERE pc.id_paquete = :idPaquete
+				AND pc.id_estatus = :estatusActivo;";
 		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
 		$params['idPaquete'] = $idPaquete;
 		$stmt = $em->getConnection()->prepare($sql);
@@ -108,5 +109,18 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 		$paqueteCombinacion->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_INACTIVO));
 		$em->persist($paqueteCombinacion);
 		$em->flush();
+	}
+
+	public function findCombinacionPaqueteById($idCombinacion){
+		$em = $this->getEntityManager();
+		$sql='SELECT  p.*,h.descripcion as nomhotel
+			  FROM paquete_combinacion_hotel p
+			  INNER JOIN hotel h ON p.id_hotel=h.id
+			  WHERE p.id_estatus = :estatusActivo AND p.id=:idCombinacion';
+		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+		$params['idCombinacion'] = $idCombinacion;
+		$stmt = $em->getConnection()->prepare($sql);
+		$stmt->execute($params);
+		return $stmt->fetchAll();
 	}
 }

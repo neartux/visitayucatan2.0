@@ -80,4 +80,13 @@ class PaqueteController extends Controller {
         return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 'monedas' => $currency,
             'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));*/
     }
+    /**
+     * @Route("/paquete/reserva/{id}", name="web_paquete_reserva")
+     * @Method("GET")
+    */
+    public function reservaPaqueteAction($id,Request $request){
+        $paqueteCombinacion=$this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findCombinacionPaqueteById($id);
+        print_r($paqueteCombinacion);
+        exit();
+    }
 }

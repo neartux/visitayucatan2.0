@@ -44,6 +44,18 @@
             var date2 = new Date(endDateParts[2]+'-'+endDateParts[1]+'-'+endDateParts[0]);
             return date1.getTime() <= date2.getTime();
         };
+        service.paqueteReserva = function(path,idCombinacion){
+            return $http.post(path, $.param(
+                {
+                    idCombinacion : idCombinacion
+                }
+            ), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response) {
+                console.info(response);
+                //service.listRoomsHotelToSale.data = response.data.data;
+            });
+        }
 
         return service;
     });

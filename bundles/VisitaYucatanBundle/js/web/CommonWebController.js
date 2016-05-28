@@ -1,7 +1,7 @@
 /**
  * Created by ricardo on 26/03/16.
  */
-(function () {
+//(function () {
     var app = angular.module('Web', ['ngSanitize', 'WebProvider']).config(['$interpolateProvider', function ($interpolateProvider) {
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
@@ -142,10 +142,41 @@
     });
 
     app.controller('WebPaqueteController',function($scope,WebService){
-        paqWebVM.initPaquete = function(combinacionespaquete){
-            paqWebVM.combinacionesPaquete = combinacionespaquete;
-            console.info("combinacionesPaquete",paqWebVM.combinacionesPaquete);
-        }
-    })
+        var paqWebVM = this;
 
-})();
+        paqWebVM.habCombinaciones = undefined;
+        paqWebVM.initPaquete = function(combinacionespaquete){
+            paqWebVM.habitacion='sencillo';
+            paqWebVM.combinacionesPaquete = JSON.parse(combinacionespaquete);
+            console.info("combinacionesPaquete",paqWebVM.combinacionesPaquete);
+            paqWebVM.changeHabitacion('sencillo');
+        }
+
+        paqWebVM.changeHabitacion = function(ocupacion){
+            switch(ocupacion){
+                case 'sencillo':
+                        paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costosencillo');
+                        console.info("sencillo",paqWebVM.habCombinaciones);
+                    break;
+                case 'doble':
+                        paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costodoble');
+                    break;
+                case 'triple':
+                        paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costotriple');
+                    break;
+                case 'cuadruple':
+                        paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costocuadruple');
+                    break;
+            }
+        }
+        paqWebVM.armarCostos = function(array,ocupacion){
+            angular.forEach(array,function(o){
+                o.costo = eval('o.'+ocupacion);
+            });
+            return array;
+        };
+        paqWebVM.reservar = function(item){
+        }
+    });
+
+//})();

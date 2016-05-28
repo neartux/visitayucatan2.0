@@ -4,7 +4,8 @@
 {% block section %}
 
     {% block content %}
-        <section data-ng-controller="WebPaqueteController as paqWebVM">
+
+        <section data-ng-controller="WebPaqueteController as paqWebVM" ng-init="paqWebVM.initPaquete('{{ paquete.combinacionesPaquete | json_encode() }}');">
             <div id="content">
                 
                 <article>
@@ -52,6 +53,22 @@
                     
                     {% endfor %}
                 </div>
+                <div style="margin-top:15px">
+                    Habitaciones :
+                    <select name="habitaciones" ng-model="paqWebVM.habitacion" ng-change="paqWebVM.changeHabitacion(paqWebVM.habitacion)">
+                        <option value="sencillo">Sencillo</option>
+                        <option value="doble">Doble</option>
+                        <option value="triple">Triple</option>
+                        <option value="cuadruple">Cuadruple</option>
+                    </select>
+                    <div ng-repeat="h in paqWebVM.habCombinaciones track by $index">
+                        <div>
+                            <span>[[h.nomHotel]]</span>
+                            <span >[[h.costo]]</span>s
+                            <a href="/visitayucatan2.0/paquete/reserva/[[h.id]]">Reserva</a>
+                        </div>
+                    </div>
+                </div>
                 <div style="margin-bottom:15px;">
                     <h2>Descripcion paquete</h2>
                     <p>{{paquete.descripcionLarga}}</p>
@@ -64,6 +81,7 @@
                     <h2>Incluye</h2>
                     <p>{{paquete.incluye}}</p>
                 </div>
+                
             </div>
 
             {% block aside %}
