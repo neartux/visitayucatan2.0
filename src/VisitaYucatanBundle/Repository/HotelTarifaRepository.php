@@ -14,13 +14,13 @@ use VisitaYucatanBundle\utils\Generalkeys;
  * repository methods below.
  */
 class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
-    // TODO falta pasar las fechas
     public function getRateByRooms($startDate, $endDate, $idHotel, $idIdioma, $idMoneda){
         $em = $this->getEntityManager();
         $sql = "SELECT hotel_habitacion.id AS idhabitacion,hotel_habitacion.allotment,hotel_habitacion.capacidadmaxima,hotel_habitacion.nombre,
                 hotel_habitacion_idioma.descripcion,moneda.id AS moneda,moneda.simbolo AS simbolomoneda,moneda.tipo_cambio AS tipocambiomoneda,
-                hotel_tarifa.fecha,hotel_tarifa.sencillo AS costosencillo,hotel_tarifa.doble AS costodoble,hotel_tarifa.triple AS costotriple,
-                hotel_tarifa.cuadruple AS costocuadruple,hotel_contrato.id AS idcontrato,hotel_contrato.aplicaimpuesto,hotel_contrato.iva,hotel_contrato.ish,
+                hotel_tarifa.fecha,(hotel_tarifa.sencillo/moneda.tipo_cambio) AS costosencillo,(hotel_tarifa.doble/moneda.tipo_cambio) AS costodoble,
+                (hotel_tarifa.triple/moneda.tipo_cambio) AS costotriple,(hotel_tarifa.cuadruple/moneda.tipo_cambio) AS costocuadruple,
+                hotel_contrato.id AS idcontrato,hotel_contrato.aplicaimpuesto,hotel_contrato.iva,hotel_contrato.ish,
                 hotel_contrato.markup,hotel_contrato.fee
                 FROM hotel_habitacion
                 INNER JOIN hotel_contrato ON hotel_contrato.id_hotel = hotel_habitacion.id_hotel AND hotel_contrato.id_estatus = :estatusActivo

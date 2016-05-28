@@ -64,6 +64,7 @@
         var ctrlHotel = this;
         ctrlHotel.formRate = {};
         ctrlHotel.listRoomsHotelToSale = WebService.listRoomsHotelToSale;
+        ctrlHotel.symbolCurrency = 'MXP';
 
         ctrlHotel.init = function(idHotel, ageMinor) {
             ctrlHotel.formRate = {
@@ -72,6 +73,8 @@
                 minors: "0",
                 ageMinor: ageMinor
             };
+            ctrlHotel.symbolCurrency = angular.element(document.querySelector('#symbolCurrencyHidden')).context.value;
+            console.info("moneda = ", ctrlHotel.symbolCurrency);
             ctrlHotel.findTarifasHotel();
         };
 
