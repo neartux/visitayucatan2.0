@@ -58,4 +58,26 @@ class PaqueteController extends Controller {
         // Regreso los datos
         return $datos;
     }
+
+    /**
+     * @Route("/paquete/detail/id/{id}", name="web_paquete_detail")
+     * @Method("GET")
+     */
+    public function detailPaqueteAction($id, Request $request) {
+        $datos = $this->getParamsPaquete($request);
+        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
+        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
+        $paquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->getPaqueteById($id, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
+        $imagesPaquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteImagen')->findPaqueteImagesByIdPaquete($id);
+        $paqueteCombinacion = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findPaqueteCombinacionById($id);
+        //print_r($paquete);
+
+        return $this->render('VisitaYucatanBundle:web/pages:detalle-paquete.html.twig', array('paquete' => PaqueteUtils::getPaqueteTO($paquete, $imagesPaquete,$paqueteCombinacion), 'monedas' => $currency,
+            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_PACKAGE, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_PACKAGE));
+        //return $paquete;
+        /*$imagesTour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->findTourImagesByIdTour($id);
+
+        return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 'monedas' => $currency,
+            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));*/
+    }
 }

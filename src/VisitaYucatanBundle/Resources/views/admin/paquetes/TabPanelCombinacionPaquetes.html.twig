@@ -14,27 +14,21 @@
 	      <thead class="text-uppercase">
 	      <tr>
 	          <th width="4%">Id</th>
-	          <th width="5%">Noches</th>
-	          <th width="5%">Dias</th>
-	          <th width="7%">Costo sencillo</th>
-	          <th width="7%">Costo doble</th>
-	          <th width="7%">Costo triple</th>
-	          <th width="7%">Costo cuadruple</th>
-	          <th width="7%">Costo menor</th>
+	          <th width="15%">Nombre hotel</th>
+	          <th width="10%">Noches</th>
+	          <th width="10%">Dias</th>
+	          <th width="10%">Costo sencillo</th>
 	          <!--Columna para promover o remover promover, (0) es no promovido, (1) es promovido-->
-	          <th width="7%">Panel</th>
+	          <th width="8%">Panel</th>
 	      </tr>
 	      </thead>
 	      <tbody>
 	      <tr class="odd gradeX" data-ng-repeat="p in paquetesVM.listPaquetesCombinacion">
 	          <td>[[ p.id ]]</td>
+	          <td>[[ p.nomhotel]]</td>
 	          <td>[[ p.dias ]]</td>
 	          <td>[[ p.noches ]]</td>
 	          <td>[[ p.costoSencillo ]]</td>
-	          <td>[[ p.costoDoble ]]</td>
-	          <td>[[ p.costoTriple ]]</td>
-	          <td>[[ p.costoCuadruple ]]</td>
-	          <td>[[ p.costoMenor ]]</td>
 	          <td>
 	              <a class="btn btn-success-alt" data-ng-click="paquetesVM.displayEditPaqueteCombinacion(p)" href="javascript:;" ><i class="fa fa-pencil"></i></a>
 	              <a class="btn btn-danger-alt" data-ng-click="paquetesVM.deletePaqueteCombinacion(p.id)" href="javascript:;"><i class="fa fa-trash"></i></a>

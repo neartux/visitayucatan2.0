@@ -142,7 +142,9 @@
             paquetesVM.idPaqueteGlobal = paquete.id;
             paquetesVM.configPaquete =  true;
             paquetesVM.paqueteIdiomaTo.data = undefined;
-            $(".summernote").code('');
+            $("#descripcionLargaPaquete").code('');
+            $("#itinerario").code('');
+            $("#incluye").code('');
             paquetesVM.findImagesByPaquete();
             paquetesVM.findAllHoteles();
             paquetesVM.getPaqueteCombinacion();
@@ -192,8 +194,10 @@
                         pNotifyView(paquetesVM.paqueteIdiomaTo.data.message, paquetesVM.paqueteIdiomaTo.data.typeStatus);
                     }
                     // El siguiente codigo para colocar el texto en el summernote, no se coloca de manera normal con el ng-model
-                    $(".summernote").code(paquetesVM.paqueteIdiomaTo.data.descripcionLarga);
-                    $(".itinerario .itinerario").code(paquetesVM.paqueteIdiomaTo.data.itinerario);
+                    $("#descripcionLargaPaquete").code(paquetesVM.paqueteIdiomaTo.data.descripcionLarga);
+                    $("#itinerario").code(paquetesVM.paqueteIdiomaTo.data.itinerario);
+                    $("#incluye").code(paquetesVM.paqueteIdiomaTo.data.incluye);
+
                 });
             }
         };
@@ -203,8 +207,11 @@
                 startLoading(paquetesVM.msjLoading);
                 // Asignasiones
                 paquetesVM.paqueteIdiomaTo.data.descripcionCorta ='';
-                paquetesVM.paqueteIdiomaTo.data.descripcionLarga = $(".summernote").code();
+                paquetesVM.paqueteIdiomaTo.data.descripcionLarga = $("#descripcionLargaPaquete").code();
+                paquetesVM.paqueteIdiomaTo.data.itinerario = $("#itinerario").code();
+                paquetesVM.paqueteIdiomaTo.data.incluye = $("#itinerario").code();
                 paquetesVM.paqueteIdiomaTo.data.idPaquete = paquetesVM.idPaqueteGlobal;
+                console.info('paquetesVM.paqueteIdiomaTo.data',paquetesVM.paqueteIdiomaTo.data)
                 return PaqueteService.savePaqueteLanguage(paquetesVM.paths.savePaquteLanguage,paquetesVM.paqueteIdiomaTo.data).then(function (data) {
                     stopLoading();
                     pNotifyView(data.data.message, data.data.typeStatus);

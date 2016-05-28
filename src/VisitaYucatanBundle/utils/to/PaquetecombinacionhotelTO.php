@@ -20,7 +20,7 @@ class PaquetecombinacionhotelTO{
 	private $costoTriple;
 	private $costoCuadruple;
 	private $costoMenor;
-
+	private $nomhotel;
 	/**
      * @return mixed
      */
@@ -195,6 +195,22 @@ class PaquetecombinacionhotelTO{
 	public function setCostoMenor($costoMenor)
 	{
 	  $this->costoMenor = $costoMenor;
+	}
+
+	/**
+     * @return mixed
+     */
+	public function getNomhotel()
+	{
+	  return $this->nomhotel;
+	}
+
+	/**
+	* @param mixed $nomhotel
+	*/
+	public function setNomhotel($nomhotel)
+	{
+	  $this->nomhotel = $nomhotel;
 	}
 }
 ?>

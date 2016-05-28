@@ -7,6 +7,7 @@
 
 namespace VisitaYucatanBundle\utils\to;
 
+use Doctrine\Common\Collections\ArrayCollection;
 
 class PaqueteTO {
     private $id;
@@ -19,6 +20,17 @@ class PaqueteTO {
     private $costoSencilla;
     private $circuito;
     private $descripcion;
+
+    private $itinerario;
+    private $imagen;
+    private $imagesPaquete;
+    private $combinacionesPaquete;
+
+
+    public function __construct(){
+        $this->imagesPaquete = new ArrayCollection();
+        $this->combinacionesPaquete = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -174,5 +186,65 @@ class PaqueteTO {
      */
     public function setDescripcion($descripcion){
         $this->descripcion = $descripcion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getItinerario(){
+        return $this->itinerario;
+    }
+
+    /**
+     * @param mixed $itinerario
+     */
+    public function setItinerario($itinerario){
+        $this->itinerario = $itinerario;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImagen(){
+        return $this->imagen;
+    }
+
+    /**
+     * @param mixed $imagen
+     */
+    public function setImagen($imagen){
+        $this->imagen = $imagen;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImagesPaquete()
+    {
+        return $this->imagesPaquete;
+    }
+
+    /**
+     * @param mixed $imagesPaquete
+     */
+    public function setImagesPaquete($imagesPaquete)
+    {
+        $this->imagesPaquete = $imagesPaquete;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCombinacionesPaquete()
+    {
+        return $this->combinacionesPaquete;
+    }
+
+    /**
+     * @param mixed $combinacionesPaquete
+     */
+    public function setCombinacionesPaquete($combinacionesPaquete)
+    {
+        $this->combinacionesPaquete = $combinacionesPaquete;
     }
 }

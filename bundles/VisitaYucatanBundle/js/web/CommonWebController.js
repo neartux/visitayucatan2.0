@@ -144,4 +144,11 @@
 
     });
 
+    app.controller('WebPaqueteController',function($scope,WebService){
+        paqWebVM.initPaquete = function(combinacionespaquete){
+            paqWebVM.combinacionesPaquete = combinacionespaquete;
+            console.info("combinacionesPaquete",paqWebVM.combinacionesPaquete);
+        }
+    })
+
 })();

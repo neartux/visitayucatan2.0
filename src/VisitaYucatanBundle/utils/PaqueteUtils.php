@@ -111,6 +111,7 @@ class PaqueteUtils {
                 $paqCombi->setIdEstatus($pc['id_estatus']);
                 $paqCombi->setIdHotel($pc['id_hotel']);
                 $paqCombi->setIdPaquete($pc['id_paquete']);
+                $paqCombi->setNomhotel($pc['nomhotel']);
                 $paqCombi->setNoches($pc['noches']);
                 $paqCombi->setDias($pc['dias']);
                 $paqCombi->setCostoSencillo($pc['costosencillo']);
@@ -125,4 +126,41 @@ class PaqueteUtils {
         return $paqueteCombiList;
     }
 
+    public static function getPaqueteTO($paquete, $imagesPaquete,$combinacionesPaquete){
+        // Se crea un nuevo objeto para colocal la informacion de cada uno de los tours como array
+        $paqueteTO = new PaqueteTO();
+
+        //Se anexa la invformacion
+        $paqueteTO->setId($paquete['id']);
+        $paqueteTO->setNombrePaquete($paquete['nombre']);
+        $paqueteTO->setCircuito($paquete['circuito']);
+        $paqueteTO->setDescripcionCorta($paquete['descripcioncorta']);
+        $paqueteTO->setDescripcionLarga($paquete['descripcionlarga']);
+        $paqueteTO->setCircuito($paquete['circuito']);
+        $paqueteTO->setItinerario($paquete['itinerario']);
+        $paqueteTO->setIncluye($paquete['incluye']);
+        $paqueteTO->setCircuito($paquete['circuito']);
+
+        // Valida imagen tour si es null coloca imagen not found de lo contrario coloca la imagen
+        if(is_null($paquete['imagen'])){
+            $paqueteTO->setPrincipalImage(Generalkeys::PATH_IMAGE_NOT_FOUND);
+        }else{
+            $paqueteTO->setPrincipalImage($paquete['imagen']);
+        }
+
+        // si tienes imagens el paquete las colocal
+
+        if(count($imagesPaquete) > Generalkeys::NUMBER_ZERO){
+            
+            $paqueteTO->setImagesPaquete($imagesPaquete);
+        }
+        
+        if(count($combinacionesPaquete) > Generalkeys::NUMBER_ZERO){
+            
+            $paqueteTO->setCombinacionesPaquete($combinacionesPaquete);
+
+        }
+
+        return $paqueteTO;
+    }
 }
