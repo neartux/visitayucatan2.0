@@ -1,8 +1,8 @@
 /**
  * Created by ricardo on 26/03/16.
  */
-//(function () {
-    var app = angular.module('Web', ['ngSanitize', 'WebProvider']).config(['$interpolateProvider', function ($interpolateProvider) {
+(function () {
+    var app = angular.module('Web', ['ngSanitize', 'WebProvider','WebDirectives']).config(['$interpolateProvider', function ($interpolateProvider) {
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
     }]);
@@ -159,7 +159,6 @@
             switch(ocupacion){
                 case 'sencillo':
                         paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costosencillo');
-                        console.info("sencillo",paqWebVM.habCombinaciones);
                     break;
                 case 'doble':
                         paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costodoble');
@@ -175,6 +174,7 @@
         paqWebVM.armarCostos = function(array,ocupacion){
             angular.forEach(array,function(o){
                 o.costo = eval('o.'+ocupacion);
+                o.ocupacion = ocupacion
             });
             return array;
         };
@@ -182,4 +182,4 @@
         }
     });
 
-//})();
+})();

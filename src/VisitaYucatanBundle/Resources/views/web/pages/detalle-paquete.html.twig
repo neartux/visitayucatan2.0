@@ -62,24 +62,24 @@
                         <option value="cuadruple">Cuadruple</option>
                     </select>
                     <div ng-repeat="h in paqWebVM.habCombinaciones track by $index">
-                        <div>
-                            <span>[[h.nomHotel]]</span>
-                            <span >[[h.costo]]</span>s
-                            <a href="/visitayucatan2.0/paquete/reserva/[[h.id]]">Reserva</a>
+                        <div form-detail-paquete method="POST" item="[[h]]" url-path="{{ path('web_paquete_reserva') }}" name-paquete="{{ paquete.nombrePaquete }}">
+                            <!--<span>[[h.nomHotel]]</span>
+                            <span >[[h.costo]]</span>
+                            <a href="/visitayucatan2.0/paquete/reserva/[[h.id]]">Reserva</a>-->
                         </div>
                     </div>
                 </div>
                 <div style="margin-bottom:15px;">
                     <h2>Descripcion paquete</h2>
-                    <p>{{paquete.descripcionLarga}}</p>
+                    <p>{{paquete.descripcionLarga | raw }}</p>
                 </div>
                 <div style="margin-bottom:15px;">
                     <h2>Itinerario</h2>
-                    <p>{{paquete.itinerario}}</p>
+                    <p>{{paquete.itinerario | raw }}</p>
                 </div>
                 <div>
                     <h2>Incluye</h2>
-                    <p>{{paquete.incluye}}</p>
+                    <p>{{paquete.incluye | raw }}</p>
                 </div>
                 
             </div>
