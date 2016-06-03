@@ -74,20 +74,23 @@
                     </ul>
                     <br><br>
                     Habitaciones Requeridas : [[ habitacion.habitacionesRequeridas ]] <br>
-                    <form action="{{ path('web_hotel_reserva') }}">
-                        <input type="hidden" name="idHotel" value="{{ hotel.id }}"/>
-                        <input type="hidden" name="idHabitacion" value="[[ habitacion.id ]]"/>
-                        <input type="hidden" name="fechaInicio"/>
-                        <input type="hidden" name="fechaFin"/>
-                        <input type="hidden" name="adultos" id="adultsHidden"/>
-                        <input type="hidden" name="menores" id="minorsHidden"/>
-                        <button onclick="return ">
+                        <button data-ng-click="ctrlWeb.confirmReservaHotel(habitacion.id)" data-ng-if="habitacion.totalCostoHabitacion != '0.00'" type="button">
                             Reserva por solo [[ habitacion.totalCostoHabitacion ]] [[ ctrlWeb.symbolCurrency ]]
                         </button>
-                    </form>
                     <br> <br>
                 </div>
 
+                <form action="{{ path('web_hotel_reserva') }}" id="frmReserveHotel" method="post">
+                    <input type="hidden" name="idHotel" value="{{ hotel.id }}"/>
+                    <input type="hidden" name="idHabitacion" id="idHabitacion"/>
+                    <input type="hidden" name="fechaInicio" id="fechaInicio"/>
+                    <input type="hidden" name="fechaFin" id="fechaFin"/>
+                    <input type="hidden" name="adultos" id="adultsHidden"/>
+                    <input type="hidden" name="menores" id="minorsHidden"/>
+                    <button data-ng-click="ctrlWeb.confirmReservaHotel(habitacion.id)" data-ng-if="habitacion.totalCostoHabitacion != '0.00'" type="button">
+                        Reserva por solo [[ habitacion.totalCostoHabitacion ]] [[ ctrlWeb.symbolCurrency ]]
+                    </button>
+                </form>
 
             </div>
 

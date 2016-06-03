@@ -11,6 +11,7 @@ use Proxies\__CG__\VisitaYucatanBundle\Entity\Hotel;
 use VisitaYucatanBundle\utils\to\ContractTO;
 use VisitaYucatanBundle\utils\to\HabitacionTO;
 use VisitaYucatanBundle\utils\to\HotelidiomaTO;
+use VisitaYucatanBundle\utils\to\HotelReservaTO;
 use VisitaYucatanBundle\utils\to\HotelTarifaTO;
 use VisitaYucatanBundle\utils\to\HotelTO;
 use VisitaYucatanBundle\utils\to\ImagenTO;
@@ -289,7 +290,7 @@ class HotelUtils {
         // Sumamos el markup
         $finalyRate = $finalyRate / (Generalkeys::NUMBER_ONE - (floatval($markup)/ Generalkeys::NUMBER_ONE_HUNDRED));
 
-        return number_format($finalyRate, 2);;
+        return number_format($finalyRate, 2);
     }
 
     private static function getRateByPersons($numAdults, $tarifaSencilla, $tarifaDoble, $tarifaTriple, $tarifaCuadruple){
@@ -325,5 +326,20 @@ class HotelUtils {
         }
 
         return $hotelTO;
+    }
+
+    public static function getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores, $hotel, $tarifa) {
+        $reserva = new HotelReservaTO();
+        $reserva->setNombreHotel($hotel['nombrehotel']);
+        $reserva->setFechaInicio($fechaInicio);
+        $reserva->setFechaFin($fechaFin);
+        $reserva->setAdultos($adultos);
+        $reserva->setMenores($menores);
+        $costo = self::getRateByPersons($adultos, $tarifa['costosencillo'], $tarifa['costodoble'], $tarifa['costotriple'], $tarifa['costocuadruple']);
+        $costoTotal = self::getTotalRate($costo, $tarifa['ish'], $tarifa['markup'], $tarifa['iva'], $tarifa['fee'], $tarifa['aplicaimpuesto']);
+        $reserva->setTarifaAdulto(number_format($costoTotal, 2));
+        $reserva->setCostoTotal(number_format(($costoTotal * $adultos), 2));
+        
+        return $reserva;
     }
 }
