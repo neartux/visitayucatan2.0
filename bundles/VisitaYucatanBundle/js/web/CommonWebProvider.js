@@ -9,6 +9,12 @@
         service.listRoomsHotelToSale = {
             data: undefined
         };
+        service.listLanguages = {
+            data: []
+        };
+        service.listCurrency = {
+            data: []
+        };
 
         service.changeCurrencyOrLanguageSession = function(language, currency){
             var path = angular.element(document.querySelector('#pathCatalogsReload')).context.value;
@@ -55,7 +61,21 @@
                 console.info(response);
                 //service.listRoomsHotelToSale.data = response.data.data;
             });
-        }
+        };
+
+        service.findAllLanguages= function(){
+            var path = $("#web_get_languages_path").val();
+            return $http.get(path).then(function(data){
+                service.listLanguages.data = data.data;
+            });
+        };
+
+        service.findAllCurrency = function(){
+            var path = $("#web_get_currency_path").val();
+            return $http.get(path).then(function(data){
+                service.listCurrency.data = data.data;
+            });
+        };
 
         return service;
     });

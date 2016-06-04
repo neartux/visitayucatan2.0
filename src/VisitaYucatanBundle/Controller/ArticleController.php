@@ -18,17 +18,13 @@ class ArticleController extends Controller{
      public function indexAction(Request $request){
       // obtione los datos de session moneda e idioma
       $datos = $this->getParamsPeninsula($request);
-      // lista de monedas e diomas
-      $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
-      $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
       // encuentra la descripcion de la pagina, obtiene la descripcion corta
       
       // busca todos las peninsulas activos y publicados
       $peninsulas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Articulo')->getPeninsulas($datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], Generalkeys::OFFSET_ROWS_ZERO, Generalkeys::LIMIT_ROWS_TWENTY);
       // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:peninsulas.html.twig',  array('peninsulas' => $peninsulas,
-             'monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
+             'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
 
      }
 

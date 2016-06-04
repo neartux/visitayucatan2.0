@@ -41,15 +41,12 @@ class TourController extends Controller {
      * @Method("GET")
      */
     public function detailTourAction($id, Request $request) {
-        $datos = $this->getParamsTour($request);
-        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
-        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
-    
+        $datos = $this->getParamsTour($request);    
         $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($id, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
         $imagesTour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->findTourImagesByIdTour($id);
 
-        return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 'monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
+        return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 
+            'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
     }
 
     /**
@@ -61,8 +58,7 @@ class TourController extends Controller {
         echo $fechaReserva = $request->get('fechaReserva');echo "<br>";
         echo $numeroAdultos = $request->get('numeroAdultos');echo "<br>";
         echo $numeroMenores = $request->get('numeroMenores');echo "<br>";
-        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
-        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
+        
         $datos = $this->getParamsTour($request);
         $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($idTour, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
         $tourTO = TourUtils::getTourTO($tour, new ArrayCollection());
@@ -70,7 +66,7 @@ class TourController extends Controller {
         $tourTO->setTotalAdultos($numeroAdultos);
         $tourTO->setTotalMenores($numeroMenores);
         $costoTotal = ($tourTO->getTotalAdultos() * $tourTO->getTarifaadulto()) + ($tourTO->getTotalMenores() * $tourTO->getTarifamenor());
-        return $this->render('VisitaYucatanBundle:web/pages:reserva-tour.html.twig', array('monedas' => $currency, 'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR,
+        return $this->render('VisitaYucatanBundle:web/pages:reserva-tour.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR,
             'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR, 'tour' => $tourTO, 'costoTotal' => number_format($costoTotal)));
     }
 

@@ -100,6 +100,14 @@ class MonedaController extends Controller{
 
     }
 
+    /**
+     * @Route("/findAllCurrency", name="web_get_currency")
+     * @Method("GET")
+     */
+    public function findAllCurrency() {
+        return new Response($this->get('serializer')->serialize($this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency(), Generalkeys::JSON_STRING));
+    }
+
 }
 
 /*TODO AQUI LA SECCION QUE FALTA VALIDAR O AGREGAR PERO NO ES NECESARIO A PRIMERA INSTANCIA

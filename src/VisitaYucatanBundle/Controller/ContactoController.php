@@ -15,15 +15,9 @@ class ContactoController extends Controller {
      * @Method("GET")
      */
     public function indexAction(Request $request) {
-        // obtiene los datos de session moneda e idioma
-        $datos = $this->getParamsTour($request);
-        // lista de monedas e idiomas
-        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
-        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
-
         // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:contacto.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR,
-            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR, 'monedas' => $currency, 'idiomas' => $idiomas));
+            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
     }
 
     /**

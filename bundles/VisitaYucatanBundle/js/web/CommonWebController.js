@@ -119,11 +119,23 @@
                 $("#tableMenors").html('');
             }
         };
+
+        ctrlHotel.confirmReservaHotel = function (idHabitacion) {
+            console.info("ctrlWeb.formRate = ", ctrlHotel.formRate);
+            $("#fechaInicio").val(ctrlHotel.formRate.dateFrom);
+            $("#fechaFin").val(ctrlHotel.formRate.dateFrom);
+            $("#adultsHidden").val(ctrlHotel.formRate.adults);
+            $("#minorsHidden").val(ctrlHotel.formRate.minors);
+            $("#idHabitacion").val(idHabitacion);
+            $("#frmReserveHotel").submit();
+        };
         
     });
 
     app.controller('WebCommonsController', function($scope, $http, WebService){
         var ctrlCommons = this;
+        ctrlCommons.listLanguages = WebService.listLanguages;
+        ctrlCommons.listCurrency = WebService.listCurrency;
         ctrlCommons.objCatalog = {
             language : undefined,
             currency : undefined
@@ -132,6 +144,8 @@
         ctrlCommons.initCommons = function(language, currency){
             ctrlCommons.objCatalog.language = language;
             ctrlCommons.objCatalog.currency = currency;
+            WebService.findAllLanguages();
+            WebService.findAllCurrency();
         };
 
         ctrlCommons.changeCurrencyOrLanguage = function() {

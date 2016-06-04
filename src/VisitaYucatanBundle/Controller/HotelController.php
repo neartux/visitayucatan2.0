@@ -23,9 +23,6 @@ class HotelController extends Controller {
     public function hotelesMeridaAction(Request $request) {
         // obtiene los datos de session moneda e idioma
         $datos = $this->getParamsTour($request);
-        // lista de monedas e idiomas
-        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
-        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
         // encuentra la descripcio de la pagina, obtiene la descripcion corta
         $descriptionPage = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Articulo')->getArticuloPage(Generalkeys::TIPO_ARTICULO_PAGINA, Generalkeys::TIPO_ARTICULO_PAGINA_HOTEL, $datos[Generalkeys::NUMBER_ZERO]);
         $descripcion = $descriptionPage['descripcion'];
@@ -34,8 +31,8 @@ class HotelController extends Controller {
         $hotels = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelsByDestino($datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], Generalkeys::ORIGEN_MERIDA ,Generalkeys::OFFSET_ROWS_ZERO, Generalkeys::LIMIT_ROWS_TWENTY);
         // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:hotels.html.twig', array('hotels' => HotelUtils::getHotels($hotels),
-            'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta, 'monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL));
+            'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta,
+            'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL));
     }
 
     /**
@@ -45,9 +42,6 @@ class HotelController extends Controller {
     public function hotelesCancunAction(Request $request) {
         // obtiene los datos de session moneda e idioma
         $datos = $this->getParamsTour($request);
-        // lista de monedas e idiomas
-        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
-        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
         // encuentra la descripcio de la pagina, obtiene la descripcion corta
         $descriptionPage = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Articulo')->getArticuloPage(Generalkeys::TIPO_ARTICULO_PAGINA, Generalkeys::TIPO_ARTICULO_PAGINA_HOTEL, $datos[Generalkeys::NUMBER_ZERO]);
         $descripcion = $descriptionPage['descripcion'];
@@ -57,8 +51,8 @@ class HotelController extends Controller {
 
         // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:hotels.html.twig', array('hotels' => HotelUtils::getHotels($hotels),
-            'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta, 'monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL));
+            'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta,
+            'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL));
     }
 
     /**
@@ -67,14 +61,12 @@ class HotelController extends Controller {
      */
     public function detailHotelAction($id, Request $request) {
         $datos = $this->getParamsTour($request);
-        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
-        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
 
         $hotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelById($id, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
         $images = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelimagen')->findHotelImagesByIdHotel($id);
         $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($id);
-        return $this->render('VisitaYucatanBundle:web/pages:detalle-hotel.html.twig', array('monedas' => $currency, 'hotel' => HotelUtils::getDetailHotel($hotel, $images),
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL,
+        return $this->render('VisitaYucatanBundle:web/pages:detalle-hotel.html.twig', array('hotel' => HotelUtils::getDetailHotel($hotel, $images),
+            'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL,
             'dateFrom' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_ONE)),
             'dateTo' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_TWO)),
             'ageMinor' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findAgeMinorByContract($idContract)));
@@ -82,24 +74,23 @@ class HotelController extends Controller {
 
     /**
      * @Route("/hotel/reserva", name="web_hotel_reserva")
-     * @Method("GET")
+     * @Method("POST")
      */
     public function reservaHotelAction(Request $request) {
         $datos = $this->getParamsTour($request);
-        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
-        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
 
         $idHotel = $request->get('idHotel');
         $idHabitacion = $request->get('idHabitacion');
         $fechaInicio = $request->get('fechaInicio');
         $fechaFin = $request->get('fechaFin');
+        $adultos = $request->get('adults');
+        $menores = $request->get('minors');
 
-        $hotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelById($idHotel, $datos[Generalkeys::NUMBER_ZERO]);
-
-        return $this->render('VisitaYucatanBundle:web/pages:reserva-hotel.html.twig', array('monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL,
-            'dateFrom' => $fechaInicio,
-            'dateTo' => $fechaFin));
+        $hotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelById($idHotel, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
+        $tarifa = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->findDetailHotel($fechaInicio, $idHotel, $idHabitacion, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
+        $reserva = HotelUtils::getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores,$hotel,$tarifa); // todo quede aqui
+        return $this->render('VisitaYucatanBundle:web/pages:reserva-hotel.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 
+            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL, 'dateFrom' => $fechaInicio, 'dateTo' => $fechaFin, 'reseva' => $reserva));
     }
 
     /**
