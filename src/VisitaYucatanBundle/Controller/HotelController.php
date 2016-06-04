@@ -83,12 +83,14 @@ class HotelController extends Controller {
         $idHabitacion = $request->get('idHabitacion');
         $fechaInicio = $request->get('fechaInicio');
         $fechaFin = $request->get('fechaFin');
-        $adultos = $request->get('adults');
-        $menores = $request->get('minors');
+        $adultos = $request->get('adultos');
+        $menores = $request->get('menores');
+
+        echo "hotel = ".$idHotel." habitacion = ".$idHabitacion." fechaInicio = ".$fechaInicio." fechafin = ".$fechaFin." adultos = ".$adultos." menores = ".$menores;
 
         $hotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelById($idHotel, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
-        $tarifa = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->findDetailHotel($fechaInicio, $idHotel, $idHabitacion, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
-        $reserva = HotelUtils::getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores,$hotel,$tarifa); // todo quede aqui
+        $tarifa = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->findDetailHotel(DateUtil::stringToDate($fechaInicio), $idHotel, $idHabitacion, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
+        $reserva = HotelUtils::getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores,$hotel, $tarifa); // todo quede aqui
         return $this->render('VisitaYucatanBundle:web/pages:reserva-hotel.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 
             'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL, 'dateFrom' => $fechaInicio, 'dateTo' => $fechaFin, 'reseva' => $reserva));
     }

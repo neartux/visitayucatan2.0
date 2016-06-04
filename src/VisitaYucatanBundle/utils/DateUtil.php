@@ -34,8 +34,19 @@ class DateUtil {
     }
 
     public static function diffDays($fechaInicio, $fechaFin){
-        $dias	= (strtotime($fechaInicio) - strtotime($fechaFin)) / 86400;
-        return floor($dias);
+        echo "feca 1 = ".$fechaInicio." fecha 2 = ".$fechaFin;
+        $isLastDate = false;
+        $numDays = Generalkeys::NUMBER_ZERO;
+        while(! $isLastDate){
+            $numDays ++;
+            if(self::isSammeDate($fechaInicio, $fechaFin)){
+                $isLastDate = true;
+            }else{
+                $fechaInicio = self::summOneDayToDate($fechaInicio);
+            }
+        }
+
+        return $numDays;
     }
 
     // Metodo que convierte las fechas de formato dd/mm/yyyy a formato mm/dd/yyyy parametros en string return array con nuevos strings de fechas
