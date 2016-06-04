@@ -85,7 +85,7 @@ class LanguagesController extends Controller{
         $serializer = $this->get('serializer');
         try{
             $idLanguage = $request->get('idLanguage');
-$this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->deleteLanguage($idLanguage);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->deleteLanguage($idLanguage);
 
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Idioma eliminado correctamente', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
@@ -96,6 +96,14 @@ $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->deleteLanguag
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
         }
 
+    }
+
+    /**
+     * @Route("/findAllLanguages", name="web_get_languages")
+     * @Method("GET")
+     */
+    public function findAllLanguages() {
+        return new Response($this->get('serializer')->serialize($this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage(), Generalkeys::JSON_STRING));
     }
 
 }

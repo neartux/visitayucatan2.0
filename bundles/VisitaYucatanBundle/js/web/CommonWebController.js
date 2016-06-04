@@ -134,6 +134,8 @@
 
     app.controller('WebCommonsController', function($scope, $http, WebService){
         var ctrlCommons = this;
+        ctrlCommons.listLanguages = WebService.listLanguages;
+        ctrlCommons.listCurrency = WebService.listCurrency;
         ctrlCommons.objCatalog = {
             language : undefined,
             currency : undefined
@@ -142,6 +144,8 @@
         ctrlCommons.initCommons = function(language, currency){
             ctrlCommons.objCatalog.language = language;
             ctrlCommons.objCatalog.currency = currency;
+            WebService.findAllLanguages();
+            WebService.findAllCurrency();
         };
 
         ctrlCommons.changeCurrencyOrLanguage = function() {

@@ -1,5 +1,7 @@
 <div class="pie-pagina" data-ng-controller="WebCommonsController as ctrlCommons"
      data-ng-init="ctrlCommons.initCommons('{{ app.session.get('_locale') }}', '{{ app.session.get('_currency') }}')">
+    <input type="hidden" value="{{ path('web_get_languages') }}" id="web_get_languages_path"/>
+    <input type="hidden" value="{{ path('web_get_currency') }}" id="web_get_currency_path"/>
     <div class="wrap-pie">
         <div class="pie-central">
 
@@ -27,17 +29,13 @@
                     <h4 class="label-currency">{% trans %}page.web.commons.label.currency{% endtrans %}</h4>
                     <select ng-model="ctrlCommons.objCatalog.currency" class="select-currency"
                             ng-change="ctrlCommons.changeCurrencyOrLanguage()">
-                        {% for moneda in monedas %}
-                            <option value='{{ moneda.id }}'>{{ moneda.descripcion }}</option>
-                        {% endfor %}
+                        <option value="[[ currency.id ]]" data-ng-repeat="currency in ctrlCommons.listCurrency.data">[[ currency.descripcion ]]</option>
                     </select>
 
                     <h4 class="label-language">{% trans %}page.web.commons.label.language{% endtrans %}</h4>
                     <select ng-model="ctrlCommons.objCatalog.language" class="select-language"
                             ng-change="ctrlCommons.changeCurrencyOrLanguage()">
-                        {% for idioma in idiomas %}
-                            <option value='{{ idioma.abreviatura }}'>{{ idioma.descripcion }}</option>
-                        {% endfor %}
+                        <option value="[[ language.abreviatura ]]" data-ng-repeat="language in ctrlCommons.listLanguages.data">[[ language.descripcion ]]</option>
                     </select>
                 </div>
             </div>
