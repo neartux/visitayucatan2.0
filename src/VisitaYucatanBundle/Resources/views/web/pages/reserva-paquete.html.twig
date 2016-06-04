@@ -1,9 +1,81 @@
-<div>
-    detail reserva : {{ detailPaquete | json_encode()}}
-</div>
-<div>
-    paquete combinacion: {{ paqueteCombinacion.combinacionesPaquete | json_encode() }}
-</div>
-<div>
-    importe: {{ importe }}
-</div>
+{% extends ':web:TemplateVisitaYucatan.html.twig' %}
+
+
+{% block section %}
+
+    {% block content %}
+        
+        <div ng-controller="WebPaqueteController as paqWebVM" ng-init="paqWebVM.initReservaPaquete('{{detailPaquete}}','{{paqueteCombinacion.combinacionesPaquete}}','{{importe}}')">
+            <div>
+                <h2>Preparamos su reserva</h2>
+            </div>
+            <div stylus="200px">
+                <div>
+                    <label for="">* Seleccione la fecha para su paquete </label>
+                    <input type="text">
+                </div>
+                <div>
+                    <label for="">* Fecha salida </label>
+                    <input type="text">
+                </div>
+                <div>
+                    <label for="">* Nombre </label>
+                    <input type="text">
+                </div>
+                <div>
+                    <label for="">* Teléfono </label>
+                    <input type="text">
+                </div>
+                <div>
+                    <label for="">* Correo </label>
+                    <input type="text">
+                </div>
+                <div>
+                    <label for="">* Ciudad de origen </label>
+                    <input type="text">
+                </div>
+            </div>
+            <div stylus="300px">
+                <div>
+                    <label for="">Paquete seleccionado</label>
+                    
+                </div>
+                <div>
+                    <label for="">Hotel seleccionado</label>
+                   
+                </div>
+                <div>
+                    detail reserva : {{ detailPaquete | json_encode()}}
+                </div>
+                <div>
+                    paquete combinacion: {{ paqueteCombinacion.combinacionesPaquete | json_encode() }}
+                </div>
+                <div>
+                    importe: {{ importe }}
+                </div>    
+            </div>
+            
+        </div>
+        
+    {% endblock %}
+
+    {% block scripts %}
+        {{ parent() }}
+        <script>
+            $(function(){
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    format: 'dd/mm/yyyy',
+                    startDate: '+2d'
+                });
+            });
+        </script>
+
+    {% endblock %}
+
+
+    {% block footer %}
+        {{ parent() }}
+{% endblock %}
+
+{% endblock %}

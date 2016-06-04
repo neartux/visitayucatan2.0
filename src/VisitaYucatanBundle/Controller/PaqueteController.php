@@ -112,7 +112,7 @@ class PaqueteController extends Controller {
          $detailPaquete = array(
            'costo'=>$costo,
            'paqueteSelect '=> $namePaquete,
-           'adulto' => $adultos,
+           'adultos' => $adultos,
            'menores' =>$menores,
            'ocupacion'=> $ocupacion
          );
@@ -124,6 +124,7 @@ class PaqueteController extends Controller {
          //print_r($paqueteCombinacion);
          //print_r(PaqueteUtils::getPaqueteTO(null, null,$paqueteCombinacion));
          //exit();
+         //$container->get('serializer')->serialize($users, 'json')
          return $this->render('VisitaYucatanBundle:web/pages:reserva-paquete.html.twig', array('paqueteCombinacion' => PaqueteUtils::getPaqueteTO(null, null,$paqueteCombinacion),'detailPaquete'=>$detailPaquete,'importe'=>$importeTotal,'monedas' => $currency,
             'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_PACKAGE, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_PACKAGE));
         //$paqueteCombinacion=$this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findCombinacionPaqueteById($id);

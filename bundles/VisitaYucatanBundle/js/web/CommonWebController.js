@@ -154,7 +154,11 @@
             console.info("combinacionesPaquete",paqWebVM.combinacionesPaquete);
             paqWebVM.changeHabitacion('sencillo');
         }
-
+        paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
+            paqWebVM.detailReserva = JSON.detailReserva;
+            paqWebVM.importe = importe;
+            paqWebVM.paqueteCombinacion=paqueteCombinacion;
+        }
         paqWebVM.changeHabitacion = function(ocupacion){
             switch(ocupacion){
                 case 'sencillo':
