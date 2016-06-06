@@ -36,13 +36,17 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 
 		return $query->getOneOrNullResult();
 	}*/
-	public function findPaqueteCombinacionById($idPaquete){
+	public function findPaqueteCombinacionById($idPaquete,$idMoneda){
 		$em = $this->getEntityManager();
-		$sql = "SELECT pc.*,h.descripcion as nomHotel FROM paquete_combinacion_hotel pc
+		$sql = "SELECT pc.id,pc.id_paquete,pc.id_hotel,pc.noches,pc.dias,(pc.costosencillo/moneda.tipo_cambio) as costosencillo,(pc.costodoble/moneda.tipo_cambio) as costodoble,
+          		(pc.costotriple/moneda.tipo_cambio) as costotriple,(pc.costocuadruple/moneda.tipo_cambio) as costocuadruple,
+          		(pc.costomenor/moneda.tipo_cambio) as costomenor,h.descripcion as nomHotel,moneda.simbolo, moneda.tipo_cambio as tipocambio FROM paquete_combinacion_hotel pc
         		INNER JOIN hotel h ON pc.id_hotel =h.id AND h.id_estatus = :estatusActivo
+				INNER JOIN moneda ON moneda.id = :idMoneda
 				WHERE pc.id_paquete = :idPaquete
 				AND pc.id_estatus = :estatusActivo;";
 		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+		$params['idMoneda'] = $idMoneda;
 		$params['idPaquete'] = $idPaquete;
 		$stmt = $em->getConnection()->prepare($sql);
 		$stmt->execute($params);
@@ -111,13 +115,18 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 		$em->flush();
 	}
 
-	public function findCombinacionPaqueteById($idCombinacion){
+	public function findCombinacionPaqueteById($idCombinacion,$idMoneda){
 		$em = $this->getEntityManager();
-		$sql='SELECT  p.*,h.descripcion as nomhotel
+		$sql='SELECT  p.id,p.id_paquete,p.id_hotel,p.noches,p.dias,(p.costosencillo/moneda.tipo_cambio) as costosencillo,
+			  (p.costodoble/moneda.tipo_cambio) as costodoble, (p.costotriple/moneda.tipo_cambio) as costotriple,
+			  (p.costocuadruple/moneda.tipo_cambio) as costocuadruple, (p.costomenor/moneda.tipo_cambio) as costomenor, 
+			  h.descripcion as nomhotel,moneda.simbolo, moneda.tipo_cambio as tipocambio
 			  FROM paquete_combinacion_hotel p
 			  INNER JOIN hotel h ON p.id_hotel=h.id
+			  INNER JOIN moneda ON moneda.id = :idMoneda
 			  WHERE p.id_estatus = :estatusActivo AND p.id=:idCombinacion';
 		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+		$params['idMoneda'] = $idMoneda;
 		$params['idCombinacion'] = $idCombinacion;
 		$stmt = $em->getConnection()->prepare($sql);
 		$stmt->execute($params);

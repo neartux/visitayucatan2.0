@@ -140,6 +140,7 @@ class PaqueteUtils {
         $paqueteTO->setItinerario($paquete['itinerario']);
         $paqueteTO->setIncluye($paquete['incluye']);
         $paqueteTO->setCircuito($paquete['circuito']);
+        $paqueteTO->setSimboloMoneda($paquete['simbolo']);
 
         // Valida imagen tour si es null coloca imagen not found de lo contrario coloca la imagen
         if(is_null($paquete['imagen'])){

@@ -2,7 +2,7 @@
  * Created by ricardo on 26/03/16.
  */
 (function () {
-    var app = angular.module('Web', ['ngSanitize', 'WebProvider','WebDirectives']).config(['$interpolateProvider', function ($interpolateProvider) {
+    var app = angular.module('Web', ['ngSanitize', 'WebProvider','WebDirectives','WebFilters']).config(['$interpolateProvider', function ($interpolateProvider) {
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
     }]);
@@ -162,16 +162,17 @@
         var paqWebVM = this;
 
         paqWebVM.habCombinaciones = undefined;
+        paqWebVM.reservar = {};
+        paqWebVM.menores = [
+            {id:0,value:0,label:"0"},
+            {id:1,value:1,label:"1"},
+            {id:2,value:2,label:"2"},
+        ];
         paqWebVM.initPaquete = function(combinacionespaquete){
             paqWebVM.habitacion='sencillo';
             paqWebVM.combinacionesPaquete = JSON.parse(combinacionespaquete);
             console.info("combinacionesPaquete",paqWebVM.combinacionesPaquete);
             paqWebVM.changeHabitacion('sencillo');
-        }
-        paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
-            paqWebVM.detailReserva = JSON.detailReserva;
-            paqWebVM.importe = importe;
-            paqWebVM.paqueteCombinacion=paqueteCombinacion;
         }
         paqWebVM.changeHabitacion = function(ocupacion){
             switch(ocupacion){
@@ -196,8 +197,116 @@
             });
             return array;
         };
+        //paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
+        paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
+            paqWebVM.detailReserva = JSON.parse(detailReserva);
+            paqWebVM.importe = importe;
+            console.info("importe",paqWebVM.importe);
+            var combinacion = JSON.parse(paqueteCombinacion);
+            paqWebVM.paqueteCombinacion= combinacion[0];
+            paqWebVM.reservar = {
+                adultos:paqWebVM.detailReserva.adultos.toString(),
+                menores:paqWebVM.menores[paqWebVM.detailReserva.menores],
+            };
+            switch (parseInt( paqWebVM.detailReserva.adultos)) {
+                case 1:
+                        paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costosencillo;
+                    break;
+                case 2:
+                        paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costodoble;
+                    break;
+                case 3:
+                        paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costotriple;
+                    break;
+                case 4:
+                        paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costocuadruple;
+                    break;
+            }
+            paqWebVM.simbolCurrency = paqWebVM.paqueteCombinacion.simbolo 
+            console.info("detailReserva",paqWebVM.detailReserva);
+            
+            console.info("paqueteCombinacion",paqWebVM.paqueteCombinacion);
+            console.info("menores",paqWebVM.reservar.menores.value);
+            paqWebVM.calculateCostoPaquete(paqWebVM.detailReserva.adultos,paqWebVM.detailReserva.menores);
+        }
+        paqWebVM.calculateCostoPaquete = function(adultos,menores){
+            console.info("menores calculateCostoPaquete",menores);
+            var costoAdultos = parseFloat(paqWebVM.detailReserva.costo) * adultos;
+            var costoMenores = parseFloat(paqWebVM.paqueteCombinacion.costomenor) * menores;
+            paqWebVM.importeTotal = costoAdultos + costoMenores;
+        }
+        paqWebVM.ocupacionHab = function(adultos,menores){
+            console.info("ocupacionHab adultos",adultos);
+            console.info("ocupacionHab menores",menores);
+            adultos =  parseInt(adultos);
+            menores =  parseInt(menores);
+            switch (adultos) {
+                case 1:
+                        
+                        paqWebVM.detailReserva.ocupacion="Sencilla";
+                        paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costosencillo);
+                        paqWebVM.menores = [
+                            {id:0,value:0,label:"0"},
+                            {id:1,value:1,label:"1"},
+                            {id:2,value:2,label:"2"},
+                        ];
+                        paqWebVM.calculateCostoPaquete(adultos,menores);
+                    break;
+                case 2:
+                        
+                        paqWebVM.detailReserva.ocupacion="Doble";
+                        paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costodoble);
+                        paqWebVM.menores = [
+                            {id:0,value:0,label:"0"},
+                            {id:1,value:1,label:"1"},
+                            {id:2,value:2,label:"2"},
+                        ];
+                        paqWebVM.calculateCostoPaquete(adultos,menores);
+                    break;
+                case 3:
+                        paqWebVM.calculateCostoPaquete(adultos,menores);
+                        paqWebVM.detailReserva.ocupacion="Triple";
+                        paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costotriple);
+                        //if(paqWebVM.reserva.adultos==3){
+                            if(paqWebVM.reservar.menores.value>1){
+                                paqWebVM.reservar.menores=paqWebVM.menores[0];
+                            }
+                        //}
+                        paqWebVM.menores = [
+                            {id:0,value:0,label:"0"},
+                            {id:1,value:1,label:"1"}
+                        ];
+                        paqWebVM.calculateCostoPaquete(adultos,menores);           
+                    break;
+                case 4:
+                        paqWebVM.calculateCostoPaquete(adultos,menores);
+                        paqWebVM.detailReserva.ocupacion="Cuádruple";
+                        paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costocuadruple);
+                        if(paqWebVM.reservar.menores.value>0){
+                            paqWebVM.reservar.menores=paqWebVM.menores[0];
+                        }
+                        paqWebVM.menores = [
+                            {id:0,value:0,label:"0"}
+                        ];
+                        paqWebVM.calculateCostoPaquete(adultos,menores);
+                    break;
+                default:
+                    break;
+            }
+        }
         paqWebVM.reservar = function(item){
         }
+        $scope.$watch('paqWebVM.reservar.menores',function(val){
+            if(val){
+                if(paqWebVM.reservar.adultos==3){
+                    paqWebVM.calculateCostoPaquete(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value);
+                    
+                }
+                if(paqWebVM.reservar.adultos==4){
+                   paqWebVM.calculateCostoPaquete(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value);
+                }
+            }
+        })
     });
 
 })();
