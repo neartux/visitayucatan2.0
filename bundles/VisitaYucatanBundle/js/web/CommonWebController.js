@@ -123,7 +123,7 @@
         ctrlHotel.confirmReservaHotel = function (idHabitacion) {
             console.info("ctrlWeb.formRate = ", ctrlHotel.formRate);
             $("#fechaInicio").val(ctrlHotel.formRate.dateFrom);
-            $("#fechaFin").val(ctrlHotel.formRate.dateFrom);
+            $("#fechaFin").val(ctrlHotel.formRate.dateTo);
             $("#adultsHidden").val(ctrlHotel.formRate.adults);
             $("#minorsHidden").val(ctrlHotel.formRate.minors);
             $("#idHabitacion").val(idHabitacion);

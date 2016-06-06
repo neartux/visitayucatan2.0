@@ -240,7 +240,7 @@ class HotelUtils {
                     // Obtiene el costo de la habitacion
                     $rate = self::getRateByPersons($numAdults, $tarifaTO->getSencillo(), $tarifaTO->getDoble(), $tarifaTO->getTriple(), $tarifaTO->getCuadruple());
                     // Calcula impuestos y suma a gran total
-                    $total = self::getTotalRate($rate, $tarifaTO->getIsh(), $tarifaTO->getMarkup(), $tarifaTO->getIva(), $tarifaTO->getFee(), $tarifaTO->getAplicaImpuesto());
+                    $total = number_format(self::getTotalRate($rate, $tarifaTO->getIsh(), $tarifaTO->getMarkup(), $tarifaTO->getIva(), $tarifaTO->getFee(), $tarifaTO->getAplicaImpuesto()), 2);
                     $tarifaTO->setCosto($total);
                     $grandTotal += $total;
                     
@@ -290,7 +290,7 @@ class HotelUtils {
         // Sumamos el markup
         $finalyRate = $finalyRate / (Generalkeys::NUMBER_ONE - (floatval($markup)/ Generalkeys::NUMBER_ONE_HUNDRED));
 
-        return number_format($finalyRate, 2);
+        return $finalyRate;
     }
 
     private static function getRateByPersons($numAdults, $tarifaSencilla, $tarifaDoble, $tarifaTriple, $tarifaCuadruple){
@@ -329,8 +329,10 @@ class HotelUtils {
     }
 
     public static function getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores, $hotel, $tarifa) {
+        echo " tarifa = ".print_r($tarifa);
         $reserva = new HotelReservaTO();
         $reserva->setNombreHotel($hotel['nombrehotel']);
+        $reserva->setTipoHabitacion($tarifa['nombre']);
         $reserva->setFechaInicio($fechaInicio);
         $reserva->setFechaFin($fechaFin);
         $reserva->setAdultos($adultos);
@@ -338,8 +340,12 @@ class HotelUtils {
         $costo = self::getRateByPersons($adultos, $tarifa['costosencillo'], $tarifa['costodoble'], $tarifa['costotriple'], $tarifa['costocuadruple']);
         $costoTotal = self::getTotalRate($costo, $tarifa['ish'], $tarifa['markup'], $tarifa['iva'], $tarifa['fee'], $tarifa['aplicaimpuesto']);
         $reserva->setTarifaAdulto(number_format($costoTotal, 2));
+        $reserva->setTarifaMenor(floatval(0));
         $reserva->setCostoTotal(number_format(($costoTotal * $adultos), 2));
-        
+        $dias = DateUtil::diffDays(DateUtil::formatDate($fechaInicio), DateUtil::formatDate($fechaFin));
+        $reserva->setEstadiaDias($dias);
+        $reserva->setEstadiaNoches($dias - Generalkeys::NUMBER_ONE);
+
         return $reserva;
     }
 }

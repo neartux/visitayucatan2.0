@@ -12,7 +12,8 @@ namespace VisitaYucatanBundle\utils\to;
 class HotelReservaTO{
     private $nombreHotel;
     private $tipoHabitacion;
-    private $estadia;
+    private $estadiaDias;
+    private $estadiaNoches;
     private $tarifaAdulto;
     private $tarifaMenor;
     private $adultos;
@@ -51,22 +52,6 @@ class HotelReservaTO{
     public function setTipoHabitacion($tipoHabitacion)
     {
         $this->tipoHabitacion = $tipoHabitacion;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEstadia()
-    {
-        return $this->estadia;
-    }
-
-    /**
-     * @param mixed $estadia
-     */
-    public function setEstadia($estadia)
-    {
-        $this->estadia = $estadia;
     }
 
     /**
@@ -180,4 +165,37 @@ class HotelReservaTO{
     {
         $this->costoTotal = $costoTotal;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEstadiaDias()
+    {
+        return $this->estadiaDias;
+    }
+
+    /**
+     * @param mixed $estadiaDias
+     */
+    public function setEstadiaDias($estadiaDias)
+    {
+        $this->estadiaDias = $estadiaDias;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEstadiaNoches()
+    {
+        return $this->estadiaNoches;
+    }
+
+    /**
+     * @param mixed $estadiaNoches
+     */
+    public function setEstadiaNoches($estadiaNoches)
+    {
+        $this->estadiaNoches = $estadiaNoches;
+    }
+    
 }
