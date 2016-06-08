@@ -18,6 +18,7 @@
 
         service.changeCurrencyOrLanguageSession = function(language, currency){
             var path = angular.element(document.querySelector('#pathCatalogsReload')).context.value;
+            console.info("path session",path);
             return $http.post(path, $.param({language : language, currency : currency}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });

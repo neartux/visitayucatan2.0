@@ -122,7 +122,6 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
     }
    public function getPaqueteById($idPaquete, $idioma, $idMoneda){
         	$em = $this->getEntityManager();
-
         	/*$sql = "SELECT tour.id, tour.descripcion AS nombre,tour_idioma.circuito,tour_idioma.descripcion,tour_idioma.soloadultos,tour.minimopersonas,
                 (tour_origen.tarifaadulto/moneda.tipo_cambio) AS tarifaadulto,(tour_origen.tarifamenor/moneda.tipo_cambio) AS tarifamenor,
                 tour_imagen.path AS imagen,moneda.simbolo AS simbolomoneda,origen.descripcion AS origen, moneda.tipo_cambio AS tipocambio
@@ -137,14 +136,16 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
                 AND tour.promovido = TRUE
                 AND origen.id = tour_origen.id_origen";*/
 
-         $sql ="SELECT paquete.id,pIdioma.descripcion as nombre,paquete.circuito,pIdioma.descripcioncorta,pIdioma.descripcionlarga,pIdioma.itinerario, pIdioma.incluye,pIdioma.dias,pImg.path as imagen
+         $sql ="SELECT paquete.id,pIdioma.descripcion as nombre,paquete.circuito,pIdioma.descripcioncorta,pIdioma.descripcionlarga,pIdioma.itinerario, pIdioma.incluye,pIdioma.dias,pImg.path as imagen,moneda.simbolo,moneda.tipo_cambio as tipocambio
 				  FROM paquete
 				  INNER JOIN paquete_idioma pIdioma ON pIdioma.id_paquete = paquete.id AND pIdioma.id_estatus = :estatusActivo AND pIdioma.id_idioma = :idioma
 				  INNER JOIN paquete_imagen pImg ON paquete.id=pImg.id_paquete AND pImg.id_estatus= :estatusActivo AND pImg.principal = TRUE
+				  INNER JOIN moneda ON moneda.id = :idMoneda
 				  WHERE paquete.id = :idPaquete
 				  AND paquete.id_estatus= :estatusActivo
 				  AND paquete.promovido = TRUE";
 			$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+			$params['idMoneda']=$idMoneda;
 			$params['idioma'] = $idioma;
 			$params['idPaquete'] = $idPaquete;
 			$stmt = $em->getConnection()->prepare($sql);

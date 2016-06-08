@@ -1,9 +1,113 @@
-<div>
-    detail reserva : {{ detailPaquete | json_encode()}}
-</div>
-<div>
-    paquete combinacion: {{ paqueteCombinacion.combinacionesPaquete | json_encode() }}
-</div>
-<div>
-    importe: {{ importe }}
-</div>
+{% extends ':web:TemplateVisitaYucatan.html.twig' %}
+
+
+{% block section %}
+
+    {% block content %}
+        
+        <section ng-controller="WebPaqueteController as paqWebVM" ng-init="paqWebVM.initReservaPaquete('{{ detailPaquete | json_encode() }}','{{ paqueteCombinacion.combinacionesPaquete | json_encode() }}','{{importe}}')">
+            <div style="padding-top:7px;padding-left:7px;">
+                <h2>Preparamos su reserva</h2>
+            </div>
+            <div style="margin-top:20px;">
+                <div style="width:250px;margin-left:60px;display:inline-block">
+                    <div>
+                        <label for=""><strong>* Seleccione la fecha para su paquete:</strong </label>
+                        <input type="text" class="datepicker" style="display:block;">
+                    </div>
+                    <div>
+                        <label for=""><strong>* Fecha salida:</strong </label>
+                        <input type="text" style="display:block;">
+                    </div>
+                    <div>
+                        <label for=""><strong>* Nombre:</strong </label>
+                        <input type="text" style="display:block;">
+                    </div>
+                    <div>
+                        <label for=""><strong>* Teléfono:</strong </label>
+                        <input type="text" style="display:block;">
+                    </div>
+                    <div>
+                        <label for=""><strong>* Correo:</strong </label>
+                        <input type="text" style="display:block;">
+                    </div>
+                    <div>
+                        <label for=""><strong>* Ciudad de origen:</strong </label>
+                        <input type="text" style="display:block;">
+                    </div>
+                    
+                </div>
+                <div style="width:300px;margin-left:50px;display:inline-block;vertical-align:top">
+                    <div>
+                        <label for=""><strong>Paquete seleccionado: </strong></label>
+                        <p style="font-style:italic;padding-left:5px;">[[paqWebVM.detailReserva.paqueteSelect]]</p>
+                    </div>
+                    <div>
+                        <label for=""><strong>Hotel seleccionado: </strong></label>
+                        <p style="font-style:italic;padding-left:5px;">[[paqWebVM.paqueteCombinacion.nomhotel]]</p>
+                    </div>
+                    <div>
+                        <label for=""><strong>Tipo habitación: </strong></label>
+                        <p style="font-style:italic;padding-left:5px;">[[paqWebVM.detailReserva.ocupacion]]</p>
+                    </div>
+                    <div>
+                        <label for=""><strong>Estadia: </strong></label>
+                        <p style="font-style:italic;padding-left:5px;">[[paqWebVM.paqueteCombinacion.dias]] días y [[paqWebVM.paqueteCombinacion.noches]] noches</p>
+                    </div>
+                    <div>
+                        <label for=""><strong>Tarifa por adulto en ocupación [[paqWebVM.detailReserva.ocupacion]]: </strong></label>
+                        <p style="font-style:italic;padding-left:5px;">[[paqWebVM.detailReserva.costo | myCurrency2 ]] [[paqWebVM.simbolCurrency]]</p>
+                    </div>
+                    <div>
+                        <label for=""><strong>Precio del menor: </strong></label>
+                        <p style="font-style:italic;padding-left:5px;">[[paqWebVM.paqueteCombinacion.costomenor | myCurrency2 ]] [[paqWebVM.simbolCurrency]]</p>
+                    </div>   
+                </div>
+            </div>
+            <div style="margin-left:50px;">
+                <div style="margin-top:10px">
+                        <span><strong>Adultos:</strong></span>
+                        <select ng-model="paqWebVM.reservar.adultos" ng-change="paqWebVM.ocupacionHab(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value)">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>                      
+                        </select>
+                        <span><strong>Menores:</strong></span>
+                        <select ng-options="item as item.label for item in paqWebVM.menores track by item.id" ng-model="paqWebVM.reservar.menores" ng-change="paqWebVM.ocupacionHab(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value)">
+                            
+                                                 
+                        </select>
+                        <!--<option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>-->
+                  </div>
+                  <div style="background-color:#55cbBB;width:200px;padding:2px;margin-top:5px">
+                      Importe: [[paqWebVM.importeTotal | myCurrency2]] [[paqWebVM.simbolCurrency]]
+                  </div>
+            </div>
+            
+        </section>
+        
+    {% endblock %}
+
+    {% block scripts %}
+        {{ parent() }}
+        <script>
+            $(function(){
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    format: 'dd/mm/yyyy',
+                    startDate: '+3d'
+                });
+            });
+        </script>
+
+    {% endblock %}
+
+
+    {% block footer %}
+        {{ parent() }}
+{% endblock %}
+
+{% endblock %}
