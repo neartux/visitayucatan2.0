@@ -17,7 +17,7 @@
             </div>
             <div class="renglon2 text-to-uppercase">
                 <ul class="menu-footer">
-                    <li><a href="{{ path('web_hoteles_merida') }}">{% trans %}
+                    <li><a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">{% trans %}
                             page.web.menu.label.hotels{% endtrans %}</a></li>
                     <li><a href="yucatan-mexico">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
                     <li><a href="{{ path('web_contacto') }}">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>

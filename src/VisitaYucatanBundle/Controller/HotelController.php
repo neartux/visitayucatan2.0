@@ -17,10 +17,10 @@ use VisitaYucatanBundle\utils\TourUtils;
 class HotelController extends Controller {
 
     /**
-     * @Route("/hoteles/merida", name="web_hoteles_merida")
+     * @Route("/hoteles/{city}", name="web_hoteles_merida")
      * @Method("GET")
      */
-    public function hotelesMeridaAction(Request $request) {
+    public function hotelesMeridaAction(Request $request, $city) {
         // obtiene los datos de session moneda e idioma
         $datos = $this->getParamsTour($request);
         // encuentra la descripcio de la pagina, obtiene la descripcion corta
@@ -28,7 +28,7 @@ class HotelController extends Controller {
         $descripcion = $descriptionPage['descripcion'];
         $descripcionCorta = StringUtils::cutText($descriptionPage['descripcion'], Generalkeys::NUMBER_ZERO, Generalkeys::NUMBER_ONE_HUNDRED_FIFTEEN, Generalkeys::COLILLA_TEXT, Generalkeys::CIERRE_HTML_P);
         // busca todos los hoteles activos y publicados
-        $hotels = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelsByDestino($datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], Generalkeys::ORIGEN_MERIDA ,Generalkeys::OFFSET_ROWS_ZERO, Generalkeys::LIMIT_ROWS_TWENTY);
+        $hotels = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelsByDestino($datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], $city ,Generalkeys::OFFSET_ROWS_ZERO, Generalkeys::LIMIT_ROWS_TWENTY);
         // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:hotels.html.twig', array('hotels' => HotelUtils::getHotels($hotels),
             'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta,

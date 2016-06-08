@@ -73,6 +73,13 @@ class Generalkeys{
     const NOT_AVAILABLE_MSJ = "No disponible";
     const EMPTY_STRING = "";
     const ID_USER_ADMIN = 4;
+    const CITY_MERIDA=1;
+    const CITY_TELCHAC=2;
+    const CITY_VALLADOLID=3;
+    const CITY_IZAMAL=4;
+    const CITY_CAMPECHE=5;
+    const CITY_CHAMPOTON=6;
+    const CITY_CHICANNA=7;
 
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);

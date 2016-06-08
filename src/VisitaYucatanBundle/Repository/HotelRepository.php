@@ -15,7 +15,7 @@ use VisitaYucatanBundle\utils\Generalkeys;
  */
 class HotelRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function getHotelsByDestino($idioma, $idMoneda, $destino, $offset, $limit){
+    public function getHotelsByDestino($idioma, $idMoneda, $ciudad, $offset, $limit){
         $em = $this->getEntityManager();
 
         $sql = "SELECT hotel.id,hotel.estrellas,hotel_idioma.nombrehotel,hotel_idioma.descripcion,hotel_imagen.path AS imagen,moneda.simbolo,hotel_tarifa.doble
@@ -24,7 +24,7 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
                 INNER JOIN hotel_tarifa ON hotel.id = hotel_tarifa.id_hotel AND hotel_tarifa.fecha = curdate() AND hotel_tarifa.id_estatus = :estatusActivo
                 INNER JOIN hotel_idioma ON hotel.id = hotel_idioma.id_hotel AND hotel_idioma.id_idioma = :idioma AND hotel_idioma.id_estatus = :estatusActivo
                 INNER JOIN idioma ON idioma.id = hotel_idioma.id_idioma AND idioma.id = :idioma AND idioma.id_estatus = :estatusActivo
-                INNER JOIN destino ON destino.id = hotel.id_destino AND destino.id = :destino AND destino.id_estatus = :estatusActivo
+                INNER JOIN ciudad ON hotel.id_ciudad = ciudad.id AND ciudad.id = :ciudad
                 INNER JOIN moneda ON moneda.id = :moneda AND moneda.id_estatus = :estatusActivo
                 LEFT JOIN hotel_imagen ON hotel.id = hotel_imagen.id_hotel AND hotel_imagen.principal = TRUE  AND hotel_imagen.id_estatus = :estatusActivo
                 WHERE hotel.id_estatus = :estatusActivo
@@ -34,7 +34,7 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
         $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
         $params['idioma'] = $idioma;
         $params['moneda'] = $idMoneda;
-        $params['destino'] = $destino; // Este es estatico solo hay origen desde merida por ahora
+        $params['ciudad'] = $ciudad;
 
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);

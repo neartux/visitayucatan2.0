@@ -26,8 +26,26 @@
                 <li class="subMenu text-to-lowercase" onmouseover="showsubmenu(this)">
                     <a>{% trans %}page.web.menu.label.hotels{% endtrans %}</a>
                     <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
-                        <li><a href="{{ path('web_hoteles_cancun') }}">{% trans %}page.web.menu.label.hotel.cancun{% endtrans %}</a></li>
-                        <li><a href="{{ path('web_hoteles_merida') }}">{% trans %}page.web.menu.label.hotel.merida{% endtrans %}</a></li>
+                        <li class="subMenu" onmouseover="showsubmenu(this)">
+                            <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">YUCATÁN</a>
+                            <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
+                                <li>
+                                    <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}"></a>
+                                    MÉRIDA</li>
+                                <li>TELCHAC</li>
+                                <li>VALLADOLID</li>
+                                <li>IZAMAL</li>
+                            </ul>
+                        </li>
+                        <li class="subMenu">
+                            <a>CAMPECHE</a>
+                            <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
+                                <li>CAMPECHE</li>
+                                <li>CHAMPOTON</li>
+                                <li>CHICANNA</li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ path('web_hoteles_cancun') }}">QUINTANA ROO</a></li>
                     </ul>
                 </li>
                 <li class="yucatan-mexico text-to-lowercase"><a href="{{ path('web_peninsula') }}" target="_self" title="{% trans %}page.web.menu.label.peninsula{% endtrans %}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
