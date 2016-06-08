@@ -41,6 +41,13 @@
         service.listaTarifasHotel = {
             data: undefined
         };
+        service.listStates = {
+            data: []
+        };
+        
+        service.listCities = {
+            data: []
+        };
         
         service.listaResetHotel = function(){
           angular.forEach(service.listaFechas.data, function(valor, indice) {
@@ -73,6 +80,22 @@
             service.listDestino.data = [];
             return $http.get(path).then(function(data){
                 service.listDestino.data = data.data;
+            });
+        };
+
+        service.findStates = function(){
+            var path = $("#pathStates").val();
+            return $http.get(path).then(function(data){
+                service.listStates.data = data.data;
+            });
+        };
+
+        service.findCities = function(idState){
+            var path = $("#pathCities").val();
+            service.listCities.data = [];
+            return $http.post(path, $.param({idState : idState}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(function(data){
+                service.listCities.data = data.data;
             });
         };
 
@@ -285,7 +308,6 @@
         };
 
         service.getListTarifa = function(fechaInicio, fechaFin, idContrato, idHabitacion, idHotel){
-            console.info(fechaInicio, fechaFin, idContrato, idHabitacion, idHotel);
             var path = $("#pathRateList").val();
             return $http.post(path, $.param({fechaInicio : fechaInicio, fechaFin : fechaFin, idContrato : idContrato, idHabitacion : idHabitacion, idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -295,7 +317,6 @@
         };
 
         service.saveTarifaHotel = function(hotelTarifaTO){
-            console.info("tarifa = "+JSON.stringify(hotelTarifaTO));
             var path = $("#pathSaveTarifa").val();
             return $http.post(path, $.param({hotelTarifaTO : JSON.stringify(hotelTarifaTO)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

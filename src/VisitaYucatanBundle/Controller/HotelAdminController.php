@@ -55,6 +55,25 @@ class HotelAdminController extends Controller {
     }
 
     /**
+     * @Route("/admin/hotel/find/states", name="hotel_find_list_states")
+     * @Method("GET")
+     */
+    public function findStates() {
+        $states = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Estado')->findAllStates();
+        return new Response($this->get('serializer')->serialize($states, Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/admin/hotel/find/cities", name="hotel_find_list_cities")
+     * @Method("POST")
+     */
+    public function findCities(Request $request) {
+        $states = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Ciudad')->findCitiesByState($request->get('idState'));
+        return new Response($this->get('serializer')->serialize($states, Generalkeys::JSON_STRING));
+    }
+    
+
+    /**
      * @Route("/admin/hotel/create", name="hotel_create")
      * @Method("POST")
      */

@@ -65,11 +65,12 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
 
     public function findAllHotels() {
         $em = $this->getEntityManager();
-        $sql = "SELECT hotel.id, hotel.descripcion, hotel.estrellas, hotel.promovido, destino.id AS idDestino,
-                destino.descripcion AS destino, datos_ubicacion.direccion, datos_ubicacion.telefono
+        $sql = "SELECT hotel.id,hotel.descripcion,hotel.estrellas,hotel.promovido,datos_ubicacion.direccion, 
+                datos_ubicacion.telefono,ciudad.nombre AS ciudad,ciudad.id AS city,estado.id As state
                 FROM hotel
                 INNER JOIN datos_ubicacion ON datos_ubicacion.id = hotel.id_datosubicacion
-                INNER JOIN destino ON destino.id = hotel.id_destino AND destino.id_estatus = :estatus
+                INNER JOIN ciudad ON hotel.id_ciudad = ciudad.id
+                INNER JOIN estado ON estado.id = ciudad.id_estado
                 WHERE hotel.id_estatus = :estatus";
         $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
         $stmt = $em->getConnection()->prepare($sql);
@@ -90,7 +91,8 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
         $hotel->setEstrellas($hotelTO->getEstrellas());
         $hotel->setPromovido(Generalkeys::BOOLEAN_FALSE);
         $hotel->setDatosUbicacion($datosUbicacion);
-        $hotel->setDestino($em->getReference('VisitaYucatanBundle:Destino', $hotelTO->getIdDestino()));
+        //$hotel->setDestino($em->getReference('VisitaYucatanBundle:Destino', $hotelTO->getIdDestino()));
+        $hotel->setCiudad($em->getReference('VisitaYucatanBundle:Ciudad', $hotelTO->getCity()));
         $hotel->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
 
         $em->persist($hotel);
@@ -108,6 +110,7 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
         $hotelUpdate->setEstrellas($hotelTO->getEstrellas());
         $hotelUpdate->getDatosUbicacion()->setDireccion($hotelTO->getDireccion());
         $hotelUpdate->getDatosUbicacion()->setTelefono($hotelTO->getTelefono());
+        $hotelUpdate->setCiudad($em->getReference('VisitaYucatanBundle:Ciudad', $hotelTO->getCity()));
 
         $em->persist($hotelUpdate);
         $em->flush();

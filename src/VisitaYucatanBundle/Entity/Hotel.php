@@ -57,9 +57,15 @@ class Hotel
 
     /**
      * @ORM\ManyToOne(targetEntity="Destino", inversedBy="hotel")
-     * @ORM\JoinColumn(name="id_destino", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="id_destino", referencedColumnName="id", nullable=true)
      */
     private $destino;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Ciudad", inversedBy="hoteles")
+     * @ORM\JoinColumn(name="id_ciudad", referencedColumnName="id", nullable=false)
+     */
+    private $ciudad;
 
     /**
      * @ORM\OneToMany(targetEntity="Hotelimagen", mappedBy="hotel")
@@ -541,4 +547,28 @@ class Hotel
 //    {
 //        return $this->hotelTarifa;
 //    }
+
+    /**
+     * Set ciudad
+     *
+     * @param \VisitaYucatanBundle\Entity\Ciudad $ciudad
+     *
+     * @return Hotel
+     */
+    public function setCiudad(\VisitaYucatanBundle\Entity\Ciudad $ciudad)
+    {
+        $this->ciudad = $ciudad;
+
+        return $this;
+    }
+
+    /**
+     * Get ciudad
+     *
+     * @return \VisitaYucatanBundle\Entity\Ciudad
+     */
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
 }

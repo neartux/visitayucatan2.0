@@ -62,4 +62,3 @@ class DatosHotel {
         return $this->hotelPickUp;
     }
 }
-

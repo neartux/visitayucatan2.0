@@ -13,7 +13,7 @@
                         <div class="col-md-12">
                             <div class="col-md-6">
 
-                                <div class="form-group" ng-class="{ 'has-error' : formHotel.destinoHotel.$invalid && !formHotel.destinoHotel.$pristine }">
+                                {#<div class="form-group" ng-class="{ 'has-error' : formHotel.destinoHotel.$invalid && !formHotel.destinoHotel.$pristine }">
                                     <label for="destinoHotel" class="col-sm-4 control-label text-bold text-uppercase">
                                         Destino <span class="required">*</span>
                                     </label>
@@ -26,7 +26,7 @@
                                             Selecciona un destino
                                         </span>
                                     </div>
-                                </div>
+                                </div>#}
 
                                 <div class="form-group" ng-class="{ 'has-error' : formHotel.descripcion.$invalid && !formHotel.descripcion.$pristine }">
                                     <label class="col-sm-4 control-label text-bold text-uppercase" for="description">
@@ -55,10 +55,6 @@
                                     </div>
                                 </div>
 
-                            </div>
-
-                            <div class="col-md-6">
-
                                 <div class="form-group" ng-class="{ 'has-error' : formHotel.direccion.$invalid && !formHotel.direccion.$pristine }">
                                     <label class="col-sm-4 control-label text-bold text-uppercase" for="direccion">
                                         Dirección <span class="required">*</span>
@@ -72,6 +68,10 @@
                                     </div>
                                 </div>
 
+                            </div>
+
+                            <div class="col-md-6">
+
                                 <div class="form-group" ng-class="{ 'has-error' : formHotel.telefono.$invalid && !formHotel.telefono.$pristine }">
                                     <label class="col-sm-4 control-label text-bold text-uppercase">
                                         Télefono <span class="required">*</span>
@@ -80,6 +80,37 @@
                                         <input type="text" id="telefono" ng-model="ctrlHotel.hotelTO.telefono" name="telefono" class="form-control" required/>
                                         <span ng-show="formHotel.telefono.$invalid && !formHotel.telefono.$pristine" class="help-block">
                                             El Télefono es Requerido
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-class="{ 'has-error' : formHotel.state.$invalid && !formHotel.state.$pristine }">
+                                    <label class="col-sm-4 control-label text-bold text-uppercase">
+                                        Estado <span class="required">*</span>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <select name="state" class="form-control" ng-model="ctrlHotel.hotelTO.state" required data-ng-change="ctrlHotel.findCitiesByState();ctrlHotel.hotelTO.city = '';">
+                                            <option value="">SELECCIONA</option>
+                                            <option value="[[ state.id ]]" ng-repeat="state in ctrlHotel.listStates.data">[[ state.nombre | uppercase ]]</option>
+                                        </select>
+                                        <span ng-show="formHotel.state.$invalid && !formHotel.state.$pristine" class="help-block">
+                                            El Estado es Requerido
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-class="{ 'has-error' : formHotel.city.$invalid && !formHotel.city.$pristine }">
+                                    <label class="col-sm-4 control-label text-bold text-uppercase">
+                                        Ciudad <span class="required">*</span>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <select name="city" class="form-control" ng-model="ctrlHotel.hotelTO.city" required>
+                                            <option value="">SELECCIONA</option>
+                                            <option value="[[ city.id ]]" ng-repeat="city in ctrlHotel.listCities.data">[[ city.nombre | uppercase ]]</option>
+                                        </select>
+
+                                        <span ng-show="formHotel.city.$invalid && !formHotel.city.$pristine" class="help-block">
+                                            La Ciudad es Requerido
                                         </span>
                                     </div>
                                 </div>

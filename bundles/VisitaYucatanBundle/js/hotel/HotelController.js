@@ -23,6 +23,8 @@
         ctrlHotel.listaHabitacionesHotel = HotelService.listaHabitacionesHotel;
         ctrlHotel.hotelHabitacionIdiomaTO = HotelService.hotelHabitacionIdiomaTO;
         ctrlHotel.listaTarifasHotel = HotelService.listaTarifasHotel;
+        ctrlHotel.listStates = HotelService.listStates;
+        ctrlHotel.listCities = HotelService.listCities;
         ctrlHotel.titleCreate = '';
         ctrlHotel.titleEdit = '';
         ctrlHotel.msjLoading = '';
@@ -59,10 +61,17 @@
             ctrlHotel.findAllLanguages();
             HotelService.findDestinos();
             HotelService.planesAlimentos();
+            HotelService.findStates();
         };
 
         ctrlHotel.findAllHotels = function () {
             return HotelService.findHotelsActives();
+        };
+        
+        ctrlHotel.findCitiesByState = function () {
+            if(ctrlHotel.hotelTO.state != ""){
+                return HotelService.findCities(ctrlHotel.hotelTO.state);   
+            }
         };
 
         ctrlHotel.findAllHotelContracts = function () {
@@ -281,22 +290,22 @@
             ctrlHotel.isNewHotel = true;
             $("#modalHotel").modal();
             setTimeout(function () {
-                $("#destinoHotel").trigger('focus');
+                $("#description").trigger('focus');
             }, 1000);
         };
 
         ctrlHotel.displayEditHotel = function (hotel) {
             ctrlHotel.titleModal = ctrlHotel.titleEdit;
             ctrlHotel.hotelTO = JSON.parse(JSON.stringify(hotel));
+            ctrlHotel.findCitiesByState();
             ctrlHotel.isNewHotel = false;
             $("#modalHotel").modal();
             setTimeout(function () {
-                $("#destinoHotel").trigger('focus');
+                $("#description").trigger('focus');
             }, 1000);
         };
 
         ctrlHotel.saveFormHotel = function (isValid) {
-            console.info("is valida el form = ", isValid, " = ctrlHotel.hotelTO = ", ctrlHotel.hotelTO);
             // check to make sure the form is completely valid
             if (isValid && ctrlHotel.hotelTO != undefined) {
                 startLoading(ctrlHotel.msjLoading);
@@ -340,15 +349,12 @@
         };
 
         ctrlHotel.promovedHotel = function (hotel) {
-            console.info("promovedHotel = ", hotel);
             if(hotel.promovido == 0){
-                console.info("promover");
                 return HotelService.promovedHotel(hotel.id).then(function (data) {
                     pNotifyView(data.data.message, data.data.typeStatus);
                     hotel.promovido = "1";
                 });
             }else {
-                console.info("remover");
                 return HotelService.removePromovedHotel(hotel.id).then(function (data) {
                     pNotifyView(data.data.message, data.data.typeStatus);
                     hotel.promovido = "0";

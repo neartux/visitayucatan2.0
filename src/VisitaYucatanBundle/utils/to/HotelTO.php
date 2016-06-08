@@ -22,6 +22,8 @@ class HotelTO {
     private $simboloMoneda;
     private $principalImage;
     private $imagenesHotel;
+    private $state;
+    private $city;
 
     /**
      * @return mixed
@@ -230,5 +232,39 @@ class HotelTO {
     {
         $this->imagenesHotel = $imagenesHotel;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param mixed $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+    
+    
 
 }

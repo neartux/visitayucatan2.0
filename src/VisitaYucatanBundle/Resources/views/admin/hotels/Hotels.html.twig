@@ -46,7 +46,7 @@
                                                     <th width="3%">Id</th>
                                                     <th>Descripción</th>
                                                     <th width="10%">Estrellas</th>
-                                                    <th width="10%">Destino</th>
+                                                    <th width="10%">Ciudad</th>
                                                     <th width="0%">Dirección</th>
                                                     <th width="5%">Télefono</th>
                                                     <!--Columna para promover o remover promover, (0) es no promovido, (1) es promovido-->
@@ -59,7 +59,7 @@
                                                     <td>[[ hotel.id ]]</td>
                                                     <td>[[ hotel.descripcion ]]</td>
                                                     <td>[[ hotel.estrellas ]]</td>
-                                                    <td>[[ hotel.destino ]]</td>
+                                                    <td>[[ hotel.ciudad ]]</td>
                                                     <td>[[ hotel.direccion ]]</td>
                                                     <td>[[ hotel.telefono ]]</td>
                                                     <td>
@@ -148,6 +148,8 @@
         <input type="hidden" id="pathCreateHabitacionIdioma" value="{{ path('hotel_create_habitacion_idioma') }}"/>
         <input type="hidden" id="pathRateList" value="{{ path('hotel_find_tarifas_by_date') }}"/>
         <input type="hidden" id="pathSaveTarifa" value="{{ path('hotel_save_tarifa') }}"/>
+        <input type="hidden" id="pathStates" value="{{ path('hotel_find_list_states') }}"/>
+        <input type="hidden" id="pathCities" value="{{ path('hotel_find_list_cities') }}"/>
     </div>
 
 {% endblock %}
@@ -206,21 +208,6 @@
                 ], 
                 height:200
             });
-
-              
-
-            /*
-            $('.summernote').summernote({
-                height: 200
-            });
-            $('.summernoteHab').summernote({
-                height: 200
-            });
-
-            $('.summernoteHabIdioma').summernote({
-                height: 200
-            });
-            */
             $('.daterangepickerdate').daterangepicker({
                 autoApply: true,
                 locale: {

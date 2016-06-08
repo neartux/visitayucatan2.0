@@ -156,4 +156,3 @@ class DatosVuelo
         return $this->aerolinea;
     }
 }
-
