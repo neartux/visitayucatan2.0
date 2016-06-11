@@ -540,8 +540,11 @@
                                 <span class="icon-keyboard_arrow_down"></span>
                             </a>
                             <ul>
-                                <li><a href="{{ path('web_hoteles_cancun') }}">{% trans %}page.web.menu.label.hotel.cancun{% endtrans %}</a><li>
-                                <li><a href="{{ path('web_hoteles_merida') }}">{% trans %}page.web.menu.label.hotel.merida{% endtrans %}</a><li>
+                                <li><a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_QUINTANA_ROO') }) }}">{% trans %}page.web.menu.label.hotel.cancun{% endtrans %}</a><li>
+                                <li><a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">
+                                        Yucatán
+                                    </a>
+                                <li>
                             </ul>
                         </li>
                         <li><a href="{{ path('web_peninsula') }}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
@@ -577,7 +580,7 @@
                     </div>
                 </a>
 
-                <a href="{{ path('web_hoteles_merida') }}">
+                <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">
                     <div class="productos producto-hoteles">
                         <div>
                             <p class="texto-title text-to-uppercase">{% trans %}page.web.menu.label.hotels{% endtrans %}</p>
@@ -635,7 +638,7 @@
             </div>
             <div class="renglon2">
                 <ul class="menu-footer text-to-uppercase">
-                    <li><a href="{{ path('web_hoteles_merida') }}">{% trans %}page.web.menu.label.hotels{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">{% trans %}page.web.menu.label.hotels{% endtrans %}</a></li>
                     <li><a href="{{ path('web_peninsula') }}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
                     <li><a href="{{ path('web_contacto') }}">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
                 </ul>

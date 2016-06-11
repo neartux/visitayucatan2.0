@@ -80,6 +80,7 @@ class Generalkeys{
     const CITY_CAMPECHE=5;
     const CITY_CHAMPOTON=6;
     const CITY_CHICANNA=7;
+    const CITY_QUINTANA_ROO=8;
 
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);
