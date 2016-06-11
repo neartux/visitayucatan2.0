@@ -11,8 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="estatus")
  * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\EstatusRepository")
  */
-class Estatus
-{
+class Estatus {
     /**
      * @var int
      *
@@ -155,9 +154,20 @@ class Estatus
     private $hotelIdioma;
 
     /**
+     * @ORM\OneToMany(targetEntity="Venta", mappedBy="estatus")
+     */
+    private $venta;
+
+    /**
+     * @ORM\OneToMany(targetEntity="VentaDetalle", mappedBy="estatus")
+     */
+    private $ventaDetalle;
+
+    /**
      * Constructor
      */
-    public function __construct(){
+    public function __construct($id){
+        $this->id = $id;
         $this->moneda = new ArrayCollection();
         $this->usuario = new ArrayCollection();
         $this->tour = new ArrayCollection();
@@ -180,6 +190,8 @@ class Estatus
         $this->hotelTarifa = new ArrayCollection();
         $this->articulo = new ArrayCollection();
         $this->hotelIdioma = new ArrayCollection();
+        $this->venta = new ArrayCollection();
+        $this->ventaDetalle = new ArrayCollection();
     }
 
     /**
@@ -1064,5 +1076,73 @@ class Estatus
     public function getHotelIdioma()
     {
         return $this->hotelIdioma;
+    }
+
+    /**
+     * Add ventum
+     *
+     * @param \VisitaYucatanBundle\Entity\Venta $ventum
+     *
+     * @return Estatus
+     */
+    public function addVentum(\VisitaYucatanBundle\Entity\Venta $ventum)
+    {
+        $this->venta[] = $ventum;
+
+        return $this;
+    }
+
+    /**
+     * Remove ventum
+     *
+     * @param \VisitaYucatanBundle\Entity\Venta $ventum
+     */
+    public function removeVentum(\VisitaYucatanBundle\Entity\Venta $ventum)
+    {
+        $this->venta->removeElement($ventum);
+    }
+
+    /**
+     * Get venta
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVenta()
+    {
+        return $this->venta;
+    }
+
+    /**
+     * Add ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     *
+     * @return Estatus
+     */
+    public function addVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle[] = $ventaDetalle;
+
+        return $this;
+    }
+
+    /**
+     * Remove ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     */
+    public function removeVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle->removeElement($ventaDetalle);
+    }
+
+    /**
+     * Get ventaDetalle
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVentaDetalle()
+    {
+        return $this->ventaDetalle;
     }
 }

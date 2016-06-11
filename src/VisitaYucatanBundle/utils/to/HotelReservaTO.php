@@ -21,6 +21,7 @@ class HotelReservaTO{
     private $fechaInicio;
     private $fechaFin;
     private $costoTotal;
+    private $simboloMoneda;
 
     /**
      * @return mixed
@@ -197,5 +198,22 @@ class HotelReservaTO{
     {
         $this->estadiaNoches = $estadiaNoches;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSimboloMoneda()
+    {
+        return $this->simboloMoneda;
+    }
+
+    /**
+     * @param mixed $simboloMoneda
+     */
+    public function setSimboloMoneda($simboloMoneda)
+    {
+        $this->simboloMoneda = $simboloMoneda;
+    }
     
+        
 }

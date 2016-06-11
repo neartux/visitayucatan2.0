@@ -49,6 +49,11 @@ class Moneda
     private $estatus;
 
     /**
+     * @ORM\OneToMany(targetEntity="Venta", mappedBy="moneda")
+     */
+    private $venta;
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -163,5 +168,46 @@ class Moneda
     public function getEstatus()
     {
         return $this->estatus;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->venta = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add ventum
+     *
+     * @param \VisitaYucatanBundle\Entity\Venta $ventum
+     *
+     * @return Moneda
+     */
+    public function addVentum(\VisitaYucatanBundle\Entity\Venta $ventum)
+    {
+        $this->venta[] = $ventum;
+
+        return $this;
+    }
+
+    /**
+     * Remove ventum
+     *
+     * @param \VisitaYucatanBundle\Entity\Venta $ventum
+     */
+    public function removeVentum(\VisitaYucatanBundle\Entity\Venta $ventum)
+    {
+        $this->venta->removeElement($ventum);
+    }
+
+    /**
+     * Get venta
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVenta()
+    {
+        return $this->venta;
     }
 }

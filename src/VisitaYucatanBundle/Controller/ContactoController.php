@@ -27,7 +27,7 @@ class ContactoController extends Controller {
     public function sendMailContact(Request $request) {
         $message = \Swift_Message::newInstance();
         $message->setSubject('Se ha generado un nuevo prospecto | Visita Yucatan‏');
-        $message->setFrom('notificaciones@visitayucatan.com');
+        $message->setFrom(Generalkeys::from_email_contact);
         // TODO desconmentar la siguiente linea cuando ya este en produccion
         //$message->setTo(Generalkeys::gabino_martinez_email);
         // TODO eliminar la siguiente linea cuando este en produccion
@@ -44,7 +44,8 @@ class ContactoController extends Controller {
 
         $this->get('session')->getFlashBag()->add('notice', 'Se ha enviado la información, en breve nos comunicaremos');
 
-        return $this->redirectToRoute('web_contacto');
+        return $this->render('VisitaYucatanBundle:web/pages:contacto.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR,
+            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
     }
 
     private function getParamsTour($request) {

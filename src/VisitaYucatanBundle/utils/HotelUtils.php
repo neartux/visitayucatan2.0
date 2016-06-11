@@ -333,6 +333,7 @@ class HotelUtils {
         $reserva = new HotelReservaTO();
         $reserva->setNombreHotel($hotel['nombrehotel']);
         $reserva->setTipoHabitacion($tarifa['nombre']);
+        $reserva->setSimboloMoneda($tarifa['simbolomoneda']);
         $reserva->setFechaInicio($fechaInicio);
         $reserva->setFechaFin($fechaFin);
         $reserva->setAdultos($adultos);

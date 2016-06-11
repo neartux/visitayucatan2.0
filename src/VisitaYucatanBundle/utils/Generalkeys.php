@@ -66,6 +66,7 @@ class Generalkeys{
     const f_capetillo_email = 'fcapetilloc@visitayucatan.com';
     const faustino_pech_email = 'faustinopech@posadatoledo.com';
     const no_responder_email = 'noresponder@visitayucatan.com';
+    const from_email_contact = 'notificaciones@visitayucatan.com';
     const RATE_SIMPLE = 1;
     const RATE_DOUBLE = 2;
     const RATE_TRIPLE = 3;
@@ -81,6 +82,9 @@ class Generalkeys{
     const CITY_CHAMPOTON=6;
     const CITY_CHICANNA=7;
     const CITY_QUINTANA_ROO=8;
+    const TIPO_PRODUCTO_TOUR=1;
+    const TIPO_PRODUCTO_HOTEL=2;
+    const TIPO_PRODUCTO_PAQUETE=3;
 
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);

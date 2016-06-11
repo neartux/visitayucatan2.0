@@ -69,10 +69,15 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_QUINTANA_ROO') }) }}">
-                                QUINTANA ROO
-                            </a>
+                        <li class="submenu">
+                            <a>QUINTANA ROO</a>
+                            <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
+                                <li>
+                                    <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_QUINTANA_ROO') }) }}">
+                                        Quintana Roo
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>

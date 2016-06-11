@@ -535,16 +535,62 @@
                         <li><a href="{{ path('web_home') }}">{% trans %}page.web.menu.label.start{% endtrans %}</a></li>
                         <li><a href="{{ path('web_paquetes') }}">{% trans %}page.web.menu.label.packages{% endtrans %}</a></li>
                         <li><a href="{{ path('web_tours') }}">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
-                        <li class="subMenu">
-                            <a href="#">{% trans %}page.web.menu.label.hotels{% endtrans %}
-                                <span class="icon-keyboard_arrow_down"></span>
-                            </a>
-                            <ul>
-                                <li><a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_QUINTANA_ROO') }) }}">{% trans %}page.web.menu.label.hotel.cancun{% endtrans %}</a><li>
-                                <li><a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">
-                                        Yucatán
-                                    </a>
-                                <li>
+                        <li class="subMenu text-to-lowercase" onmouseover="showsubmenu(this)">
+                            <a>{% trans %}page.web.menu.label.hotels{% endtrans %}</a>
+                            <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
+                                <li class="subMenu" onmouseover="showsubmenu(this)">
+                                    <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">YUCATÁN</a>
+                                    <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
+                                        <li>
+                                            <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}"></a>
+                                            MÉRIDA</li>
+                                        <li>
+                                            <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_TELCHAC') }) }}">
+                                                TELCHAC
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_VALLADOLID') }) }}">
+                                                Valladolid
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_IZAMAL') }) }}">
+                                                Izamal
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="subMenu">
+                                    <a>CAMPECHE</a>
+                                    <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
+                                        <li>
+                                            <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_CAMPECHE') }) }}">
+                                                CAMPECHE
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_CHAMPOTON') }) }}">
+                                                CHAMPOTON
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_CHICANNA') }) }}">
+                                                CHICANNA
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a>QUINTANA ROO</a>
+                                    <ul class="ulsubmenu" onmouseout="hidesubmenu(this)">
+                                        <li>
+                                            <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_QUINTANA_ROO') }) }}">
+                                                Quintana Roo
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                         <li><a href="{{ path('web_peninsula') }}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>

@@ -11,8 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="idioma")
  * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\IdiomaRepository")
  */
-class Idioma
-{
+class Idioma {
     /**
      * @var int
      *
@@ -83,6 +82,11 @@ class Idioma
      * @ORM\OneToMany(targetEntity="ArticuloImagenIdioma", mappedBy="idioma")
      */
     private $articuloImagenIdioma;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Venta", mappedBy="idioma")
+     */
+    private $venta;
 
     /**
      * Idioma constructor.
@@ -448,5 +452,39 @@ class Idioma
     public function getArticuloImagenIdioma()
     {
         return $this->articuloImagenIdioma;
+    }
+
+    /**
+     * Add ventum
+     *
+     * @param \VisitaYucatanBundle\Entity\Venta $ventum
+     *
+     * @return Idioma
+     */
+    public function addVentum(\VisitaYucatanBundle\Entity\Venta $ventum)
+    {
+        $this->venta[] = $ventum;
+
+        return $this;
+    }
+
+    /**
+     * Remove ventum
+     *
+     * @param \VisitaYucatanBundle\Entity\Venta $ventum
+     */
+    public function removeVentum(\VisitaYucatanBundle\Entity\Venta $ventum)
+    {
+        $this->venta->removeElement($ventum);
+    }
+
+    /**
+     * Get venta
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVenta()
+    {
+        return $this->venta;
     }
 }
