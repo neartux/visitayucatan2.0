@@ -72,7 +72,30 @@ class HotelController extends Controller {
         $tarifa = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->findDetailHotel(DateUtil::stringToDate($fechaInicio), $idHotel, $idHabitacion, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
         $reserva = HotelUtils::getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores,$hotel, $tarifa); // todo quede aqui
         return $this->render('VisitaYucatanBundle:web/pages:reserva-hotel.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 
-            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL, 'dateFrom' => $fechaInicio, 'dateTo' => $fechaFin, 'reseva' => $reserva));
+            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL, 'dateFrom' => $fechaInicio, 'dateTo' => $fechaFin, 'reserva' => $reserva));
+    }
+
+    /**
+     * @Route("/hotel/createReservationHotel", name="web_hotel_reserva_create")
+     * @Method("POST")
+     */
+    public function createReservationHotel(Request $request) {
+        $serializer = $this->get('serializer');
+        $em = $this->getDoctrine()->getManager();
+
+        $em->getConnection()->beginTransaction();
+        try {
+            $ventaCompletaTO = $serializer->deserialize($request->get('ventaCompletaTO'), 'VisitaYucatanBundle\utils\to\VentaCompletaTO', Generalkeys::JSON_STRING);
+            $em->getRepository('VisitaYucatanBundle:Venta')->createSaleHotel($ventaCompletaTO);
+            $em->getConnection()->commit();
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la reserva', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        } catch (\Exception $e) {
+            $em->getConnection()->rollback();
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
     }
 
     /**

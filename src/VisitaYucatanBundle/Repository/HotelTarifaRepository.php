@@ -52,7 +52,7 @@ class HotelTarifaRepository extends \Doctrine\ORM\EntityRepository {
                 hotel_habitacion_idioma.descripcion,moneda.id AS moneda,moneda.simbolo AS simbolomoneda,moneda.tipo_cambio AS tipocambiomoneda,
                 hotel_tarifa.fecha,(hotel_tarifa.sencillo/moneda.tipo_cambio) AS costosencillo,(hotel_tarifa.doble/moneda.tipo_cambio) AS costodoble,
                 (hotel_tarifa.triple/moneda.tipo_cambio) AS costotriple,(hotel_tarifa.cuadruple/moneda.tipo_cambio) AS costocuadruple,
-                hotel_contrato.id AS idcontrato,hotel_contrato.aplicaimpuesto,hotel_contrato.iva,hotel_contrato.ish,hotel_contrato.markup,hotel_contrato.fee
+                hotel_contrato.id AS idcontrato,hotel_contrato.aplicaimpuesto,hotel_contrato.iva,hotel_contrato.ish,hotel_contrato.markup,hotel_contrato.fee,idioma.id AS ididioma
                 FROM hotel_habitacion
                 INNER JOIN hotel_contrato ON hotel_contrato.id_hotel = hotel_habitacion.id_hotel AND hotel_contrato.id_estatus = :estatusActivo
                 INNER JOIN hotel_tarifa ON hotel_habitacion.id = hotel_tarifa.id_hotel_habitacion AND hotel_tarifa.id_hotel = :hotel AND hotel_tarifa.id_estatus = :estatusActivo

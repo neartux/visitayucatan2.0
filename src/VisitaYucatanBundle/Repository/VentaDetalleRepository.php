@@ -4,6 +4,7 @@ namespace VisitaYucatanBundle\Repository;
 use VisitaYucatanBundle\Entity\Estatus;
 use VisitaYucatanBundle\Entity\VentaDetalle;
 use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\to\VentaCompletaTO;
 
 /**
@@ -14,18 +15,20 @@ use VisitaYucatanBundle\utils\to\VentaCompletaTO;
  */
 class VentaDetalleRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function createVentaDetalle (VentaCompletaTO $ventaCompletaTO, $tipoProducto) {
+    public function createVentaDetalle (VentaCompletaTO $ventaCompletaTO, $tipoProducto, $idVenta) {
         $em = $this->getEntityManager();
         
         $ventaDetalle = new VentaDetalle();
-        $ventaDetalle->setEstatus(new Estatus(Estatuskeys::ESTATUS_ACTIVO));
+        $ventaDetalle->setVenta($em->getReference('VisitaYucatanBundle:Venta', $idVenta));
+        $ventaDetalle->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
         $ventaDetalle->setTipoProducto($tipoProducto);
-        $ventaDetalle->setSubtotal($ventaCompletaTO->getTotal());
-        $ventaDetalle->setTotal($ventaCompletaTO->getTotal());
+        $ventaDetalle->setSubtotal($ventaCompletaTO->getCostoTotal());
+        $ventaDetalle->setTotal($ventaCompletaTO->getCostoTotal());
         $ventaDetalle->setNumeroAdultos($ventaCompletaTO->getNumeroAdultos());
         $ventaDetalle->setNumeroMenores($ventaCompletaTO->getNumeroMenores());
         $ventaDetalle->setCostoAdulto($ventaCompletaTO->getCostoAdulto());
         $ventaDetalle->setCostoMenor($ventaCompletaTO->getCostoMenor());
+        $ventaDetalle->setImpuesto(Generalkeys::NUMBER_ZERO);
 
         $em->persist($ventaDetalle);
         $em->flush();

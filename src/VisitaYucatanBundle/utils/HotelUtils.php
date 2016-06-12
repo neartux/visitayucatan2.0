@@ -334,6 +334,9 @@ class HotelUtils {
         $reserva->setNombreHotel($hotel['nombrehotel']);
         $reserva->setTipoHabitacion($tarifa['nombre']);
         $reserva->setSimboloMoneda($tarifa['simbolomoneda']);
+        $reserva->setIdIdioma($tarifa['ididioma']);
+        $reserva->setIdMoneda($tarifa['moneda']);
+        $reserva->setTipoCambio($tarifa['tipocambiomoneda']);
         $reserva->setFechaInicio($fechaInicio);
         $reserva->setFechaFin($fechaFin);
         $reserva->setAdultos($adultos);
@@ -342,7 +345,7 @@ class HotelUtils {
         $costoTotal = self::getTotalRate($costo, $tarifa['ish'], $tarifa['markup'], $tarifa['iva'], $tarifa['fee'], $tarifa['aplicaimpuesto']);
         $reserva->setTarifaAdulto(number_format($costoTotal, 2));
         $reserva->setTarifaMenor(floatval(0));
-        $reserva->setCostoTotal(number_format(($costoTotal * $adultos), 2));
+        $reserva->setCostoTotal($costoTotal * $adultos);
         $dias = DateUtil::diffDays(DateUtil::formatDate($fechaInicio), DateUtil::formatDate($fechaFin));
         $reserva->setEstadiaDias($dias);
         $reserva->setEstadiaNoches($dias - Generalkeys::NUMBER_ONE);

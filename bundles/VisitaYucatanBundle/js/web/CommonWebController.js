@@ -65,6 +65,7 @@
         ctrlHotel.formRate = {};
         ctrlHotel.listRoomsHotelToSale = WebService.listRoomsHotelToSale;
         ctrlHotel.symbolCurrency = 'MXP';
+        ctrlHotel.ventaCompletaTO = {};
 
         ctrlHotel.init = function(idHotel, ageMinor) {
             ctrlHotel.formRate = {
@@ -76,6 +77,31 @@
             ctrlHotel.symbolCurrency = angular.element(document.querySelector('#symbolCurrencyHidden')).context.value;
             console.info("moneda = ", ctrlHotel.symbolCurrency);
             ctrlHotel.findTarifasHotel();
+        };
+        
+        ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath) {
+            WebService.setContextPath(contextPath);
+            console.info(tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath);
+            ctrlHotel.ventaCompletaTO = {
+                tarifaAdulto: tarifaAdulto,
+                tarifaMenor: tarifaMenor,
+                idIdioma: idIdioma,
+                idMoneda: idMoneda,
+                tipoCambio: tipoCambio,
+                costoTotal: costoTotal,
+                checkIn: checkIn,
+                checkOut: checkOut,
+                numeroMenores: menores,
+                numeroAdultos: adultos
+            }
+
+        };
+
+        ctrlHotel.createRerservaHotel = function () {
+          console.info("ventaCompletaTO = ", ctrlHotel.ventaCompletaTO);
+            WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).then(function (response) {
+                console.info("respuesta de transaccion = ", response);
+            });
         };
 
         ctrlHotel.findTarifasHotel = function() {

@@ -9,31 +9,51 @@
         </style>
         <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-daterangepicker/daterangepicker-bs3.css') }}" type="text/css" rel="stylesheet" />
 
-        <section data-ng-controller="WebHotelController as ctrlWeb">
+        <section data-ng-controller="WebHotelController as ctrlWeb" data-ng-init="ctrlWeb.initReserva({{ reserva.tarifaAdulto }}, {{ reserva.tarifaMenor }}, {{ reserva.idIdioma }},
+        {{ reserva.idMoneda }}, {{ reserva.tipoCambio }}, {{ reserva.costoTotal }}, '{{ reserva.fechaInicio }}', '{{ reserva.fechaFin }}', '{{ reserva.adultos }}',
+        '{{ reserva.menores }}', '{{ app.request.getBaseURL() }}')">
             <input type="hidden" value="" id="symbolCurrencyHidden"/>
             <div id="content">
                 ************************************************************************************
-                DATOS = {{ dump(reseva) }}
+                DATOS = {{ dump(reserva) }}
                 ************************************************************************************
 
                 <h2>Preparemos su reservacion</h2>
                 <form action="">
                     Nombre:
-                    <input type="text"/> <br>
+                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.nombres"/> <br>
+                    Apellidos:
+                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.apellidos"/> <br>
                     Lada:
-                    <input type="text"/> <br>
+                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.lada"/> <br>
+                    Telefono:
+                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.telefono"/> <br>
                     Correo:
-                    <input type="text"/> <br>
+                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.email"/> <br>
                     Ciudad:
-                    <input type="text"> <br>
+                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.ciudad"/> <br>
                     Seleccione la fecha de su paquete
-                    <input type="text"/> <br>
+                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.checkIn"/> <br>
                     Fecha salida
-                    <input type="text"/> <br>
+                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.checkOut"/> <br>
                     Adultos:
-                    algo <br>
+                    <select name="" id="" data-ng-model="ctrlWeb.ventaCompletaTO.numeroAdultos">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
                     Menores:
-                    Algo
+                    <select data-ng-model="ctrlWeb.formRate.numeroMenores">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <br>
+                    <input type="button" data-ng-click="ctrlWeb.createRerservaHotel()" value="Reservar"/>
                 </form>
 
             </div>

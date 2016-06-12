@@ -15,6 +15,11 @@
         service.listCurrency = {
             data: []
         };
+        service.contextPath = '';
+        
+        service.setContextPath = function (contextPath) {
+            service.contextPath = contextPath;  
+        };
 
         service.changeCurrencyOrLanguageSession = function(language, currency){
             var path = angular.element(document.querySelector('#pathCatalogsReload')).context.value;
@@ -75,6 +80,12 @@
             var path = $("#web_get_currency_path").val();
             return $http.get(path).then(function(data){
                 service.listCurrency.data = data.data;
+            });
+        };
+
+        service.createReservationHotel = function(ventaCompletaTO){
+            return $http.post(service.contextPath+'/hotel/createReservationHotel', $.param({ventaCompletaTO : JSON.stringify(ventaCompletaTO)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
 

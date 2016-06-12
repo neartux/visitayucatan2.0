@@ -22,6 +22,9 @@ class HotelReservaTO{
     private $fechaFin;
     private $costoTotal;
     private $simboloMoneda;
+    private $idIdioma;
+    private $idMoneda;
+    private $tipoCambio;
 
     /**
      * @return mixed
@@ -214,6 +217,54 @@ class HotelReservaTO{
     {
         $this->simboloMoneda = $simboloMoneda;
     }
-    
+
+    /**
+     * @return mixed
+     */
+    public function getIdIdioma()
+    {
+        return $this->idIdioma;
+    }
+
+    /**
+     * @param mixed $idIdioma
+     */
+    public function setIdIdioma($idIdioma)
+    {
+        $this->idIdioma = $idIdioma;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdMoneda()
+    {
+        return $this->idMoneda;
+    }
+
+    /**
+     * @param mixed $idMoneda
+     */
+    public function setIdMoneda($idMoneda)
+    {
+        $this->idMoneda = $idMoneda;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTipoCambio()
+    {
+        return $this->tipoCambio;
+    }
+
+    /**
+     * @param mixed $tipoCambio
+     */
+    public function setTipoCambio($tipoCambio)
+    {
+        $this->tipoCambio = $tipoCambio;
+    }
+       
         
 }

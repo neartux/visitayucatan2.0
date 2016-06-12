@@ -58,7 +58,7 @@ class VentaDetalle {
     /**
      * @var float
      *
-     * @ORM\Column(name="subtotal", type="float")
+     * @ORM\Column(name="subtotal", type="float", nullable=true)
      */
     private $subtotal;
 

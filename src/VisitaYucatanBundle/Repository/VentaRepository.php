@@ -1,10 +1,10 @@
 <?php
 
 namespace VisitaYucatanBundle\Repository;
+use VisitaYucatanBundle\Entity\DatosPago;
 use VisitaYucatanBundle\Entity\Datospersonales;
 use VisitaYucatanBundle\Entity\DatosReserva;
 use VisitaYucatanBundle\Entity\Datosubicacion;
-use VisitaYucatanBundle\Entity\DatosVuelo;
 use VisitaYucatanBundle\Entity\Estatus;
 use VisitaYucatanBundle\Entity\Idioma;
 use VisitaYucatanBundle\Entity\Moneda;
@@ -26,61 +26,30 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
 
         $venta = new Venta();
 
-        $personalData = $this->createPersonalData($ventaCompletaTO);
+        $personalData = $em->getRepository('VisitaYucatanBundle:Datospersonales')->createPersonalData($ventaCompletaTO);
         $em->persist($personalData);
-        $dataLocation = $this->createDataLocation($ventaCompletaTO);
+        $dataLocation = $em->getRepository('VisitaYucatanBundle:Datosubicacion')->createDataLocation($ventaCompletaTO);
         $em->persist($dataLocation);
-        $dataReservation = $this->createDataReserva(null, $ventaCompletaTO->getCheckIn(), $ventaCompletaTO->getCheckOut());
+        $dataReservation = $em->getRepository('VisitaYucatanBundle:DatosReserva')->createDataReserva(null, $ventaCompletaTO->getCheckIn(), $ventaCompletaTO->getCheckOut());
         $em->persist($dataReservation);
+        $datosPago = $em->getRepository('VisitaYucatanBundle:DatosPago')->createDatosPago();
+        $em->persist($datosPago);
 
         $venta->setDatosPersonales($personalData);
         $venta->setDatosUbicacion($dataLocation);
+        $venta->setDatosReserva($dataReservation);
+        $venta->setDatosPago($datosPago);
         $venta->setFechaVenta(new \DateTime());
-        $venta->setEstatus(new Estatus(Estatuskeys::ESTATUS_ACTIVO));
-        $venta->setIdioma(new Idioma($ventaCompletaTO->getIdIdioma()));
-        $venta->setMoneda(new Moneda($ventaCompletaTO->getIdMoneda()));
+        $venta->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+        $venta->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', $ventaCompletaTO->getIdIdioma()));
+        $venta->setMoneda($em->getReference('VisitaYucatanBundle:Moneda', $ventaCompletaTO->getIdMoneda()));
         $venta->setTipoCambio($ventaCompletaTO->getTipoCambio());
-        $venta->setSubtotal($ventaCompletaTO->getTotal()); //TODO recordar el el total se debe guardar en mxn, si esta en otra moneda convertir antes
-        $venta->setTotal($ventaCompletaTO->getTotal());
+        $venta->setSubtotal($ventaCompletaTO->getCostoTotal()); //TODO recordar el el total se debe guardar en mxn, si esta en otra moneda convertir antes
+        $venta->setTotal($ventaCompletaTO->getCostoTotal());
 
         $em->persist($venta);
         $em->flush();
 
-        $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetalle($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_HOTEL);
-    }
-    
-    public function createPersonalData(VentaCompletaTO $ventaCompletaTO) {
-        $personalData = new Datospersonales();
-        $personalData->setNombres($ventaCompletaTO->getNombres());
-        $personalData->setApellidos($ventaCompletaTO->getApellidos());
-
-        return $personalData;
-    }
-
-    public function createDataLocation(VentaCompletaTO $ventaCompletaTO) {
-        $dataLocation = new Datosubicacion();
-        $dataLocation->setLada($ventaCompletaTO->getLada());
-        $dataLocation->setTelefono($ventaCompletaTO->getTelefono());
-        $dataLocation->setEmail($ventaCompletaTO->getEmail());
-        $dataLocation->setCiudad($ventaCompletaTO->getCiudad());
-
-        return $dataLocation;
-    }
-
-    public function createDataReserva($hotelPickUp, $checkIn, $checkOut){
-        $dataReservation = new DatosReserva();
-        $dataReservation->setHotelPickUp($hotelPickUp);
-        $dataReservation->setCheckIn($checkIn);
-        $dataReservation->setCheckOut($checkOut);
-        
-        return $dataReservation;
-    }
-
-    public function createDatosVuelo(VentaCompletaTO $ventaCompletaTO){
-        $datosVuelo = new DatosVuelo();
-        $datosVuelo->setAerolinea($ventaCompletaTO->getAerolinea());
-        $datosVuelo->setNumeroVuelo($ventaCompletaTO->getNumeroVuelo());
-        $datosVuelo->setFechaLlegada($ventaCompletaTO->getFechaLlegada());
-        $datosVuelo->setHoraLlegada($ventaCompletaTO->getHoraLlegada());
+        $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetalle($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_HOTEL, $venta->getId());
     }
 }

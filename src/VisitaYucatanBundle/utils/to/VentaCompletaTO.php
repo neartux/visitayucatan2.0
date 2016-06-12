@@ -29,7 +29,7 @@ class VentaCompletaTO{
     private $numeroVuelo;
     private $fechaLlegada;
     private $horaLlegada;
-    private $total;
+    private $costoTotal;
 
     /**
      * @return mixed
@@ -370,17 +370,17 @@ class VentaCompletaTO{
     /**
      * @return mixed
      */
-    public function getTotal()
+    public function getCostoTotal()
     {
-        return $this->total;
+        return $this->costoTotal;
     }
 
     /**
-     * @param mixed $total
+     * @param mixed $costoTotal
      */
-    public function setTotal($total)
+    public function setCostoTotal($costoTotal)
     {
-        $this->total = $total;
+        $this->costoTotal = $costoTotal;
     }
           
              
