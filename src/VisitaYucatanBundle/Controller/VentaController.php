@@ -29,10 +29,10 @@ class VentaController extends Controller {
         $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-hotel-pdf.html.twig',array('ventaCompleta' => $venta,
             'mes' => $date, 'mesCheckIn' => $monthChekIn, 'monthCheckOut' => $monthChekOut));
 
-        $this->getPdf($html, $ventas->getId());
+        $this->getPdf($html, $venta);
     }
 
-    private function getPdf($html, $idVenta){
+    private function getPdf($html, VentaCompletaTO $ventaCompletaTO){
         $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetAuthor('VisitaYucatan.com');
         $pdf->SetTitle(('Voucher Electrónico'));
@@ -41,10 +41,11 @@ class VentaController extends Controller {
         $pdf->SetFont('helvetica', '', 11, '', true);
         $pdf->AddPage();
 
-        $filename = 'VIYUC-'.$idVenta.'.pdf';
+        $file = $_SERVER["DOCUMENT_ROOT"].Generalkeys::PATH_VOUCHER_HOTELES.'VIYUC-'.$ventaCompletaTO->getIdVenta().'.pdf';
 
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-        $pdf->Output($_SERVER["DOCUMENT_ROOT"].Generalkeys::PATH_VOUCHER_HOTELES.$filename,'F'); // This will output the PDF as a response directly
+        $pdf->Output($file,'F'); // This will output the PDF as a response directly
+        $this->sendMailSale($ventaCompletaTO, $file);
     }
 
     private function sendMailSale(VentaCompletaTO $ventaCompletaTO, $file) {
@@ -54,18 +55,15 @@ class VentaController extends Controller {
         // TODO desconmentar la siguiente linea cuando ya este en produccion
         //$message->setTo(Generalkeys::gabino_martinez_email);
         // TODO eliminar la siguiente linea cuando este en produccion
-        $message->setTo(Generalkeys::bcc_email);
+        $message->setTo($ventaCompletaTO->getEmail());
         $message->setReplyTo(Generalkeys::no_responder_email);
         // TODO desconmentar la siguiente linea cuando ya este en produccion
-        //$message->setCc(Generalkeys::getMailsCcContact());
+        //$message->setCc(Generalkeys::getMailsCcSale());
         $message->setBcc(Generalkeys::bcc_email);
-        $message->setBody(
-            $this->renderView('@VisitaYucatan/web/pages/mail/contacto.html.twig',
-                array('nombre' => $request->get('nombre'), 'telefono' => $request->get('telefono'), 'email' => $request->get('email'), 'comentarios' => $request->get('comentarios'))), 'text/html'
-        );
+        $message->setBody('Confirmación  de Reservación');
+        $message->attach(\Swift_Attachment::fromPath($file));
         $this->get('mailer')->send($message);
 
-        $this->get('session')->getFlashBag()->add('notice', 'Se ha enviado la información, en breve nos comunicaremos');
 
         return $this->render('VisitaYucatanBundle:web/pages:contacto.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR,
             'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));

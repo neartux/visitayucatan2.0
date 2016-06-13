@@ -93,4 +93,8 @@ class Generalkeys{
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);
     }
+    
+    public static function getMailsCcSale(){
+        return Array(self::director_viyuc_email, self::gabino_martinez_email, self::faustino_pech_email);
+    }
 }
