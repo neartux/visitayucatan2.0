@@ -200,6 +200,10 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
             $this->scopedServices[$scope][$id] = $service;
         }
 
+        if (isset($this->aliases[$id])) {
+            unset($this->aliases[$id]);
+        }
+
         $this->services[$id] = $service;
 
         if (method_exists($this, $method = 'synchronize'.strtr($id, $this->underscoreMap).'Service')) {
@@ -371,9 +375,8 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
     public function getServiceIds()
     {
         $ids = array();
-        $r = new \ReflectionClass($this);
-        foreach ($r->getMethods() as $method) {
-            if (preg_match('/^get(.+)Service$/', $method->name, $match)) {
+        foreach (get_class_methods($this) as $method) {
+            if (preg_match('/^get(.+)Service$/', $method, $match)) {
                 $ids[] = self::underscore($match[1]);
             }
         }
@@ -580,7 +583,7 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
      */
     public static function underscore($id)
     {
-        return strtolower(preg_replace(array('/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'), array('\\1_\\2', '\\1_\\2'), strtr($id, '_', '.')));
+        return strtolower(preg_replace(array('/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'), array('\\1_\\2', '\\1_\\2'), str_replace('_', '.', $id)));
     }
 
     private function __clone()

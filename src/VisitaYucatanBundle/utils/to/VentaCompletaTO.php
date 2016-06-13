@@ -30,6 +30,12 @@ class VentaCompletaTO{
     private $fechaLlegada;
     private $horaLlegada;
     private $costoTotal;
+    private $fechaVenta;
+    private $nombreHotel;
+    private $pagado;
+    private $numeroAutorizacion;
+    private $numeroOperacion;
+    private $planHotelContrato;
 
     /**
      * @return mixed
@@ -382,6 +388,102 @@ class VentaCompletaTO{
     {
         $this->costoTotal = $costoTotal;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaVenta()
+    {
+        return $this->fechaVenta;
+    }
+
+    /**
+     * @param mixed $fechaVenta
+     */
+    public function setFechaVenta($fechaVenta)
+    {
+        $this->fechaVenta = $fechaVenta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNombreHotel()
+    {
+        return $this->nombreHotel;
+    }
+
+    /**
+     * @param mixed $nombreHotel
+     */
+    public function setNombreHotel($nombreHotel)
+    {
+        $this->nombreHotel = $nombreHotel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPagado()
+    {
+        return $this->pagado;
+    }
+
+    /**
+     * @param mixed $pagado
+     */
+    public function setPagado($pagado)
+    {
+        $this->pagado = $pagado;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumeroAutorizacion()
+    {
+        return $this->numeroAutorizacion;
+    }
+
+    /**
+     * @param mixed $numeroAutorizacion
+     */
+    public function setNumeroAutorizacion($numeroAutorizacion)
+    {
+        $this->numeroAutorizacion = $numeroAutorizacion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumeroOperacion()
+    {
+        return $this->numeroOperacion;
+    }
+
+    /**
+     * @param mixed $numeroOperacion
+     */
+    public function setNumeroOperacion($numeroOperacion)
+    {
+        $this->numeroOperacion = $numeroOperacion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlanHotelContrato()
+    {
+        return $this->planHotelContrato;
+    }
+
+    /**
+     * @param mixed $planHotelContrato
+     */
+    public function setPlanHotelContrato($planHotelContrato)
+    {
+        $this->planHotelContrato = $planHotelContrato;
+    }
           
-             
+    
 }

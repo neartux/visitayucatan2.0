@@ -68,6 +68,11 @@ class Paquete {
     private $paqueteCombinacionHotel;
 
     /**
+     * @ORM\OneToMany(targetEntity="VentaDetalle", mappedBy="paquete")
+     */
+    private $ventaDetalle;
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -325,5 +330,39 @@ class Paquete {
     public function getPaqueteCombinacionHotel()
     {
         return $this->paqueteCombinacionHotel;
+    }
+
+    /**
+     * Add ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     *
+     * @return Paquete
+     */
+    public function addVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle[] = $ventaDetalle;
+
+        return $this;
+    }
+
+    /**
+     * Remove ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     */
+    public function removeVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle->removeElement($ventaDetalle);
+    }
+
+    /**
+     * Get ventaDetalle
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVentaDetalle()
+    {
+        return $this->ventaDetalle;
     }
 }

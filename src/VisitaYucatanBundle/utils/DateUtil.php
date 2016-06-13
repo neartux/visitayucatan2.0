@@ -11,9 +11,14 @@ namespace VisitaYucatanBundle\utils;
 class DateUtil {
 
     private static $month = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-    
+    private static $months = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
     public static function getMonth($numberMonth) {
         return self::$month[$numberMonth];
+    }
+
+    public static function getFullNameMonth($numMonth){
+        return self::$months[(int)$numMonth];
     }
 
     public static function getDateReserveRoom($date) {

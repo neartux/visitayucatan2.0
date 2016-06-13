@@ -99,6 +99,11 @@ class HotelHabitacion {
     private $hotelTarifa;
 
     /**
+     * @ORM\OneToMany(targetEntity="VentaDetalle", mappedBy="hotelHabitacion")
+     */
+    private $ventaDetalle;
+
+    /**
      * Get id
      *
      * @return int
@@ -421,5 +426,39 @@ class HotelHabitacion {
     public function getHotelTarifa()
     {
         return $this->hotelTarifa;
+    }
+
+    /**
+     * Add ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     *
+     * @return HotelHabitacion
+     */
+    public function addVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle[] = $ventaDetalle;
+
+        return $this;
+    }
+
+    /**
+     * Remove ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     */
+    public function removeVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle->removeElement($ventaDetalle);
+    }
+
+    /**
+     * Get ventaDetalle
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVentaDetalle()
+    {
+        return $this->ventaDetalle;
     }
 }

@@ -64,6 +64,11 @@ class Tour {
     private $tourOrigen;
 
     /**
+     * @ORM\OneToMany(targetEntity="VentaDetalle", mappedBy="tour")
+     */
+    private $ventaDetalle;
+
+    /**
      * Constructor
      */
     public function __construct(){
@@ -279,5 +284,39 @@ class Tour {
     public function getTourOrigen()
     {
         return $this->tourOrigen;
+    }
+
+    /**
+     * Add ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     *
+     * @return Tour
+     */
+    public function addVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle[] = $ventaDetalle;
+
+        return $this;
+    }
+
+    /**
+     * Remove ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     */
+    public function removeVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle->removeElement($ventaDetalle);
+    }
+
+    /**
+     * Get ventaDetalle
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVentaDetalle()
+    {
+        return $this->ventaDetalle;
     }
 }

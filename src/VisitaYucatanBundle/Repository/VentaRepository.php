@@ -52,4 +52,36 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
 
         $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetalle($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_HOTEL, $venta->getId());
     }
+    
+    public function getDetailsSaleHotel($idVenta, $idContract){
+        $em = $this->getEntityManager();
+        $sql = "SELECT venta.id AS idventa,venta.fechaventa,venta.total,venta_detalle.numeroadultos,venta_detalle.numeromenores,venta_detalle.total AS totaldetalle
+              ,hotel_idioma.nombrehotel,datos_pago.pagado,datos_pago.numeroautorizacion,datos_pago.numerooperacion,
+              hotel_plan.descripcion AS plan,datos_reserva.checkin,datos_reserva.checkout,
+              hotel_habitacion.nombre AS tipohabitacion,
+              datos_personales.nombres,datos_personales.apellidos,
+            datos_ubicacion.lada,datos_ubicacion.telefono,datos_ubicacion.email,datos_ubicacion.ciudad
+            FROM venta
+            INNER JOIN venta_detalle ON venta.id = venta_detalle.id_venta AND venta_detalle.id_estatus = :estatus
+            INNER JOIN idioma ON idioma.id = venta.id_idioma
+            INNER JOIN hotel ON venta_detalle.id_hotel = hotel.id
+            INNER JOIN hotel_idioma ON hotel.id = hotel_idioma.id_hotel AND idioma.id = hotel_idioma.id_idioma
+            INNER JOIN hotel_contrato ON hotel.id = hotel_contrato.id_hotel AND hotel_contrato.id = :contrato
+            INNER JOIN hotel_plan ON hotel_contrato.id_plan = hotel_plan.id
+            INNER JOIN datos_pago ON datos_pago.id = venta.id_datospago
+            INNER JOIN datos_reserva ON datos_reserva.id = venta.id_datosreserva
+            INNER JOIN hotel_habitacion ON venta_detalle.id_hotel_habitacion = hotel_habitacion.id,
+            datos_personales,datos_ubicacion
+            WHERE venta.id = :idVenta
+            AND venta.id_estatus = :estatus
+            AND venta.id_datospersonales = datos_personales.id
+            AND venta.id_datosubicacion = datos_ubicacion.id;";
+        $params['idVenta'] = $idVenta;
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+        $params['contrato'] = $idContract;
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetch();
+    }
 }

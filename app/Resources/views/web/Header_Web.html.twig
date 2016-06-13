@@ -3,15 +3,16 @@
     <figure class="logo">
         <a href="{{ path('web_home') }}"><img src="{{ asset('bundles/VisitaYucatanBundle/img/logos/logo_web.png') }}" alt="Visita Yucatan"/></a>
     </figure>
-
-    <figure class="titulo-img">
-        <a href="#"><img src="{{ asset(logoSection) }}" alt="logo"></a>
-    </figure>
+    {% if logoSection is defined %}
+        <figure class="titulo-img">
+            <a href="#"><img src="{{ asset(logoSection) }}" alt="logo"></a>
+        </figure>
+    {% endif %}
 
     <div class="top-header">
     </div>
 
-    <div class="body-header {{ claseImg }}">
+    <div class="body-header {{ claseImg is defined ? claseImg : '' }}">
         <div class="movil">
             <a href="#">Menu</a><span id="nav-mobile" class="icon-menu"></span>
 

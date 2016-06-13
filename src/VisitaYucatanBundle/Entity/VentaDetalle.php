@@ -88,6 +88,30 @@ class VentaDetalle {
      */
     private $venta;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Tour", inversedBy="ventaDetalle")
+     * @ORM\JoinColumn(name="id_tour", referencedColumnName="id", nullable=true)
+     */
+    private $tour;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Hotel", inversedBy="ventaDetalle")
+     * @ORM\JoinColumn(name="id_hotel", referencedColumnName="id", nullable=true)
+     */
+    private $hotel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="HotelHabitacion", inversedBy="ventaDetalle")
+     * @ORM\JoinColumn(name="id_hotel_habitacion", referencedColumnName="id", nullable=true)
+     */
+    private $hotelHabitacion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Paquete", inversedBy="ventaDetalle")
+     * @ORM\JoinColumn(name="id_paquete", referencedColumnName="id", nullable=true)
+     */
+    private $paquete;
+
 
     /**
      * Get id
@@ -337,5 +361,101 @@ class VentaDetalle {
     public function getVenta()
     {
         return $this->venta;
+    }
+
+    /**
+     * Set tour
+     *
+     * @param \VisitaYucatanBundle\Entity\Tour $tour
+     *
+     * @return VentaDetalle
+     */
+    public function setTour(\VisitaYucatanBundle\Entity\Tour $tour = null)
+    {
+        $this->tour = $tour;
+
+        return $this;
+    }
+
+    /**
+     * Get tour
+     *
+     * @return \VisitaYucatanBundle\Entity\Tour
+     */
+    public function getTour()
+    {
+        return $this->tour;
+    }
+
+    /**
+     * Set hotel
+     *
+     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
+     *
+     * @return VentaDetalle
+     */
+    public function setHotel(\VisitaYucatanBundle\Entity\Hotel $hotel = null)
+    {
+        $this->hotel = $hotel;
+
+        return $this;
+    }
+
+    /**
+     * Get hotel
+     *
+     * @return \VisitaYucatanBundle\Entity\Hotel
+     */
+    public function getHotel()
+    {
+        return $this->hotel;
+    }
+
+    /**
+     * Set paquete
+     *
+     * @param \VisitaYucatanBundle\Entity\Paquete $paquete
+     *
+     * @return VentaDetalle
+     */
+    public function setPaquete(\VisitaYucatanBundle\Entity\Paquete $paquete = null)
+    {
+        $this->paquete = $paquete;
+
+        return $this;
+    }
+
+    /**
+     * Get paquete
+     *
+     * @return \VisitaYucatanBundle\Entity\Paquete
+     */
+    public function getPaquete()
+    {
+        return $this->paquete;
+    }
+
+    /**
+     * Set hotelHabitacion
+     *
+     * @param \VisitaYucatanBundle\Entity\HotelHabitacion $hotelHabitacion
+     *
+     * @return VentaDetalle
+     */
+    public function setHotelHabitacion(\VisitaYucatanBundle\Entity\HotelHabitacion $hotelHabitacion = null)
+    {
+        $this->hotelHabitacion = $hotelHabitacion;
+
+        return $this;
+    }
+
+    /**
+     * Get hotelHabitacion
+     *
+     * @return \VisitaYucatanBundle\Entity\HotelHabitacion
+     */
+    public function getHotelHabitacion()
+    {
+        return $this->hotelHabitacion;
     }
 }

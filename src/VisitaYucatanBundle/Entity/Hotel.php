@@ -11,8 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="hotel")
  * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\HotelRepository")
  */
-class Hotel
-{
+class Hotel {
     /**
      * @var int
      *
@@ -102,10 +101,10 @@ class Hotel
      */
     private $hotelHabitacion;
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="HotelTarifa", mappedBy="hotel")
-//     */
-//    private $hotelTarifa;
+    /**
+     * @ORM\OneToMany(targetEntity="VentaDetalle", mappedBy="hotel")
+     */
+    private $ventaDetalle;
 
     /**
      * Constructor
@@ -570,5 +569,39 @@ class Hotel
     public function getCiudad()
     {
         return $this->ciudad;
+    }
+
+    /**
+     * Add ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     *
+     * @return Hotel
+     */
+    public function addVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle[] = $ventaDetalle;
+
+        return $this;
+    }
+
+    /**
+     * Remove ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     */
+    public function removeVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle->removeElement($ventaDetalle);
+    }
+
+    /**
+     * Get ventaDetalle
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVentaDetalle()
+    {
+        return $this->ventaDetalle;
     }
 }

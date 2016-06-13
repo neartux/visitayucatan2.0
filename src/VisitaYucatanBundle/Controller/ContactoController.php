@@ -14,10 +14,8 @@ class ContactoController extends Controller {
      * @Route("/contacto", name="web_contacto")
      * @Method("GET")
      */
-    public function indexAction(Request $request) {
-        // renderiza la vista y manda la informacion
-        return $this->render('VisitaYucatanBundle:web/pages:contacto.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR,
-            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
+    public function indexAction() {
+        return $this->render('VisitaYucatanBundle:web/pages:contacto.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR));
     }
 
     /**
@@ -42,39 +40,6 @@ class ContactoController extends Controller {
         );
         $this->get('mailer')->send($message);
 
-        $this->get('session')->getFlashBag()->add('notice', 'Se ha enviado la información, en breve nos comunicaremos');
-
-        return $this->render('VisitaYucatanBundle:web/pages:contacto.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR,
-            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
-    }
-
-    private function getParamsTour($request) {
-        // Obtiene la session del request para obtener moneda e idioma
-        $session = $request->getSession();
-        // Obtiene el idioma de la sesion
-        $idioma = $session->get('_locale');
-        // Obtiene el idioma de la session
-        $moneda = $session->get('_currency');
-        //valida la moneda, si es null coloca la moneda mexicana
-        if (is_null($moneda)) {
-            $moneda = Generalkeys::MEXICAN_CURRENCY;
-            // colocal la moneda en session
-            $session->set('_currency', $moneda);
-        }
-        // Encuentra el id de el idioma actual si no hay en sesion coloca idioma español
-        $idIdioma = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->getIdIdiomaByAbreviatura($idioma);
-
-        // Valida el idioma
-        if (is_null($idioma)) {
-            $session->set('_locale', Generalkeys::SPANISH_LANGUAGE);
-        }
-
-        // Declarp nuevo array para mandar los datos
-        $datos = Array();
-        // coloco la informacion
-        $datos[Generalkeys::NUMBER_ZERO] = $idIdioma;
-        $datos[Generalkeys::NUMBER_ONE] = $moneda;
-        // Regreso los datos
-        return $datos;
+        return $this->redirectToRoute('web_contacto');
     }
 }

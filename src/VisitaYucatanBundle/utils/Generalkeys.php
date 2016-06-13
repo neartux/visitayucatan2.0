@@ -85,7 +85,11 @@ class Generalkeys{
     const TIPO_PRODUCTO_TOUR=1;
     const TIPO_PRODUCTO_HOTEL=2;
     const TIPO_PRODUCTO_PAQUETE=3;
-
+    // TODO cuando este en producccion al parecer no debe llevar la primera parte
+    // TODO hay que crear la carpeta de voucher y de hoteles
+    // TODO dar permisos
+    const PATH_VOUCHER_HOTELES = 'visitayucatan2.0/bundles/VisitaYucatanBundle/voucher/hotel/';
+    
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);
     }

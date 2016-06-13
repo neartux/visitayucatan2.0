@@ -16,6 +16,6 @@ return array(
     '3e2471375464aac821502deb0ac64275' => $vendorDir . '/symfony/polyfill-php54/bootstrap.php',
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     '6a47392539ca2329373e0d33e1dba053' => $vendorDir . '/symfony/polyfill-intl-icu/bootstrap.php',
-    'f4c767faab43077fd89ff7cf99ffb4b8' => $vendorDir . '/serialization/serialization/Serialization.php',
+    '32dcc8afd4335739640db7d200c1971d' => $vendorDir . '/symfony/polyfill-apcu/bootstrap.php',
     'fe2b3f1dc19613264156ec6e2b01a0cb' => $baseDir . '/app/AppKernel.php',
 );
