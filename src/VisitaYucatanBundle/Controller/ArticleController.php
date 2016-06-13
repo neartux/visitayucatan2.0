@@ -24,7 +24,7 @@ class ArticleController extends Controller{
       $peninsulas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Articulo')->getPeninsulas($datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], Generalkeys::OFFSET_ROWS_ZERO, Generalkeys::LIMIT_ROWS_TWENTY);
       // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:peninsulas.html.twig',  array('peninsulas' => $peninsulas,
-             'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
+             'claseImg' => Generalkeys::CLASS_HEADER_TOUR));
 
      }
 

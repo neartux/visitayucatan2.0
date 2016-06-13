@@ -146,3 +146,11 @@ page.web.label.hotels.more.information : More information
 page.web.label.hotels.not.found : No Hotels Found
 page.web.label.tours.not.found : No Tours Found
 page.web.label.packages.not.found : No Packages Found
+
+# MESSAGES PARA CONTACTO
+page.web.label.contact.title : We are here to help you
+page.web.label.contact.nombres : Names
+page.web.label.contact.telefono : Phone
+page.web.label.contact.email : Email
+page.web.label.contact.comentarios : Comments
+page.web.label.contact.enviar : Submit

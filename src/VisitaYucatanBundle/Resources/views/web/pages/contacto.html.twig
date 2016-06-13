@@ -94,23 +94,23 @@
 
                 <div class="content-form">
                     <form action="{{ path('web_contactar') }}" method="POST" style="padding: 10px;">
-                        <label style="font-size: 26px"><b>Estamos para ayudarte</b></label> <br> <br>
+                        <label style="font-size: 26px"><b>{% trans %}page.web.label.contact.title{% endtrans %}</b></label> <br> <br>
                         <div class="columnas1">
-                            <label class="fz-12"><b>Nombre:</b></label> <br>
+                            <label class="fz-12"><b>{% trans %}page.web.label.contact.nombres{% endtrans %}:</b></label> <br>
                             <input type="text" name="nombre" required="required"/> <br>
-                            <label class="fz-12"><b>Telefono:</b></label> <br>
+                            <label class="fz-12"><b>{% trans %}page.web.label.contact.telefono{% endtrans %}:</b></label> <br>
                             <input type="text" name="telefono" required="required"/> <br>
-                            <label class="fz-12"><b>Correo:</b></label> <br>
+                            <label class="fz-12"><b>{% trans %}page.web.label.contact.email{% endtrans %}:</b></label> <br>
                             <input type="email" name="email" required="required"/> <br><br>
                         </div>
                         <div class="columnas2">
-                            <label class="fz-12"><b>Comentarios:</b></label> <br>
+                            <label class="fz-12"><b>{% trans %}page.web.label.contact.comentarios{% endtrans %}:</b></label> <br>
                             <textarea name="comentarios" cols="35" rows="12" required></textarea>
                         </div>
                         <br><br>
                         <div class="columnas1">&nbsp;</div>
                         <div class="columnas2">
-                            <button class="btn">Enviar</button>
+                            <button class="btn">{% trans %}page.web.label.contact.enviar{% endtrans %}</button>
                         </div>
 
                     </form>
