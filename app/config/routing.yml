@@ -5,3 +5,10 @@ visita_yucatan:
 app:
     resource: "@VisitaYucatanBundle/Controller/"
     type:     annotation
+
+#Entra aqui cuando no encuentra alguna direccion
+pageNotFound:
+    pattern:  /{path}
+    defaults: { _controller: VisitaYucatanBundle:Home:pageNotFound, path: '' }
+    requirements:
+        path: .*

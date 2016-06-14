@@ -38,4 +38,9 @@ class HomeController extends Controller {
             return new JsonResponse(false);
         }
     }
+
+    public function pageNotFoundAction() {
+        return $this->render(':web:error404.html.twig');
+    }
+    
 }
