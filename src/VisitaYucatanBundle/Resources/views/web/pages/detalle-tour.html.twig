@@ -83,8 +83,8 @@
                 <form action="{{ path('web_tour_reserva') }}" method="POST">
                     <input type="hidden" value="{{ tour.id }}" name="idTour"/>
 
-                    fecha tour: <input type="text" name="fechaReserva" class="datepicker"/>&nbsp; Menores:
-                    <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.children" ng-change="ctrlWeb.recalculateCostTour()">
+                    fecha tour: <input type="text" name="fechaReserva" value="{{ fechaReserva }}" class="datepicker"/>&nbsp; Menores:
+                    <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.numeroMenores" ng-change="ctrlWeb.recalculateCostTour()">
                         <option value='0'>0</option>
                         <option value='1'>1</option>
                         <option value='2'>2</option>
@@ -92,7 +92,7 @@
                         <option value='4'>4</option>
                     </select> 
                     Adultos: 
-                    <select name="numeroAdultos" data-ng-model="ctrlWeb.totalPersons.adults" ng-change="ctrlWeb.recalculateCostTour()">
+                    <select name="numeroAdultos" data-ng-model="ctrlWeb.totalPersons.numeroAdultos" ng-change="ctrlWeb.recalculateCostTour()">
                         <option value='0'>0</option>
                         <option value='1'>1</option>
                         <option value='2'>2</option>

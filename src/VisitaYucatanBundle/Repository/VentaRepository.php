@@ -51,6 +51,43 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
         $em->flush();
 
         $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetalle($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_HOTEL, $venta->getId());
+
+        return $venta->getId();
+    }
+
+    public function createSaleTour(VentaCompletaTO $ventaCompletaTO) {
+        $em = $this->getEntityManager();
+
+        $venta = new Venta();
+
+        $personalData = $em->getRepository('VisitaYucatanBundle:Datospersonales')->createPersonalData($ventaCompletaTO);
+        $em->persist($personalData);
+        $dataLocation = $em->getRepository('VisitaYucatanBundle:Datosubicacion')->createDataLocation($ventaCompletaTO);
+        $em->persist($dataLocation);
+        $dataReservation = $em->getRepository('VisitaYucatanBundle:DatosReserva')->createDataReserva($ventaCompletaTO->getHotelPickup(), $ventaCompletaTO->getCheckIn(), null);
+        $em->persist($dataReservation);
+        $datosPago = $em->getRepository('VisitaYucatanBundle:DatosPago')->createDatosPago();
+        $em->persist($datosPago);
+
+        $venta->setDatosPersonales($personalData);
+        $venta->setDatosUbicacion($dataLocation);
+        $venta->setDatosReserva($dataReservation);
+        $venta->setDatosPago($datosPago);
+        $venta->setFechaVenta(new \DateTime());
+        $venta->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+        $venta->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', $ventaCompletaTO->getIdIdioma()));
+        $venta->setMoneda($em->getReference('VisitaYucatanBundle:Moneda', $ventaCompletaTO->getIdMoneda()));
+        $venta->setTipoCambio($ventaCompletaTO->getTipoCambio());
+        $venta->setSubtotal($ventaCompletaTO->getCostoTotal()); //TODO recordar el el total se debe guardar en mxn, si esta en otra moneda convertir antes
+        $venta->setTotal($ventaCompletaTO->getCostoTotal());
+
+        $em->persist($venta);
+        $em->flush();
+
+        $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetalle($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_HOTEL, $venta->getId());
+
+        return $venta->getId();
+
     }
     
     public function getDetailsSaleHotel($idVenta, $idContract){

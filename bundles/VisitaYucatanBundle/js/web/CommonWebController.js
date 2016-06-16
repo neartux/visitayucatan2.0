@@ -15,8 +15,8 @@
         ctrlWeb.rateChild = 0;
         ctrlWeb.rateAdult = 0;
         ctrlWeb.totalPersons = {
-            children : '0',
-            adults : '2'
+            numeroMenores : '0',
+            numeroAdultos : '2'
         };
         ctrlWeb.minimoPersonas = 0;
 
@@ -29,8 +29,8 @@
         ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson){
             console.info(fechaReserva);
             ctrlWeb.totalPersons = {
-                children : totalMenores,
-                adults : totalAdultos
+                numeroMenores : totalMenores,
+                numeroAdultos : totalAdultos
             };
             $('.datepicker').val(fechaReserva);
             ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate, minimoPerson);
@@ -46,8 +46,8 @@
         };
 
         ctrlWeb.recalculateCostTour = function(){
-            var totalAdults = parseInt(ctrlWeb.totalPersons.adults);
-            var totalChildren = parseInt(ctrlWeb.totalPersons.children);
+            var totalAdults = parseInt(ctrlWeb.totalPersons.numeroAdultos);
+            var totalChildren = parseInt(ctrlWeb.totalPersons.numeroMenores);
 
             var costTotalAdults = totalAdults * ctrlWeb.rateAdult;
             var costTotalChildren = totalChildren * ctrlWeb.rateChild;
