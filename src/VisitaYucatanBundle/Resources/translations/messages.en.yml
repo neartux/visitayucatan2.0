@@ -167,3 +167,13 @@ page.web.labe.reserva.tour.hotel : Hotel
 page.web.labe.reserva.tour.tour.date : Tour Date
 page.web.labe.reserva.tour.minors : Minors
 page.web.labe.reserva.tour.adults : Adults
+page.web.labe.reserva.tour.name.required : Names is required
+page.web.labe.reserva.tour.last.name.required : Last Names is required
+page.web.labe.reserva.tour.lada.required : Lada is required
+page.web.labe.reserva.tour.phone.required : Phone is required
+page.web.labe.reserva.tour.email.required : Email is required
+page.web.labe.reserva.tour.city.required : City is required
+page.web.labe.reserva.tour.hotel.required : Hotel is required
+page.web.labe.reserva.tour.tour.date.required : Tour date is required
+page.web.labe.reserva.tour.minors.required : Minors is required
+page.web.labe.reserva.tour.adults.required : Adults is required

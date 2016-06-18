@@ -177,3 +177,13 @@ page.web.labe.reserva.tour.hotel : Hotel
 page.web.labe.reserva.tour.tour.date : Fecha Tour
 page.web.labe.reserva.tour.minors : Menores
 page.web.labe.reserva.tour.adults : Adultos
+page.web.labe.reserva.tour.name.required : Escribe nombres
+page.web.labe.reserva.tour.last.name.required : Escribe apellidos
+page.web.labe.reserva.tour.lada.required : Lada es requerido
+page.web.labe.reserva.tour.phone.required : El teléfono es requerido
+page.web.labe.reserva.tour.email.required : El correo es requerido
+page.web.labe.reserva.tour.city.required : La ciudad es requerido
+page.web.labe.reserva.tour.hotel.required : El hotel es requerido
+page.web.labe.reserva.tour.tour.date.required : La fecha es requerido
+page.web.labe.reserva.tour.minors.required : Selecciona número de menores
+page.web.labe.reserva.tour.adults.required : Selecciona número de adultos
