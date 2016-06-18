@@ -8,13 +8,13 @@
             <input type="hidden" value="{{ tour.simboloMoneda }}" id="symbolCurrencyHidden"/>
             <div id="content">
 
-                <h3>Preparemos su reservacion</h3>
+                <h3>{% trans %}page.web.labe.reserva.prepare.reservation{% endtrans %}</h3>
 
                 <br>
                 <form novalidate name="formReserva">
                     <div class="form-group-input" data-ng-class="{ 'required' : formReserva.nombres.$invalid && !formReserva.nombres.$pristine }">
                         <label for="nombres">
-                            Nombres
+                            {% trans %}page.web.labe.reserva.tour.name{% endtrans %}
                         </label>
                         <div class="col-sm-8">
                             <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.nombres" required id="nombres" name="nombres"/>
@@ -26,7 +26,7 @@
 
                     <div class="form-group-input" data-ng-class="{ 'required' : formReserva.apellidos.$invalid && !formReserva.apellidos.$pristine }">
                         <label for="apellidos">
-                            Apellidos
+                            {% trans %}page.web.labe.reserva.tour.last.name{% endtrans %}
                         </label>
                         <div class="col-sm-8">
                             <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.apellidos" id="apellidos" name="apellidos" required/>
@@ -37,44 +37,113 @@
                     </div>
 
                     <div class="form-group-input" data-ng-class="{ 'required' : formReserva.apellidos.$invalid && !formReserva.apellidos.$pristine }">
-                        <label for="apellidos">
-                            Lada
+                        <label for="lada">
+                            {% trans %}page.web.labe.reserva.tour.lada{% endtrans %}
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.lada" required/><br>
-                                <span ng-show="formReserva.apellidos.$invalid && !formReserva.apellidos.$pristine" class="required">
-                                    El apellidos es requerido
+                            <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.lada" required id="lada"/><br>
+                                <span ng-show="formReserva.lada.$invalid && !formReserva.lada.$pristine" class="required">
+                                    Lada es requerido
                                 </span>
                         </div>
                     </div>
 
+                    <div class="form-group-input" data-ng-class="{ 'required' : formReserva.telefono.$invalid && !formReserva.telefono.$pristine }">
+                        <label for="telefono">
+                            {% trans %}page.web.labe.reserva.tour.phone{% endtrans %}
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.telefono" required id="telefono"/><br>
+                                <span ng-show="formReserva.telefono.$invalid && !formReserva.telefono.$pristine" class="required">
+                                    El telefono es requerido
+                                </span>
+                        </div>
+                    </div>
 
-                    telefono
-                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.telefono" required/><br>
-                    correo
-                    <input type="email" data-ng-model="ctrlWeb.ventaCompletaTO.email" required/><br>
-                    ciudad
-                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.ciudad" required/> <br>
-                    hotel
-                    <input type="text" required/> <br>
-                    fecha tour:
-                    <input type="text" name="fechaReserva" data-ng-model="ctrlWeb.ventaCompletaTO.checkIn" class="datepicker"/> <br>
-                    Menores:
-                    <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.numeroMenores" ng-change="ctrlWeb.recalculateCostTour()">
-                        <option value='0'>0</option>
-                        <option value='1'>1</option>
-                        <option value='2'>2</option>
-                        <option value='3'>3</option>
-                        <option value='4'>4</option>
-                    </select>
-                    Adultos:
-                    <select name="numeroAdultos" data-ng-model="ctrlWeb.totalPersons.numeroAdultos" ng-change="ctrlWeb.recalculateCostTour()">
-                        <option value='0'>0</option>
-                        <option value='1'>1</option>
-                        <option value='2'>2</option>
-                        <option value='3'>3</option>
-                        <option value='4'>4</option>
-                    </select>
+                    <div class="form-group-input" data-ng-class="{ 'required' : formReserva.email.$invalid && !formReserva.email.$pristine }">
+                        <label for="email">
+                            {% trans %}page.web.labe.reserva.tour.email{% endtrans %}
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="email" data-ng-model="ctrlWeb.ventaCompletaTO.email" required id="email"/><br>
+                                <span ng-show="formReserva.email.$invalid && !formReserva.email.$pristine" class="required">
+                                    El correo es requerido
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group-input" data-ng-class="{ 'required' : formReserva.ciudad.$invalid && !formReserva.ciudad.$pristine }">
+                        <label for="ciudad">
+                            {% trans %}page.web.labe.reserva.tour.city{% endtrans %}
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.ciudad" required id="ciudad"/><br>
+                                <span ng-show="formReserva.ciudad.$invalid && !formReserva.ciudad.$pristine" class="required">
+                                    La ciudad es requerido
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group-input" data-ng-class="{ 'required' : formReserva.hotelPickUp.$invalid && !formReserva.hotelPickUp.$pristine }">
+                        <label for="hotelPickUp">
+                            {% trans %}page.web.labe.reserva.tour.hotel{% endtrans %}
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.hotelPickUp" required id="hotelPickUp"/><br>
+                                <span ng-show="formReserva.hotelPickUp.$invalid && !formReserva.hotelPickUp.$pristine" class="required">
+                                    El hotel es requerido
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group-input" data-ng-class="{ 'required' : formReserva.checkIn.$invalid && !formReserva.checkIn.$pristine }">
+                        <label for="checkIn">
+                            {% trans %}page.web.labe.reserva.tour.tour.date{% endtrans %}
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.checkIn" required id="checkIn"/><br>
+                                <span ng-show="formReserva.checkIn.$invalid && !formReserva.checkIn.$pristine" class="required">
+                                    Fecha tour requerido
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group-input" data-ng-class="{ 'required' : formReserva.numeroMenores.$invalid && !formReserva.numeroMenores.$pristine }">
+                        <label for="numeroMenores">
+                            {% trans %}page.web.labe.reserva.tour.minors{% endtrans %}
+                        </label>
+                        <div class="col-sm-8">
+                            <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.numeroMenores" id="numeroMenores" data-ng-change="ctrlWeb.recalculateCostTour()">
+                                <option value='0'>0</option>
+                                <option value='1'>1</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                            </select>
+                                <span ng-show="formReserva.numeroMenores.$invalid && !formReserva.numeroMenores.$pristine" class="required">
+                                    Numero menores es requerido
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group-input" data-ng-class="{ 'required' : formReserva.numeroAdultos.$invalid && !formReserva.numeroAdultos.$pristine }">
+                        <label for="numeroAdultos">
+                            {% trans %}page.web.labe.reserva.tour.adults{% endtrans %}
+                        </label>
+                        <div class="col-sm-8">
+                            <select name="numeroAdultos" data-ng-model="ctrlWeb.totalPersons.numeroAdultos" id="numeroAdultos" data-ng-change="ctrlWeb.recalculateCostTour()">
+                                <option value='0'>0</option>
+                                <option value='1'>1</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                            </select>
+                                <span ng-show="formReserva.numeroAdultos.$invalid && !formReserva.numeroAdultos.$pristine" class="required">
+                                    Numero adultos es requerido
+                                </span>
+                        </div>
+                    </div>
+
 
                     <br>
                     <input type="button" data-ng-click="ctrlWeb.createRerservaHotel()"

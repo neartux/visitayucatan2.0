@@ -154,3 +154,16 @@ page.web.label.contact.telefono : Telefono
 page.web.label.contact.email : Posta
 page.web.label.contact.comentarios : Commenti
 page.web.label.contact.enviar : Inviare
+
+#MESSAGES PARA RESERVA DE TOUR
+page.web.labe.reserva.prepare.reservation : Preparare la prenotazione
+page.web.labe.reserva.tour.name : Nomi
+page.web.labe.reserva.tour.last.name : Cognome
+page.web.labe.reserva.tour.lada : Lada
+page.web.labe.reserva.tour.phone : Telefono
+page.web.labe.reserva.tour.email : Posta
+page.web.labe.reserva.tour.city : Città
+page.web.labe.reserva.tour.hotel : Albergo
+page.web.labe.reserva.tour.tour.date : Data Del Tour
+page.web.labe.reserva.tour.minors : Minori
+page.web.labe.reserva.tour.adults : Adulti

@@ -156,6 +156,7 @@ page.web.label.contact.comentarios : Comments
 page.web.label.contact.enviar : Submit
 
 #MESSAGES PARA RESERVA DE TOUR
+page.web.labe.reserva.prepare.reservation : Prepare your reservation
 page.web.labe.reserva.tour.name : Names
 page.web.labe.reserva.tour.last.name : Last Names
 page.web.labe.reserva.tour.lada : Lada
@@ -163,6 +164,6 @@ page.web.labe.reserva.tour.phone : Phone
 page.web.labe.reserva.tour.email : Email
 page.web.labe.reserva.tour.city : City
 page.web.labe.reserva.tour.hotel : Hotel
-page.web.labe.reserva.tour.tour.date : Hotel
-page.web.labe.reserva.tour.minors : Hotel
+page.web.labe.reserva.tour.tour.date : Tour Date
+page.web.labe.reserva.tour.minors : Minors
 page.web.labe.reserva.tour.adults : Adults
