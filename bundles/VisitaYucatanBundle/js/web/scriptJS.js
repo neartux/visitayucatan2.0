@@ -1,4 +1,4 @@
-    $(document).on('ready',function(){
+ $(document).on('ready',function(){
 
      $("#nav-mobile").on('click',function(){
 
@@ -16,7 +16,7 @@
 
      
 
-    $(".subMenu").on('click',function(){
+    /*$(".subMenu").on('click',function(){
 
 $(this).children("ul").slideToggle();
 
@@ -28,21 +28,22 @@ $(window).resize(function() {
 
 if(estilo == 'none')
 
- {  $(".menu").css("display","block");
+ {  //$(".menu").css("display","block");
 
 }
 
 else{
 
-     $(".menu").css("display","none");
+     //$(".menu").css("display","none");
 
 }
 
   $(".subMenu ul").removeAttr('style');
 
-});
+});*/
 
 
+//Esto estaba comentado
 /*
 $('#read-left1 p').expander({
       slicePoint: 100, // si eliminamos por defecto es 100 caracteres

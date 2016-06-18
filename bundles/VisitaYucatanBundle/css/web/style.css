@@ -24,8 +24,6 @@ header {
 
     position: relative;
 
-    z-index: 2;
-
 }
 
 a {
@@ -563,7 +561,7 @@ article {
 
 }
 
-.menu {
+/*.menu {
 
     margin-right: 8%;
 
@@ -635,7 +633,7 @@ article {
 
     border-right: 1px solid #fff;
 
-}
+}*/
 
 .movil {
 
@@ -649,7 +647,7 @@ article {
 
 }
 
-.menu li a {
+/*.menu li a {
 
     color: #fff;
 
@@ -665,7 +663,7 @@ article {
 
     padding: 9px 9px;
 
-}
+}*/
 
 .movil a {
 
@@ -1710,6 +1708,87 @@ footer .column-img {
     padding: 3px;
 }
 
+.menu{
+    display:block;
+    margin-right: 8%;
+    float: right;
+}
+
+.menu li{
+    display: inline-block;
+    position: relative;
+    z-index:99999;
+    border-left: 1px solid #fff;
+    margin-left:-4px !important;
+}
+
+.menu li:first-child{margin-left:0;}
+
+.menu li:last-child{
+    border-right: 1px solid #fff;
+}
+
+.menu li a {font-weight:600;
+text-decoration:none;
+padding:11px;
+display:block;
+color:#ffffff;
+text-shadow: 1px 1px #888;
+-webkit-transition: all 0.2s ease-in-out 0s;
+   -moz-transition: all 0.2s ease-in-out 0s;
+   -o-transition: all 0.2s ease-in-out 0s;
+   -ms-transition: all 0.2s ease-in-out 0s;
+   transition: all 0.2s ease-in-out 0s;
+}
+
+.menu li a:hover, .menu li:hover > a{color:#ffffff;
+/*background:#9CA3DA;*/
+color:#17c9c7;
+background: #ffffff;
+}
+
+.menu ul {display: none;
+margin: 0;
+padding: 0;
+width: 150px;
+position: absolute;
+top: 41px;
+left: 3px;
+background: #ffffff;
+}
+
+.menu ul li {display:block;
+float: none;
+background:none;
+margin:0;
+padding:0;
+border-left:0;
+left:0px;
+}
+.menu ul li a {font-size:12px;
+font-weight:normal;
+display:block;
+color:#797979;
+border-left:3px solid #ffffff;
+background:#ffffff;
+text-shadow: initial;
+font-size: 15px;
+}
+
+.menu ul li a:hover, .menu ul li:hover > a{
+background:#f0f0f0;
+border-left: 3px solid #17c9c7;
+/*border-left:3px solid #9CA3DA;*/
+color:#797979;
+}
+
+.menu li:hover > ul{ display: block;}
+.menu ul ul {left: 149px;
+	top: 0px;
+}
+.menu li ul li ul{
+    margin-left: 9px !important
+}
 @media screen and (max-width: 1250px) {
 
     .logo {
