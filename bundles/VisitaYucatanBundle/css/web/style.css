@@ -2017,6 +2017,12 @@ color:#797979;
     .menu li:hover ul{
         display:block;
     }
+    .menu li:hover ul li ul{
+        display:none;
+    }
+    .menu li:hover ul li:hover ul{
+        display: block;
+    }
     .menu li ul li ul li{
         margin-left: -9px !important;
     }
@@ -2463,7 +2469,9 @@ color:#797979;
 }
 
 @media screen and (max-width: 480px) {
-
+    .menu li ul li{
+        margin-right: 0px;
+    }
     .renglon1,.renglon2,.renglon3,.renglon4{
         width: 60%;
         margin: auto;
