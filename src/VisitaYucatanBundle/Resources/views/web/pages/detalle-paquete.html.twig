@@ -91,17 +91,6 @@
         </section>
     {% endblock %}
 
-    {% block scripts %}
-        {{ parent() }}
-        <script>
-            $(function(){
-                $('.datepicker').datepicker({
-                    autoclose: true,
-                    format: 'dd/mm/yyyy',
-                    startDate: '+2d'
-                });
-            });
-        </script>
 
     {% endblock %}
 

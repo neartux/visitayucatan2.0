@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %} {% trans %}website.admin.general.label.title{% endtrans %} {% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+    {% include 'web/Lib_CSS_Web_Detail.html.twig' %}
+    {% include 'web/Lib_JS_Web_Detail.html.twig' %}
+
+    <script>
+        $(function () {
+            $('.img-main').magnificPopup({
+                type:'image',
+                gallery:{
+                    enabled:true
+                }
+            });
+            $('.img-main-package').magnificPopup({
+                type:'image'
+            });
+        });
+    </script>
+
+</head>
+
+<body data-ng-app="Web">
+
+{% block body %}
+
+    {% block header %}
+        <header>
+            <figure class="logo">
+                <a href=""><img src="{{ asset('bundles/VisitaYucatanBundle/img/logos/logo_web.png') }}" class="img-responsive" alt="Visita Yucatan"/></a>
+            </figure>
+            <div class="row">
+                <div class="col-sm-12 mark-blue-header"></div>
+            </div>
+            <div class="row">
+
+                <!--<div class="col-sm-12" style="padding-right: 0 !important;">
+                    <nav class="navbar navbar-info" style="margin-bottom: 0 !important;min-height: 0 !important;">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                                <ul class="nav navbar-nav navbar-right" style="margin-right: 98px;">
+                                    <li class="text-to-lowercase"><a href="" target="_self">inicio</a></li>
+                                    <li class="text-to-lowercase"><a href="" target="_self">paquetes</a></li>
+                                    <li class="text-to-lowercase"><a href="" target="_self">tours</a></li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="menu" aria-haspopup="true" aria-expanded="false">
+                                            hoteles
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown-submenu">
+                                                <a tabindex="-1" href="#">YUCATÁN</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="">
+                                                            TELCHAC
+                                                        </a>
+                                                    </li >
+                                                    <li>
+                                                        <a href="">
+                                                            Valladolid
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            Izamal
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a tabindex="-1" href="#">CAMPECHE</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="">
+                                                            CAMPECHE
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            CHAMPOTON
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">
+                                                            CHICANNA
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a tabindex="-1" href="#">QUINTANA ROO</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="">
+                                                            Quintana Roo
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="text-to-lowercase"><a href="" target="_self">la peninsula</a></li>
+                                    <li class="text-to-lowercase"><a href="" target="_self">contacto</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>-->
+
+                <div class="col-sm-12 mark-menu-header">
+                    <div class="movil">
+                        <a href="#">Menu</a><span id="nav-mobile" class="fa fa-search"></span>
+
+                        <div class="limpiar"></div>
+                    </div>
+                    <nav>
+                        <div class="limpiar"></div>
+                        <ul class="menu" id="menuL">
+                            <li class="index text-to-lowercase"><a href="" target="_self">inicio</a></li>
+                            <li class="paquetes-yucatan text-to-lowercase"><a href="" target="_self">paquetes</a></li>
+                            <li class="tours-en-yucatan text-to-lowercase"><a href="" target="_self">tours</a></li>
+                            <li class=" text-to-lowercase">
+                                <a href="">hoteles</a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="">YUCATÁN</a>
+                                        <ul>
+                                            <li class="level-3">
+                                                <a href="">MÉRIDA</a>
+                                            </li>
+                                            <li class="level-3">
+                                                <a href="">
+                                                    TELCHAC
+                                                </a>
+                                            </li >
+                                            <li class="level-3">
+                                                <a href="">
+                                                    Valladolid
+                                                </a>
+                                            </li>
+                                            <li class="level-3">
+                                                <a href="">
+                                                    Izamal
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a>CAMPECHE</a>
+                                        <ul>
+                                            <li>
+                                                <a href="">
+                                                    CAMPECHE
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="">
+                                                    CHAMPOTON
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="">
+                                                    CHICANNA
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a>QUINTANA ROO</a>
+                                        <ul>
+                                            <li>
+                                                <a href="">
+                                                    Quintana Roo
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="yucatan-mexico text-to-lowercase"><a href="" target="_self">la peninsula</a></li>
+                            <li class="contacto text-to-lowercase"><a href="" target="_self">contacto</a></li>
+
+                        </ul>
+                        <div class="limpiar"></div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    {% endblock %}
+
+    {% block section %}
+
+        {% block content %}
+
+
+
+        {% endblock %}
+
+        {% block footer %}
+            <section>
+
+                <div class="row footer-main">
+                    <div class="col-sm-12 col-md-12 col-xs-12">
+                        <div class="col-sm-1 col-md-1 col-xs-1"></div>
+                        <div class="col-sm-10 col-md-10 col-xs-10">
+                            <div class="col-sm-3 col-md-3 col-xs-3">
+                                <ul class="footer-section1">
+                                    <li>INICIO</li>
+                                    <li>PAQUETES</li>
+                                    <li>TOURS</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-xs-3">
+                                <ul class="footer-section2">
+                                    <li>HOTELES</li>
+                                    <li>LA PENINISULA</li>
+                                    <li>CONTACTO</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-xs-3 text-center">
+                                <span class="text-bold fnt-size-16">Moneda</span>
+                                <select name="" id="" class="form-control">
+                                    <option value="">Peso Mexicano</option>
+                                </select>
+                                <span class="text-bold fnt-size-16">Idioma</span>
+                                <select name="" id="" class="form-control">
+                                    <option value="">Ingles</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-xs-3">
+                                <img src="logo-pie.png" class="img-footer img-responsive"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </div>
+
+            </section>
+        {% endblock %}
+
+    {% endblock %}
+
+{% endblock %}
+
+</body>
+</html>
