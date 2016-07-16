@@ -154,6 +154,8 @@ page.web.label.contact.telefono : Telefono
 page.web.label.contact.email : Posta
 page.web.label.contact.comentarios : Commenti
 page.web.label.contact.enviar : Inviare
+page.web.label.circuit : Circuito
+page.web.label.description : Descrizione
 
 #MESSAGES PARA RESERVA DE TOUR
 page.web.labe.reserva.prepare.reservation : Preparare la prenotazione
@@ -177,3 +179,7 @@ page.web.labe.reserva.tour.hotel.required : L'hotel è richiesto
 page.web.labe.reserva.tour.tour.date.required : È richiesta la data
 page.web.labe.reserva.tour.minors.required : Numero di bambini richiesto
 page.web.labe.reserva.tour.adults.required : Numero di adulti richiesto
+page.web.label.reserva.book.now : Prenotare Ora
+page.web.labe.reserva.tour.del.tour.date : Data Del Tour
+page.web.labe.reserva.included.taxes : Taxes Inclus
+page.web.labe.reserva.transportation.from : Transport dÃ©part de

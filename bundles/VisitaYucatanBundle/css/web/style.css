@@ -1717,7 +1717,7 @@ footer .column-img {
 .menu li{
     display: inline-block;
     position: relative;
-    z-index:99999;
+    z-index:1;
     border-left: 1px solid #fff;
     margin-left:-4px !important;
 }

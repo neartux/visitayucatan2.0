@@ -47,7 +47,7 @@ class TourController extends Controller {
         $imagesTour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->findTourImagesByIdTour($id);
 
         return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 
-            'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR,
+            'claseImg' => Generalkeys::CLASS_HEADER_TOUR_DETAIL,
             'fechaReserva' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), 2)) ));
     }
 

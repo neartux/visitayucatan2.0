@@ -156,6 +156,8 @@ page.web.label.hotels.more.information : Más Información
 page.web.label.hotels.not.found : No Se Encontraron Hoteles
 page.web.label.tours.not.found : No Se Encontraron Tours
 page.web.label.packages.not.found : No se encontraron Paquetes
+page.web.label.circuit : Circuito
+page.web.label.description : Descripción
 
 # MESSAGES PARA CONTACTO
 page.web.label.contact.title : Estamos para ayudarte
@@ -187,3 +189,7 @@ page.web.labe.reserva.tour.hotel.required : El hotel es requerido
 page.web.labe.reserva.tour.tour.date.required : La fecha es requerido
 page.web.labe.reserva.tour.minors.required : Selecciona número de menores
 page.web.labe.reserva.tour.adults.required : Selecciona número de adultos
+page.web.label.reserva.book.now : Reserva Ahora
+page.web.labe.reserva.tour.del.tour.date : Fecha Del Tour
+page.web.labe.reserva.included.taxes : Impuestos incluidos
+page.web.labe.reserva.transportation.from : Transportación saliendo de

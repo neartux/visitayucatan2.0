@@ -1,0 +1,106 @@
+.logo {
+    height: 110% !important;
+}
+.menu{
+    margin-bottom: 0 !important;
+}
+.rotate-5-g {
+    transform: rotate(-3deg);
+}
+.label-currency{
+    margin-top: 0 !important;
+    margin-bottom: 2px !important;
+}
+.label-language {
+    margin: 2px !important;
+}
+.background-gray-light {
+    background-color: rgba(214, 220, 227, 0.5);
+}
+.container-main-header{
+    margin-right: 90px;
+    margin-left: 90px;
+    margin-top: 2px;
+}
+.img-main {
+    /*width: 240px;
+    height: 170px;*/
+}
+.box-shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.border-img-detail {
+    border: 3px solid #fff;
+    border-radius: 10px;
+}
+.text-bold {
+    font-weight: bold;
+}
+.box-circuit{
+    color: black;
+    border: 1px black solid;
+    border-radius: 8px 8px 8px 8px;
+    margin-left: -35px;
+}
+.first-part-box {
+    background-color: darkorange;
+    border-radius: 8px 8px 0px 0px;
+    color: #ad0c80;
+    font-size: 16px;
+}
+.second-part-box {
+    background-color: rgba(255, 152, 0, 0.85);
+    border-top: 1px solid lightgray;
+    border-radius: 0px 0px 8px 8px;
+}
+.text-italic {
+    font-style: italic;
+}
+.font-family-raleway {
+    font-family: 'Raleway', sans-serif;
+}
+.z-index-{
+    z-index: 1;
+}
+.img-preview-detail-main {
+    width: 135px !important;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: -6px;
+    height: 85px !important;
+}
+.container-body-{
+    margin-right: 90px;
+    margin-left: 90px;
+}
+.content-body-detail {
+    background-color: #FFFFFF;
+    margin-top: 5px;
+    border-top: 1px rgb(239, 182, 78) solid;
+    border-left: 1px rgb(239, 182, 78) solid;
+}
+.text-center {
+    text-align: center !important;
+}
+.color-text-pink {
+    color: #ad0c80;
+}
+.color-text-white {
+    color: #FFF !important;
+}
+.background-element-pink {
+    background-color: #ad0c80;
+}
+.color-text-gray-primary {
+    color: #616161 !important;
+}
+.fnt-sz-12{
+    font-size: 12px !important;
+}
+.fnt-sz-20{
+    font-size: 24px !important;
+}
+.reserva-now-tour{
+    color: #E9AC1A;
+    font-size: 20px;
+}
