@@ -22,12 +22,10 @@
 
 
         ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate) {
-            console.info("en init detalle", angular.element(document.querySelector('#symbolCurrencyHidden')).context.value, exchangeRate, rateChild, rateAdult);
             ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate);
         };
 
         ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson){
-            console.info(fechaReserva);
             ctrlWeb.totalPersons = {
                 numeroMenores : totalMenores,
                 numeroAdultos : totalAdultos
@@ -38,7 +36,6 @@
 
         ctrlWeb.configureParametersInit = function(rateChild, rateAdult, exchangeRate, minimoPerson){
             ctrlWeb.symbolCurrency = angular.element(document.querySelector('#symbolCurrencyHidden')).context.value;
-            console.info("simbolo ", ctrlWeb.symbolCurrency);
             ctrlWeb.exchangeRate = parseFloat(exchangeRate);
             ctrlWeb.rateChild = parseFloat(rateChild);
             ctrlWeb.rateAdult = parseFloat(rateAdult);
@@ -75,13 +72,11 @@
                 ageMinor: ageMinor
             };
             ctrlHotel.symbolCurrency = angular.element(document.querySelector('#symbolCurrencyHidden')).context.value;
-            console.info("moneda = ", ctrlHotel.symbolCurrency);
             ctrlHotel.findTarifasHotel();
         };
         
         ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath) {
             WebService.setContextPath(contextPath);
-            console.info(tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath);
             ctrlHotel.ventaCompletaTO = {
                 tarifaAdulto: tarifaAdulto,
                 tarifaMenor: tarifaMenor,
@@ -98,18 +93,14 @@
         };
 
         ctrlHotel.createRerservaHotel = function () {
-          console.info("ventaCompletaTO = ", ctrlHotel.ventaCompletaTO);
             WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).then(function (response) {
-                console.info("respuesta de transaccion = ", response);
             });
         };
 
         ctrlHotel.findTarifasHotel = function() {
             ctrlHotel.formRate.dateFrom = angular.element(document.querySelector('#dateFrom')).context.value;
             ctrlHotel.formRate.dateTo = angular.element(document.querySelector('#dateTo')).context.value;
-            console.info("buscando tarifas formRate= ", ctrlHotel.formRate);
             var isValid = ctrlHotel.validateAgeMinors();
-            console.info("is valid = ", isValid);
             if(isValid){
                 if(WebService.isRangeDateValid(ctrlHotel.formRate.dateFrom, ctrlHotel.formRate.dateTo)){
                     return WebService.findRateRoomByHotel(ctrlHotel.formRate);
@@ -131,10 +122,8 @@
         };
 
         ctrlHotel.displayInputsMinors = function () {
-            console.info("en metodo = ", ctrlHotel.formRate.minors);
             if(ctrlHotel.formRate.minors > 0){
                 var inputs = "<tr>";
-                console.info("ctrlHotel.formRate.minors = ", ctrlHotel.formRate.minors);
                 for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
                     inputs += "<td>Menor " + (i+1) + " <br>" +
                         "<input type='text' id='minor_"+(i+1)+"'/></td>";
@@ -147,7 +136,6 @@
         };
 
         ctrlHotel.confirmReservaHotel = function (idHabitacion) {
-            console.info("ctrlWeb.formRate = ", ctrlHotel.formRate);
             $("#fechaInicio").val(ctrlHotel.formRate.dateFrom);
             $("#fechaFin").val(ctrlHotel.formRate.dateTo);
             $("#adultsHidden").val(ctrlHotel.formRate.adults);
@@ -195,12 +183,14 @@
             {id:2,value:2,label:"2"},
         ];
         paqWebVM.initPaquete = function(combinacionespaquete){
-            paqWebVM.habitacion='sencillo';
+            paqWebVM.habitacion='doble';
             paqWebVM.combinacionesPaquete = JSON.parse(combinacionespaquete);
-            console.info("combinacionesPaquete",paqWebVM.combinacionesPaquete);
-            paqWebVM.changeHabitacion('sencillo');
-        }
+            paqWebVM.changeHabitacion('doble');
+        };
         paqWebVM.changeHabitacion = function(ocupacion){
+            
+            $(".area-package-item").slideUp("fast");
+            
             switch(ocupacion){
                 case 'sencillo':
                         paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costosencillo');
@@ -215,19 +205,20 @@
                         paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costocuadruple');
                     break;
             }
-        }
+            
+        };
         paqWebVM.armarCostos = function(array,ocupacion){
             angular.forEach(array,function(o){
                 o.costo = eval('o.'+ocupacion);
                 o.ocupacion = ocupacion
             });
+            $(".area-package-item").slideDown("fast");
             return array;
         };
         //paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
         paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
             paqWebVM.detailReserva = JSON.parse(detailReserva);
             paqWebVM.importe = importe;
-            console.info("importe",paqWebVM.importe);
             var combinacion = JSON.parse(paqueteCombinacion);
             paqWebVM.paqueteCombinacion= combinacion[0];
             paqWebVM.reservar = {
@@ -249,21 +240,15 @@
                     break;
             }
             paqWebVM.simbolCurrency = paqWebVM.paqueteCombinacion.simbolo 
-            console.info("detailReserva",paqWebVM.detailReserva);
-            
-            console.info("paqueteCombinacion",paqWebVM.paqueteCombinacion);
-            console.info("menores",paqWebVM.reservar.menores.value);
+
             paqWebVM.calculateCostoPaquete(paqWebVM.detailReserva.adultos,paqWebVM.detailReserva.menores);
         }
         paqWebVM.calculateCostoPaquete = function(adultos,menores){
-            console.info("menores calculateCostoPaquete",menores);
             var costoAdultos = parseFloat(paqWebVM.detailReserva.costo) * adultos;
             var costoMenores = parseFloat(paqWebVM.paqueteCombinacion.costomenor) * menores;
             paqWebVM.importeTotal = costoAdultos + costoMenores;
         }
         paqWebVM.ocupacionHab = function(adultos,menores){
-            console.info("ocupacionHab adultos",adultos);
-            console.info("ocupacionHab menores",menores);
             adultos =  parseInt(adultos);
             menores =  parseInt(menores);
             switch (adultos) {
@@ -332,7 +317,14 @@
                    paqWebVM.calculateCostoPaquete(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value);
                 }
             }
-        })
+        });
+        paqWebVM.getRangeStars = function (hotel) {
+            var array = [];
+            for(var i = 1; i <= hotel.estrellashotel; i++){
+                array.push(i);
+            }
+            hotel.totalEstrellas = array;
+        };
     });
 
 })();

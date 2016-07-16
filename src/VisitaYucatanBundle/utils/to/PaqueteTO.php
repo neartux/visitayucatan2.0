@@ -20,7 +20,6 @@ class PaqueteTO {
     private $costoSencilla;
     private $circuito;
     private $descripcion;
-
     private $itinerario;
     private $imagen;
     private $imagesPaquete;

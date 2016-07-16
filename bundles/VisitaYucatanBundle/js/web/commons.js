@@ -21,3 +21,13 @@ function showsubmenu(elem){
 /*function hidesubmenu(elem){
   $(elem).hide();
 }*/
+
+$(function () {
+    $(".btnReservaPaquete")
+        .mouseover(function(event){
+            $(".name-hotel-"+event.target.id).addClass("crece-titulo");
+        });
+    $(".btnReservaPaquete").mouseout(function(event){
+        $(".name-hotel-"+event.target.id).removeClass("crece-titulo");
+    });
+});

@@ -40,11 +40,12 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 		$em = $this->getEntityManager();
 		$sql = "SELECT pc.id,pc.id_paquete,pc.id_hotel,pc.noches,pc.dias,(pc.costosencillo/moneda.tipo_cambio) as costosencillo,(pc.costodoble/moneda.tipo_cambio) as costodoble,
           		(pc.costotriple/moneda.tipo_cambio) as costotriple,(pc.costocuadruple/moneda.tipo_cambio) as costocuadruple,
-          		(pc.costomenor/moneda.tipo_cambio) as costomenor,h.descripcion as nomHotel,moneda.simbolo, moneda.tipo_cambio as tipocambio FROM paquete_combinacion_hotel pc
+          		(pc.costomenor/moneda.tipo_cambio) as costomenor,h.descripcion as nomHotel,h.estrellas AS estrellashotel,moneda.simbolo, moneda.tipo_cambio as tipocambio FROM paquete_combinacion_hotel pc
         		INNER JOIN hotel h ON pc.id_hotel =h.id AND h.id_estatus = :estatusActivo
 				INNER JOIN moneda ON moneda.id = :idMoneda
 				WHERE pc.id_paquete = :idPaquete
-				AND pc.id_estatus = :estatusActivo;";
+				AND pc.id_estatus = :estatusActivo
+				ORDER BY h.estrellas;";
 		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
 		$params['idMoneda'] = $idMoneda;
 		$params['idPaquete'] = $idPaquete;
