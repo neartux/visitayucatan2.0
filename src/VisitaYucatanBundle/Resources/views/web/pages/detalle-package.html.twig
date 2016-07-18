@@ -4,7 +4,7 @@
 {% block section %}
 
     {% block content %}
-        <div class="container-fluid" data-ng-controller="WebPaqueteController as paqWebVM" ng-init="paqWebVM.initPaquete('{{ paquete.combinacionesPaquete | json_encode() }}');">
+        <div class="container-fluid" data-ng-controller="WebPaqueteController as paqWebVM" ng-init="paqWebVM.initPaquete('{{ paquete.combinacionesPaquete | json_encode() }}', {{ paquete.id }});">
             <input type="hidden" value="{{ paquete.simboloMoneda }}" id="symbolCurrencyHidden"/>
 
             <div class="row background-gray-light">
@@ -59,9 +59,10 @@
                             <div class="col-sm-12 background-element-pink mt-lg">
                                 <div class="col-sm-6 color-white text-bold text-uppercase text-italic p-sm color-text-white">
                                     <div class="col-sm-6 chooise-package color-text-pink pl-n pr-n text-center">
-                                        <span class="mt">Escoge tu paquete</span>
+                                        <span class="mt">{% trans %}page.web.labe.reserva.chose.a.package{% endtrans %}</span>
                                         <hr style="border-top: 1px solid rgb(238, 238, 238) !important;margin-bottom: 5px;margin-top: 5px;">
-                                        3 Dias 2 Noches
+                                        {{ paquete.dias }} {% trans %}page.web.labe.reserva.dias{% endtrans %} {% trans %}page.web.labe.reserva.y{% endtrans %}
+                                        {{ paquete.noches }} {% trans %}page.web.labe.reserva.noches{% endtrans %}
                                     </div>
                                     {% trans %}page.web.labe.reserva.tour.hotel{% endtrans %}:
                                 </div>
@@ -115,11 +116,27 @@
 
 
                         </div>
-                        <div class="col-sm-2"></div>
+                        <div class="col-sm-2 pl pr">
+                            <div class="col-sm-12 text-center">
+                                <h3 class="similar-package-title">{% trans %}page.web.labe.reserva.similar.package{% endtrans %}</h3>
+                            </div>
+                            <div class="col-sm-12 pl-n pr-n text-center" data-ng-repeat="package in paqWebVM.listItemsSimilar.data">
+                                <a href="{{ path('web_paquete_detail', {'id': '[[package.id]]'}) }}"><img src="{{ asset('[[ package.path ]]') }}" class="img-similar img-thumbnail"/></a>
+                                <br>
+                                <span class="text-center">[[ package.descripcion ]]</span> <br>
+                                <i class="fa fa-star color-text-white"></i>
+                                <i class="fa fa-star color-text-white"></i>
+                                <i class="fa fa-star color-text-white"></i>
+                                <i class="fa fa-star color-text-white"></i>
+                                <br>
+                                <span class="text-bold text-center">$[[ package.costo | myCurrency2 ]] [[ package.simbolo ]]</span>
+                                <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            <input type="hidden" id="pathSimilars" value="{{ path('paquete_find_list_similares') }}">
         </div>
 
     {% endblock %}

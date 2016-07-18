@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\PaqueteUtils;
 use VisitaYucatanBundle\utils\StringUtils;
@@ -66,8 +67,6 @@ class PaqueteController extends Controller {
         $paquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->getPaqueteById($id, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
         $imagesPaquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteImagen')->findPaqueteImagesByIdPaquete($id);
         $paqueteCombinacion = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findPaqueteCombinacionById($id,$datos[Generalkeys::NUMBER_ONE]);
-        //print_r($paquete);
-
         return $this->render('VisitaYucatanBundle:web/pages:detalle-package.html.twig', array('paquete' => PaqueteUtils::getPaqueteTO($paquete, $imagesPaquete,$paqueteCombinacion)));
         //return $paquete;
         /*$imagesTour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->findTourImagesByIdTour($id);
@@ -128,5 +127,15 @@ class PaqueteController extends Controller {
         //$paqueteCombinacion=$this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findCombinacionPaqueteById($id);
         //print_r($paqueteCombinacion);
         //exit();
+    }
+
+    /**
+     * @Route("/paquete/find/similares", name="paquete_find_list_similares")
+     * @Method("POST")
+     */
+    public function findPackageSimilar(Request $request) {
+        $datos = $this->getParamsPaquete($request);
+        $paquetes = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->findPaquetesSimilares($request->get('id'), 5, $datos[1], $datos[0]);
+        return new Response($this->get('serializer')->serialize($paquetes, Generalkeys::JSON_STRING));
     }
 }

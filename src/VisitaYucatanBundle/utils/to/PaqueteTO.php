@@ -24,6 +24,8 @@ class PaqueteTO {
     private $imagen;
     private $imagesPaquete;
     private $combinacionesPaquete;
+    private $dias;
+    private $noches;
 
 
     public function __construct(){
@@ -246,4 +248,38 @@ class PaqueteTO {
     {
         $this->combinacionesPaquete = $combinacionesPaquete;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDias()
+    {
+        return $this->dias;
+    }
+
+    /**
+     * @param mixed $dias
+     */
+    public function setDias($dias)
+    {
+        $this->dias = $dias;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNoches()
+    {
+        return $this->noches;
+    }
+
+    /**
+     * @param mixed $noches
+     */
+    public function setNoches($noches)
+    {
+        $this->noches = $noches;
+    }
+    
+    
 }

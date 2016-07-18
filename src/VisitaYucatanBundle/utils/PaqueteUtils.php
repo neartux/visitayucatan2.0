@@ -141,6 +141,8 @@ class PaqueteUtils {
         $paqueteTO->setIncluye($paquete['incluye']);
         $paqueteTO->setCircuito($paquete['circuito']);
         $paqueteTO->setSimboloMoneda($paquete['simbolo']);
+        $paqueteTO->setDias($paquete['dias']);
+        $paqueteTO->setNoches((int)$paquete['dias']- Generalkeys::NUMBER_ONE);
 
         // Valida imagen tour si es null coloca imagen not found de lo contrario coloca la imagen
         if(is_null($paquete['imagen'])){

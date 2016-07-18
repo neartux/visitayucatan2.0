@@ -156,3 +156,11 @@
     background-color: #FFFFFF;
     top: -5px;
 }
+.img-similar{
+    width: 145px;
+    height: 100px;
+}
+.similar-package-title {
+    color: #EFB64E;
+    font-weight: bold;
+}

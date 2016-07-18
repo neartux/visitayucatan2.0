@@ -2,6 +2,7 @@
 
 namespace VisitaYucatanBundle\Repository;
 
+use Doctrine\ORM\EntityNotFoundException;
 use VisitaYucatanBundle\utils\Estatuskeys;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\Entity\Paquete;
@@ -151,4 +152,28 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
 			$stmt->execute($params);
 			return $stmt->fetch();
     }
+
+	public function findPaquetesSimilares($idPaquete, $limit, $moneda, $idioma){
+		$em = $this->getEntityManager();
+		$sql='SELECT paquete.id,paquete_idioma.descripcion,(paquete_combinacion_hotel.costodoble/moneda.tipo_cambio) AS costo,moneda.simbolo,
+				paquete_imagen.path
+				FROM paquete
+				INNER JOIN paquete_imagen ON paquete.id = paquete_imagen.id_paquete AND paquete_imagen.principal = true AND paquete_imagen.id_estatus = :estatusActivo
+				INNER JOIN paquete_combinacion_hotel ON paquete.id = paquete_combinacion_hotel.id_paquete AND paquete_combinacion_hotel.id_estatus = :estatusActivo
+				INNER JOIN idioma ON idioma.id = :idioma
+				INNER JOIN paquete_idioma ON idioma.id = paquete_idioma.id_idioma
+				INNER JOIN moneda ON moneda.id = :moneda
+				WHERE paquete.id != :paquete
+				AND paquete.id_estatus = :estatusActivo
+				AND paquete.promovido = TRUE
+				GROUP BY paquete.id
+				ORDER BY rand() LIMIT '.$limit;
+		$params['paquete'] = $idPaquete;
+		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+		$params['idioma'] = $idioma;
+		$params['moneda'] = $moneda;
+		$stmt = $em->getConnection()->prepare($sql);
+		$stmt->execute($params);
+		return $stmt->fetchAll();
+	}
 }

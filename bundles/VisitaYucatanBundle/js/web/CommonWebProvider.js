@@ -20,12 +20,23 @@
         service.setContextPath = function (contextPath) {
             service.contextPath = contextPath;  
         };
+        service.listItemsSimilar = {
+            data: []
+        };
 
         service.changeCurrencyOrLanguageSession = function(language, currency){
             var path = angular.element(document.querySelector('#pathCatalogsReload')).context.value;
-            console.info("path session",path);
             return $http.post(path, $.param({language : language, currency : currency}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.findItemsSimilar = function(path, id){
+            return $http.post(path, $.param({id : id}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response) {
+                console.info("response = ", response);
+                service.listItemsSimilar.data = response.data;
             });
         };
         

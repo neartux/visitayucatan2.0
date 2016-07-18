@@ -61,6 +61,7 @@
         var ctrlHotel = this;
         ctrlHotel.formRate = {};
         ctrlHotel.listRoomsHotelToSale = WebService.listRoomsHotelToSale;
+        ctrlHotel.listItemsSimilar = WebService.listItemsSimilar;
         ctrlHotel.symbolCurrency = 'MXP';
         ctrlHotel.ventaCompletaTO = {};
 
@@ -176,17 +177,27 @@
         var paqWebVM = this;
 
         paqWebVM.habCombinaciones = undefined;
+        paqWebVM.listItemsSimilar = WebService.listItemsSimilar;
         paqWebVM.reservar = {};
         paqWebVM.menores = [
             {id:0,value:0,label:"0"},
             {id:1,value:1,label:"1"},
             {id:2,value:2,label:"2"},
         ];
-        paqWebVM.initPaquete = function(combinacionespaquete){
+        paqWebVM.idPaquete = 0;
+        paqWebVM.initPaquete = function(combinacionespaquete, idPackage){
+            paqWebVM.idPaquete = idPackage;
             paqWebVM.habitacion='doble';
             paqWebVM.combinacionesPaquete = JSON.parse(combinacionespaquete);
             paqWebVM.changeHabitacion('doble');
+            paqWebVM.findItemsSimilar();
         };
+        
+        paqWebVM.findItemsSimilar = function () {
+            var path = angular.element(document.querySelector('#pathSimilars')).context.value;
+            WebService.findItemsSimilar(path, paqWebVM.idPaquete);
+        };
+        
         paqWebVM.changeHabitacion = function(ocupacion){
             
             $(".area-package-item").slideUp("fast");
