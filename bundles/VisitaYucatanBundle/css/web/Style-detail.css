@@ -149,3 +149,10 @@
 .crece-titulo {
     font-size: 20px;
 }
+.chooise-package{
+    position: absolute;
+    left: -190px;
+    border: 1px rgb(239, 182, 78) solid;
+    background-color: #FFFFFF;
+    top: -5px;
+}
