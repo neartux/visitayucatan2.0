@@ -1,113 +1,166 @@
-{% extends ':web:TemplateVisitaYucatan.html.twig' %}
+{% extends ':web:TemplateVisitaYucatanDetail.html.twig' %}
 
 
 {% block section %}
 
     {% block content %}
-        <style>
-
-        </style>
-        <link href="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-daterangepicker/daterangepicker-bs3.css') }}" type="text/css" rel="stylesheet" />
-
-        <section data-ng-controller="WebHotelController as ctrlWeb" ng-init="ctrlWeb.init({{ hotel.id }}, {{ ageMinor }})">
+        <div class="container-fluid" data-ng-controller="WebHotelController as ctrlWeb" ng-init="ctrlWeb.init({{ hotel.id }}, {{ ageMinor }})">
             <input type="hidden" value="{{ hotel.simboloMoneda }}" id="symbolCurrencyHidden"/>
             <input type="hidden" value="{{ path('web_hotel_rates') }}" id="pathRatesFind"/>
-            <div id="content">
 
-                Hotel => {{ hotel.nombreHotel }} <br>
-                Descripcion => {{ hotel.descripcion }} <br>
-                Estrellas => {{ hotel.estrellas }} <br>
-                Imangen => <img src="{{ asset(hotel.principalImage) }}" width="80px"/> <br>
-
-                Imagenes ======>
-                {% for imagen in hotel.imagenesHotel %}
-                    <li>{{ imagen.path }}</li>
-                {% endfor %}
-
-                <b>Tarifas</b> <br>
-
-                Adultos:
-                <select name="" id="" ng-model="ctrlWeb.formRate.adults">
-                    <option value="1">1</option>
-                    <option value="2" selected>2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-
-                Menores:
-                <select name="" id="" ng-model="ctrlWeb.formRate.minors" ng-change="ctrlWeb.displayInputsMinors()">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select> Edad Maxima del menor = {{ ageMinor }} <br>
-
-                <br>
-                <table id="tableMenors">
-                </table>
-                <br>
-
-                Desde: <input type="text" id="dateFrom" class="datepicker" value="{{ dateFrom }}" ng-model="ctrlWeb.formRate.dateFrom"/>
-                Hasta: <input type="text" id="dateTo" class="datepicker" value="{{ dateTo }}" ng-model="ctrlWeb.formRate.dateTo" readonly/> <br>
-
-                <button data-ng-click="ctrlWeb.findTarifasHotel()">
-                    Buscar
-                </button>
-                <br><br><br>
-
-                *************************************************************************************************************************************************
-
-                <div data-ng-repeat="habitacion in ctrlWeb.listRoomsHotelToSale.data">
-                    <h1>[[ habitacion.nombre ]]</h1>
-                    <h5 ng-bind-html="habitacion.descripcion"></h5>
-                    <br>
-                    <strong>Ocupacion maxima por habitacion:</strong> [[ habitacion.capacidadMaxima ]] (incluyendo menores)
-                    <br><br>
-                    <ul>
-                        <li data-ng-repeat="tarifa in habitacion.hotelTarifasTOCollection">
-                            fech = [[ tarifa.smallDate ]] <br>
-                            costo = [[ tarifa.costo ]] <br>
-                            <span ng-if="! tarifa.isAvailable">[[ tarifa.msjAvailable ]]</span>
-
-                        </li>
-                    </ul>
-                    <br><br>
-                    Habitaciones Requeridas : [[ habitacion.habitacionesRequeridas ]] <br>
-                        <button data-ng-click="ctrlWeb.confirmReservaHotel(habitacion.id)" data-ng-if="habitacion.totalCostoHabitacion != '0.00'" type="button">
-                            Reserva por solo [[ habitacion.totalCostoHabitacion ]] [[ ctrlWeb.symbolCurrency ]]
-                        </button>
-                    <br> <br>
+            <div class="row background-gray-light">
+                <div class="col-sm-12">
+                    <div class="container-main-header row" style="background-image: url({{ asset('bundles/VisitaYucatanBundle/img/web/banner.jpg') }}) !important;">
+                        <div class="col-sm-6 mb-md mt-md">
+                            <div class="col-sm-6 z-index-">
+                                <a href="{{ asset(hotel.principalImage) }}">
+                                    <img src="{{ asset(hotel.principalImage) }}" class="img-thumbnail img-main box-shadow rotate-5-g img-main-detail"/>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 mt-xxl">
+                                <h2 class="text-danger text-bold mt-xxl font-family-raleway">{{ hotel.nombreHotel }}</h2>
+                                <div class="box-circuit text-bold text-italic text-center">
+                                    <div class="first-part-box">
+                                        {% trans %}page.web.label.circuit{% endtrans %}
+                                    </div>
+                                    <div class="second-part-box">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="seconds-images mt-xl text-right">
+                                {% for imagen in hotel.imagenesHotel %}
+                                    <a href="localhost{{ asset(imagen.path) }}">
+                                        <img src="{{ asset(imagen.path) }}" width="110px" height="80px" class="border-img-detail img-preview-detail-main img-seconds-details"/>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <form action="{{ path('web_hotel_reserva') }}" id="frmReserveHotel" method="post">
-                    <input type="hidden" name="idHotel" value="{{ hotel.id }}"/>
-                    <input type="hidden" name="idHabitacion" id="idHabitacion"/>
-                    <input type="hidden" name="fechaInicio" id="fechaInicio"/>
-                    <input type="hidden" name="fechaFin" id="fechaFin"/>
-                    <input type="hidden" name="adultos" id="adultsHidden"/>
-                    <input type="hidden" name="menores" id="minorsHidden"/>
-                </form>
-
             </div>
 
-            {% block aside %}
-                {{ parent() }}
-            {% endblock %}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row container-body- background-gray-light">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8 content-body-detail pr-n pl-n">
+                            <div class="col-sm-12">
+                                <h4 class="text-uppercase text-bold color-text-pink">{% trans %}page.web.label.description{% endtrans %}</h4>
+                                <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
+                                {{ hotel.nombreHotel }} <br>
+                                &nbsp;
+                            </div>
+                            <div class="col-sm-12 color-text-gray-primary mt fnt-sz-12 contenedor-description">
+                                {{ hotel.descripcion | raw }}
+                            </div>
+                            <div class="col-sm-12 background-element-pink mt-lg">
+                                <span class="fnt-sz-20 text-bold text-italic color-text-white text-uppercase">Tarifas</span>
+                            </div>
+                            <div class="col-sm-12"><hr style="border-top: 1px solid rgb(239, 182, 78) !important;"></div>
+                                <div class="row">
+                                    <div class="col-sm-12 mt-n">
 
-        </section>
+                                        <div class="col-sm-4">
+                                            <label class="oswaldo color-text-pink">{% trans %}page.web.labe.reserva.tour.adults{% endtrans %}:</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-group"></i></span>
+                                                <select data-ng-model="ctrlWeb.formRate.adults" class="form-control">
+                                                    <option value='0'>0</option>
+                                                    <option value='1'>1</option>
+                                                    <option value='2' selected>2</option>
+                                                    <option value='3'>3</option>
+                                                    <option value='4'>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="oswaldo color-text-pink">{% trans %}page.web.labe.reserva.tour.minors{% endtrans %}:</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-child"></i></span>
+                                                <select data-ng-model="ctrlWeb.formRate.minors" ng-change="ctrlWeb.ctrlWeb.displayInputsMinors()" class="form-control">
+                                                    <option value='0'>0</option>
+                                                    <option value='1'>1</option>
+                                                    <option value='2'>2</option>
+                                                    <option value='3'>3</option>
+                                                    <option value='4'>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4 mt">
+                                            <label class="oswaldo color-text-pink">{% trans %}page.web.label.hotels.price.since{% endtrans %}:</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" value="{{ dateFrom }}" id="dateFrom"
+                                                       ng-model="ctrlWeb.formRate.dateFrom" class="datepicker form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 mt">
+                                            <label class="oswaldo color-text-pink">Hasta:</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" value="{{ dateTo }}" id="dateTo"
+                                                       ng-model="ctrlWeb.formRate.dateTo" readonly class="datepicker form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 mt">
+                                            <button data-ng-click="ctrlWeb.findTarifasHotel()" class="btn btn-primary" style="margin-top: 28px">
+                                                {% trans %}button.label.search{% endtrans %}
+                                            </button>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col-sm-12"><hr style="border-top: 1px solid rgb(239, 182, 78) !important;"></div>
+                            <div style="cursor: default;" class="btn btn-warning ml"><span><b>Tipo de plan: </b> Desayuno Americano</span></div>
+                        </div>
+                        <div class="col-sm-2 pl pr">
+                            <div class="col-sm-12 text-center">
+                                <h3 class="similar-package-title">{% trans %}page.web.labe.reserva.similar.package{% endtrans %}</h3>
+                            </div>
+                            <div class="col-sm-12 pl-n pr-n text-center" data-ng-repeat="tour in ctrlWeb.listItemsSimilar.data">
+                                <a href="{{ path('web_tour_detail', {'id': '[[tour.id]]'}) }}"><img src="{{ asset('[[ tour.imagen ]]') }}" class="img-similar img-thumbnail"/></a>
+                                <br>
+                                <span class="text-center">[[ tour.nombre ]]</span> <br>
+                                <i class="fa fa-star color-text-white"></i>
+                                <i class="fa fa-star color-text-white"></i>
+                                <i class="fa fa-star color-text-white"></i>
+                                <i class="fa fa-star color-text-white"></i>
+                                <br>
+                                <span class="text-bold text-center">Adultos: $[[ tour.tarifaadulto | myCurrency2 ]] [[ tour.simbolomoneda ]]</span><br>
+                                <span class="text-bold text-center">Menores: $[[ tour.tarifamenor | myCurrency2 ]] [[ tour.simbolomoneda ]]</span>
+                                <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" value="{{ path('tours_find_list_similares') }}" id="toursSimilars"/>
+            <form action="{{ path('web_hotel_reserva') }}" id="frmReserveHotel" method="post" style="display: none;">
+                <input type="hidden" name="idHotel" value="{{ hotel.id }}"/>
+                <input type="hidden" name="idHabitacion" id="idHabitacion"/>
+                <input type="hidden" name="fechaInicio" id="fechaInicio"/>
+                <input type="hidden" name="fechaFin" id="fechaFin"/>
+                <input type="hidden" name="adultos" id="adultsHidden"/>
+                <input type="hidden" name="menores" id="minorsHidden"/>
+            </form>
+
+        </div>
+
     {% endblock %}
 
     {% block scripts %}
         {{ parent() }}
-        <script src="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/form-daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
         <script>
             $(function(){
-
                 $('.datepicker').datepicker({
                     autoclose: true,
                     format: 'dd/mm/yyyy',
-                    startDate: '+1d'
+                    startDate: '+2d'
                 });
             });
         </script>
