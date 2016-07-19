@@ -9,8 +9,10 @@
 
     app.controller('WebTourController', function ($scope, $http, WebService) {
         var ctrlWeb = this;
+        ctrlWeb.listItemsSimilar = WebService.listItemsSimilar;
         ctrlWeb.symbolCurrency = 'MXP';
         ctrlWeb.exchangeRate = 1;
+        ctrlWeb.idTour = 0;
         //Variables tour
         ctrlWeb.rateChild = 0;
         ctrlWeb.rateAdult = 0;
@@ -21,8 +23,15 @@
         ctrlWeb.minimoPersonas = 0;
 
 
-        ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate) {
+        ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate, idTour) {
             ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate);
+            ctrlWeb.idTour = idTour;
+            ctrlWeb.findItemsSimilar();
+        };
+
+        ctrlWeb.findItemsSimilar = function () {
+            var path = angular.element(document.querySelector('#toursSimilars')).context.value;
+            WebService.findItemsSimilar(path, ctrlWeb.idTour);
         };
 
         ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson){

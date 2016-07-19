@@ -4,7 +4,7 @@
 {% block section %}
 
     {% block content %}
-        <div class="container-fluid" data-ng-controller="WebTourController as ctrlWeb" ng-init="ctrlWeb.initTour({{ tour.tarifamenor }}, {{ tour.tarifaadulto }}, {{ tour.tipoCambio }});">
+        <div class="container-fluid" data-ng-controller="WebTourController as ctrlWeb" ng-init="ctrlWeb.initTour({{ tour.tarifamenor }}, {{ tour.tarifaadulto }}, {{ tour.tipoCambio }}, {{ tour.id }});">
             <input type="hidden" value="{{ tour.simboloMoneda }}" id="symbolCurrencyHidden"/>
 
             <div class="row background-gray-light">
@@ -119,11 +119,27 @@
 
                         </div>
                         <div class="col-sm-2 pl pr">
-
+                            <div class="col-sm-12 text-center">
+                                <h3 class="similar-package-title">{% trans %}page.web.labe.reserva.similar.package{% endtrans %}</h3>
+                            </div>
+                            <div class="col-sm-12 pl-n pr-n text-center" data-ng-repeat="tour in ctrlWeb.listItemsSimilar.data">
+                                <a href="{{ path('web_tour_detail', {'id': '[[tour.id]]'}) }}"><img src="{{ asset('[[ tour.imagen ]]') }}" class="img-similar img-thumbnail"/></a>
+                                <br>
+                                <span class="text-center">[[ tour.nombre ]]</span> <br>
+                                <i class="fa fa-star color-text-white"></i>
+                                <i class="fa fa-star color-text-white"></i>
+                                <i class="fa fa-star color-text-white"></i>
+                                <i class="fa fa-star color-text-white"></i>
+                                <br>
+                                <span class="text-bold text-center">Adultos: $[[ tour.tarifaadulto | myCurrency2 ]] [[ tour.simbolomoneda ]]</span><br>
+                                <span class="text-bold text-center">Menores: $[[ tour.tarifamenor | myCurrency2 ]] [[ tour.simbolomoneda ]]</span>
+                                <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <input type="hidden" value="{{ path('tours_find_list_similares') }}" id="toursSimilars"/>
 
         </div>
 

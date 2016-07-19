@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\DateUtil;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\StringUtils;
@@ -100,5 +101,15 @@ class TourController extends Controller {
         $datos[Generalkeys::NUMBER_ONE] = $moneda;
         // Regreso los datos
         return $datos;
+    }
+
+    /**
+     * @Route("/tours/find/similares", name="tours_find_list_similares")
+     * @Method("POST")
+     */
+    public function findPackageSimilar(Request $request) {
+        $datos = $this->getParamsTour($request);
+        $tours = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getToursSimilares($datos[0], $datos[1], $request->get('id'), 3);
+        return new Response($this->get('serializer')->serialize($tours, Generalkeys::JSON_STRING));
     }
 }
