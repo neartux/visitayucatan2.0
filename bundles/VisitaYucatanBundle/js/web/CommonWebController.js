@@ -73,8 +73,9 @@
         ctrlHotel.listItemsSimilar = WebService.listItemsSimilar;
         ctrlHotel.symbolCurrency = 'MXP';
         ctrlHotel.ventaCompletaTO = {};
+        ctrlHotel.arrayEstrellas = [];
 
-        ctrlHotel.init = function(idHotel, ageMinor) {
+        ctrlHotel.init = function(idHotel, ageMinor, estrellas) {
             ctrlHotel.formRate = {
                 idHotel: idHotel,
                 adults: "2",
@@ -83,6 +84,15 @@
             };
             ctrlHotel.symbolCurrency = angular.element(document.querySelector('#symbolCurrencyHidden')).context.value;
             ctrlHotel.findTarifasHotel();
+            ctrlHotel.getRangeStars(estrellas)
+        };
+
+        ctrlHotel.getRangeStars = function (estrellas) {
+            var array = [];
+            for(var i = 1; i <= estrellas; i++){
+                array.push(i);
+            }
+            ctrlHotel.arrayEstrellas = array;
         };
         
         ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath) {

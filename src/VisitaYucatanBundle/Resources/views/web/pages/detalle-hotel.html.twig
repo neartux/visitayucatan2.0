@@ -4,7 +4,7 @@
 {% block section %}
 
     {% block content %}
-        <div class="container-fluid" data-ng-controller="WebHotelController as ctrlWeb" ng-init="ctrlWeb.init({{ hotel.id }}, {{ ageMinor }})">
+        <div class="container-fluid" data-ng-controller="WebHotelController as ctrlWeb" ng-init="ctrlWeb.init({{ hotel.id }}, {{ ageMinor }}, {{ hotel.estrellas }})">
             <input type="hidden" value="{{ hotel.simboloMoneda }}" id="symbolCurrencyHidden"/>
             <input type="hidden" value="{{ path('web_hotel_rates') }}" id="pathRatesFind"/>
 
@@ -21,7 +21,7 @@
                                 <h2 class="text-danger text-bold mt-xxl font-family-raleway">{{ hotel.nombreHotel }}</h2>
                                 <div class="box-circuit text-bold text-italic text-center">
                                     <div class="first-part-box">
-                                        {% trans %}page.web.label.circuit{% endtrans %}
+                                        <span class="fa fa-star" ng-repeat="n in ctrlWeb.arrayEstrellas"></span>
                                     </div>
                                     <div class="second-part-box">
                                         &nbsp;
@@ -57,7 +57,9 @@
                                 {{ hotel.descripcion | raw }}
                             </div>
                             <div class="col-sm-12 background-element-pink mt-lg">
-                                <span class="fnt-sz-20 text-bold text-italic color-text-white text-uppercase">Tarifas</span>
+                                <span class="fnt-sz-20 text-bold text-italic color-text-white text-uppercase">
+                                    {% trans %}page.web.labe.reserva.tarifas{% endtrans %}
+                                </span>
                             </div>
                             <div class="col-sm-12"><hr style="border-top: 1px solid rgb(239, 182, 78) !important;"></div>
                                 <div class="row">
@@ -97,7 +99,7 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 <input type="text" value="{{ dateFrom }}" id="dateFrom"
-                                                       ng-model="ctrlWeb.formRate.dateFrom" class="datepicker form-control"/>
+                                                       ng-model="ctrlWeb.formRate.dateFrom" readonly class="datepicker form-control"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-4 mt">
@@ -116,8 +118,49 @@
                                     </div>
                             </div>
                             <div class="col-sm-12"><hr style="border-top: 1px solid rgb(239, 182, 78) !important;"></div>
-                            <div style="cursor: default;" class="btn btn-warning ml"><span><b>Tipo de plan: </b> Desayuno Americano</span></div>
+                            <div style="cursor: default;" class="btn btn-warning ml"><span><b>{% trans %}page.web.labe.reserva.tipo.plan{% endtrans %}:
+                                    </b> Desayuno Americano:P</span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12" data-ng-repeat="habitacion in ctrlWeb.listRoomsHotelToSale.data">
+                                    <div class="col-sm-12"><h4 class="mb-n">{% trans %}page.web.labe.reserva.tour.habitacion{% endtrans %} [[ habitacion.nombre ]]</h4></div>
+                                    <div class="col-sm-12 mt-n"><div ng-bind-html="habitacion.descripcion"></div></div>
+                                    <div class="col-sm-12">
+                                        <span class="text-bold">{% trans %}page.web.labe.reserva.ocupacion.maxima{% endtrans %}:</span> [[ habitacion.capacidadMaxima ]]
+                                        {% trans %}page.web.labe.reserva.include.minors{% endtrans %}
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div ng-class-odd="'day-hotel'" ng-class-even="'day-hotel-change'"
+                                             class="col-sm-2 text-center" data-ng-repeat="tarifa in habitacion.hotelTarifasTOCollection">
+                                            <span class="lafecha">[[ tarifa.smallDate ]]</span> <br>
+                                            <span class="elprecio" ng-if="! tarifa.isAvailable">[[ tarifa.msjAvailable ]]</span>
+                                            <span class="elprecio" ng-if="tarifa.isAvailable">$ [[ tarifa.costo | myCurrency2 ]] <br>[[ctrlWeb.symbolCurrency]]</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <span class="text-bold">{% trans %}page.web.labe.reserva.required.room{% endtrans %}:</span>[[ habitacion.habitacionesRequeridas ]]
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <span class="text-bold">{% trans %}page.web.labe.reserva.age.maxima{% endtrans %}:</span> [[ ctrlWeb.formRate.ageMinor ]]
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button data-ng-click="ctrlWeb.confirmReservaHotel(habitacion.id)" data-ng-if="habitacion.totalCostoHabitacion != '0.00'" type="button"
+                                                class="btn btn-warning">
+                                            {% trans %}page.web.labe.reserva.por.solo{% endtrans %}: $ [[ habitacion.totalCostoHabitacion ]] [[ ctrlWeb.symbolCurrency ]]
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
+
+
+
+
                         <div class="col-sm-2 pl pr">
                             <div class="col-sm-12 text-center">
                                 <h3 class="similar-package-title">{% trans %}page.web.labe.reserva.similar.package{% endtrans %}</h3>

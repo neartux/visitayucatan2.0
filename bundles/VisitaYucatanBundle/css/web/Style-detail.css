@@ -164,3 +164,11 @@
     color: #EFB64E;
     font-weight: bold;
 }
+.day-hotel {
+    background: #017C8C;
+    color: #fff;
+}
+.day-hotel-change {
+    background: #015D6A !important;
+    color: #fff;
+}

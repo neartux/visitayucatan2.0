@@ -195,3 +195,10 @@ page.web.labe.reserva.similar.package : Paquets Similaires
 page.web.labe.reserva.dias : Journées
 page.web.labe.reserva.noches : Nuits
 page.web.labe.reserva.y : And
+page.web.labe.reserva.tarifas : Taire
+page.web.labe.reserva.tipo.plan : Type de régime
+page.web.labe.reserva.ocupacion.maxima : Occupation maximale par chambre
+page.web.labe.reserva.include.minors : personnes (y compris les mineurs)
+page.web.labe.reserva.required.room : Rhambres Requises
+page.web.labe.reserva.age.maxima : L'âge maximum de l'enfant
+page.web.labe.reserva.por.solo : Réservez maintenant pour seulement

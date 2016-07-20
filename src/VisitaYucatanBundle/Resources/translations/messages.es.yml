@@ -205,3 +205,10 @@ page.web.labe.reserva.similar.package : Paquete Similares
 page.web.labe.reserva.dias : Días
 page.web.labe.reserva.noches : Noches
 page.web.labe.reserva.y : y
+page.web.labe.reserva.tarifas : Tarifas
+page.web.labe.reserva.tipo.plan : Tipo Plan
+page.web.labe.reserva.ocupacion.maxima : Ocupación máxima por habitación
+page.web.labe.reserva.include.minors : personas (Incluyendo menores)
+page.web.labe.reserva.required.room : Habitaciones Requeridas
+page.web.labe.reserva.age.maxima : Edad Máxima del menor
+page.web.labe.reserva.por.solo : Reserva ahora por solo
