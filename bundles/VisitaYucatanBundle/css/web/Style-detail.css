@@ -164,3 +164,10 @@
     color: #EFB64E;
     font-weight: bold;
 }
+.menu-footer a:hover {
+    color: #FFF !important;
+}
+
+.menu-footer a:focus {
+    color: #FFF !important;
+}

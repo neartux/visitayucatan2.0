@@ -69,8 +69,7 @@ class TourController extends Controller {
         $tourTO->setTotalAdultos($numeroAdultos);
         $tourTO->setTotalMenores($numeroMenores);
         $costoTotal = ($tourTO->getTotalAdultos() * $tourTO->getTarifaadulto()) + ($tourTO->getTotalMenores() * $tourTO->getTarifamenor());
-        return $this->render('VisitaYucatanBundle:web/pages:reserva-tour.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR,
-            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR, 'tour' => $tourTO, 'costoTotal' => number_format($costoTotal)));
+        return $this->render('VisitaYucatanBundle:web/pages:reserv-tour.html.twig', array('tour' => $tourTO, 'costoTotal' => number_format($costoTotal)));
     }
 
     private function getParamsTour($request){
