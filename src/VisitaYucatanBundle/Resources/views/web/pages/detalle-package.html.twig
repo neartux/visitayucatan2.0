@@ -121,7 +121,8 @@
                                 <h3 class="similar-package-title">{% trans %}page.web.labe.reserva.similar.package{% endtrans %}</h3>
                             </div>
                             <div class="col-sm-12 pl-n pr-n text-center" data-ng-repeat="package in paqWebVM.listItemsSimilar.data">
-                                <a href="{{ path('web_paquete_detail', {'id': '[[package.id]]'}) }}"><img src="{{ asset('[[ package.path ]]') }}" class="img-similar img-thumbnail"/></a>
+                                <a href="{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/paquete/detail/id/[[package.id]]">
+                                    <img src="{{ asset('[[ package.path ]]') }}" class="img-similar img-thumbnail"/></a>
                                 <br>
                                 <span class="text-center">[[ package.descripcion ]]</span> <br>
                                 <i class="fa fa-star color-text-white"></i>
