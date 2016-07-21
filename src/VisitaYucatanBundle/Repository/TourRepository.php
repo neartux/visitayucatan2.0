@@ -177,7 +177,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository {
                 INNER JOIN tour_origen ON tour.id = tour_origen.id_tour AND tour_origen.id_origen = :origen AND tour_origen.id_estatus = :estatusActivo
                 INNER JOIN idioma ON idioma.id = tour_idioma.id_idioma AND idioma.id = :idioma
                 INNER JOIN moneda ON moneda.id = :moneda
-                LEFT JOIN tour_imagen ON tour.id = tour_imagen.id_tour AND tour_imagen.id_estatus = :estatusActivo AND tour_imagen.principal = TRUE
+                INNER JOIN tour_imagen ON tour.id = tour_imagen.id_tour AND tour_imagen.id_estatus = :estatusActivo AND tour_imagen.principal = TRUE
                 WHERE tour.id_estatus = :estatusActivo
                 AND tour.promovido = TRUE
                 AND tour.id != :tour
