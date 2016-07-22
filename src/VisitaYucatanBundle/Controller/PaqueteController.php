@@ -80,6 +80,7 @@ class PaqueteController extends Controller {
     */
     public function reservaPaqueteAction(Request $request){
          $id= $request->get('id');
+         $idPackage = $request->get('idPackage');
          $ocupacion = $request->get('typeocupacion'); 
          $costo = $request->get('costo');
          $namePaquete = $request->get('namepaquete');
@@ -113,15 +114,17 @@ class PaqueteController extends Controller {
            'menores' =>$menores,
            'ocupacion'=> $ocupacion
          );
+        $paquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->getPaqueteById($idPackage, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
          $importeTotal = $costo * $adultos;
          $paqueteCombinacion = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findCombinacionPaqueteById((int)$id,$datos[Generalkeys::NUMBER_ONE]);
+        $imagesPaquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteImagen')->findPaqueteImagesByIdPaquete($idPackage);
          
          //print_r($paqueteCombinacion);
          //print_r(PaqueteUtils::getPaqueteTO(null, null,$paqueteCombinacion));
          //exit();
 
-         return $this->render('VisitaYucatanBundle:web/pages:reserva-paquete.html.twig', array('paqueteCombinacion' => PaqueteUtils::getPaqueteTO(null, null,$paqueteCombinacion),'detailPaquete'=>$detailPaquete,'importe'=>number_format($importeTotal),
-          'claseImg' => Generalkeys::CLASS_HEADER_PACKAGE, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_PACKAGE));
+         return $this->render('VisitaYucatanBundle:web/pages:reserv-paquete.html.twig', array('paqueteCombinacion' => PaqueteUtils::getPaqueteTO(null, null,$paqueteCombinacion),'detailPaquete'=>$detailPaquete,'importe'=>number_format($importeTotal),
+          'paquete' => PaqueteUtils::getPaqueteTO($paquete, $imagesPaquete,$paqueteCombinacion)));
 
          /*return $this->render('VisitaYucatanBundle:web/pages:reserva-paquete.html.twig', array('paqueteCombinacion' => PaqueteUtils::getPaqueteTO(null, null,$paqueteCombinacion),'detailPaquete'=>$detailPaquete,'importe'=>$importeTotal, 'claseImg' => Generalkeys::CLASS_HEADER_PACKAGE, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_PACKAGE));*/
         //$paqueteCombinacion=$this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findCombinacionPaqueteById($id);

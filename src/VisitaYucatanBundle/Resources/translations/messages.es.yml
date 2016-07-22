@@ -208,3 +208,11 @@ page.web.labe.reserva.y : y
 page.web.labe.reserva.price.per.adult : Precio Por Adulto
 page.web.labe.reserva.price.per.minor : Precio Por Menor
 page.web.labe.reserva.importe : Importe
+page.web.labe.reserva.paquete.seleccionado : Paquete seleccionado
+page.web.labe.reserva.hotel.seleccionado : Hotel seleccionado
+page.web.labe.reserva.tipo.habitacion : Tipo habitación
+page.web.labe.reserva.tipo.estadia : Estadia
+page.web.labe.reserva.tarifa.adulto.opcion : Tarifa por adulto en ocupación
+page.web.labe.reserva.ciudad.origen : Ciudad de origen
+page.web.labe.reserva.date.tu.paquete : Seleccione la fecha para su paquete
+page.web.labe.reserva.fecha.salida : Fecha salida
