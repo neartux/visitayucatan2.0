@@ -195,3 +195,6 @@ page.web.labe.reserva.similar.package : Similar Packages
 page.web.labe.reserva.dias : Days
 page.web.labe.reserva.noches : Nigths
 page.web.labe.reserva.y : And
+page.web.labe.reserva.price.per.adult : Price per adult
+page.web.labe.reserva.price.per.minor : Price per minor
+page.web.labe.reserva.importe : Amount

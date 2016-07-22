@@ -48,9 +48,11 @@
                         <div class="col-sm-8 content-body-detail pr-n pl-n">
                             <div class="col-sm-12">
                                 <div class="col-sm-6"><h4 class="text-uppercase text-bold color-text-pink">{% trans %}page.web.labe.reserva.prepare.reservation{% endtrans %}</h4></div>
-                                <div class="col-sm-6">
-                                    precio adulto = {{ tour.tarifaAdultoFormat }} {{ tour.simboloMoneda }}
-                                    precio menor = {{ tour.tarifaMenorFormat }} {{ tour.simboloMoneda }}
+                                <div class="col-sm-6 text-right mt">
+                                    <span class="text-bold">{% trans %}page.web.labe.reserva.price.per.adult{% endtrans %}</span>
+                                    ${{ tour.tarifaAdultoFormat }} {{ tour.simboloMoneda }} <br>
+                                    <span class="text-bold">{% trans %}page.web.labe.reserva.price.per.minor{% endtrans %}</span>
+                                    ${{ tour.tarifaMenorFormat }} {{ tour.simboloMoneda }}
                                 </div>
                                 <div class="col-sm-12">
                                     <hr style="border-top: 1px solid rgb(239, 182, 78) !important;" class="mt-n">
@@ -129,8 +131,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-12">
-                                            Importe <span id="totalCostTour">${{ costoTotal }} {{ tour.simboloMoneda }}</span><br><br>
+                                        <div class="col-sm-12 mt-xxl">
+                                            <span class="background-element-pink color-text-white text-bold p">
+                                                    {% trans %}page.web.labe.reserva.importe{% endtrans %}
+                                                 <span id="totalCostTour">${{ costoTotal }} {{ tour.simboloMoneda }}</span>
+                                            </span>
                                         </div>
 
                                     </div>
@@ -218,7 +223,7 @@
                                         <div class="col-sm-12 mt-xxl text-right mb">
                                             <input type="button" data-ng-click="ctrlWeb.createRerservaHotel()"
                                                    data-ng-disabled="formReserva.$invalid"
-                                                   value="Reserva Ahora" class="btn btn-primary"/>
+                                                   value="{% trans %}page.web.label.reserva.book.now{% endtrans %}" class="btn btn-primary"/>
                                         </div>
                                     </div>
                                 </div>
@@ -243,8 +248,12 @@
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <br>
-                                <span class="text-bold text-center">Adultos: $[[ tourDetail.tarifaadulto | myCurrency2 ]] [[ tourDetail.simbolomoneda ]]</span><br>
-                                <span class="text-bold text-center">Menores: $[[ tourDetail.tarifamenor | myCurrency2 ]] [[ tourDetail.simbolomoneda ]]</span>
+                                <span class="text-bold text-center">
+                                    {% trans %}page.web.labe.reserva.tour.adults{% endtrans %}:$[[ tourDetail.tarifaadulto | myCurrency2 ]] [[ tourDetail.simbolomoneda ]]
+                                </span><br>
+                                <span class="text-bold text-center">
+                                    {% trans %}page.web.labe.reserva.tour.minors{% endtrans %}: $[[ tourDetail.tarifamenor | myCurrency2 ]] [[ tourDetail.simbolomoneda ]]
+                                </span>
                                 <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
                             </div>
                         </div>

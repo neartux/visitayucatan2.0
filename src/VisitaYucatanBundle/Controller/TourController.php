@@ -57,10 +57,10 @@ class TourController extends Controller {
      * @Method("POST")
      */
     public function displayReservaTourAction(Request $request) {
-        echo $idTour = $request->get('idTour'); echo "<br>";
-        echo $fechaReserva = $request->get('fechaReserva');echo "<br>";
-        echo $numeroAdultos = $request->get('numeroAdultos');echo "<br>";
-        echo $numeroMenores = $request->get('numeroMenores');echo "<br>";
+        $idTour = $request->get('idTour');
+        $fechaReserva = $request->get('fechaReserva');
+        $numeroAdultos = $request->get('numeroAdultos');
+        $numeroMenores = $request->get('numeroMenores');
         
         $datos = $this->getParamsTour($request);
         $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($idTour, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
