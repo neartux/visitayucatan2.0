@@ -345,6 +345,10 @@
             }
             hotel.totalEstrellas = array;
         };
+        
+        paqWebVM.enviarReserva = function (id) {
+            $('#frm-rsv-'+id).submit();  
+        };
     });
 
 })();
