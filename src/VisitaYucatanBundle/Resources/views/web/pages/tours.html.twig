@@ -41,12 +41,12 @@
                             <div class="section-left">
                                 <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
                                 <figure class="img1 view">
-                                    <a href="toulink">
+                                    <a href="{{ path('web_tour_detail', {'id': tour.id}) }}">
                                         <img src="{{ asset(tour.principalImage) }}">
                                     </a>
 
                                     <div class="mask">
-                                        <a href="resevalink"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
+                                        <a href="{{ path('web_tour_detail', {'id': tour.id}) }}"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
                                     </div>
                                 </figure>
                                 <figure class="img2">

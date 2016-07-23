@@ -4,37 +4,38 @@
 {% block section %}
 
     {% block content %}
-        <div class="container-fluid" data-ng-controller="WebTourController as ctrlWeb" ng-init="ctrlWeb.initReservaTour('{{ tour.fechaReserva }}', '{{ tour.totalAdultos }}', '{{ tour.totalMenores }}', {{ tour.tarifamenor }}, {{ tour.tarifaadulto }}, {{ tour.tipoCambio }}, {{ tour.minimopersonas }});">
-            <input type="hidden" value="{{ tour.simboloMoneda }}" id="symbolCurrencyHidden"/>
+        <div class="container-fluid" data-ng-controller="WebHotelController as ctrlWeb" data-ng-init="ctrlWeb.initReserva({{ reserva.tarifaAdulto }}, {{ reserva.tarifaMenor }}, {{ reserva.idIdioma }},
+        {{ reserva.idMoneda }}, {{ reserva.tipoCambio }}, {{ reserva.costoTotal }}, '{{ reserva.fechaInicio }}', '{{ reserva.fechaFin }}', '{{ reserva.adultos }}',
+        '{{ reserva.menores }}', '{{ app.request.getBaseURL() }}')">
 
             <div class="row background-gray-light">
                 <div class="col-sm-12">
                     <div class="container-main-header row" style="background-image: url({{ asset('bundles/VisitaYucatanBundle/img/web/banner.jpg') }}) !important;">
                         <div class="col-sm-6 mb-md mt-md">
                             <div class="col-sm-6 z-index-">
-                                <a href="{{ asset(tour.principalImage) }}">
+                                {#<a href="{{ asset(tour.principalImage) }}">
                                     <img src="{{ asset(tour.principalImage) }}" class="img-thumbnail img-main box-shadow rotate-5-g img-main-detail"/>
-                                </a>
+                                </a>#}
                             </div>
                             <div class="col-sm-6 mt-xxl">
-                                <h2 class="text-danger text-bold mt-xxl font-family-raleway">{{ tour.nombreTour }}</h2>
+                                <h2 class="text-danger text-bold mt-xxl font-family-raleway">{{ reserva.nombreHotel }}</h2>
                                 <div class="box-circuit text-bold text-italic text-center">
                                     <div class="first-part-box">
                                         {% trans %}page.web.label.circuit{% endtrans %}
                                     </div>
                                     <div class="second-part-box">
-                                        {{ tour.circuito }}
+                                        {#{{ tour.circuito }}#}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="seconds-images mt-xl text-right">
-                                {% for imagen in tour.imagesTour %}
+                               {# {% for imagen in tour.imagesTour %}
                                     <a href="localhost{{ asset(imagen.path) }}">
                                         <img src="{{ asset(imagen.path) }}" width="110px" height="80px" class="border-img-detail img-preview-detail-main img-seconds-details"/>
                                     </a>
-                                {% endfor %}
+                                {% endfor %}#}
                             </div>
                         </div>
                     </div>
@@ -48,16 +49,228 @@
                         <div class="col-sm-8 content-body-detail pr-n pl-n mt-lg">
                             <div class="col-sm-12">
                                 <div class="col-sm-6"><h4 class="text-uppercase text-bold color-text-pink">{% trans %}page.web.labe.reserva.prepare.reservation{% endtrans %}</h4></div>
-                                <div class="col-sm-6 text-right mt">
-                                    <span class="text-bold">{% trans %}page.web.labe.reserva.price.per.adult{% endtrans %}</span>
-                                    ${{ tour.tarifaAdultoFormat }} {{ tour.simboloMoneda }} <br>
-                                    <span class="text-bold">{% trans %}page.web.labe.reserva.price.per.minor{% endtrans %}</span>
-
-                                </div>
                                 <div class="col-sm-12">
                                     <hr style="border-top: 1px solid rgb(239, 182, 78) !important;" class="mt-n">
                                 </div>
                             </div>
+
+                            <form novalidate name="formReserva">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-7">
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.nombre.$invalid && !formReserva.nombre.$pristine }">
+                                                <label for="nombre" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.tour.name{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.nombre" required id="nombre" name="nombre" class="form-control"/>
+                                            <span ng-show="formReserva.nombre.$invalid && !formReserva.nombre.$pristine" class="required">
+                                                {% trans %}page.web.labe.reserva.tour.name.required{% endtrans %}
+                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.apellidos.$invalid && !formReserva.apellidos.$pristine }">
+                                                <label for="apellidos" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.tour.last.name{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.apellidos" id="apellidos" name="apellidos" required class="form-control"/>
+                                            <span ng-show="formReserva.apellidos.$invalid && !formReserva.apellidos.$pristine" class="required">
+                                                {% trans %}page.web.labe.reserva.tour.last.name.required{% endtrans %}
+                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.lada.$invalid && !formReserva.lada.$pristine }">
+                                                <label for="lada" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.tour.lada{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.lada" required id="lada" name="lada" class="form-control"/>
+                                            <span ng-show="formReserva.lada.$invalid && !formReserva.lada.$pristine" class="required">
+                                                {% trans %}page.web.labe.reserva.tour.lada.required{% endtrans %}
+                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.telefono.$invalid && !formReserva.telefono.$pristine }">
+                                                <label for="telefono" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.tour.phone{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.telefono" required id="telefono" name="telefono" class="form-control"/>
+                                            <span ng-show="formReserva.telefono.$invalid && !formReserva.telefono.$pristine" class="required">
+                                                {% trans %}page.web.labe.reserva.tour.phone.required{% endtrans %}
+                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.email.$invalid && !formReserva.email.$pristine }">
+                                                <label for="email" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.tour.email{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <input type="email" data-ng-model="ctrlWeb.ventaCompletaTO.email" required id="email" name="email" class="form-control"/>
+                                            <span ng-show="formReserva.email.$invalid && !formReserva.email.$pristine" class="required">
+                                                {% trans %}page.web.labe.reserva.tour.email.required{% endtrans %}
+                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.ciudad.$invalid && !formReserva.ciudad.$pristine }">
+                                                <label for="ciudad" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.ciudad.origen{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.ciudad" required id="ciudad" name="ciudad" class="form-control"/>
+                                            <span ng-show="formReserva.ciudad.$invalid && !formReserva.ciudad.$pristine" class="required">
+                                                {% trans %}page.web.labe.reserva.tour.city.required{% endtrans %}
+                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.fechaPaquete.$invalid && !formReserva.fechaPaquete.$pristine }">
+                                                <label for="fechaPaquete" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.date.tu.paquete{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.fechaPaquete" required id="fechaPaquete" name="fechaPaquete" class="form-control datepicker"/>
+                                                    </div>
+                                            <span ng-show="formReserva.fechaPaquete.$invalid && !formReserva.fechaPaquete.$pristine" class="required">
+                                                {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
+                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.fechaSalida.$invalid && !formReserva.fechaSalida.$pristine }">
+                                                <label for="fechaSalida" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.fecha.salida{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.fechaSalida" id="fechaSalida" name="fechaSalida" required class="form-control datepicker"/>
+                                                    </div>
+                                            <span ng-show="formReserva.fechaSalida.$invalid && !formReserva.fechaSalida.$pristine" class="required">
+                                                {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
+                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input">
+                                                <label for="numeroAdultos" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.tour.adults{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-group"></i></span>
+                                                        <select name="numeroAdultos" id="numeroAdultos" data-ng-model="ctrlWeb.ventaCompletaTO.numeroAdultos" class="form-control">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.numeroMenores.$invalid && !formReserva.numeroMenores.$pristine }">
+                                                <label for="numeroMenores" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.tour.minors{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-child"></i></span>
+                                                        <select data-ng-model="ctrlWeb.ventaCompletaTO.numeroMenores" name="numeroMenores" id="numeroMenores" class="form-control">
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                        </select>
+                                                    </div>
+                                                    <span ng-show="formReserva.numeroMenores.$invalid && !formReserva.numeroMenores.$pristine" class="required">
+                                                        {% trans %}page.web.labe.reserva.tour.minors.required{% endtrans %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt-xxl">
+                                            <span class="background-element-pink color-text-white text-bold p">
+                                                    {% trans %}page.web.labe.reserva.importe{% endtrans %}
+                                                <span id="totalCostTour">$1000 MXN</span>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-sm-12 mt-xxl text-left mb">
+                                            <input type="button" data-ng-click="ctrlWeb.createRerservaHotel()"
+                                                   data-ng-disabled="formReserva.$invalid"
+                                                   value="{% trans %}page.web.label.reserva.book.now{% endtrans %}" class="btn btn-primary p"/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-sm-5">
+
+                                        <div class="col-sm-12">
+                                            <div class="form-group mb">
+                                                <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.tipo.habitacion{% endtrans %}:</label>
+                                                <br>
+                                                {{ reserva.tipoHabitacion }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <div class="form-group mb">
+                                                <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.tipo.estadia{% endtrans %}:</label>
+                                                <br>
+                                                {{ reserva.estadiaDias }} {% trans %}page.web.labe.reserva.dias{% endtrans %}
+                                                {% trans %}page.web.labe.reserva.y{% endtrans %} {{ reserva.estadiaNoches }} {% trans %}page.web.labe.reserva.noches{% endtrans %}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <div class="form-group mb">
+                                                <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.tarifa.adulto.opcion{% endtrans %} "nose":</label>
+                                                <br>
+                                                $ {{ reserva.tarifaAdulto }} {{ reserva.simboloMoneda }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group mb">
+                                                <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.price.per.minor{% endtrans %}:</label>
+                                                <br>
+                                                $ {{ reserva.tarifaMenor }} {{ reserva.simboloMoneda }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </form>
 
 
                         </div>

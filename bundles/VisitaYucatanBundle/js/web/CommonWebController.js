@@ -97,6 +97,7 @@
         };
         
         ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath) {
+            console.info(tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath);
             WebService.setContextPath(contextPath);
             ctrlHotel.ventaCompletaTO = {
                 tarifaAdulto: tarifaAdulto,

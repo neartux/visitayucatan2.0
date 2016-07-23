@@ -39,7 +39,6 @@ class DateUtil {
     }
 
     public static function diffDays($fechaInicio, $fechaFin){
-        echo "feca 1 = ".$fechaInicio." fecha 2 = ".$fechaFin;
         $isLastDate = false;
         $numDays = Generalkeys::NUMBER_ZERO;
         while(! $isLastDate){

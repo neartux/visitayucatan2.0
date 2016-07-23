@@ -329,7 +329,6 @@ class HotelUtils {
     }
 
     public static function getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores, $hotel, $tarifa) {
-        echo " tarifa = ".print_r($tarifa);
         $reserva = new HotelReservaTO();
         $reserva->setNombreHotel($hotel['nombrehotel']);
         $reserva->setTipoHabitacion($tarifa['nombre']);
