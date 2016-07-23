@@ -65,7 +65,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.fechaPaquete" required id="fechaPaquete" name="fechaPaquete" class="form-control datepicker"/>
+                                                    <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.fechaPaquete" required id="fechaPaquete" name="fechaPaquete" class="form-control datepicker"/>
                                                         </div>
                                             <span ng-show="formReserva.fechaPaquete.$invalid && !formReserva.fechaPaquete.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
@@ -82,7 +82,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.fechaSalida" id="fechaSalida" name="fechaSalida" required class="form-control datepicker"/>
+                                                    <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.fechaSalida" id="fechaSalida" name="fechaSalida" required class="form-control datepicker"/>
                                                         </div>
                                             <span ng-show="formReserva.fechaSalida.$invalid && !formReserva.fechaSalida.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
@@ -175,6 +175,45 @@
                                             </div>
                                         </div>
 
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input">
+                                                <label for="numeroAdultos" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.tour.adults{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-group"></i></span>
+                                                        <select ng-model="paqWebVM.reservar.adultos" class="form-control"
+                                                                ng-change="paqWebVM.ocupacionHab(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value)">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 mt">
+                                            <div class="form-group-input">
+                                                <label for="numeroMenores" class="col-sm-4 pl-n pr-n">
+                                                    {% trans %}page.web.labe.reserva.tour.minors{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-child"></i></span>
+                                                        <select ng-options="item as item.label for item in paqWebVM.menores track by item.id" class="form-control" id="numeroMenores"
+                                                                ng-model="paqWebVM.reservar.menores" ng-change="paqWebVM.ocupacionHab(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value)">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
                                         <div class="col-sm-12 mt-xxl mb ml">
                                             <span class="background-element-pink color-text-white text-bold p">
                                                     {% trans %}page.web.labe.reserva.importe{% endtrans %}
@@ -266,7 +305,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.fechaLlegada" id="fechaLlegada" name="fechaLlegada" class="form-control datepicker"/>
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.fechaLlegada" readonly id="fechaLlegada" name="fechaLlegada" class="form-control datepicker"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -279,7 +318,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                                                        <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.horaLlegada" id="horaLlegada" name="horaLlegada" class="form-control datepicker"/>
+                                                        <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.horaLlegada" readonly id="horaLlegada" name="horaLlegada" class="form-control timepicker"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -336,6 +375,11 @@
                     autoclose: true,
                     format: 'dd/mm/yyyy',
                     startDate: '+2d'
+                });
+                $('.timepicker').timepicker({
+                    minuteStep: 5,
+                    showInputs: false,
+                    disableFocus: true
                 });
             });
         </script>
