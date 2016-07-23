@@ -65,7 +65,7 @@ class HotelController extends Controller {
         $adultos = $request->get('adultos');
         $menores = $request->get('menores');
 
-        echo "hotel = ".$idHotel." habitacion = ".$idHabitacion." fechaInicio = ".$fechaInicio." fechafin = ".$fechaFin." adultos = ".$adultos." menores = ".$menores;
+        //echo "hotel = ".$idHotel." habitacion = ".$idHabitacion." fechaInicio = ".$fechaInicio." fechafin = ".$fechaFin." adultos = ".$adultos." menores = ".$menores;
 
         $hotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelById($idHotel, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
         $tarifa = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->findDetailHotel(DateUtil::stringToDate($fechaInicio), $idHotel, $idHabitacion, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);

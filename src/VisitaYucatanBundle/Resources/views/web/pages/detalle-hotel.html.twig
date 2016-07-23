@@ -46,7 +46,7 @@
                 <div class="col-sm-12">
                     <div class="row container-body- background-gray-light">
                         <div class="col-sm-2"></div>
-                        <div class="col-sm-8 content-body-detail pr-n pl-n">
+                        <div class="col-sm-8 content-body-detail pr-n pl-n pb-xxl">
                             <div class="col-sm-12">
                                 <h4 class="text-uppercase text-bold color-text-pink">{% trans %}page.web.label.description{% endtrans %}</h4>
                                 <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
@@ -82,7 +82,7 @@
                                             <label class="oswaldo color-text-pink">{% trans %}page.web.labe.reserva.tour.minors{% endtrans %}:</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-child"></i></span>
-                                                <select data-ng-model="ctrlWeb.formRate.minors" ng-change="ctrlWeb.ctrlWeb.displayInputsMinors()" class="form-control">
+                                                <select data-ng-model="ctrlWeb.formRate.minors" ng-change="ctrlWeb.displayInputsMinors()" class="form-control">
                                                     <option value='0'>0</option>
                                                     <option value='1'>1</option>
                                                     <option value='2'>2</option>
@@ -91,6 +91,11 @@
                                                 </select>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="col-sm-12 ml mt">
+                                        <table id="tableMenors" class="table">
+                                        </table>
                                     </div>
 
                                     <div class="col-sm-12">
@@ -174,8 +179,9 @@
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <br>
-                                <span class="text-bold text-center">Adultos: $[[ tour.tarifaadulto | myCurrency2 ]] [[ tour.simbolomoneda ]]</span><br>
-                                <span class="text-bold text-center">Menores: $[[ tour.tarifamenor | myCurrency2 ]] [[ tour.simbolomoneda ]]</span>
+                                <span class="text-bold text-center">
+                                    {% trans %}page.web.label.tours.rate.adults{% entrans %}: $[[ tour.tarifaadulto | myCurrency2 ]] [[ tour.simbolomoneda ]]</span><br>
+                                <span class="text-bold text-center">{% trans %}page.web.label.tours.rate.children{% endtrans %}: $[[ tour.tarifamenor | myCurrency2 ]] [[ tour.simbolomoneda ]]</span>
                                 <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
                             </div>
                         </div>

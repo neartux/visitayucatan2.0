@@ -143,11 +143,12 @@
         };
 
         ctrlHotel.displayInputsMinors = function () {
+            console.info("ctrlHotel.formRate.minors = ", ctrlHotel.formRate.minors);
             if(ctrlHotel.formRate.minors > 0){
                 var inputs = "<tr>";
                 for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
-                    inputs += "<td>Menor " + (i+1) + " <br>" +
-                        "<input type='text' id='minor_"+(i+1)+"'/></td>";
+                    inputs += "<td width='20%'>Edad Menor " + (i+1) + " <br>" +
+                        "<input type='text' id='minor_"+(i+1)+"' class='form-control'/></td><td>&nbsp;</td>";
                 }
                 inputs += "</tr>";
                 $("#tableMenors").html(inputs);
