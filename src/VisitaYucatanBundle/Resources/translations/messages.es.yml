@@ -223,3 +223,8 @@ page.web.labe.reserva.tarifa.adulto.opcion : Tarifa por adulto en ocupación
 page.web.labe.reserva.ciudad.origen : Ciudad de origen
 page.web.labe.reserva.date.tu.paquete : Seleccione la fecha para su paquete
 page.web.labe.reserva.fecha.salida : Fecha salida
+page.web.labe.reserva.hotel.vuelo : Sí usted llega al Aeropuerto, usted puede solicitar totalmente gratis la transportación a su hotel
+page.web.labe.reserva.hotel.numero.vuelo : Número de vuelo
+page.web.labe.reserva.hotel.aerolinea : Aerolinea
+page.web.labe.reserva.hotel.fecha.llegada : Fecha llegada
+page.web.labe.reserva.hotel.hora.llegada : Hora llegada

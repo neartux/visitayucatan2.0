@@ -210,6 +210,11 @@ page.web.labe.reserva.tarifas : Rates
 page.web.labe.reserva.tipo.plan : Type Plan
 page.web.labe.reserva.ocupacion.maxima : Maximum occupancy per room
 page.web.labe.reserva.include.minors : People (including minors)
-  page.web.labe.reserva.required.room : Required Rooms
-  page.web.labe.reserva.age.maxima : Maximum age of the child
-  page.web.labe.reserva.por.solo : Book now for only
+page.web.labe.reserva.required.room : Required Rooms
+page.web.labe.reserva.age.maxima : Maximum age of the child
+page.web.labe.reserva.por.solo : Book now for only
+page.web.labe.reserva.hotel.vuelo : If you arrive at the airport, you can request completely free transportation to your hotel
+page.web.labe.reserva.hotel.numero.vuelo : Flight number
+page.web.labe.reserva.hotel.aerolinea : Airline
+page.web.labe.reserva.hotel.fecha.llegada : Arrival date
+page.web.labe.reserva.hotel.hora.llegada : Arrival time

@@ -213,3 +213,8 @@ page.web.labe.reserva.tarifa.adulto.opcion : Tasso di occupazione per adulti
 page.web.labe.reserva.ciudad.origen : Hometown
 page.web.labe.reserva.date.tu.paquete : Selezionare la data per il pacchetto
 page.web.labe.reserva.fecha.salida : Partenza
+page.web.labe.reserva.hotel.vuelo : Se si arriva in aeroporto, è possibile richiedere il trasporto completamente gratuito per il tuo hotel
+page.web.labe.reserva.hotel.numero.vuelo : Numero di volo
+page.web.labe.reserva.hotel.aerolinea : Aerolinea
+page.web.labe.reserva.hotel.fecha.llegada : Data di arrivo
+page.web.labe.reserva.hotel.hora.llegada : Orario di arrivo

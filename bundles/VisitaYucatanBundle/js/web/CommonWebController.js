@@ -41,6 +41,7 @@
             };
             $('.datepicker').val(fechaReserva);
             ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate, minimoPerson);
+            ctrlWeb.findItemsSimilar();
         };
 
         ctrlWeb.configureParametersInit = function(rateChild, rateAdult, exchangeRate, minimoPerson){
@@ -269,15 +270,16 @@
                         paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costocuadruple;
                     break;
             }
-            paqWebVM.simbolCurrency = paqWebVM.paqueteCombinacion.simbolo 
+            paqWebVM.simbolCurrency = paqWebVM.paqueteCombinacion.simbolo;
 
             paqWebVM.calculateCostoPaquete(paqWebVM.detailReserva.adultos,paqWebVM.detailReserva.menores);
-        }
+            paqWebVM.findItemsSimilar();
+        };
         paqWebVM.calculateCostoPaquete = function(adultos,menores){
             var costoAdultos = parseFloat(paqWebVM.detailReserva.costo) * adultos;
             var costoMenores = parseFloat(paqWebVM.paqueteCombinacion.costomenor) * menores;
             paqWebVM.importeTotal = costoAdultos + costoMenores;
-        }
+        };
         paqWebVM.ocupacionHab = function(adultos,menores){
             adultos =  parseInt(adultos);
             menores =  parseInt(menores);
