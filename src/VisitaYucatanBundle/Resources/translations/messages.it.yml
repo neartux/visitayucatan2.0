@@ -202,3 +202,14 @@ page.web.labe.reserva.include.minors : persone (compresi i minori)
 page.web.labe.reserva.required.room : Camere Richieste
 page.web.labe.reserva.age.maxima : Età massima del bambino
 page.web.labe.reserva.por.solo : Prenotare ora solo
+page.web.labe.reserva.price.per.adult : Prezzo per adulto
+page.web.labe.reserva.price.per.minor : Prezzo per giovane
+page.web.labe.reserva.importe : Importo
+page.web.labe.reserva.paquete.seleccionado : Pacchetto selezionato
+page.web.labe.reserva.hotel.seleccionado : Hotel selezionato
+page.web.labe.reserva.tipo.habitacion : Tipo di camera
+page.web.labe.reserva.tipo.estadia : Estadia
+page.web.labe.reserva.tarifa.adulto.opcion : Tasso di occupazione per adulti
+page.web.labe.reserva.ciudad.origen : Hometown
+page.web.labe.reserva.date.tu.paquete : Selezionare la data per il pacchetto
+page.web.labe.reserva.fecha.salida : Partenza

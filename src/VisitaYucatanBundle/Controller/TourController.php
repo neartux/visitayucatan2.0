@@ -57,10 +57,10 @@ class TourController extends Controller {
      * @Method("POST")
      */
     public function displayReservaTourAction(Request $request) {
-        echo $idTour = $request->get('idTour'); echo "<br>";
-        echo $fechaReserva = $request->get('fechaReserva');echo "<br>";
-        echo $numeroAdultos = $request->get('numeroAdultos');echo "<br>";
-        echo $numeroMenores = $request->get('numeroMenores');echo "<br>";
+        $idTour = $request->get('idTour');
+        $fechaReserva = $request->get('fechaReserva');
+        $numeroAdultos = $request->get('numeroAdultos');
+        $numeroMenores = $request->get('numeroMenores');
         
         $datos = $this->getParamsTour($request);
         $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($idTour, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
@@ -69,8 +69,7 @@ class TourController extends Controller {
         $tourTO->setTotalAdultos($numeroAdultos);
         $tourTO->setTotalMenores($numeroMenores);
         $costoTotal = ($tourTO->getTotalAdultos() * $tourTO->getTarifaadulto()) + ($tourTO->getTotalMenores() * $tourTO->getTarifamenor());
-        return $this->render('VisitaYucatanBundle:web/pages:reserva-tour.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR,
-            'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR, 'tour' => $tourTO, 'costoTotal' => number_format($costoTotal)));
+        return $this->render('VisitaYucatanBundle:web/pages:reserv-tour.html.twig', array('tour' => $tourTO, 'costoTotal' => number_format($costoTotal)));
     }
 
     private function getParamsTour($request){

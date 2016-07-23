@@ -195,6 +195,17 @@ page.web.labe.reserva.similar.package : Similar Packages
 page.web.labe.reserva.dias : Days
 page.web.labe.reserva.noches : Nigths
 page.web.labe.reserva.y : And
+page.web.labe.reserva.price.per.adult : Price per adult
+page.web.labe.reserva.price.per.minor : Price per minor
+page.web.labe.reserva.importe : Amount
+page.web.labe.reserva.paquete.seleccionado : Selected package
+page.web.labe.reserva.hotel.seleccionado : Selected hotel
+page.web.labe.reserva.tipo.habitacion : Room type
+page.web.labe.reserva.tipo.estadia : Stay
+page.web.labe.reserva.tarifa.adulto.opcion : Adult occupancy rate
+page.web.labe.reserva.ciudad.origen : Hometown
+page.web.labe.reserva.date.tu.paquete : Select the date for your package
+page.web.labe.reserva.fecha.salida : Departure date
 page.web.labe.reserva.tarifas : Rates
 page.web.labe.reserva.tipo.plan : Type Plan
 page.web.labe.reserva.ocupacion.maxima : Maximum occupancy per room

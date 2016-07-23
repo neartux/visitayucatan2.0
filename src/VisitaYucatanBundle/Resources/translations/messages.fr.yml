@@ -202,3 +202,14 @@ page.web.labe.reserva.include.minors : personnes (y compris les mineurs)
 page.web.labe.reserva.required.room : Rhambres Requises
 page.web.labe.reserva.age.maxima : L'âge maximum de l'enfant
 page.web.labe.reserva.por.solo : Réservez maintenant pour seulement
+page.web.labe.reserva.price.per.adult : Prix par adulte
+page.web.labe.reserva.price.per.minor : Prix par jeune
+page.web.labe.reserva.importe : Montant
+page.web.labe.reserva.paquete.seleccionado : Forfait choisi
+page.web.labe.reserva.hotel.seleccionado : Hôtel sélectionné
+page.web.labe.reserva.tipo.habitacion : Type de chambre
+page.web.labe.reserva.tipo.estadia : Estadia
+page.web.labe.reserva.tarifa.adulto.opcion : Taux d'occupation des adultes
+page.web.labe.reserva.ciudad.origen : Ville d'origine
+page.web.labe.reserva.date.tu.paquete : Sélectionnez la date de votre forfait
+page.web.labe.reserva.fecha.salida : Consultez

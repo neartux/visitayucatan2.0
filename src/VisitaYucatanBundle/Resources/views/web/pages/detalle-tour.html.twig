@@ -122,17 +122,20 @@
                             <div class="col-sm-12 text-center">
                                 <h3 class="similar-package-title">{% trans %}page.web.labe.reserva.similar.package{% endtrans %}</h3>
                             </div>
-                            <div class="col-sm-12 pl-n pr-n text-center" data-ng-repeat="tour in ctrlWeb.listItemsSimilar.data">
-                                <a href="{{ path('web_tour_detail', {'id': '[[tour.id]]'}) }}"><img src="{{ asset('[[ tour.imagen ]]') }}" class="img-similar img-thumbnail"/></a>
+                            <div class="col-sm-12 pl-n pr-n text-center" data-ng-repeat="tourDetail in ctrlWeb.listItemsSimilar.data">
+
+                                <a href="{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/tour/detail/id/[[tourDetail.id]]">
+                                    <img src="{{ asset('[[ tourDetail.imagen ]]') }}" class="img-similar img-thumbnail"/>
+                                </a>
                                 <br>
-                                <span class="text-center">[[ tour.nombre ]]</span> <br>
+                                <span class="text-center">[[ tourDetail.nombre ]] [[tourDetail.id]]</span> <br>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <br>
-                                <span class="text-bold text-center">Adultos: $[[ tour.tarifaadulto | myCurrency2 ]] [[ tour.simbolomoneda ]]</span><br>
-                                <span class="text-bold text-center">Menores: $[[ tour.tarifamenor | myCurrency2 ]] [[ tour.simbolomoneda ]]</span>
+                                <span class="text-bold text-center">Adultos: $[[ tourDetail.tarifaadulto | myCurrency2 ]] [[ tourDetail.simbolomoneda ]]</span><br>
+                                <span class="text-bold text-center">Menores: $[[ tourDetail.tarifamenor | myCurrency2 ]] [[ tourDetail.simbolomoneda ]]</span>
                                 <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
                             </div>
                         </div>

@@ -4,16 +4,19 @@
 {% block section %}
 
     {% block content %}
-        <div class="container-fluid" data-ng-controller="WebPaqueteController as paqWebVM" ng-init="paqWebVM.initPaquete('{{ paquete.combinacionesPaquete | json_encode() }}', {{ paquete.id }});">
+        <div class="container-fluid" data-ng-controller="WebPaqueteController as paqWebVM"
+             ng-init="paqWebVM.initPaquete('{{ paquete.combinacionesPaquete | json_encode() }}', {{ paquete.id }});">
             <input type="hidden" value="{{ paquete.simboloMoneda }}" id="symbolCurrencyHidden"/>
 
             <div class="row background-gray-light">
                 <div class="col-sm-12">
-                    <div class="container-main-header row" style="background-image: url({{ asset('bundles/VisitaYucatanBundle/img/web/banner.jpg') }}) !important;">
+                    <div class="container-main-header row"
+                         style="background-image: url({{ asset('bundles/VisitaYucatanBundle/img/web/banner.jpg') }}) !important;">
                         <div class="col-sm-6 mb-md mt-md">
                             <div class="col-sm-6 z-index-">
                                 <a href="{{ asset(paquete.principalImage) }}">
-                                    <img src="{{ asset(paquete.principalImage) }}" class="img-thumbnail img-main box-shadow rotate-5-g img-main-detail"/>
+                                    <img src="{{ asset(paquete.principalImage) }}"
+                                         class="img-thumbnail img-main box-shadow rotate-5-g img-main-detail"/>
                                 </a>
                             </div>
                             <div class="col-sm-6 mt-xxl">
@@ -32,7 +35,8 @@
                             <div class="seconds-images mt-xl text-right">
                                 {% for imagen in paquete.imagesPaquete %}
                                     <a href="localhost{{ asset(imagen.path) }}">
-                                        <img src="{{ asset(imagen.path) }}" width="110px" height="80px" class="border-img-detail img-preview-detail-main img-seconds-details"/>
+                                        <img src="{{ asset(imagen.path) }}" width="110px" height="80px"
+                                             class="border-img-detail img-preview-detail-main img-seconds-details"/>
                                     </a>
                                 {% endfor %}
                             </div>
@@ -47,21 +51,25 @@
                         <div class="col-sm-2"></div>
                         <div class="col-sm-8 content-body-detail pr-n pl-n">
                             <div class="col-sm-12">
-                                <h4 class="text-uppercase text-bold color-text-pink">{% trans %}page.web.label.description{% endtrans %}</h4>
+                                <h4 class="text-uppercase text-bold color-text-pink">{% trans %}
+                                    page.web.label.description{% endtrans %}</h4>
                                 <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
                                 {{ paquete.nombrePaquete }} <br>
                                 {{ paquete.circuito }}
                             </div>
                             <div class="col-sm-12 color-text-gray-primary mt fnt-sz-12 contenedor-description">
                                 <p>{{ paquete.descripcionLarga | raw }}</p>
-                                {{paquete.itinerario | raw }}
+                                {{ paquete.itinerario | raw }}
                             </div>
                             <div class="col-sm-12 background-element-pink mt-lg">
                                 <div class="col-sm-6 color-white text-bold text-uppercase text-italic p-sm color-text-white">
                                     <div class="col-sm-6 chooise-package color-text-pink pl-n pr-n text-center">
-                                        <span class="mt">{% trans %}page.web.labe.reserva.chose.a.package{% endtrans %}</span>
+                                        <span class="mt">{% trans %}
+                                            page.web.labe.reserva.chose.a.package{% endtrans %}</span>
                                         <hr style="border-top: 1px solid rgb(238, 238, 238) !important;margin-bottom: 5px;margin-top: 5px;">
-                                        {{ paquete.dias }} {% trans %}page.web.labe.reserva.dias{% endtrans %} {% trans %}page.web.labe.reserva.y{% endtrans %}
+                                        {{ paquete.dias }} {% trans %}
+                                        page.web.labe.reserva.dias{% endtrans %} {% trans %}
+                                        page.web.labe.reserva.y{% endtrans %}
                                         {{ paquete.noches }} {% trans %}page.web.labe.reserva.noches{% endtrans %}
                                     </div>
                                     {% trans %}page.web.labe.reserva.tour.hotel{% endtrans %}:
@@ -71,20 +79,31 @@
                                         {% trans %}page.web.labe.reserva.tour.habitacion{% endtrans %}:
                                     </div>
                                     <div class="col-sm-8">
-                                        <select name="habitaciones" ng-model="paqWebVM.habitacion" ng-change="paqWebVM.changeHabitacion(paqWebVM.habitacion)" class="form-control">
-                                            <option value="sencillo">{% trans %}page.web.labe.reserva.tour.habitacion.single{% endtrans %}</option>
-                                            <option value="doble">{% trans %}page.web.labe.reserva.tour.habitacion.double{% endtrans %}</option>
-                                            <option value="triple">{% trans %}page.web.labe.reserva.tour.habitacion.triple{% endtrans %}</option>
-                                            <option value="cuadruple">{% trans %}page.web.labe.reserva.tour.habitacion.quadruple{% endtrans %}</option>
+                                        <select name="habitaciones" ng-model="paqWebVM.habitacion"
+                                                ng-change="paqWebVM.changeHabitacion(paqWebVM.habitacion)"
+                                                class="form-control">
+                                            <option value="sencillo">{% trans %}
+                                                page.web.labe.reserva.tour.habitacion.single{% endtrans %}</option>
+                                            <option value="doble">{% trans %}
+                                                page.web.labe.reserva.tour.habitacion.double{% endtrans %}</option>
+                                            <option value="triple">{% trans %}
+                                                page.web.labe.reserva.tour.habitacion.triple{% endtrans %}</option>
+                                            <option value="cuadruple">{% trans %}
+                                                page.web.labe.reserva.tour.habitacion.quadruple{% endtrans %}</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
 
-
-                            <div ng-repeat="h in paqWebVM.habCombinaciones track by $index" data-ng-init="paqWebVM.getRangeStars(h)">
-                                <form action="{{ path('web_paquete_reserva') }}" method="post">
+                            <div ng-repeat="h in paqWebVM.habCombinaciones track by $index"
+                                 data-ng-init="paqWebVM.getRangeStars(h)">
+                                <form action="{{ path('web_paquete_reserva') }}" method="post" id="frm-rsv-[[h.id]]">
+                                    <input type="hidden" name="id" value="[[h.id]]">
+                                    <input type="hidden" name="costo" value="[[h.costo]]">
+                                    <input type="hidden" name="typeocupacion" value="[[h.ocupacion]]">
+                                    <input type="hidden" name="namepaquete" value="[[namePaquete]]">
+                                    <input type="hidden" name="idPackage" value="{{ paquete.id }}">
                                     <div class="col-sm-12 package-item mr-n ml-n">
                                         <div class="col-sm-8 text-left">
                                             <h4 class="text-bold color-text-pink name-hotel-[[h.id]]">
@@ -92,14 +111,17 @@
                                                 <span class="fa fa-star" ng-repeat="n in h.totalEstrellas"></span>
                                             </h4>
                                             <div class="well well-sm col-sm-6 mb-n hoverGallery">
-                                                <a href="imagenes/hoteles/2P5zfn0o2E_10785218.jpg.1024x0.jpg" class="view-gallery- text-bold text-uppercase">
-                                                    {% trans %}page.web.labe.reserva.view.gallery{% endtrans %}<i class="fa fa-play" style="float: right;"></i>
+                                                <a href="imagenes/hoteles/2P5zfn0o2E_10785218.jpg.1024x0.jpg"
+                                                   class="view-gallery- text-bold text-uppercase">
+                                                    {% trans %}page.web.labe.reserva.view.gallery{% endtrans %}<i
+                                                            class="fa fa-play" style="float: right;"></i>
                                                 </a>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-4 p-n">
-                                            <div class="col-sm-12 box-price-package text-center m-n area-package-item">
+                                            <div class="col-sm-12 box-price-package text-center m-n area-package-item"
+                                                data-ng-click="paqWebVM.enviarReserva(h.id)">
                                                 <h4 class="color-text-pink text-bold btnReservaPaquete" id="[[h.id]]">
                                                     $[[h.costo | myCurrency2 ]] [[h.simbolo]]
                                                 </h4>
@@ -114,14 +136,16 @@
                             </div>
 
 
-
                         </div>
                         <div class="col-sm-2 pl pr">
                             <div class="col-sm-12 text-center">
-                                <h3 class="similar-package-title">{% trans %}page.web.labe.reserva.similar.package{% endtrans %}</h3>
+                                <h3 class="similar-package-title">{% trans %}
+                                    page.web.labe.reserva.similar.package{% endtrans %}</h3>
                             </div>
-                            <div class="col-sm-12 pl-n pr-n text-center" data-ng-repeat="package in paqWebVM.listItemsSimilar.data">
-                                <a href="{{ path('web_paquete_detail', {'id': '[[package.id]]'}) }}"><img src="{{ asset('[[ package.path ]]') }}" class="img-similar img-thumbnail"/></a>
+                            <div class="col-sm-12 pl-n pr-n text-center"
+                                 data-ng-repeat="package in paqWebVM.listItemsSimilar.data">
+                                <a href="{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/paquete/detail/id/[[package.id]]">
+                                    <img src="{{ asset('[[ package.path ]]') }}" class="img-similar img-thumbnail"/></a>
                                 <br>
                                 <span class="text-center">[[ package.descripcion ]]</span> <br>
                                 <i class="fa fa-star color-text-white"></i>
@@ -158,7 +182,7 @@
     {% block scripts %}
         {{ parent() }}
         <script>
-            $(function(){
+            $(function () {
                 $('.datepicker').datepicker({
                     autoclose: true,
                     format: 'dd/mm/yyyy',

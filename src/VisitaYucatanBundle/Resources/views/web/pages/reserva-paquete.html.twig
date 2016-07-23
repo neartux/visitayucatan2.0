@@ -74,13 +74,7 @@
                             <option value="4">4</option>                      
                         </select>
                         <span><strong>Menores:</strong></span>
-                        <select ng-options="item as item.label for item in paqWebVM.menores track by item.id" ng-model="paqWebVM.reservar.menores" ng-change="paqWebVM.ocupacionHab(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value)">
-                            
-                                                 
-                        </select>
-                        <!--<option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>-->
+                        <select ng-options="item as item.label for item in paqWebVM.menores track by item.id" ng-model="paqWebVM.reservar.menores" ng-change="paqWebVM.ocupacionHab(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value)"></select>
                   </div>
                   <div style="background-color:#55cbBB;width:200px;padding:2px;margin-top:5px">
                       Importe: [[paqWebVM.importeTotal | myCurrency2]] [[paqWebVM.simbolCurrency]]

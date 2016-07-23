@@ -172,3 +172,10 @@
     background: #015D6A !important;
     color: #fff;
 }
+.menu-footer a:hover {
+    color: #FFF !important;
+}
+
+.menu-footer a:focus {
+    color: #FFF !important;
+}
