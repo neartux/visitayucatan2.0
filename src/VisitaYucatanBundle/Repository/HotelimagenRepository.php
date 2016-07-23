@@ -19,6 +19,19 @@ class HotelimagenRepository extends \Doctrine\ORM\EntityRepository {
         return $this->findBy(array('hotel' => $idHotel, 'estatus' => Estatuskeys::ESTATUS_ACTIVO));
     }
 
+    public function findPathImagesHotel($idHotel) {
+        $em = $this->getEntityManager();
+
+        $sql = "SELECT hotel_imagen.path AS src FROM hotel_imagen WHERE hotel_imagen.id_estatus = :estatusActivo AND hotel_imagen.id = :hotel ORDER BY hotel_imagen.principal";
+
+        $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+        $params['hotel'] = $idHotel;
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
+
     public function uploadHotelImage($originalName, $nameImage, $folio, $path, $tipoArchivo, $idHotel){
         if(! $this->existHotel($idHotel)){
             throw new EntityNotFoundException('El hotel con id ' . $idHotel . " no se encontro");

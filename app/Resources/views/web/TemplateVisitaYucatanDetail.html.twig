@@ -52,8 +52,12 @@
                     enabled:true
                 }
             });
+
             $('.img-seconds-details').magnificPopup({
-                type:'image'
+                type:'image',
+                gallery:{
+                    enabled:true
+                }
             });
 
             $('.group-img').each(function() { // the containers for all your galleries
@@ -70,6 +74,14 @@
                 });
             });
         });
+        function startImagesHotel() {
+
+
+
+            $.magnificPopup.open({
+                items: paqWebVM.listImagesHotel.data,
+                type: 'inline'}, 0);
+        }
     </script>
 {% endblock %}
 

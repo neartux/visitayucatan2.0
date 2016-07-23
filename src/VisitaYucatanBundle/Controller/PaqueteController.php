@@ -141,4 +141,13 @@ class PaqueteController extends Controller {
         $paquetes = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->findPaquetesSimilares($request->get('id'), 5, $datos[1], $datos[0]);
         return new Response($this->get('serializer')->serialize($paquetes, Generalkeys::JSON_STRING));
     }
+
+    /**
+     * @Route("/paquete/find/imagenes/hotel", name="paquete_find_list_hotel_images")
+     * @Method("POST")
+     */
+    public function findImagenesHotel(Request $request) {
+        $imagenes = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelimagen')->findPathImagesHotel($request->get('idHotel'));
+        return new Response($this->get('serializer')->serialize($imagenes, Generalkeys::JSON_STRING));
+    }
 }

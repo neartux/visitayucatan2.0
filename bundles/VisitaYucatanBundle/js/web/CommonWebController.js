@@ -200,11 +200,12 @@
 
         paqWebVM.habCombinaciones = undefined;
         paqWebVM.listItemsSimilar = WebService.listItemsSimilar;
+        paqWebVM.listImagesHotel = WebService.listImagesHotel;
         paqWebVM.reservar = {};
         paqWebVM.menores = [
             {id:0,value:0,label:"0"},
             {id:1,value:1,label:"1"},
-            {id:2,value:2,label:"2"},
+            {id:2,value:2,label:"2"}
         ];
         paqWebVM.idPaquete = 0;
         paqWebVM.initPaquete = function(combinacionespaquete, idPackage){
@@ -362,6 +363,23 @@
         
         paqWebVM.enviarReserva = function (id) {
             $('#frm-rsv-'+id).submit();  
+        };
+
+        paqWebVM.findImagesHotel = function (idHotel) {
+            console.info("idhotel = ", idHotel);
+            WebService.findImagesHotel(idHotel).then(function () {
+                var newList = [];
+                angular.forEach(paqWebVM.listImagesHotel.data, function (value, key) {
+                    newList.push({"src": value.src});
+                });
+                console.info(newList);
+                $.magnificPopup.open({
+                    items: [{src: "bundles/VisitaYucatanBundle/images/hoteles/hotel-5-folio-12.jpg", type: 'inline'}],
+                    gallery: {
+                        enabled: true
+                    }
+                });
+            });
         };
     });
 

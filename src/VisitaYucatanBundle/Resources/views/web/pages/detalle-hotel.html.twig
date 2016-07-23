@@ -13,8 +13,8 @@
                     <div class="container-main-header row" style="background-image: url({{ asset('bundles/VisitaYucatanBundle/img/web/banner.jpg') }}) !important;">
                         <div class="col-sm-6 mb-md mt-md">
                             <div class="col-sm-6 z-index-">
-                                <a href="{{ asset(hotel.principalImage) }}">
-                                    <img src="{{ asset(hotel.principalImage) }}" class="img-thumbnail img-main box-shadow rotate-5-g img-main-detail"/>
+                                <a href="{{ asset(hotel.principalImage) }}" class="img-main-detail">
+                                    <img src="{{ asset(hotel.principalImage) }}" class="img-thumbnail img-main box-shadow rotate-5-g"/>
                                 </a>
                             </div>
                             <div class="col-sm-6 mt-xxl">
@@ -32,8 +32,8 @@
                         <div class="col-sm-6">
                             <div class="seconds-images mt-xl text-right">
                                 {% for imagen in hotel.imagenesHotel %}
-                                    <a href="localhost{{ asset(imagen.path) }}">
-                                        <img src="{{ asset(imagen.path) }}" width="110px" height="80px" class="border-img-detail img-preview-detail-main img-seconds-details"/>
+                                    <a href="{{ asset(imagen.path) }}" class="img-seconds-details">
+                                        <img src="{{ asset(imagen.path) }}" width="110px" height="80px" class="border-img-detail img-preview-detail-main"/>
                                     </a>
                                 {% endfor %}
                             </div>

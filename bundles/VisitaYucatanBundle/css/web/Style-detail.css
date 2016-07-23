@@ -179,3 +179,9 @@
 .menu-footer a:focus {
     color: #FFF !important;
 }
+.cursor-pointer{
+    cursor: pointer;
+}
+.elemento-oculto {
+    display: none;
+}

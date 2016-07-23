@@ -62,6 +62,7 @@ class Generalkeys{
     const IMG_NAME_SECCION_WEB_HOTEL = 'bundles/VisitaYucatanBundle/img/web/titulo-hoteles.png';
     const IMG_NAME_SECCION_WEB_PACKAGE = 'bundles/VisitaYucatanBundle/img/web/titulo-paquetes.png';
     const bcc_email = 'near31_3112@hotmail.com';
+    const gabriel_email = 'sistemas@icsipeninsular.com.mx';
     const gabino_martinez_email = 'gmartinez@visitayucatan.com';
     const director_viyuc_email = 'director@visitayucatan.com';
     const f_capetillo_email = 'fcapetilloc@visitayucatan.com';

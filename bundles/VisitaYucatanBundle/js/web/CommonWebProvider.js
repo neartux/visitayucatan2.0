@@ -23,6 +23,9 @@
         service.listItemsSimilar = {
             data: []
         };
+        service.listImagesHotel = {
+            data: []
+        };
 
         service.changeCurrencyOrLanguageSession = function(language, currency){
             var path = angular.element(document.querySelector('#pathCatalogsReload')).context.value;
@@ -41,7 +44,6 @@
         };
         
         service.findRateRoomByHotel = function (formRate) {
-            console.info("buscando ", formRate);
             service.listRoomsHotelToSale.data = undefined;
             var path = angular.element(document.querySelector('#pathRatesFind')).context.value;
             return $http.post(path, $.param(
@@ -97,6 +99,16 @@
         service.createReservationHotel = function(ventaCompletaTO){
             return $http.post(service.contextPath+'/hotel/createReservationHotel', $.param({ventaCompletaTO : JSON.stringify(ventaCompletaTO)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.findImagesHotel = function(idHotel){
+            var path = $("#pathImagesHotel").val();
+            return $http.post(path, $.param({idHotel : idHotel}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response) {
+                console.info("response = ", response);
+                service.listImagesHotel.data = response.data;
             });
         };
 
