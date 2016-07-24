@@ -374,7 +374,8 @@
                 });
                 console.info(newList);
                 $.magnificPopup.open({
-                    items: [{src: "bundles/VisitaYucatanBundle/images/hoteles/hotel-5-folio-12.jpg", type: 'inline'}],
+                    items: newList,
+                    preloader: false,
                     gallery: {
                         enabled: true
                     }

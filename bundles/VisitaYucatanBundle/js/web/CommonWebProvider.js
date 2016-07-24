@@ -107,7 +107,6 @@
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
-                console.info("response = ", response);
                 service.listImagesHotel.data = response.data;
             });
         };
