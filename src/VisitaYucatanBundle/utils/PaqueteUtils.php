@@ -28,6 +28,7 @@ class PaqueteUtils {
             $paqueteIdioma->setDescripcionLarga($paqueteEntity->getDescripcionLarga());
             $paqueteIdioma->setItinerario($paqueteEntity->getItinerario());
             $paqueteIdioma->setDias($paqueteEntity->getDias());
+            $paqueteIdioma->setIncluye($paqueteEntity->getIncluye());
             //$paqueteIdioma->setSoloadultos($paqueteEntity->getSoloadultos());
         }
 

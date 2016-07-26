@@ -209,7 +209,7 @@
                 paquetesVM.paqueteIdiomaTo.data.descripcionCorta ='';
                 paquetesVM.paqueteIdiomaTo.data.descripcionLarga = $("#descripcionLargaPaquete").code();
                 paquetesVM.paqueteIdiomaTo.data.itinerario = $("#itinerario").code();
-                paquetesVM.paqueteIdiomaTo.data.incluye = $("#itinerario").code();
+                paquetesVM.paqueteIdiomaTo.data.incluye = $("#incluye").code();
                 paquetesVM.paqueteIdiomaTo.data.idPaquete = paquetesVM.idPaqueteGlobal;
                 console.info('paquetesVM.paqueteIdiomaTo.data',paquetesVM.paqueteIdiomaTo.data)
                 return PaqueteService.savePaqueteLanguage(paquetesVM.paths.savePaquteLanguage,paquetesVM.paqueteIdiomaTo.data).then(function (data) {
