@@ -85,7 +85,13 @@
             };
             ctrlHotel.symbolCurrency = angular.element(document.querySelector('#symbolCurrencyHidden')).context.value;
             ctrlHotel.findTarifasHotel();
-            ctrlHotel.getRangeStars(estrellas)
+            ctrlHotel.getRangeStars(estrellas);
+            ctrlHotel.findItemsSimilar();
+        };
+
+        ctrlHotel.findItemsSimilar = function () {
+            var path = angular.element(document.querySelector('#pathSimilars')).context.value;
+            WebService.findItemsSimilar(path, 0);
         };
 
         ctrlHotel.getRangeStars = function (estrellas) {

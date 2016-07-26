@@ -168,27 +168,28 @@
 
                         <div class="col-sm-2 pl pr">
                             <div class="col-sm-12 text-center">
-                                <h3 class="similar-package-title">{% trans %}page.web.labe.reserva.similar.package{% endtrans %}</h3>
+                                <h3 class="similar-package-title">{% trans %}
+                                    page.web.labe.reserva.similar.package{% endtrans %}</h3>
                             </div>
-                            <div class="col-sm-12 pl-n pr-n text-center" data-ng-repeat="tour in ctrlWeb.listItemsSimilar.data">
-                                <a href="{{ path('web_tour_detail', {'id': '[[tour.id]]'}) }}"><img src="{{ asset('[[ tour.imagen ]]') }}" class="img-similar img-thumbnail"/></a>
+                            <div class="col-sm-12 pl-n pr-n text-center"
+                                 data-ng-repeat="package in ctrlWeb.listItemsSimilar.data">
+                                <a href="{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/paquete/detail/id/[[package.id]]">
+                                    <img src="{{ asset('[[ package.path ]]') }}" class="img-similar img-thumbnail"/></a>
                                 <br>
-                                <span class="text-center">[[ tour.nombre ]]</span> <br>
+                                <span class="text-center">[[ package.descripcion ]]</span> <br>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <br>
-                                <span class="text-bold text-center">
-                                    {% trans %}page.web.label.tours.rate.adults{% endtrans %}: $[[ tour.tarifaadulto | myCurrency2 ]] [[ tour.simbolomoneda ]]</span><br>
-                                <span class="text-bold text-center">{% trans %}page.web.label.tours.rate.children{% endtrans %}: $[[ tour.tarifamenor | myCurrency2 ]] [[ tour.simbolomoneda ]]</span>
+                                <span class="text-bold text-center">$[[ package.costo | myCurrency2 ]] [[ package.simbolo ]]</span>
                                 <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <input type="hidden" value="{{ path('tours_find_list_similares') }}" id="toursSimilars"/>
+            <input type="hidden" id="pathSimilars" value="{{ path('paquete_find_list_similares') }}">
             <form action="{{ path('web_hotel_reserva') }}" id="frmReserveHotel" method="post" style="display: none;">
                 <input type="hidden" name="idHotel" value="{{ hotel.id }}"/>
                 <input type="hidden" name="idHabitacion" id="idHabitacion"/>
