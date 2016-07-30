@@ -50,7 +50,7 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
         $em->persist($venta);
         $em->flush();
 
-        $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetalle($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_HOTEL, $venta->getId());
+        $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetalleTour($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_HOTEL, $venta->getId());
 
         return $venta->getId();
     }
@@ -84,7 +84,7 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
         $em->persist($venta);
         $em->flush();
 
-        $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetalle($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_HOTEL, $venta->getId());
+        $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetalleTour($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_TOUR, $venta->getId());
 
         return $venta->getId();
 

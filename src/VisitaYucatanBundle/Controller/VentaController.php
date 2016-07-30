@@ -12,6 +12,25 @@ use VisitaYucatanBundle\utils\to\VentaCompletaTO;
 use VisitaYucatanBundle\utils\VentaUtils;
 
 class VentaController extends Controller {
+
+    /**
+     * @Route("/venta/send/voucher/tour", name="web_voucher_tour")
+     * @Method("GET")
+     */
+    public function voucherTour(Request $request) {
+
+        // renderiza la vista y manda la informacion
+        $ventas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find(2);
+        $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($ventas->getVentaDetalle()->get(0)->getHotel()->getId());
+        $venta = VentaUtils::getVentaCompletaTOHotel($this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->getDetailsSaleHotel($ventas->getId(), $idContract));
+        $date = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));
+        $monthChekIn = DateUtil::getFullNameMonth(date_format($venta->getCheckIn(), 'm'));
+        $monthChekOut = DateUtil::getFullNameMonth(date_format($venta->getCheckOut(), 'm'));
+        $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-hotel-pdf.html.twig',array('ventaCompleta' => $venta,
+            'mes' => $date, 'mesCheckIn' => $monthChekIn, 'monthCheckOut' => $monthChekOut));
+
+        $this->getPdf($html, $venta);
+    }
     
     /**
      * @Route("/send/voucher/hotel", name="web_voucher_hotel")
@@ -20,7 +39,7 @@ class VentaController extends Controller {
     public function indexAction(Request $request) {
 
         // renderiza la vista y manda la informacion
-        $ventas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find(6);
+        $ventas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find(2);
         $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($ventas->getVentaDetalle()->get(0)->getHotel()->getId());
         $venta = VentaUtils::getVentaCompletaTOHotel($this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->getDetailsSaleHotel($ventas->getId(), $idContract));
         $date = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));

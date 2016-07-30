@@ -21,6 +21,7 @@
             numeroAdultos : '2'
         };
         ctrlWeb.minimoPersonas = 0;
+        ctrlWeb.ventaCompletaTO = {};
 
 
         ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate, idTour) {
@@ -34,14 +35,28 @@
             WebService.findItemsSimilar(path, ctrlWeb.idTour);
         };
 
-        ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson){
+        ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson, contextPath, idIdioma, idMoneda, idTour){
             ctrlWeb.totalPersons = {
                 numeroMenores : totalMenores,
                 numeroAdultos : totalAdultos
             };
-            $('.datepicker').val(fechaReserva);
+            //$('.datepicker').val(fechaReserva);
             ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate, minimoPerson);
+            WebService.setContextPath(contextPath);
             ctrlWeb.findItemsSimilar();
+
+            ctrlWeb.ventaCompletaTO = {
+                costoAdulto: rateAdult,
+                costoMenor: rateChild,
+                idIdioma: idIdioma,
+                idMoneda: idMoneda,
+                tipoCambio: exchangeRate,
+                checkIn: fechaReserva,
+                numeroMenores: ctrlWeb.totalPersons.numeroMenores,
+                numeroAdultos: ctrlWeb.totalPersons.numeroAdultos,
+                idTour: idTour
+            }
+            
         };
 
         ctrlWeb.configureParametersInit = function(rateChild, rateAdult, exchangeRate, minimoPerson){
@@ -63,7 +78,28 @@
 
             $('#totalCostTour').text('$'+totalCost.toLocaleString()+' '+ctrlWeb.symbolCurrency);
 
-        }
+        };
+        
+        ctrlWeb.calculateCost = function () {
+            var totalAdults = parseInt(ctrlWeb.totalPersons.numeroAdultos);
+            var totalChildren = parseInt(ctrlWeb.totalPersons.numeroMenores);
+
+            var costTotalAdults = totalAdults * ctrlWeb.rateAdult;
+            var costTotalChildren = totalChildren * ctrlWeb.rateChild;
+            
+            return costTotalAdults + costTotalChildren;
+        };
+
+        ctrlWeb.reservarTour = function (isFormValid) {
+            console.info("isFormValid = ", isFormValid);
+            if(isFormValid) {
+                ctrlWeb.ventaCompletaTO.costoTotal = ctrlWeb.calculateCost();
+                WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {
+                    console.info("RESPUESTA FINAL = ", response.data);
+                });
+            }
+            console.info("ventaCompletaTO = ", ctrlWeb.ventaCompletaTO);
+        };
 
     });
 

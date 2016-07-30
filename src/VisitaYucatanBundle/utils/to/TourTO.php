@@ -33,6 +33,8 @@ class TourTO {
     private $fechaReserva;
     private $totalAdultos;
     private $totalMenores;
+    private $idIdioma;
+    private $idMoneda;
 
     public function __construct(){
         $this->imagesTour = new ArrayCollection();
@@ -407,5 +409,36 @@ class TourTO {
         $this->totalMenores = $totalMenores;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdIdioma()
+    {
+        return $this->idIdioma;
+    }
 
+    /**
+     * @param mixed $idIdioma
+     */
+    public function setIdIdioma($idIdioma)
+    {
+        $this->idIdioma = $idIdioma;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdMoneda()
+    {
+        return $this->idMoneda;
+    }
+
+    /**
+     * @param mixed $idMoneda
+     */
+    public function setIdMoneda($idMoneda)
+    {
+        $this->idMoneda = $idMoneda;
+    }
+    
 }

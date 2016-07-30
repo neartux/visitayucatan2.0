@@ -99,6 +99,8 @@ class TourUtils {
         $tourTO->setMinimopersonas($tour['minimopersonas']);
         $tourTO->setOrigen($tour['origen']);
         $tourTO->setTipoCambio($tour['tipocambio']);
+        $tourTO->setIdIdioma($tour['idioma']);
+        $tourTO->setIdMoneda($tour['moneda']);
         // Valida imagen tour si es null coloca imagen not found de lo contrario coloca la imagen
         if(is_null($tour['imagen'])){
             $tourTO->setPrincipalImage(Generalkeys::PATH_IMAGE_NOT_FOUND);

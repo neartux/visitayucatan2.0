@@ -36,6 +36,7 @@ class VentaCompletaTO{
     private $numeroAutorizacion;
     private $numeroOperacion;
     private $planHotelContrato;
+    private $idTour;
 
     /**
      * @return mixed
@@ -484,6 +485,22 @@ class VentaCompletaTO{
     {
         $this->planHotelContrato = $planHotelContrato;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdTour()
+    {
+        return $this->idTour;
+    }
+
+    /**
+     * @param mixed $idTour
+     */
+    public function setIdTour($idTour)
+    {
+        $this->idTour = $idTour;
+    }
           
-    
+       
 }

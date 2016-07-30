@@ -96,6 +96,12 @@
             });
         };
 
+        service.createReservationTour = function(ventaCompletaTO){
+            return $http.post(service.contextPath+'/tour/createReservationTour', $.param({ventaCompletaTO : JSON.stringify(ventaCompletaTO)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
         service.createReservationHotel = function(ventaCompletaTO){
             return $http.post(service.contextPath+'/hotel/createReservationHotel', $.param({ventaCompletaTO : JSON.stringify(ventaCompletaTO)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

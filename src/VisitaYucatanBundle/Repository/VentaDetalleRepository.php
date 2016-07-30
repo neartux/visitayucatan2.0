@@ -15,11 +15,12 @@ use VisitaYucatanBundle\utils\to\VentaCompletaTO;
  */
 class VentaDetalleRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function createVentaDetalle (VentaCompletaTO $ventaCompletaTO, $tipoProducto, $idVenta) {
+    public function createVentaDetalleTour (VentaCompletaTO $ventaCompletaTO, $tipoProducto, $idVenta) {
         $em = $this->getEntityManager();
         
         $ventaDetalle = new VentaDetalle();
         $ventaDetalle->setVenta($em->getReference('VisitaYucatanBundle:Venta', $idVenta));
+        $ventaDetalle->setTour($em->getReference('VisitaYucatanBundle:Tour', $ventaCompletaTO->getIdTour()));
         $ventaDetalle->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
         $ventaDetalle->setTipoProducto($tipoProducto);
         $ventaDetalle->setSubtotal($ventaCompletaTO->getCostoTotal());

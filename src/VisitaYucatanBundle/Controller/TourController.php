@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\DateUtil;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\StringUtils;
+use VisitaYucatanBundle\utils\to\ResponseTO;
+use VisitaYucatanBundle\utils\to\VentaCompletaTO;
 use VisitaYucatanBundle\utils\TourUtils;
 
 
@@ -70,6 +72,29 @@ class TourController extends Controller {
         $tourTO->setTotalMenores($numeroMenores);
         $costoTotal = ($tourTO->getTotalAdultos() * $tourTO->getTarifaadulto()) + ($tourTO->getTotalMenores() * $tourTO->getTarifamenor());
         return $this->render('VisitaYucatanBundle:web/pages:reserv-tour.html.twig', array('tour' => $tourTO, 'costoTotal' => number_format($costoTotal)));
+    }
+
+    /**
+     * @Route("/tour/createReservationTour", name="web_tour_reserva_create")
+     * @Method("POST")
+     */
+    public function createReservationTour(Request $request) {
+        $serializer = $this->get('serializer');
+        $em = $this->getDoctrine()->getManager();
+
+        $em->getConnection()->beginTransaction();
+        try {
+            $ventaCompletaTO = $serializer->deserialize($request->get('ventaCompletaTO'), 'VisitaYucatanBundle\utils\to\VentaCompletaTO', Generalkeys::JSON_STRING);
+            $em->getRepository('VisitaYucatanBundle:Venta')->createSaleTour($ventaCompletaTO);
+            $em->getConnection()->commit();
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la reserva', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        } catch (\Exception $e) {
+            $em->getConnection()->rollback();
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
     }
 
     private function getParamsTour($request){
