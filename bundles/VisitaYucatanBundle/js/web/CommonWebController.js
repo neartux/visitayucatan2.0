@@ -403,8 +403,12 @@
             hotel.totalEstrellas = array;
         };
         
-        paqWebVM.enviarReserva = function (id) {
-            $('#frm-rsv-'+id).submit();  
+        paqWebVM.enviarReserva = function (id, h) {
+            $("#idPckg").val(h.id);
+            $("#costoPckg").val(h.costo);
+            $("#typeocupacionPckg").val(h.ocupacion);
+            $("#idPackagePckg").val(paqWebVM.idPaquete);
+            $('#frm-rsv-pckg').submit();
         };
 
         paqWebVM.findImagesHotel = function (idHotel) {

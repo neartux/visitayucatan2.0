@@ -37,6 +37,8 @@ class VentaCompletaTO{
     private $numeroOperacion;
     private $planHotelContrato;
     private $idTour;
+    private $nombreTour;
+    private $circuito;
 
     /**
      * @return mixed
@@ -501,6 +503,38 @@ class VentaCompletaTO{
     {
         $this->idTour = $idTour;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNombreTour()
+    {
+        return $this->nombreTour;
+    }
+
+    /**
+     * @param mixed $nombreTour
+     */
+    public function setNombreTour($nombreTour)
+    {
+        $this->nombreTour = $nombreTour;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCircuito()
+    {
+        return $this->circuito;
+    }
+
+    /**
+     * @param mixed $circuito
+     */
+    public function setCircuito($circuito)
+    {
+        $this->circuito = $circuito;
+    }
           
-       
+          
 }

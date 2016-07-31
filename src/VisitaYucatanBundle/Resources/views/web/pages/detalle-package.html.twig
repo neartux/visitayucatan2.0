@@ -94,15 +94,15 @@
                                 </div>
                             </div>
 
-
+                            <form action="{{ path('web_paquete_reserva') }}" method="post" id="frm-rsv-pckg">
+                                <input type="hidden" name="id" id="idPckg"/>
+                                <input type="hidden" name="costo" id="costoPckg"/>
+                                <input type="hidden" name="typeocupacion" id="typeocupacionPckg"/>
+                                <input type="hidden" name="namepaquete" id="namepaquetePckg"/>
+                                <input type="hidden" name="idPackage" id="idPackagePckg"/>
+                            </form>
                             <div ng-repeat="h in paqWebVM.habCombinaciones track by $index"
                                  data-ng-init="paqWebVM.getRangeStars(h)">
-                                <form action="{{ path('web_paquete_reserva') }}" method="post" id="frm-rsv-[[h.id]]">
-                                    <input type="hidden" name="id" value="[[h.id]]">
-                                    <input type="hidden" name="costo" value="[[h.costo]]">
-                                    <input type="hidden" name="typeocupacion" value="[[h.ocupacion]]">
-                                    <input type="hidden" name="namepaquete" value="[[namePaquete]]">
-                                    <input type="hidden" name="idPackage" value="{{ paquete.id }}">
                                     <div class="col-sm-12 package-item mr-n ml-n">
                                         <div class="col-sm-8 text-left">
                                             <h4 class="text-bold color-text-pink name-hotel-[[h.id]]">
@@ -117,7 +117,7 @@
 
                                         <div class="col-sm-4 p-n">
                                             <div class="col-sm-12 box-price-package text-center m-n area-package-item"
-                                                data-ng-click="paqWebVM.enviarReserva(h.id)">
+                                                data-ng-click="paqWebVM.enviarReserva(h.id, h)">
                                                 <h4 class="color-text-pink text-bold btnReservaPaquete" id="[[h.id]]">
                                                     $[[h.costo | myCurrency2 ]] [[h.simbolo]]
                                                 </h4>
@@ -128,7 +128,6 @@
                                         </div>
 
                                     </div>
-                                </form>
                             </div>
 
 

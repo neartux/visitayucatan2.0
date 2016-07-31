@@ -85,10 +85,10 @@ class PaqueteController extends Controller {
          $costo = $request->get('costo');
          $namePaquete = $request->get('namepaquete');
          $datos = $this->getParamsPaquete($request);
-          // lista de monedas e idiomas
-        $currency = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findAllCurrency();
-        $idiomas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Idioma')->findAllLanguage();
+          
          $menores = 0;
+        $adultos = 0;
+        echo "ocupacion antes =  ".$ocupacion;
          switch($ocupacion){
              case 'costosencillo':
                 $ocupacion = 'Sencilla';
@@ -107,6 +107,8 @@ class PaqueteController extends Controller {
                 $adultos = 4;
                 break;
          }
+        echo "before =  ".$ocupacion;
+
          $detailPaquete = array(
            'costo'=>$costo,
            'paqueteSelect'=> $namePaquete,

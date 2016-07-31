@@ -7,6 +7,7 @@
 namespace VisitaYucatanBundle\utils;
 
 
+use VisitaYucatanBundle\Entity\Venta;
 use VisitaYucatanBundle\utils\to\VentaCompletaTO;
 
 final class VentaUtils {
@@ -33,6 +34,14 @@ final class VentaUtils {
         $ventaCompletaTO->setEmail($venta['email']);
         $ventaCompletaTO->setCiudad($venta['ciudad']);
 
+        return $ventaCompletaTO;
+    }
+    
+    public static function getVentaCompleteTOTour(Venta $venta){
+        $ventaCompletaTO = new VentaCompletaTO();
+        $ventaCompletaTO->setIdVenta($venta->getId());
+        $ventaCompletaTO->setCostoTotal($venta->getTotal());
+        $ventaCompletaTO->setNombreTour($venta->getVentaDetalle()->get(0)->get)
         return $ventaCompletaTO;
     }
 }
