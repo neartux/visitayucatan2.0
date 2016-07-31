@@ -24,6 +24,7 @@ class HotelTO {
     private $imagenesHotel;
     private $state;
     private $city;
+    private $mapa;
 
     /**
      * @return mixed
@@ -264,7 +265,21 @@ class HotelTO {
     {
         $this->city = $city;
     }
-    
-    
+
+    /**
+     * @return mixed
+     */
+    public function getMapa()
+    {
+        return $this->mapa;
+    }
+
+    /**
+     * @param mixed $mapa
+     */
+    public function setMapa($mapa)
+    {
+        $this->mapa = $mapa;
+    }
 
 }

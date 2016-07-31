@@ -70,10 +70,10 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label class="oswaldo color-text-pink">{% trans %}page.web.labe.reserva.tour.minors{% endtrans %}:</label>
+                                        <label class="oswaldo color-text-pink">{% trans %}page.web.labe.reserva.tour.adults{% endtrans %}:</label>
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-child"></i></span>
-                                            <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.numeroMenores" ng-change="ctrlWeb.recalculateCostTour()" class="form-control">
+                                            <span class="input-group-addon"><i class="fa fa-group"></i></span>
+                                            <select name="numeroAdultos" data-ng-model="ctrlWeb.totalPersons.numeroAdultos" ng-change="ctrlWeb.recalculateCostTour()" class="form-control">
                                                 <option value='0'>0</option>
                                                 <option value='1'>1</option>
                                                 <option value='2'>2</option>
@@ -83,10 +83,10 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label class="oswaldo color-text-pink">{% trans %}page.web.labe.reserva.tour.adults{% endtrans %}:</label>
+                                        <label class="oswaldo color-text-pink">{% trans %}page.web.labe.reserva.tour.minors{% endtrans %}:</label>
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-group"></i></span>
-                                            <select name="numeroAdultos" data-ng-model="ctrlWeb.totalPersons.numeroAdultos" ng-change="ctrlWeb.recalculateCostTour()" class="form-control">
+                                            <span class="input-group-addon"><i class="fa fa-child"></i></span>
+                                            <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.numeroMenores" ng-change="ctrlWeb.recalculateCostTour()" class="form-control">
                                                 <option value='0'>0</option>
                                                 <option value='1'>1</option>
                                                 <option value='2'>2</option>

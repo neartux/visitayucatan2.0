@@ -94,6 +94,7 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
         //$hotel->setDestino($em->getReference('VisitaYucatanBundle:Destino', $hotelTO->getIdDestino()));
         $hotel->setCiudad($em->getReference('VisitaYucatanBundle:Ciudad', $hotelTO->getCity()));
         $hotel->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+        $hotel->setMapa($hotelTO->getMapa());
 
         $em->persist($hotel);
         $em->flush();
@@ -111,6 +112,7 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
         $hotelUpdate->getDatosUbicacion()->setDireccion($hotelTO->getDireccion());
         $hotelUpdate->getDatosUbicacion()->setTelefono($hotelTO->getTelefono());
         $hotelUpdate->setCiudad($em->getReference('VisitaYucatanBundle:Ciudad', $hotelTO->getCity()));
+        $hotelUpdate->setMapa($hotelTO->getMapa());
 
         $em->persist($hotelUpdate);
         $em->flush();

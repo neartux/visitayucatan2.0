@@ -29,6 +29,13 @@ class Hotel {
     private $descripcion;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="mapa", type="string", length=255)
+     */
+    private $mapa;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="estrellas", type="integer")
@@ -603,5 +610,29 @@ class Hotel {
     public function getVentaDetalle()
     {
         return $this->ventaDetalle;
+    }
+
+    /**
+     * Set mapa
+     *
+     * @param string $mapa
+     *
+     * @return Hotel
+     */
+    public function setMapa($mapa)
+    {
+        $this->mapa = $mapa;
+
+        return $this;
+    }
+
+    /**
+     * Get mapa
+     *
+     * @return string
+     */
+    public function getMapa()
+    {
+        return $this->mapa;
     }
 }

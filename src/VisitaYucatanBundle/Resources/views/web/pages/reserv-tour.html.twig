@@ -192,6 +192,29 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12 mt">
+                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.numeroAdultos.$invalid && !formReserva.numeroAdultos.$pristine }">
+                                                <label for="numeroAdultos" class="col-sm-4">
+                                                    {% trans %}page.web.labe.reserva.tour.adults{% endtrans %}
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-group"></i></span>
+                                                        <select name="numeroAdultos" data-ng-model="ctrlWeb.totalPersons.numeroAdultos" id="numeroAdultos" class="form-control"
+                                                                data-ng-change="ctrlWeb.recalculateCostTour()">
+                                                            <option value='0'>0</option>
+                                                            <option value='1'>1</option>
+                                                            <option value='2'>2</option>
+                                                            <option value='3'>3</option>
+                                                            <option value='4'>4</option>
+                                                        </select>
+                                                    </div>
+                                                    <span ng-show="formReserva.numeroAdultos.$invalid && !formReserva.numeroAdultos.$pristine" class="required">
+                                                        {% trans %}page.web.labe.reserva.tour.adults.required{% endtrans %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 mt">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.numeroMenores.$invalid && !formReserva.numeroMenores.$pristine }">
                                                 <label for="numeroMenores" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.minors{% endtrans %}
@@ -210,29 +233,6 @@
                                                         </div>
                                                     <span ng-show="formReserva.numeroMenores.$invalid && !formReserva.numeroMenores.$pristine" class="required">
                                                         {% trans %}page.web.labe.reserva.tour.minors.required{% endtrans %}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 mt">
-                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.numeroAdultos.$invalid && !formReserva.numeroAdultos.$pristine }">
-                                                <label for="numeroAdultos" class="col-sm-4">
-                                                    {% trans %}page.web.labe.reserva.tour.adults{% endtrans %}
-                                                </label>
-                                                <div class="col-sm-8">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-group"></i></span>
-                                                    <select name="numeroAdultos" data-ng-model="ctrlWeb.totalPersons.numeroAdultos" id="numeroAdultos" class="form-control"
-                                                            data-ng-change="ctrlWeb.recalculateCostTour()">
-                                                        <option value='0'>0</option>
-                                                        <option value='1'>1</option>
-                                                        <option value='2'>2</option>
-                                                        <option value='3'>3</option>
-                                                        <option value='4'>4</option>
-                                                    </select>
-                                                        </div>
-                                                    <span ng-show="formReserva.numeroAdultos.$invalid && !formReserva.numeroAdultos.$pristine" class="required">
-                                                        {% trans %}page.web.labe.reserva.tour.adults.required{% endtrans %}
                                                     </span>
                                                 </div>
                                             </div>
