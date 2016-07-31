@@ -20,7 +20,8 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
 		$em = $this->getEntityManager();
 		$sql = "SELECT paquete.id,paquete_idioma.descripcion AS nombrepaquete,paquete_idioma.descripcioncorta,paquete_idioma.descripcionlarga,paquete.circuito,paquete_idioma.incluye,
 				paquete_imagen.path AS imagen,moneda.simbolo,
-				(select min(paquete_combinacion_hotel.costosencillo)/moneda.tipo_cambio from paquete_combinacion_hotel where paquete_combinacion_hotel.id_paquete = paquete.id) as sencilla
+				(select min(paquete_combinacion_hotel.costosencillo)/moneda.tipo_cambio from paquete_combinacion_hotel where paquete_combinacion_hotel.id_paquete = paquete.id) as sencilla,
+				(select min(paquete_combinacion_hotel.costodoble)/moneda.tipo_cambio from paquete_combinacion_hotel where paquete_combinacion_hotel.id_paquete = paquete.id) as doble
 				FROM paquete
 				INNER JOIN paquete_idioma ON paquete.id = paquete_idioma.id_paquete AND paquete_idioma.id_estatus = :estatusActivo AND paquete_idioma.id_idioma = :idioma
 				INNER JOIN moneda ON moneda.id = :moneda AND moneda.id_estatus = :estatusActivo

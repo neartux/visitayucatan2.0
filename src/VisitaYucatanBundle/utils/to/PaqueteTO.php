@@ -18,6 +18,7 @@ class PaqueteTO {
     private $principalImage;
     private $simboloMoneda;
     private $costoSencilla;
+    private $costoDoble;
     private $circuito;
     private $descripcion;
     private $itinerario;
@@ -280,6 +281,22 @@ class PaqueteTO {
     {
         $this->noches = $noches;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCostoDoble()
+    {
+        return $this->costoDoble;
+    }
+
+    /**
+     * @param mixed $costoDoble
+     */
+    public function setCostoDoble($costoDoble)
+    {
+        $this->costoDoble = $costoDoble;
+    }
     
-    
+       
 }

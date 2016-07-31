@@ -51,6 +51,7 @@ class PaqueteUtils {
                 $paqueteTO->setIncluye($paquete['incluye']);
                 $paqueteTO->setSimboloMoneda($paquete['simbolo']);
                 $paqueteTO->setCostoSencilla(number_format($paquete['sencilla']));
+                $paqueteTO->setCostoDoble(number_format($paquete['doble']));
                 if(is_null($paquete['imagen'])){
                     $paqueteTO->setPrincipalImage(Generalkeys::PATH_IMAGE_NOT_FOUND);
                 }else{
