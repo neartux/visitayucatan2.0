@@ -219,3 +219,5 @@ page.web.labe.reserva.hotel.aerolinea : Airline
 page.web.labe.reserva.hotel.fecha.llegada : Arrival date
 page.web.labe.reserva.hotel.hora.llegada : Arrival time
 page.web.labe.reserva.general.price.per.person : Price per person based on double occupancy
+page.web.labe.reserva.general.mapa : Map
+page.web.labe.reserva.general.ver.mapa : See Map

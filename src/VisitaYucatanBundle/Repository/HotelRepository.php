@@ -44,7 +44,7 @@ class HotelRepository extends \Doctrine\ORM\EntityRepository {
     public function getHotelById($idHotel, $idioma, $moneda){
         $em = $this->getEntityManager();
 
-        $sql = "SELECT hotel.id,hotel.estrellas,hotel_idioma.nombrehotel,hotel_idioma.descripcion,hotel_imagen.path,moneda.simbolo
+        $sql = "SELECT hotel.id,hotel.estrellas,hotel_idioma.nombrehotel,hotel_idioma.descripcion,hotel_imagen.path,moneda.simbolo,hotel.mapa
                 FROM hotel
                 INNER JOIN hotel_idioma ON hotel.id = hotel_idioma.id_hotel AND hotel_idioma.id_idioma = :idioma AND hotel_idioma.id_estatus = :estatusActivo
                 LEFT JOIN hotel_imagen ON hotel.id = hotel_imagen.id_hotel AND hotel_imagen.principal = TRUE AND hotel_imagen.id_estatus = :estatusActivo

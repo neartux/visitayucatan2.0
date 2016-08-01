@@ -321,6 +321,7 @@ class HotelUtils {
         $hotelTO->setDescripcion($hotel['descripcion']);
         $hotelTO->setPrincipalImage($hotel['path']);
         $hotelTO->setSimboloMoneda($hotel['simbolo']);
+        $hotelTO->setMapa($hotel['mapa']);
         if(count($imagenes) > Generalkeys::NUMBER_ZERO){
             $hotelTO->setImagenesHotel($imagenes);
         }
