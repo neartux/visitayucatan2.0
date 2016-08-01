@@ -49,7 +49,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository {
         $sql = "SELECT tour.id, tour.descripcion AS nombre,tour_idioma.circuito,tour_idioma.descripcion,tour_idioma.soloadultos,tour.minimopersonas,
                 (tour_origen.tarifaadulto/moneda.tipo_cambio) AS tarifaadulto,(tour_origen.tarifamenor/moneda.tipo_cambio) AS tarifamenor,
                 tour_imagen.path AS imagen,moneda.simbolo AS simbolomoneda,origen.descripcion AS origen, moneda.tipo_cambio AS tipocambio,
-                idioma.id AS idioma,moneda.id AS moneda
+                idioma.id AS idioma,moneda.id AS moneda,tour.mapa
                 FROM tour
                 INNER JOIN tour_idioma ON tour.id = tour_idioma.id_tour AND tour_idioma.id_idioma = :idioma AND tour_idioma.id_estatus = :estatusActivo
                 INNER JOIN tour_origen ON tour.id = tour_origen.id_tour AND tour_origen.id_origen = :origen AND tour_origen.id_estatus = :estatusActivo
@@ -75,7 +75,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository {
     public function findAllTours() {
         $em = $this->getEntityManager();
         $sql = "SELECT tour.id, tour.descripcion, tour.minimopersonas, tour.promovido,
-                tour_idioma.circuito,tour_origen.id AS idtourorigen,tour_origen.tarifaadulto,tour_origen.tarifamenor
+                tour_idioma.circuito,tour_origen.id AS idtourorigen,tour_origen.tarifaadulto,tour_origen.tarifamenor,tour.mapa
                 FROM tour
                 INNER JOIN tour_idioma ON tour.id = tour_idioma.id_tour AND tour_idioma.id_idioma = :idiomaEspanol AND tour_idioma.id_estatus = :estatusActivo
                 INNER JOIN tour_origen ON tour.id = tour_origen.id_tour AND tour_origen.id_origen = :origenMerida AND tour_origen.id_estatus = :estatusActivo
@@ -97,6 +97,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository {
         $tour->setPromovido(Generalkeys::BOOLEAN_FALSE);
         $tour->setMinimopersonas($tourTO->getMinimopersonas());
         $tour->setDescripcion($tourTO->getDescripcion());
+        $tour->setMapa($tourTO->getMapa());
         $tour->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
         $em->persist($tour);
 
@@ -130,6 +131,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository {
         }
         // Actualiza la informacion del tour
         $tourUpdate->setDescripcion($tourTO->getDescripcion());
+        $tourUpdate->setMapa($tourTO->getMapa());
         $tourUpdate->setMinimopersonas($tourTO->getMinimopersonas());
         $em->persist($tourUpdate);
 

@@ -29,6 +29,13 @@ class Tour {
     private $descripcion;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="mapa", type="text")
+     */
+    private $mapa;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="minimopersonas", type="integer")
@@ -318,5 +325,29 @@ class Tour {
     public function getVentaDetalle()
     {
         return $this->ventaDetalle;
+    }
+
+    /**
+     * Set mapa
+     *
+     * @param string $mapa
+     *
+     * @return Tour
+     */
+    public function setMapa($mapa)
+    {
+        $this->mapa = $mapa;
+
+        return $this;
+    }
+
+    /**
+     * Get mapa
+     *
+     * @return string
+     */
+    public function getMapa()
+    {
+        return $this->mapa;
     }
 }

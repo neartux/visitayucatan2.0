@@ -35,6 +35,7 @@ class TourTO {
     private $totalMenores;
     private $idIdioma;
     private $idMoneda;
+    private $mapa;
 
     public function __construct(){
         $this->imagesTour = new ArrayCollection();
@@ -439,6 +440,22 @@ class TourTO {
     public function setIdMoneda($idMoneda)
     {
         $this->idMoneda = $idMoneda;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMapa()
+    {
+        return $this->mapa;
+    }
+
+    /**
+     * @param mixed $mapa
+     */
+    public function setMapa($mapa)
+    {
+        $this->mapa = $mapa;
     }
     
 }
