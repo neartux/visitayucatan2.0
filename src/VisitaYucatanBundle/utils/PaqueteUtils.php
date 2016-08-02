@@ -47,7 +47,8 @@ class PaqueteUtils {
                 $paqueteTO->setNombrePaquete($paquete['nombrepaquete']);
                 $paqueteTO->setCircuito($paquete['circuito']);
                 $paqueteTO->setDescripcionCorta($paquete['descripcioncorta']);
-                $paqueteTO->setDescripcionLarga($paquete['descripcionlarga']);
+                //$paqueteTO->setDescripcionLarga($paquete['descripcionlarga']);
+                $paqueteTO->setDescripcionLarga(StringUtils::cutText($paquete['descripcionlarga'], Generalkeys::NUMBER_ZERO, Generalkeys::NUMBER_TWO_HUNDRED, Generalkeys::COLILLA_TEXT, Generalkeys::CIERRE_HTML_P));
                 $paqueteTO->setIncluye($paquete['incluye']);
                 $paqueteTO->setSimboloMoneda($paquete['simbolo']);
                 $paqueteTO->setCostoSencilla(number_format($paquete['sencilla']));

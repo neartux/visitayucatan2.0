@@ -62,6 +62,7 @@ class TourUtils {
                 $tourTO->setNombreTour($tour['nombre']);
                 $tourTO->setCircuito($tour['circuito']);
                 $tourTO->setDescripcionTour(StringUtils::cutText($tour['descripcion'], Generalkeys::NUMBER_ZERO, Generalkeys::NUMBER_TWO_HUNDRED, Generalkeys::COLILLA_TEXT, Generalkeys::CIERRE_HTML_P));
+                //$tourTO->setDescripcionTour($tour['descripcion']);
                 $tourTO->setTarifaadulto(number_format(ceil($tour['tarifaadulto'])));
                 $tourTO->setTarifamenor(number_format(ceil($tour['tarifamenor'])));
                 $tourTO->setSimboloMoneda($tour['simbolomoneda']);
@@ -88,6 +89,7 @@ class TourUtils {
         $tourTO->setId($tour['id']);
         $tourTO->setNombreTour($tour['nombre']);
         $tourTO->setCircuito($tour['circuito']);
+        $tourTO->setMapa($tour['mapa']);
         $tourTO->setDescripcionTour($tour['descripcion']);
         $tourTO->setTarifaadulto(ceil($tour['tarifaadulto']));
         $tourTO->setTarifamenor(ceil($tour['tarifamenor']));

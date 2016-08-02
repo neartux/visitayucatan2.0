@@ -20,16 +20,10 @@ class VentaController extends Controller {
     public function voucherTour(Request $request) {
 
         // renderiza la vista y manda la informacion
-        $ventas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find(2);
-        $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($ventas->getVentaDetalle()->get(0)->getHotel()->getId());
-        $venta = VentaUtils::getVentaCompletaTOHotel($this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->getDetailsSaleHotel($ventas->getId(), $idContract));
-        $date = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));
-        $monthChekIn = DateUtil::getFullNameMonth(date_format($venta->getCheckIn(), 'm'));
-        $monthChekOut = DateUtil::getFullNameMonth(date_format($venta->getCheckOut(), 'm'));
-        $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-hotel-pdf.html.twig',array('ventaCompleta' => $venta,
-            'mes' => $date, 'mesCheckIn' => $monthChekIn, 'monthCheckOut' => $monthChekOut));
-
-        $this->getPdf($html, $venta);
+        $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find(2);
+        $ventaCompletaTO = VentaUtils::getVentaCompleteTOTour($venta);
+        $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-tour-pdf.html.twig',array('ventaCompleta' => $ventaCompletaTO));
+        $this->getPdf($html, $ventaCompletaTO);
     }
     
     /**
@@ -63,8 +57,8 @@ class VentaController extends Controller {
         $file = $_SERVER["DOCUMENT_ROOT"].Generalkeys::PATH_VOUCHER_HOTELES.'VIYUC-'.$ventaCompletaTO->getIdVenta().'.pdf';
 
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-        $pdf->Output($file,'F'); // This will output the PDF as a response directly
-        $this->sendMailSale($ventaCompletaTO, $file);
+        $pdf->Output($file,'I'); // This will output the PDF as a response directly
+        //$this->sendMailSale($ventaCompletaTO, $file);
     }
 
     private function sendMailSale(VentaCompletaTO $ventaCompletaTO, $file) {

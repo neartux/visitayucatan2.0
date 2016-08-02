@@ -57,6 +57,16 @@
                             </div>
                             <div class="col-sm-12 background-element-pink mt-lg">
                                 <span class="fnt-sz-20 text-bold text-italic color-text-white">{% trans %}page.web.label.reserva.book.now{% endtrans %}</span>
+
+                                {% if(tour.mapa) %}
+                                    <span class="pull-right" onclick="preViewMap()" style="cursor: pointer;">
+                                    <h4 class="mt mb pt-n pb-n" style="color: white;">
+                                        <i class="fa fa-search"></i>&nbsp;
+                                        {% trans %}page.web.labe.reserva.general.ver.mapa{% endtrans %}
+                                    </h4>
+                                </span>
+                                {% endif %}
+
                             </div>
                             <form action="{{ path('web_tour_reserva') }}" method="POST">
                             <div class="col-sm-12 mt-xxl">
@@ -148,6 +158,25 @@
 
         </div>
 
+        <div class="modal" id="modalMapa">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h2 class="modal-title">{% trans %}page.web.labe.reserva.general.mapa{% endtrans %} {{ tour.nombreTour }}</h2>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="row">
+                            {{ tour.mapa | raw }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}button.label.close{% endtrans %}</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
     {% endblock %}
 
     {% block scripts %}
@@ -160,6 +189,9 @@
                     startDate: '+2d'
                 });
             });
+            function preViewMap() {
+                $("#modalMapa").modal();
+            }
         </script>
 
     {% endblock %}

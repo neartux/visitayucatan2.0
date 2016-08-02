@@ -86,7 +86,7 @@
             <th><span class="labe-bold">OPER:</span>876</th>
         </tr>
         <tr>
-            <th><b>ORDER:</b> VIYUCHTL{{ ventaCompleta.idVenta }}</th>
+            <th><b>ORDER:</b> VIYUC{{ ventaCompleta.idVenta }}</th>
             <th></th>
         </tr>
         <tr>
@@ -96,18 +96,8 @@
         </tbody>
     </table>
     <br> <br>
-    {% set fechaCompra = ventaCompleta.fechaVenta | date('d') ~ ' de ' ~ mes ~ ' de ' ~  ventaCompleta.fechaVenta | date('Y') %}
-    {% set checkIn = ventaCompleta.checkIn | date('d') ~ ' de ' ~ mesCheckIn ~ ' de ' ~  ventaCompleta.checkIn | date('Y') %}
-    {% set checkOut = ventaCompleta.checkOut | date('d') ~ ' de ' ~ monthCheckOut ~ ' de ' ~  ventaCompleta.checkOut | date('Y') %}
-    <table>
-        <tr>
-            <th>
-                <span class="labe-bold">Fecha:</span> {{ fechaCompra }}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="labe-bold">Hora:</span> {{ ventaCompleta.fechaVenta | date('h:i:s a') }}
-            </th>
-        </tr>
-    </table>
+
+
 </div>
 
 <div class="detalle-compra">
@@ -124,36 +114,36 @@
         </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="text-left">
-                    <b>Reservacion de hospedaje en el hotel:</b> {{ ventaCompleta.nombreHotel }}
-                </td>
-                <td>{{ fechaCompra }}</td>
-                <td class="text-center">{{ ventaCompleta.numeroAdultos }}</td>
-                <td class="text-center">{{ ventaCompleta.numeroMenores }}</td>
-                <td class="text-center">$ {{ ventaCompleta.costoTotal | number_format(2) }} MXP</td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <b>*Plan de hospedaje:</b> {{ ventaCompleta.planHotelContrato }}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    *Del {{ checkIn }} al {{ checkOut }}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <b>Clave de su reservacion:</b> VIYUC{{ ventaCompleta.idVenta }}
-                </td>
-                <td>
-                    <b>Total a pagar</b>
-                </td>
-                <td class="text-center">
-                    $ {{ ventaCompleta.costoTotal | number_format(2) }} MXP
-                </td>
-            </tr>
+        <tr>
+            <td class="text-left">
+                Tour:
+            </td>
+            <td>fecha Compra</td>
+            <td class="text-center">{{ ventaCompleta.numeroAdultos }}</td>
+            <td class="text-center">{{ ventaCompleta.numeroMenores }}</td>
+            <td class="text-center">$ {{ ventaCompleta.costoTotal | number_format(2) }} MXP</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <b>*Plan de hospedaje:</b> {{ ventaCompleta.planHotelContrato }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                *Del fech al fecha
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <b>Clave de su reservacion:</b> VIYUC{{ ventaCompleta.idVenta }}
+            </td>
+            <td>
+                <b>Total a pagar</b>
+            </td>
+            <td class="text-center">
+                $ {{ ventaCompleta.costoTotal | number_format(2) }} MXP
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
@@ -163,20 +153,20 @@
     <br><br>
     <table>
         <thead>
-            <tr class="gray-shadow">
-                <td>Nombre</td>
-                <td>Telefono</td>
-                <td>Email</td>
-                <td>Ciduad Origen</td>
-            </tr>
+        <tr class="gray-shadow">
+            <td>Nombre</td>
+            <td>Telefono</td>
+            <td>Email</td>
+            <td>Ciduad Origen</td>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>{{ ventaCompleta.nombres ~ ' ' ~ ventaCompleta.apellidos }}</td>
-                <td>{{ ventaCompleta.telefono }}</td>
-                <td>{{ ventaCompleta.email }}</td>
-                <td>{{ ventaCompleta.ciudad }}</td>
-            </tr>
+        <tr>
+            <td>{{ ventaCompleta.nombres ~ ' ' ~ ventaCompleta.apellidos }}</td>
+            <td>{{ ventaCompleta.telefono }}</td>
+            <td>{{ ventaCompleta.email }}</td>
+            <td>{{ ventaCompleta.ciudad }}</td>
+        </tr>
         </tbody>
     </table>
 </div>
