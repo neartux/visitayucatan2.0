@@ -90,7 +90,9 @@ class Generalkeys{
     // TODO cuando este en producccion al parecer no debe llevar la primera parte
     // TODO hay que crear la carpeta de voucher y de hoteles
     // TODO dar permisos
-    const PATH_VOUCHER_HOTELES = 'visitayucatan2.0/bundles/VisitaYucatanBundle/voucher/hotel/';
+    const PATH_VOUCHER_HOTELES = '/bundles/VisitaYucatanBundle/voucher/hotel/';
+    const PATH_VOUCHER_TOURS = '/bundles/VisitaYucatanBundle/voucher/tour/';
+    const DOMAIN_VY = 'visitayucatan2.0';
     
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);
