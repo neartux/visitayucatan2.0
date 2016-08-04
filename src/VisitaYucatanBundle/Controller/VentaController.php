@@ -20,9 +20,11 @@ class VentaController extends Controller {
     public function voucherTour(Request $request) {
 
         // renderiza la vista y manda la informacion
-        $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find(2);
-        $ventaCompletaTO = VentaUtils::getVentaCompleteTOTour($venta);
-        $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-tour-pdf.html.twig',array('ventaCompleta' => $ventaCompletaTO));
+        $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find(3);
+        $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($venta->getVentaDetalle()->get(0)->getTour()->getId(), $venta->getIdioma()->getId(), $venta->getMoneda()->getId());
+        $ventaCompletaTO = VentaUtils::getVentaCompleteTOTour($venta, $tour);
+        $mes = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));
+        $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-tour-pdf.html.twig',array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes));
         $this->getPdf($html, $ventaCompletaTO);
     }
     
@@ -57,7 +59,7 @@ class VentaController extends Controller {
         $file = $_SERVER["DOCUMENT_ROOT"].Generalkeys::PATH_VOUCHER_HOTELES.'VIYUC-'.$ventaCompletaTO->getIdVenta().'.pdf';
 
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-        $pdf->Output($file,'I'); // This will output the PDF as a response directly
+        return $pdf->Output($file,'I'); // This will output the PDF as a response directly
         //$this->sendMailSale($ventaCompletaTO, $file);
     }
 

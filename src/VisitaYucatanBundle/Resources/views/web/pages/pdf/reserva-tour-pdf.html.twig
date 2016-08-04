@@ -97,6 +97,18 @@
     </table>
     <br> <br>
 
+    {% set fechaCompra = ventaCompleta.fechaVenta | date('d') ~ ' de ' ~ mes ~ ' de ' ~  ventaCompleta.fechaVenta | date('Y') %}
+
+    <table>
+        <tr>
+            <th>
+                <span class="labe-bold">Fecha:</span> {{ fechaCompra }}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="labe-bold">Hora:</span> {{ ventaCompleta.fechaVenta | date('h:i:s a') }}
+            </th>
+        </tr>
+    </table>
+
 
 </div>
 
@@ -116,26 +128,41 @@
         <tbody>
         <tr>
             <td class="text-left">
-                Tour:
+                Tour: {{ ventaCompleta.nombreTour }}
             </td>
-            <td>fecha Compra</td>
+            <td>{{ fechaCompra }}</td>
             <td class="text-center">{{ ventaCompleta.numeroAdultos }}</td>
             <td class="text-center">{{ ventaCompleta.numeroMenores }}</td>
             <td class="text-center">$ {{ ventaCompleta.costoTotal | number_format(2) }} MXP</td>
         </tr>
         <tr>
             <td colspan="3">
-                <b>*Plan de hospedaje:</b> {{ ventaCompleta.planHotelContrato }}
+                &nbsp;
             </td>
         </tr>
         <tr>
             <td colspan="3">
-                *Del fech al fecha
+                Circuito: {{ ventaCompleta.circuito }}
             </td>
         </tr>
         <tr>
             <td colspan="3">
-                <b>Clave de su reservacion:</b> VIYUC{{ ventaCompleta.idVenta }}
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                Hotel para pickup: {{ ventaCompleta.hotelPickup }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <b>Clave de su reservacion:</b><br> &nbsp;VIYUC{{ ventaCompleta.idVenta }}
             </td>
             <td>
                 <b>Total a pagar</b>
@@ -155,7 +182,7 @@
         <thead>
         <tr class="gray-shadow">
             <td>Nombre</td>
-            <td>Telefono</td>
+            <td>Teléfono</td>
             <td>Email</td>
             <td>Ciduad Origen</td>
         </tr>
@@ -163,7 +190,7 @@
         <tbody>
         <tr>
             <td>{{ ventaCompleta.nombres ~ ' ' ~ ventaCompleta.apellidos }}</td>
-            <td>{{ ventaCompleta.telefono }}</td>
+            <td>{{ ventaCompleta.lada }}&nbsp;{{ ventaCompleta.telefono }}</td>
             <td>{{ ventaCompleta.email }}</td>
             <td>{{ ventaCompleta.ciudad }}</td>
         </tr>

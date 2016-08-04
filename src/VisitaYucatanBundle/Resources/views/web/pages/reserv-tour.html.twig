@@ -62,10 +62,11 @@
                             <form novalidate name="formReserva">
                                 <div class="col-sm-12">
                                     <div class="col-sm-6">
-                                        <div class="col-sm-12 mt">
+                                        <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.nombres.$invalid && !formReserva.nombres.$pristine }">
                                                 <label for="nombres" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.name{% endtrans %}
+                                                    <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.nombres" required id="nombres" name="nombres"
@@ -77,10 +78,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-12 mt">
+                                        <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.apellidos.$invalid && !formReserva.apellidos.$pristine }">
                                                 <label for="apellidos" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.last.name{% endtrans %}
+                                                    <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.apellidos" id="apellidos" name="apellidos" required
@@ -92,10 +94,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-12 mt">
+                                        <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.lada.$invalid && !formReserva.lada.$pristine }">
                                                 <label for="lada" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.lada{% endtrans %}
+                                                    <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.lada" required id="lada" name="lada"
@@ -107,10 +110,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-12 mt">
+                                        <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.telefono.$invalid && !formReserva.telefono.$pristine }">
                                                 <label for="telefono" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.phone{% endtrans %}
+                                                    <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.telefono" required id="telefono" name="telefono"
@@ -122,10 +126,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-12 mt">
+                                        <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.email.$invalid && !formReserva.email.$pristine }">
                                                 <label for="email" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.email{% endtrans %}
+                                                    <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
                                                     <input type="email" data-ng-model="ctrlWeb.ventaCompletaTO.email" required id="email" name="email" class="form-control"/>
@@ -146,10 +151,11 @@
                                     </div>
 
                                     <div class="col-sm-6">
-                                        <div class="col-sm-12 mt">
+                                        <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.ciudad.$invalid && !formReserva.ciudad.$pristine }">
                                                 <label for="ciudad" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.city{% endtrans %}
+                                                    <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.ciudad" required id="ciudad" name="ciudad"
@@ -160,13 +166,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 mt">
+                                        <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.hotelPickUp.$invalid && !formReserva.hotelPickUp.$pristine }">
                                                 <label for="hotelPickUp" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.hotel{% endtrans %}
+                                                    <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.hotelPickUp" required id="hotelPickUp" name="hotelPickUp"
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.hotelPickup" required id="hotelPickUp" name="hotelPickUp"
                                                            class="form-control" maxlength="100"/>
                                                     <span ng-show="formReserva.hotelPickUp.$invalid && !formReserva.hotelPickUp.$pristine" class="required">
                                                         {% trans %}page.web.labe.reserva.tour.hotel.required{% endtrans %}
@@ -174,10 +181,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 mt">
+                                        <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.checkIn.$invalid && !formReserva.checkIn.$pristine }">
                                                 <label for="checkIn" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.tour.date{% endtrans %}
+                                                    <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
@@ -191,7 +199,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 mt">
+                                        <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.numeroAdultos.$invalid && !formReserva.numeroAdultos.$pristine }">
                                                 <label for="numeroAdultos" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.adults{% endtrans %}
@@ -214,7 +222,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 mt">
+                                        <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.numeroMenores.$invalid && !formReserva.numeroMenores.$pristine }">
                                                 <label for="numeroMenores" class="col-sm-4">
                                                     {% trans %}page.web.labe.reserva.tour.minors{% endtrans %}
