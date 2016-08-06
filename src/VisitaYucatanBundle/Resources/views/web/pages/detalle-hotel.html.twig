@@ -160,7 +160,7 @@
                                         <span class="text-bold">{% trans %}page.web.labe.reserva.age.maxima{% endtrans %}:</span> [[ ctrlWeb.formRate.ageMinor ]]
                                     </div>
                                     <div class="col-sm-12">
-                                        <button data-ng-click="ctrlWeb.confirmReservaHotel(habitacion.id)" data-ng-if="habitacion.totalCostoHabitacion != '0.00'" type="button"
+                                        <button data-ng-click="ctrlWeb.confirmReservaHotel(habitacion, habitacion.id)" data-ng-if="habitacion.totalCostoHabitacion != '0.00'" type="button"
                                                 class="btn btn-warning">
                                             {% trans %}page.web.labe.reserva.por.solo{% endtrans %}: $ [[ habitacion.totalCostoHabitacion ]] [[ ctrlWeb.symbolCurrency ]]
                                         </button>
@@ -205,6 +205,7 @@
                 <input type="hidden" name="fechaFin" id="fechaFin"/>
                 <input type="hidden" name="adultos" id="adultsHidden"/>
                 <input type="hidden" name="menores" id="minorsHidden"/>
+                <input type="hidden" name="tipoHabitacion" id="tipoHabitacion"/>
             </form>
 
         </div>

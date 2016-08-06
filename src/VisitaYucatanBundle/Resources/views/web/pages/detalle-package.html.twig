@@ -109,9 +109,17 @@
                                                 [[h.nomHotel]]
                                                 <span class="fa fa-star" ng-repeat="n in h.totalEstrellas"></span>
                                             </h4>
-                                            <div class="well well-sm col-sm-6 mb-n hoverGallery cursor-pointer" data-ng-click="paqWebVM.findImagesHotel(h.id)">
-                                                    {% trans %}page.web.labe.reserva.view.gallery{% endtrans %}<i
-                                                            class="fa fa-play" style="float: right;"></i>
+                                            <div class="well well-sm col-sm-6 mb-n hoverGallery cursor-pointer group-img" data-ng-if="h.imageneshotel.length">
+                                                <span data-ng-repeat="imagen in h.imageneshotel">
+                                                    <a href="{{ asset("[[ imagen ]]") }}" data-ng-if="$index == 0" style="text-decoration: none !important;">
+                                                        {% trans %}page.web.labe.reserva.view.gallery{% endtrans %}<i class="fa fa-play" style="float: right;"></i>        
+                                                    </a>
+                                                    <a href="{{ asset("[[ imagen ]]") }}" data-ng-if="$index > 0" style="display: none;">
+                                                        <img src="{{ asset("[[ imagen ]]") }}" alt="No encontrado [[ imagen ]]">
+                                                        {% trans %}page.web.labe.reserva.view.gallery{% endtrans %}<i class="fa fa-play" style="float: right;"></i>
+                                                    </a>
+                                                </span>
+                                                
                                             </div>
                                         </div>
 

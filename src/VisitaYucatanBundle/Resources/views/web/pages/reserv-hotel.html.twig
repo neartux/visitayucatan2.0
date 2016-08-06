@@ -150,7 +150,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                        <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.fechaPaquete" required id="fechaPaquete" name="fechaPaquete" class="form-control datepicker"/>
+                                                        <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.checkIn" required id="fechaPaquete" name="fechaPaquete" class="form-control datepicker"/>
                                                     </div>
                                             <span ng-show="formReserva.fechaPaquete.$invalid && !formReserva.fechaPaquete.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
@@ -167,7 +167,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                        <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.fechaSalida" id="fechaSalida" name="fechaSalida" required class="form-control datepicker"/>
+                                                        <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.checkOut" id="fechaSalida" name="fechaSalida" required class="form-control datepicker"/>
                                                     </div>
                                             <span ng-show="formReserva.fechaSalida.$invalid && !formReserva.fechaSalida.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
@@ -184,7 +184,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-group"></i></span>
-                                                        <select name="numeroAdultos" id="numeroAdultos" data-ng-model="ctrlWeb.ventaCompletaTO.numeroAdultos" class="form-control">
+                                                        <select name="numeroAdultos" id="numeroAdultos" data-ng-model="ctrlWeb.ventaCompletaTO.numeroAdultos" class="form-control" disabled>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -203,7 +203,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-child"></i></span>
-                                                        <select data-ng-model="ctrlWeb.ventaCompletaTO.numeroMenores" name="numeroMenores" id="numeroMenores" class="form-control">
+                                                        <select data-ng-model="ctrlWeb.ventaCompletaTO.numeroMenores" name="numeroMenores" id="numeroMenores" class="form-control" disabled>
                                                             <option value="0">0</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
@@ -221,7 +221,7 @@
                                         <div class="col-sm-12 mt-xxl">
                                             <span class="background-element-pink color-text-white text-bold p">
                                                     {% trans %}page.web.labe.reserva.importe{% endtrans %}
-                                                <span id="totalCostTour">$1000 MXN</span>
+                                                <span id="totalCostTour">[[ ctrlWeb.ventaCompletaTO.costoTotal | currency ]] {{ reserva.simboloMoneda }}</span>
                                             </span>
                                         </div>
 
@@ -254,7 +254,20 @@
 
                                         <div class="col-sm-12">
                                             <div class="form-group mb">
-                                                <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.tarifa.adulto.opcion{% endtrans %} "nose":</label>
+                                                <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.tarifa.adulto.opcion{% endtrans %}
+                                                    {% if(reserva.adultos == 1) %}
+                                                        {% trans %}page.web.labe.reserva.tour.habitacion.single{% endtrans %}
+                                                    {% endif %}
+                                                    {% if(reserva.adultos == 2) %}
+                                                        {% trans %}page.web.labe.reserva.tour.habitacion.double{% endtrans %}
+                                                    {% endif %}
+                                                    {% if(reserva.adultos == 3) %}
+                                                        {% trans %}page.web.labe.reserva.tour.habitacion.triple{% endtrans %}
+                                                    {% endif %}
+                                                    {% if(reserva.adultos == 4) %}
+                                                        {% trans %}page.web.labe.reserva.tour.habitacion.quadruple{% endtrans %}
+                                                    {% endif %}
+                                                    :</label>
                                                 <br>
                                                 $ {{ reserva.tarifaAdulto }} {{ reserva.simboloMoneda }}
                                             </div>
@@ -312,11 +325,11 @@
         {{ parent() }}
         <script>
             $(function(){
-                $('.datepicker').datepicker({
+               /* $('.datepicker').datepicker({
                     autoclose: true,
                     format: 'dd/mm/yyyy',
                     startDate: '+2d'
-                });
+                });*/
             });
         </script>
 

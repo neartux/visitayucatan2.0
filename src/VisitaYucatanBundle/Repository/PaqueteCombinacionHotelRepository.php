@@ -40,11 +40,13 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 		$em = $this->getEntityManager();
 		$sql = "SELECT pc.id,pc.id_paquete,pc.id_hotel,pc.noches,pc.dias,(pc.costosencillo/moneda.tipo_cambio) as costosencillo,(pc.costodoble/moneda.tipo_cambio) as costodoble,
           		(pc.costotriple/moneda.tipo_cambio) as costotriple,(pc.costocuadruple/moneda.tipo_cambio) as costocuadruple,
-          		(pc.costomenor/moneda.tipo_cambio) as costomenor,h.descripcion as nomHotel,h.estrellas AS estrellashotel,moneda.simbolo, moneda.tipo_cambio as tipocambio FROM paquete_combinacion_hotel pc
-        		INNER JOIN hotel h ON pc.id_hotel =h.id AND h.id_estatus = :estatusActivo
+          		(pc.costomenor/moneda.tipo_cambio) as costomenor,h.descripcion as nomHotel,h.estrellas AS estrellashotel,moneda.simbolo, moneda.tipo_cambio as tipocambio, hotel_imagen.path 
+          		FROM paquete_combinacion_hotel pc
+        		INNER JOIN hotel h ON pc.id_hotel =h.id AND h.id_estatus = :estatusActivo LEFT JOIN hotel_imagen ON h.id = hotel_imagen.id_hotel
 				INNER JOIN moneda ON moneda.id = :idMoneda
 				WHERE pc.id_paquete = :idPaquete
 				AND pc.id_estatus = :estatusActivo
+				AND hotel_imagen.id_estatus = :estatusActivo
 				ORDER BY h.estrellas;";
 		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
 		$params['idMoneda'] = $idMoneda;
@@ -121,9 +123,9 @@ class PaqueteCombinacionHotelRepository extends \Doctrine\ORM\EntityRepository {
 		$sql='SELECT  p.id,p.id_paquete,p.id_hotel,p.noches,p.dias,(p.costosencillo/moneda.tipo_cambio) as costosencillo,
 			  (p.costodoble/moneda.tipo_cambio) as costodoble, (p.costotriple/moneda.tipo_cambio) as costotriple,
 			  (p.costocuadruple/moneda.tipo_cambio) as costocuadruple, (p.costomenor/moneda.tipo_cambio) as costomenor, 
-			  h.descripcion as nomhotel,moneda.simbolo, moneda.tipo_cambio as tipocambio
+			  h.descripcion as nomhotel,moneda.simbolo, moneda.tipo_cambio as tipocambio,hotel_imagen.path
 			  FROM paquete_combinacion_hotel p
-			  INNER JOIN hotel h ON p.id_hotel=h.id
+			  INNER JOIN hotel h ON p.id_hotel=h.id LEFT JOIN hotel_imagen ON h.id = hotel_imagen.id_hotel AND hotel_imagen.id_estatus = :estatusActivo
 			  INNER JOIN moneda ON moneda.id = :idMoneda
 			  WHERE p.id_estatus = :estatusActivo AND p.id=:idCombinacion';
 		$params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;

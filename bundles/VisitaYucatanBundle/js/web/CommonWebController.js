@@ -91,14 +91,11 @@
         };
 
         ctrlWeb.reservarTour = function (isFormValid) {
-            console.info("isFormValid = ", isFormValid);
             if(isFormValid) {
                 ctrlWeb.ventaCompletaTO.costoTotal = ctrlWeb.calculateCost();
                 WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {
-                    console.info("RESPUESTA FINAL = ", response.data);
                 });
             }
-            console.info("ventaCompletaTO = ", ctrlWeb.ventaCompletaTO);
         };
 
     });
@@ -139,7 +136,6 @@
         };
         
         ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath) {
-            console.info(tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath);
             WebService.setContextPath(contextPath);
             ctrlHotel.ventaCompletaTO = {
                 tarifaAdulto: tarifaAdulto,
@@ -186,7 +182,6 @@
         };
 
         ctrlHotel.displayInputsMinors = function () {
-            console.info("ctrlHotel.formRate.minors = ", ctrlHotel.formRate.minors);
             if(ctrlHotel.formRate.minors > 0){
                 var inputs = "<tr>";
                 for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
@@ -200,7 +195,7 @@
             }
         };
 
-        ctrlHotel.confirmReservaHotel = function (idHabitacion) {
+        ctrlHotel.confirmReservaHotel = function (habitacion, idHabitacion) {
             $("#fechaInicio").val(ctrlHotel.formRate.dateFrom);
             $("#fechaFin").val(ctrlHotel.formRate.dateTo);
             $("#adultsHidden").val(ctrlHotel.formRate.adults);
@@ -412,13 +407,11 @@
         };
 
         paqWebVM.findImagesHotel = function (idHotel) {
-            console.info("idhotel = ", idHotel);
             WebService.findImagesHotel(idHotel).then(function () {
                 var newList = [];
                 angular.forEach(paqWebVM.listImagesHotel.data, function (value, key) {
                     newList.push({"src": value.src});
                 });
-                console.info(newList);
                 $.magnificPopup.open({
                     items: newList,
                     preloader: false,

@@ -163,10 +163,40 @@ class PaqueteUtils {
         
         if(count($combinacionesPaquete) > Generalkeys::NUMBER_ZERO){
             
-            $paqueteTO->setCombinacionesPaquete($combinacionesPaquete);
+            $paqueteTO->setCombinacionesPaquete(self::mangerCombinacionesPaquetes($combinacionesPaquete));
 
         }
 
         return $paqueteTO;
+    }
+    
+    public function mangerCombinacionesPaquetes($combinaciones){
+        $combinacionesArray = new ArrayCollection();
+        $imagenes = new ArrayCollection();
+        if (count($combinaciones) > Generalkeys::NUMBER_ZERO){
+            $idHotel = $combinaciones[0]['id_hotel'];
+            $comTmp = null;
+            $cont = 0;
+            foreach ($combinaciones as $combinacion) {
+                $cont++;
+                if ((int)$combinacion['id_hotel'] == $idHotel){
+                    $comTmp = $combinacion;
+                    $imagenes->add($combinacion['path']);
+                } else {
+                    $comTmp["imageneshotel"] = $imagenes->getValues();
+                    $combinacionesArray->add($comTmp);
+                    $imagenes = new ArrayCollection();
+                    $comTmp = $combinacion;
+                    $imagenes->add($combinacion['path']);
+                }
+                $idHotel = $combinacion['id_hotel'];
+                if (count($combinaciones) == $cont){
+                    $comTmp["imageneshotel"] = $imagenes->getValues();
+                    $combinacionesArray->add($comTmp);
+                }
+            }
+        }
+
+        return $combinacionesArray->getValues();
     }
 }

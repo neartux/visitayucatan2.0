@@ -38,7 +38,6 @@
             return $http.post(path, $.param({id : id}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
-                console.info("response = ", response);
                 service.listItemsSimilar.data = response.data;
             });
         };
@@ -57,7 +56,6 @@
             ), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
-                console.info(response);
                 service.listRoomsHotelToSale.data = response.data.data;
             });
         };
@@ -77,7 +75,6 @@
             ), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
-                console.info(response);
                 //service.listRoomsHotelToSale.data = response.data.data;
             });
         };
