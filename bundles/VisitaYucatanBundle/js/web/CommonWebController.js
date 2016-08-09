@@ -94,6 +94,10 @@
             if(isFormValid) {
                 ctrlWeb.ventaCompletaTO.costoTotal = ctrlWeb.calculateCost();
                 WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {
+                    console.info("response = ", response);
+                    WebService.sendMailReservaTour(response.data.id).then(function(data){
+                        console.info("termina todo = ", data.data);
+                    });
                 });
             }
         };
@@ -245,12 +249,22 @@
             {id:2,value:2,label:"2"}
         ];
         paqWebVM.idPaquete = 0;
+        paqWebVM.mensageDetallePaquete = '';
         paqWebVM.initPaquete = function(combinacionespaquete, idPackage){
             paqWebVM.idPaquete = idPackage;
             paqWebVM.habitacion='doble';
             paqWebVM.combinacionesPaquete = JSON.parse(combinacionespaquete);
-            paqWebVM.changeHabitacion('doble');
             paqWebVM.findItemsSimilar();
+            
+            paqWebVM.messages = {
+                sencillo: $("#messagePckSimple").val(),
+                doble: $("#messagePckDouble").val(),
+                triple: $("#messagePckTriple").val(),
+                cuadruple: $("#messagePckQuadruple").val()
+            }
+
+            paqWebVM.changeHabitacion('doble');
+            
         };
         
         paqWebVM.findItemsSimilar = function () {
@@ -265,15 +279,19 @@
             switch(ocupacion){
                 case 'sencillo':
                         paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costosencillo');
+                    paqWebVM.mensageDetallePaquete = paqWebVM.messages.sencillo;
                     break;
                 case 'doble':
                         paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costodoble');
+                    paqWebVM.mensageDetallePaquete = paqWebVM.messages.doble;
                     break;
                 case 'triple':
                         paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costotriple');
+                    paqWebVM.mensageDetallePaquete = paqWebVM.messages.triple;
                     break;
                 case 'cuadruple':
                         paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costocuadruple');
+                    paqWebVM.mensageDetallePaquete = paqWebVM.messages.cuadruple;
                     break;
             }
             

@@ -98,6 +98,12 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
+        
+        service.sendMailReservaTour = function (idVenta) {
+            return $http.post(service.contextPath+'/venta/send/voucher/tour', $.param({idVenta : idVenta}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
 
         service.createReservationHotel = function(ventaCompletaTO){
             return $http.post(service.contextPath+'/hotel/createReservationHotel', $.param({ventaCompletaTO : JSON.stringify(ventaCompletaTO)}), {

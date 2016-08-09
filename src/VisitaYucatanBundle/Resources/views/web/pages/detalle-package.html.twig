@@ -129,8 +129,8 @@
                                                 <h4 class="color-text-pink text-bold btnReservaPaquete" id="[[h.id]]">
                                                     $[[h.costo | myCurrency2 ]] [[h.simbolo]]
                                                 </h4>
-                                                <span class="color-text-pink text-italic" style="font-size: 12px;">
-                                                    {% trans %}page.web.labe.reserva.price.per.person{% endtrans %}
+                                                <span class="color-text-pink text-italic">
+                                                    [[ paqWebVM.mensageDetallePaquete ]]
                                                 </span>
                                             </div>
                                         </div>
@@ -178,6 +178,11 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" id="messagePckSimple" value="{% trans %}page.web.labe.reserva.general.price.per.person.sencillo{% endtrans %}"/>
+            <input type="hidden" id="messagePckDouble" value="{% trans %}page.web.labe.reserva.general.price.per.person.doble{% endtrans %}"/>
+            <input type="hidden" id="messagePckTriple" value="{% trans %}page.web.labe.reserva.general.price.per.person.triple{% endtrans %}"/>
+            <input type="hidden" id="messagePckQuadruple" value="{% trans %}page.web.labe.reserva.general.price.per.person.cuadruple{% endtrans %}"/>
+
             <input type="hidden" id="pathSimilars" value="{{ path('paquete_find_list_similares') }}">
             <input type="hidden" id="pathImagesHotel" value="{{ path('paquete_find_list_hotel_images') }}">
             <a href="[[ path.path ]]" data-ng-repeat="path in paqWebVM.listImagesHotel.data" class="elemento-oculto images-hotel click-this-image"></a>

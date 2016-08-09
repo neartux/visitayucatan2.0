@@ -28,9 +28,11 @@ class VentaController extends Controller {
         try {
             $ventaCompletaTO = $serializer->deserialize($request->get('ventaCompletaTO'), 'VisitaYucatanBundle\utils\to\VentaCompletaTO', Generalkeys::JSON_STRING);
             $idVenta = $em->getRepository('VisitaYucatanBundle:Venta')->createSaleTour($ventaCompletaTO);
-            $this->voucherTour($request, $idVenta);
+            //echo "idventa = ".$idVenta;
+            //$this->voucherTour($idVenta);
             $em->getConnection()->commit();
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la reserva', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response->setId($idVenta);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch (\Exception $e) {
@@ -42,17 +44,32 @@ class VentaController extends Controller {
 
     /**
      * @Route("/venta/send/voucher/tour", name="web_voucher_tour")
-     * @Method("GET")
+     * @Method("POST")
      */
-    public function voucherTour(Request $request, $id) {
+    public function voucherTour(Request $request) {
+        $serializer = $this->get('serializer');
+        $em = $this->getDoctrine()->getManager();
 
-        // renderiza la vista y manda la informacion
-        $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find($id);
-        $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($venta->getVentaDetalle()->get(0)->getTour()->getId(), $venta->getIdioma()->getId(), $venta->getMoneda()->getId());
-        $ventaCompletaTO = VentaUtils::getVentaCompleteTOTour($venta, $tour);
-        $mes = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));
-        $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-tour-pdf.html.twig',array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes));
-        $this->getPdf($html, $ventaCompletaTO, Generalkeys::PATH_VOUCHER_TOURS);
+        $em->getConnection()->beginTransaction();
+        try {
+            // renderiza la vista y manda la informacion
+            $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find($request->get('idVenta'));
+
+            $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($venta->getVentaDetalle()->get(0)->getTour()->getId(), $venta->getIdioma()->getId(), $venta->getIdioma()->getId());
+            $ventaCompletaTO = VentaUtils::getVentaCompleteTOTour($venta, $tour);
+            $mes = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));
+            $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-tour-pdf.html.twig',array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes));
+            $this->getPdf($html, $ventaCompletaTO, Generalkeys::PATH_VOUCHER_TOURS);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'El voucher se ha enviado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+
+
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        } catch (\Exception $e) {
+            $em->getConnection()->rollback();
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
     }
     
     /**
