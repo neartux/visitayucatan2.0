@@ -39,6 +39,8 @@ class VentaCompletaTO{
     private $idTour;
     private $nombreTour;
     private $circuito;
+    private $idHotel;
+    private $idHabitacion;
 
     /**
      * @return mixed
@@ -534,6 +536,38 @@ class VentaCompletaTO{
     public function setCircuito($circuito)
     {
         $this->circuito = $circuito;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdHotel()
+    {
+        return $this->idHotel;
+    }
+
+    /**
+     * @param mixed $idHotel
+     */
+    public function setIdHotel($idHotel)
+    {
+        $this->idHotel = $idHotel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdHabitacion()
+    {
+        return $this->idHabitacion;
+    }
+
+    /**
+     * @param mixed $idHabitacion
+     */
+    public function setIdHabitacion($idHabitacion)
+    {
+        $this->idHabitacion = $idHabitacion;
     }
           
           

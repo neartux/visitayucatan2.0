@@ -6,7 +6,9 @@
     {% block content %}
         <div class="container-fluid" data-ng-controller="WebHotelController as ctrlWeb" data-ng-init="ctrlWeb.initReserva({{ reserva.tarifaAdulto }}, {{ reserva.tarifaMenor }}, {{ reserva.idIdioma }},
         {{ reserva.idMoneda }}, {{ reserva.tipoCambio }}, {{ reserva.costoTotal }}, '{{ reserva.fechaInicio }}', '{{ reserva.fechaFin }}', '{{ reserva.adultos }}',
-        '{{ reserva.menores }}', '{{ app.request.getBaseURL() }}')">
+        '{{ reserva.menores }}', '{{ app.request.getBaseURL() }}', {{ reserva.idHotel }}, {{ reserva.idHabitacion }})">
+
+            {#{{ dump(reserva) }}#}
 
             <div class="row background-gray-light">
                 <div class="col-sm-12">
@@ -64,7 +66,7 @@
                                                     {% trans %}page.web.labe.reserva.tour.name{% endtrans %}
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.nombre" required id="nombre" name="nombre" class="form-control"/>
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.nombres" required id="nombre" name="nombre" class="form-control"/>
                                             <span ng-show="formReserva.nombre.$invalid && !formReserva.nombre.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.name.required{% endtrans %}
                                             </span>
@@ -106,7 +108,8 @@
                                                     {% trans %}page.web.labe.reserva.tour.phone{% endtrans %}
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.telefono" required id="telefono" name="telefono" class="form-control"/>
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.telefono" required id="telefono" name="telefono" class="form-control"
+                                                        maxlength="10"/>
                                             <span ng-show="formReserva.telefono.$invalid && !formReserva.telefono.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.phone.required{% endtrans %}
                                             </span>

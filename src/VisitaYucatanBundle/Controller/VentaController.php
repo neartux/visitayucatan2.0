@@ -17,32 +17,6 @@ use VisitaYucatanBundle\utils\VentaUtils;
 class VentaController extends Controller {
 
     /**
-     * @Route("/tour/createReservationTour", name="web_tour_reserva_create")
-     * @Method("POST")
-     */
-    public function createReservationTour(Request $request) {
-        $serializer = $this->get('serializer');
-        $em = $this->getDoctrine()->getManager();
-
-        $em->getConnection()->beginTransaction();
-        try {
-            $ventaCompletaTO = $serializer->deserialize($request->get('ventaCompletaTO'), 'VisitaYucatanBundle\utils\to\VentaCompletaTO', Generalkeys::JSON_STRING);
-            $idVenta = $em->getRepository('VisitaYucatanBundle:Venta')->createSaleTour($ventaCompletaTO);
-            //echo "idventa = ".$idVenta;
-            //$this->voucherTour($idVenta);
-            $em->getConnection()->commit();
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la reserva', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
-            $response->setId($idVenta);
-            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
-
-        } catch (\Exception $e) {
-            $em->getConnection()->rollback();
-            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
-            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
-        }
-    }
-
-    /**
      * @Route("/venta/send/voucher/tour", name="web_voucher_tour")
      * @Method("POST")
      */
@@ -77,18 +51,34 @@ class VentaController extends Controller {
      * @Method("GET")
      */
     public function indexAction(Request $request) {
+        $serializer = $this->get('serializer');
+        $em = $this->getDoctrine()->getManager();
 
-        // renderiza la vista y manda la informacion
-        $ventas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find(2);
-        $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($ventas->getVentaDetalle()->get(0)->getHotel()->getId());
-        $venta = VentaUtils::getVentaCompletaTOHotel($this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->getDetailsSaleHotel($ventas->getId(), $idContract));
-        $date = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));
-        $monthChekIn = DateUtil::getFullNameMonth(date_format($venta->getCheckIn(), 'm'));
-        $monthChekOut = DateUtil::getFullNameMonth(date_format($venta->getCheckOut(), 'm'));
-        $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-hotel-pdf.html.twig',array('ventaCompleta' => $venta,
-            'mes' => $date, 'mesCheckIn' => $monthChekIn, 'monthCheckOut' => $monthChekOut));
+        $em->getConnection()->beginTransaction();
+        try {
 
-        $this->getPdf($html, $venta, Generalkeys::PATH_VOUCHER_HOTELES);
+            // renderiza la vista y manda la informacion
+            $ventas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find($request->get('idVenta'));
+            $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($ventas->getVentaDetalle()->get(0)->getHotel()->getId());
+            $venta = VentaUtils::getVentaCompletaTOHotel($this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->getDetailsSaleHotel($ventas->getId(), $idContract));
+            $date = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));
+            $monthChekIn = DateUtil::getFullNameMonth(date_format($venta->getCheckIn(), 'm'));
+            $monthChekOut = DateUtil::getFullNameMonth(date_format($venta->getCheckOut(), 'm'));
+            $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-hotel-pdf.html.twig',array('ventaCompleta' => $venta,
+                'mes' => $date, 'mesCheckIn' => $monthChekIn, 'monthCheckOut' => $monthChekOut));
+
+            $this->getPdf($html, $venta, Generalkeys::PATH_VOUCHER_HOTELES);
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'El voucher se ha enviado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+
+
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        } catch (\Exception $e) {
+            $em->getConnection()->rollback();
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
     }
 
     private function getPdf($html, VentaCompletaTO $ventaCompletaTO, $pathDir){

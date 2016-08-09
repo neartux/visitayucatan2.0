@@ -139,10 +139,12 @@
             ctrlHotel.arrayEstrellas = array;
         };
         
-        ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath) {
+        ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath, idHotel, idHabitacion) {
             WebService.setContextPath(contextPath);
             ctrlHotel.ventaCompletaTO = {
                 tarifaAdulto: tarifaAdulto,
+                costoAdulto: tarifaAdulto,
+                costoMenor: tarifaMenor,
                 tarifaMenor: tarifaMenor,
                 idIdioma: idIdioma,
                 idMoneda: idMoneda,
@@ -151,13 +153,16 @@
                 checkIn: checkIn,
                 checkOut: checkOut,
                 numeroMenores: menores,
-                numeroAdultos: adultos
+                numeroAdultos: adultos,
+                idHotel: idHotel,
+                idHabitacion: idHabitacion
             }
 
         };
 
         ctrlHotel.createRerservaHotel = function () {
             WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).then(function (response) {
+                console.info("resultado reserva hotel = ", response);
             });
         };
 

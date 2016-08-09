@@ -71,7 +71,9 @@ class HotelController extends Controller {
 
         $hotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotel')->getHotelById($idHotel, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
         $tarifa = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->findDetailHotel(DateUtil::formatDate($fechaInicio), $idHotel, $idHabitacion, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
-        $reserva = HotelUtils::getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores,$hotel, $tarifa); 
+        $reserva = HotelUtils::getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores,$hotel, $tarifa);
+        $reserva->setIdHotel((int)$idHotel);
+        $reserva->setIdHabitacion((int)$idHabitacion);
         return $this->render('VisitaYucatanBundle:web/pages:reserv-hotel.html.twig', array('dateFrom' => $fechaInicio, 'dateTo' => $fechaFin, 'reserva' => $reserva));
     }
 
@@ -86,9 +88,10 @@ class HotelController extends Controller {
         $em->getConnection()->beginTransaction();
         try {
             $ventaCompletaTO = $serializer->deserialize($request->get('ventaCompletaTO'), 'VisitaYucatanBundle\utils\to\VentaCompletaTO', Generalkeys::JSON_STRING);
-            $em->getRepository('VisitaYucatanBundle:Venta')->createSaleHotel($ventaCompletaTO);
+            $idVenta = $em->getRepository('VisitaYucatanBundle:Venta')->createSaleHotel($ventaCompletaTO);
             $em->getConnection()->commit();
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la reserva', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response->setId($idVenta);
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch (\Exception $e) {
