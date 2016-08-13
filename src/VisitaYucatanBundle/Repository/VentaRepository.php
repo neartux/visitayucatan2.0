@@ -121,4 +121,27 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
         $stmt->execute($params);
         return $stmt->fetch();
     }
+
+    public function findVentaById($idVenta){ // todo no se esta utilizando
+        $em = $this->getEntityManager();
+        $sql = "SELECT venta.id AS idreserva,venta.fechaventa,venta.total,venta_detalle.numeromenores,venta_detalle.numeroadultos,venta_detalle.tipoproducto,
+                datos_personales.nombres,datos_personales.apellidos,datos_ubicacion.telefono,datos_ubicacion.email,datos_pago.pagado
+                FROM venta
+                INNER JOIN venta_detalle ON venta.id = venta_detalle.id_venta
+                INNER JOIN datos_personales ON venta.id_datospersonales = datos_personales.id
+                INNER JOIN datos_ubicacion ON venta.id_datosubicacion = datos_ubicacion.id
+                INNER JOIN datos_pago ON venta.id_datospago = datos_pago.id
+                INNER JOIN datos_reserva ON venta.id_datosreserva=datos_reserva.id
+                LEFT JOIN datos_vuelo ON venta.id_datosvuelo = datos_vuelo.id
+                LEFT JOIN hotel ON venta_detalle.id_hotel= hotel.id
+                LEFT JOIN tour ON venta_detalle.id_tour = tour.id
+                LEFT JOIN paquete ON venta_detalle.id_paquete = paquete.id
+                LEFT JOIN hotel_habitacion ON venta_detalle.id_hotel_habitacion = hotel_habitacion.id
+                WHERE venta.id_estatus = :estatus
+                AND venta_detalle.id_estatus = :estatus";
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetch();
+    }
 }

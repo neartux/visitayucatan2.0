@@ -7,6 +7,7 @@
 namespace VisitaYucatanBundle\utils;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use VisitaYucatanBundle\Entity\Venta;
 use VisitaYucatanBundle\utils\to\VentaCompletaTO;
 
@@ -55,5 +56,29 @@ final class VentaUtils {
         $ventaCompletaTO->setCiudad($venta->getDatosUbicacion()->getCiudad());
         //print_r($venta->getVentaDetalle()->get(0)->getTour()->getDescripcion());
         return $ventaCompletaTO;
+    }
+
+    public static function getAllVentas($ventas){
+        $ventasTO = new ArrayCollection();
+        if(count($ventas) > Generalkeys::NUMBER_ZERO){
+            foreach ($ventas as $venta){
+                $ventaTO = new VentaCompletaTO();
+                $ventaDetalle = $venta->getVentaDetalle()->get(0);
+                $ventaTO->setIdVenta($venta->getId());
+                $ventaTO->setTipoReserva($ventaDetalle->getTipoProducto());
+                $ventaTO->setNombres($venta->getDatosPersonales()->getNombres());
+                $ventaTO->setApellidos($venta->getDatosPersonales()->getApellidos());
+                $ventaTO->setTelefono($venta->getDatosUbicacion()->getTelefono());
+                $ventaTO->setEmail($venta->getDatosUbicacion()->getEmail());
+                $ventaTO->setNumeroAdultos($ventaDetalle->getNumeroAdultos());
+                $ventaTO->setNumeroMenores($ventaDetalle->getNumeroMenores());
+                $ventaTO->setCostoTotal($venta->getTotal());
+                $ventaTO->setPagado($venta->getDatosPago()->getPagado());
+
+
+                $ventasTO->add($ventaTO);
+            }
+        }
+        return $ventasTO->getValues();
     }
 }

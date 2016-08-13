@@ -92,7 +92,7 @@ class Generalkeys{
     // TODO dar permisos
     const PATH_VOUCHER_HOTELES = '/bundles/VisitaYucatanBundle/voucher/hotel/';
     const PATH_VOUCHER_TOURS = '/bundles/VisitaYucatanBundle/voucher/tour/';
-    const DOMAIN_VY = 'visitayucatan2.0';
+    const DOMAIN_VY = 'visitayucatan2.0';// zonadeverificacion.com
     
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);

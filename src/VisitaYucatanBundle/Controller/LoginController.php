@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\to\ResponseTO;
+use VisitaYucatanBundle\utils\VentaUtils;
 
 class LoginController extends Controller {
 
@@ -20,7 +21,8 @@ class LoginController extends Controller {
         if(! $request->getSession()->get(Generalkeys::LABEL_STATUS)){
             return $this->redirectToRoute('admin_login');
         }
-        return $this->render('VisitaYucatanBundle:Default:index.html.twig');
+        $ventas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->findAll();
+        return $this->render('VisitaYucatanBundle:Default:index.html.twig', array("ventas" => VentaUtils::getAllVentas($ventas)));
     }
 
     /**
