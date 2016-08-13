@@ -241,26 +241,27 @@
 
     });
 
-    app.controller('WebPaqueteController',function($scope,WebService){
+    app.controller('WebPaqueteController',function($scope,WebService) {
         var paqWebVM = this;
 
         paqWebVM.habCombinaciones = undefined;
         paqWebVM.listItemsSimilar = WebService.listItemsSimilar;
         paqWebVM.listImagesHotel = WebService.listImagesHotel;
         paqWebVM.reservar = {};
+        paqWebVM.ventaCompletaTO = {};
         paqWebVM.menores = [
-            {id:0,value:0,label:"0"},
-            {id:1,value:1,label:"1"},
-            {id:2,value:2,label:"2"}
+            {id: 0, value: 0, label: "0"},
+            {id: 1, value: 1, label: "1"},
+            {id: 2, value: 2, label: "2"}
         ];
         paqWebVM.idPaquete = 0;
         paqWebVM.mensageDetallePaquete = '';
-        paqWebVM.initPaquete = function(combinacionespaquete, idPackage){
+        paqWebVM.initPaquete = function (combinacionespaquete, idPackage) {
             paqWebVM.idPaquete = idPackage;
-            paqWebVM.habitacion='doble';
+            paqWebVM.habitacion = 'doble';
             paqWebVM.combinacionesPaquete = JSON.parse(combinacionespaquete);
             paqWebVM.findItemsSimilar();
-            
+
             paqWebVM.messages = {
                 sencillo: $("#messagePckSimple").val(),
                 doble: $("#messagePckDouble").val(),
@@ -269,9 +270,9 @@
             }
 
             paqWebVM.changeHabitacion('doble');
-            
+
         };
-        
+
         paqWebVM.findItemsSimilar = function () {
             var path = angular.element(document.querySelector('#pathSimilars')).context.value;
             WebService.findItemsSimilar(path, paqWebVM.idPaquete);
@@ -399,9 +400,14 @@
                 default:
                     break;
             }
-        }
-        paqWebVM.reservar = function(item){
-        }
+        };
+        paqWebVM.reservarPackage = function(){
+            console.info("ver fechas = ", paqWebVM.ventaCompletaTO);
+        };
+        paqWebVM.changeDatePackage = function () {
+            console.info("paqWebVM.ventaCompletaTO.fechaPaquete = ", paqWebVM.ventaCompletaTO.fechaPaquete);
+            console.info("paqWebVM.ventaCompletaTO.fechaSalida = ", paqWebVM.ventaCompletaTO.fechaSalida);
+        };
         $scope.$watch('paqWebVM.reservar.menores',function(val){
             if(val){
                 if(paqWebVM.reservar.adultos==3){
