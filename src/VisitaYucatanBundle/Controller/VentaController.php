@@ -116,4 +116,13 @@ class VentaController extends Controller {
 
         //return $this->redirectToRoute('web_contacto');
     }
+
+    /**
+     * @Route("/venta/findVentaById", name="find_venta_by_id")
+     * @Method("GET")
+     */
+    public function findAllDestinosAction(Request $request) {
+        $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->findVentaById($request->get('idVenta'));
+        return new Response($this->get('serializer')->serialize($venta, Generalkeys::JSON_STRING));
+    }
 }

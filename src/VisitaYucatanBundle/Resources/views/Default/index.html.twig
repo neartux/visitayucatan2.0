@@ -9,8 +9,8 @@
 
 {% block content %}
 
-    <div data-widget-group="group1" class="ui-sortable">
-        <div class="row ml mr">
+    <div data-widget-group="group1" class="ui-sortable" data-ng-app="Reserva">
+        <div class="row ml mr" data-ng-controller="ReservaController as ctrl" data-ng-init="ctrl.init('{{ app.request.getBaseURL() }}')">
             <h2>RESERVAS</h2>
             <table class="table">
                 <thead>
@@ -33,12 +33,15 @@
                         <td>{{ venta.idVenta }}</td>
                         <td>
                             {% if(venta.tipoReserva == constant('VisitaYucatanBundle\\utils\\GeneralKeys::TIPO_PRODUCTO_TOUR')) %}
+                                {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_TOURS') %}
                                 Tour
                             {% endif %}
                             {% if(venta.tipoReserva == constant('VisitaYucatanBundle\\utils\\GeneralKeys::TIPO_PRODUCTO_HOTEL')) %}
+                                {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_HOTELES') %}
                                 Hotel
                             {% endif %}
                             {% if(venta.tipoReserva == constant('VisitaYucatanBundle\\utils\\GeneralKeys::TIPO_PRODUCTO_PAQUETE')) %}
+                                {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_PAQUETES') %}
                                 Paquete
                             {% endif %}
                         </td>
@@ -56,13 +59,20 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a class="btn btn-success-alt" href="javascript:;"><i class="fa fa-search"></i></a>
-                            <a class="btn btn-success-alt" href="javascript:;"><i class="fa  fa-gears"></i></a>
+                            {#<a class="btn btn-success-alt" href="javascript:;" data-ng-click="ctrl.findDetalleReserva({{ venta.idVenta }})">
+                                <i class="fa fa-search"></i>
+                            </a>#}
+                            <a class="btn btn-success-alt" href="javascript:;" data-ng-click="ctrl.displayReservaPDF({{ venta.idVenta }}, '{{ path }}')">
+                                <i class="fa  fa-gears"></i>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+
+            {% include '@VisitaYucatan/Default/modaldetalle.html.twig' %}
+            {% include '@VisitaYucatan/Default/ModalPdfReserva.html.twig' %}
         </div>
 
     </div>
@@ -71,4 +81,6 @@
 
 {% block scripts %}
     {{ parent() }}
+    <script src="{{ asset('bundles/VisitaYucatanBundle/js/reserva/ReservaController.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/VisitaYucatanBundle/js/reserva/ReservaProvider.js') }}" type="text/javascript"></script>
 {% endblock %}
