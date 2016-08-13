@@ -22,6 +22,7 @@
         };
         ctrlWeb.minimoPersonas = 0;
         ctrlWeb.ventaCompletaTO = {};
+        ctrlWeb.soloAdultos= undefined;
 
 
         ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate, idTour) {
@@ -35,7 +36,10 @@
             WebService.findItemsSimilar(path, ctrlWeb.idTour);
         };
 
-        ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson, contextPath, idIdioma, idMoneda, idTour){
+        ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson, contextPath,
+                                            idIdioma, idMoneda, idTour, soloadultos){
+            console.info("soloadultos = ", soloadultos);
+            ctrlWeb.soloAdultos = soloadultos;
             ctrlWeb.totalPersons = {
                 numeroMenores : totalMenores,
                 numeroAdultos : totalAdultos
@@ -93,6 +97,16 @@
         ctrlWeb.reservarTour = function (isFormValid) {
             if(isFormValid) {
                 ctrlWeb.ventaCompletaTO.costoTotal = ctrlWeb.calculateCost();
+                if(parseInt(ctrlWeb.totalPersons.numeroMenores) > 0){
+                    if(ctrlWeb.soloAdultos != undefined && ctrlWeb.soloAdultos){
+                        alert("este tour es solo para adultos");
+                        return;
+                    }
+                }
+                if(parseInt(ctrlWeb.minimoPersonas) > (parseInt(ctrlWeb.totalPersons.numeroAdultos)+parseInt(ctrlWeb.totalPersons.numeroMenores))){
+                    alert("El minimo de personas para este paquete es "+ctrlWeb.minimoPersonas);
+                    return
+                }
                 WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {
                     console.info("response = ", response);
                     WebService.sendMailReservaTour(response.data.id).then(function(data){
