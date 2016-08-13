@@ -12,6 +12,8 @@
         ctrlReserva.VentaCompletaTO = ReservaService.VentaCompletaTO;
         ctrlReserva.contextPath = '';
         ctrlReserva.file = 'VIYUC';
+        ctrlReserva.idVentaActual = undefined;
+        ctrlReserva.pathActual = undefined;
 
         ctrlReserva.init = function (contextPath) {
             ctrlReserva.contextPath = contextPath;
@@ -19,7 +21,9 @@
         };
         
         ctrlReserva.displayReservaPDF = function (idVenta, path) {
-            $("#pdfTagReserva").attr("data", ctrlReserva.contextPath+path+ctrlReserva.file+'-'+idVenta+'.pdf');
+            ctrlReserva.idVentaActual = idVenta;
+            ctrlReserva.pathActual = ctrlReserva.contextPath+path+ctrlReserva.file+'-'+idVenta+'.pdf';
+            $("#pdfTagReserva").attr("data", ctrlReserva.pathActual);
             $("#pdfReserva").modal();  
         };
         
@@ -28,6 +32,15 @@
             ReservaService.findVentaById(idVenta).then(function (data) {
                 $("#modalDetalleReserva").modal();
             });
+        };
+        
+        ctrlReserva.reenvioReserva = function () {
+            if (ctrlReserva.idVentaActual != undefined && ctrlReserva.pathActual != undefined){
+                console.info(ctrlReserva.idVentaActual, ctrlReserva.pathActual);
+                ReservaService.reenvioReserva(ctrlReserva.idVentaActual, ctrlReserva.pathActual).then(function () {
+                    console.info("data = ", data.data);
+                });
+            }
         };
 
     });

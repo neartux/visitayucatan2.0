@@ -19,6 +19,12 @@
             });
         };
 
+        service.reenvioReserva= function(idVenta, filePath){
+            return $http.post(service.contextPath+'/venta/reenvio/reservacion', $.param({idVenta: idVenta, path: filePath}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
         return service;
     });
 })();

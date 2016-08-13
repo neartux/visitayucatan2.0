@@ -118,10 +118,23 @@ class VentaController extends Controller {
     }
 
     /**
+     * @Route("/venta/reenvio/reservacion", name="reenvio_reservacion")
+     * @Method("POST")
+     */
+    public function reenvioReservacion(Request $request) {
+        $idVenta = $request->get('idVenta');
+        $path = $request->get('path');
+        $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find($idVenta);
+        $this->sendMailSale($venta->getDatosUbicacion()->getEmail(), $path);
+        $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha reenviado la reserva ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+        return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+    }
+
+    /**
      * @Route("/venta/findVentaById", name="find_venta_by_id")
      * @Method("GET")
      */
-    public function findAllDestinosAction(Request $request) {
+    public function findVentaById(Request $request) {
         $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->findVentaById($request->get('idVenta'));
         return new Response($this->get('serializer')->serialize($venta, Generalkeys::JSON_STRING));
     }
