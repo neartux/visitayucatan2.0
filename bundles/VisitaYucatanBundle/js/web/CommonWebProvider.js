@@ -111,6 +111,12 @@
             });
         };
 
+        service.createReservationPackage = function(ventaCompletaTO){
+            return $http.post(service.contextPath+'/paquete/createReservationPackage', $.param({ventaCompletaTO : JSON.stringify(ventaCompletaTO)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
         service.findImagesHotel = function(idHotel){
             var path = $("#pathImagesHotel").val();
             return $http.post(path, $.param({idHotel : idHotel}), {

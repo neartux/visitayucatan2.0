@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\PaqueteUtils;
 use VisitaYucatanBundle\utils\StringUtils;
+use VisitaYucatanBundle\utils\to\ResponseTO;
 use VisitaYucatanBundle\utils\TourUtils;
 
 class PaqueteController extends Controller {
@@ -149,5 +150,31 @@ class PaqueteController extends Controller {
     public function findImagenesHotel(Request $request) {
         $imagenes = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelimagen')->findPathImagesHotel($request->get('idHotel'));
         return new Response($this->get('serializer')->serialize($imagenes, Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/paquete/createReservationPackage", name="web_package_reserva_create")
+     * @Method("POST")
+     */
+    public function createReservationTour(Request $request) {
+        $serializer = $this->get('serializer');
+        $em = $this->getDoctrine()->getManager();
+
+        $em->getConnection()->beginTransaction();
+        try {
+            $ventaCompletaTO = $serializer->deserialize($request->get('ventaCompletaTO'), 'VisitaYucatanBundle\utils\to\VentaCompletaTO', Generalkeys::JSON_STRING);
+            $idVenta = $em->getRepository('VisitaYucatanBundle:Venta')->createSaleTour($ventaCompletaTO);
+            //echo "idventa = ".$idVenta;
+            //$this->voucherTour($idVenta);
+            $em->getConnection()->commit();
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la reserva', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            $response->setId($idVenta);
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        } catch (\Exception $e) {
+            $em->getConnection()->rollback();
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
     }
 }

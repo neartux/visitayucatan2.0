@@ -325,14 +325,14 @@
             return array;
         };
         //paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
-        paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
+        paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe, contextPath){
             paqWebVM.detailReserva = JSON.parse(detailReserva);
             paqWebVM.importe = importe;
             var combinacion = JSON.parse(paqueteCombinacion);
             paqWebVM.paqueteCombinacion= combinacion[0];
             paqWebVM.reservar = {
                 adultos:paqWebVM.detailReserva.adultos.toString(),
-                menores:paqWebVM.menores[paqWebVM.detailReserva.menores],
+                menores:paqWebVM.menores[paqWebVM.detailReserva.menores]
             };
             switch (parseInt( paqWebVM.detailReserva.adultos)) {
                 case 1:
@@ -352,6 +352,7 @@
 
             paqWebVM.calculateCostoPaquete(paqWebVM.detailReserva.adultos,paqWebVM.detailReserva.menores);
             paqWebVM.findItemsSimilar();
+            WebService.contextPath = contextPath;
         };
         paqWebVM.calculateCostoPaquete = function(adultos,menores){
             var costoAdultos = parseFloat(paqWebVM.detailReserva.costo) * adultos;
@@ -415,7 +416,16 @@
                     break;
             }
         };
-        paqWebVM.reservarPackage = function(){
+        
+        paqWebVM.reservarPackage = function(isFormValid){
+            
+            paqWebVM.ventaCompletaTO.numeroAdultos=paqWebVM.reservar.adultos;
+            paqWebVM.ventaCompletaTO.numeroMenores=paqWebVM.reservar.menores.value;
+            paqWebVM.ventaCompletaTO.checkIn = $("#fechaPaquete").val();
+            paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
+            paqWebVM.ventaCompletaTO.costoTotal = paqWebVM.importeTotal;
+            
+            console.info("isFormValid = ", isFormValid, " paqWebVM.reservar.menores = ", paqWebVM.reservar.menores, " paqWebVM.reservar.adultos = ", paqWebVM.reservar.adultos);
             console.info("ver fechas = ", paqWebVM.ventaCompletaTO);
         };
         paqWebVM.changeDatePackage = function () {

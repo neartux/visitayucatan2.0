@@ -36,6 +36,27 @@ class VentaDetalleRepository extends \Doctrine\ORM\EntityRepository {
         
     }
 
+    public function createVentaDetallePackage(VentaCompletaTO $ventaCompletaTO, $tipoProducto, $idVenta) {
+        $em = $this->getEntityManager();
+
+        $ventaDetalle = new VentaDetalle();
+        $ventaDetalle->setVenta($em->getReference('VisitaYucatanBundle:Venta', $idVenta));
+        $ventaDetalle->setTour($em->getReference('VisitaYucatanBundle:Paquete', $ventaCompletaTO->getIdPaquete()));
+        $ventaDetalle->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
+        $ventaDetalle->setTipoProducto($tipoProducto);
+        $ventaDetalle->setSubtotal($ventaCompletaTO->getCostoTotal());
+        $ventaDetalle->setTotal($ventaCompletaTO->getCostoTotal());
+        $ventaDetalle->setNumeroAdultos($ventaCompletaTO->getNumeroAdultos());
+        $ventaDetalle->setNumeroMenores($ventaCompletaTO->getNumeroMenores());
+        $ventaDetalle->setCostoAdulto($ventaCompletaTO->getCostoAdulto());
+        $ventaDetalle->setCostoMenor($ventaCompletaTO->getCostoMenor());
+        $ventaDetalle->setImpuesto(Generalkeys::NUMBER_ZERO);
+
+        $em->persist($ventaDetalle);
+        $em->flush();
+
+    }
+
     public function createVentaDetalleHotel (VentaCompletaTO $ventaCompletaTO, $tipoProducto, $idVenta) {
         $em = $this->getEntityManager();
 
