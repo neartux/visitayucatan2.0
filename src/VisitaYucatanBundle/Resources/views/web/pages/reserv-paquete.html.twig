@@ -4,7 +4,9 @@
 {% block section %}
 
     {% block content %}
-        <div class="container-fluid" data-ng-controller="WebPaqueteController as paqWebVM" data-ng-init="paqWebVM.initReservaPaquete('{{ detailPaquete | json_encode() }}','{{ paqueteCombinacion.combinacionesPaquete | json_encode() }}','{{importe}}', '{{ app.request.getBaseURL() }}')">
+        <div class="container-fluid" data-ng-controller="WebPaqueteController as paqWebVM" data-ng-init="paqWebVM.initReservaPaquete('{{ detailPaquete | json_encode() }}','{{ paqueteCombinacion.combinacionesPaquete | json_encode() }}','{{importe}}', '{{ app.request.getBaseURL() }}',
+        {{ paquete.id }}, {{ paquete.idIdioma }}, {{ paquete.idMoneda }})">
+            {#{{ dump(paquete) }}#}
             <div class="row background-gray-light">
                 <div class="col-sm-12">
                     <div class="container-main-header row"
@@ -391,6 +393,7 @@
                     setDate: new Date()
                 });
                 $('.datepicker-fs').datepicker();
+                $('.datepicker').datepicker();
                 $('.timepicker').timepicker({
                     minuteStep: 5,
                     showInputs: false,

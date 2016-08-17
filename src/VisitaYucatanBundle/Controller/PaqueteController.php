@@ -163,7 +163,7 @@ class PaqueteController extends Controller {
         $em->getConnection()->beginTransaction();
         try {
             $ventaCompletaTO = $serializer->deserialize($request->get('ventaCompletaTO'), 'VisitaYucatanBundle\utils\to\VentaCompletaTO', Generalkeys::JSON_STRING);
-            $idVenta = $em->getRepository('VisitaYucatanBundle:Venta')->createSaleTour($ventaCompletaTO);
+            $idVenta = $em->getRepository('VisitaYucatanBundle:Venta')->createSalePackage($ventaCompletaTO);
             //echo "idventa = ".$idVenta;
             //$this->voucherTour($idVenta);
             $em->getConnection()->commit();

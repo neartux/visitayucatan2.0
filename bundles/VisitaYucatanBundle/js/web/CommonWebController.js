@@ -325,10 +325,11 @@
             return array;
         };
         //paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
-        paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe, contextPath){
+        paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe, contextPath, idPaquete, idIdioma, idMoneda){
             paqWebVM.detailReserva = JSON.parse(detailReserva);
             paqWebVM.importe = importe;
             var combinacion = JSON.parse(paqueteCombinacion);
+            console.info("combinacin = ", combinacion);
             paqWebVM.paqueteCombinacion= combinacion[0];
             paqWebVM.reservar = {
                 adultos:paqWebVM.detailReserva.adultos.toString(),
@@ -353,7 +354,28 @@
             paqWebVM.calculateCostoPaquete(paqWebVM.detailReserva.adultos,paqWebVM.detailReserva.menores);
             paqWebVM.findItemsSimilar();
             WebService.contextPath = contextPath;
+
+            paqWebVM.initVentaCompletaTO(idPaquete, idIdioma, idMoneda, combinacion);
         };
+
+        paqWebVM.initVentaCompletaTO = function (idPaquete, idIdioma, idMoneda, combinacion) {
+            paqWebVM.ventaCompletaTO = {
+                idPaquete: idPaquete,
+                numeroAdultos: paqWebVM.reservar.adultos,
+                numeroMenores: paqWebVM.reservar.menores.value,
+                costoTotal: paqWebVM.importeTotal,
+                idIdioma: idIdioma,
+                idMoneda: idMoneda,
+                idCombinacion: combinacion[0].id,
+                idHotel: combinacion[0].id_hotel,
+                costoMenor: combinacion[0].costomenor,
+                tipoCambio: combinacion[0].tipocambio
+            };
+            console.info("la venta final = ", paqWebVM.ventaCompletaTO);
+        };
+
+
+
         paqWebVM.calculateCostoPaquete = function(adultos,menores){
             var costoAdultos = parseFloat(paqWebVM.detailReserva.costo) * adultos;
             var costoMenores = parseFloat(paqWebVM.paqueteCombinacion.costomenor) * menores;
@@ -418,15 +440,16 @@
         };
         
         paqWebVM.reservarPackage = function(isFormValid){
-            
-            paqWebVM.ventaCompletaTO.numeroAdultos=paqWebVM.reservar.adultos;
-            paqWebVM.ventaCompletaTO.numeroMenores=paqWebVM.reservar.menores.value;
+
             paqWebVM.ventaCompletaTO.checkIn = $("#fechaPaquete").val();
             paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
-            paqWebVM.ventaCompletaTO.costoTotal = paqWebVM.importeTotal;
             
             console.info("isFormValid = ", isFormValid, " paqWebVM.reservar.menores = ", paqWebVM.reservar.menores, " paqWebVM.reservar.adultos = ", paqWebVM.reservar.adultos);
             console.info("ver fechas = ", paqWebVM.ventaCompletaTO);
+
+            WebService.createReservationPackage(paqWebVM.ventaCompletaTO).then(function (response) {
+                console.info("respuesta = ", response);
+            });
         };
         paqWebVM.changeDatePackage = function () {
             console.info("paqWebVM.ventaCompletaTO.fechaPaquete = ", paqWebVM.ventaCompletaTO.fechaPaquete);

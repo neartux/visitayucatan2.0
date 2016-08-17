@@ -43,6 +43,7 @@ class VentaCompletaTO{
     private $idHabitacion;
     private $tipoReserva;
     private $idPaquete;
+    private $idCombinacion;
 
     /**
      * @return mixed
@@ -603,6 +604,22 @@ class VentaCompletaTO{
     {
         $this->idPaquete = $idPaquete;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdCombinacion()
+    {
+        return $this->idCombinacion;
+    }
+
+    /**
+     * @param mixed $idCombinacion
+     */
+    public function setIdCombinacion($idCombinacion)
+    {
+        $this->idCombinacion = $idCombinacion;
+    }
           
-    
+       
 }

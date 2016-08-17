@@ -41,7 +41,7 @@ class VentaDetalleRepository extends \Doctrine\ORM\EntityRepository {
 
         $ventaDetalle = new VentaDetalle();
         $ventaDetalle->setVenta($em->getReference('VisitaYucatanBundle:Venta', $idVenta));
-        $ventaDetalle->setTour($em->getReference('VisitaYucatanBundle:Paquete', $ventaCompletaTO->getIdPaquete()));
+        $ventaDetalle->setPaquete($em->getReference('VisitaYucatanBundle:Paquete', $ventaCompletaTO->getIdPaquete()));
         $ventaDetalle->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
         $ventaDetalle->setTipoProducto($tipoProducto);
         $ventaDetalle->setSubtotal($ventaCompletaTO->getCostoTotal());

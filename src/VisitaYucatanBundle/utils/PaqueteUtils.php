@@ -146,6 +146,8 @@ class PaqueteUtils {
         $paqueteTO->setSimboloMoneda($paquete['simbolo']);
         $paqueteTO->setDias($paquete['dias']);
         $paqueteTO->setNoches((int)$paquete['dias']- Generalkeys::NUMBER_ONE);
+        $paqueteTO->setIdIdioma($paquete['ididioma']);
+        $paqueteTO->setIdMoneda($paquete['idmoneda']);
 
         // Valida imagen tour si es null coloca imagen not found de lo contrario coloca la imagen
         if(is_null($paquete['imagen'])){

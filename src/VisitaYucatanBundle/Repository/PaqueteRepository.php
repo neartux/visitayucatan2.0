@@ -137,7 +137,9 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
                 AND tour.promovido = TRUE
                 AND origen.id = tour_origen.id_origen";*/
 
-         $sql ="SELECT paquete.id,pIdioma.descripcion as nombre,paquete.circuito,pIdioma.descripcioncorta,pIdioma.descripcionlarga,pIdioma.itinerario, pIdioma.incluye,pIdioma.dias,pImg.path as imagen,moneda.simbolo,moneda.tipo_cambio as tipocambio
+         $sql ="SELECT paquete.id,pIdioma.descripcion as nombre,paquete.circuito,pIdioma.descripcioncorta,pIdioma.descripcionlarga,pIdioma.itinerario, 
+				pIdioma.incluye,pIdioma.dias,pImg.path as imagen,moneda.simbolo,moneda.tipo_cambio as tipocambio,
+				pIdioma.id_idioma AS ididioma,moneda.id AS idmoneda
 				  FROM paquete
 				  INNER JOIN paquete_idioma pIdioma ON pIdioma.id_paquete = paquete.id AND pIdioma.id_estatus = :estatusActivo AND pIdioma.id_idioma = :idioma
 				  LEFT JOIN paquete_imagen pImg ON paquete.id=pImg.id_paquete AND pImg.id_estatus= :estatusActivo AND pImg.principal = TRUE

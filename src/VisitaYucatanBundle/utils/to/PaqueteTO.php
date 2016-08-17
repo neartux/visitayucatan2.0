@@ -27,6 +27,8 @@ class PaqueteTO {
     private $combinacionesPaquete;
     private $dias;
     private $noches;
+    private $idIdioma;
+    private $idMoneda;
 
 
     public function __construct(){
@@ -297,6 +299,38 @@ class PaqueteTO {
     {
         $this->costoDoble = $costoDoble;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdIdioma()
+    {
+        return $this->idIdioma;
+    }
+
+    /**
+     * @param mixed $idIdioma
+     */
+    public function setIdIdioma($idIdioma)
+    {
+        $this->idIdioma = $idIdioma;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdMoneda()
+    {
+        return $this->idMoneda;
+    }
+
+    /**
+     * @param mixed $idMoneda
+     */
+    public function setIdMoneda($idMoneda)
+    {
+        $this->idMoneda = $idMoneda;
+    }
     
-       
+          
 }

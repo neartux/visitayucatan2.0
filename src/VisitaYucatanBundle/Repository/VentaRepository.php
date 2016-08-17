@@ -119,7 +119,7 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
         $em->persist($venta);
         $em->flush();
 
-        $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetalleTour($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_PAQUETE, $venta->getId());
+        $em->getRepository('VisitaYucatanBundle:VentaDetalle')->createVentaDetallePackage($ventaCompletaTO, Generalkeys::TIPO_PRODUCTO_PAQUETE, $venta->getId());
 
         return $venta->getId();
 
