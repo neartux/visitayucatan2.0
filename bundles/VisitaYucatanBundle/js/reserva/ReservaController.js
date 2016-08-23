@@ -37,7 +37,7 @@
         ctrlReserva.reenvioReserva = function () {
             if (ctrlReserva.idVentaActual != undefined && ctrlReserva.pathActual != undefined){
                 console.info(ctrlReserva.idVentaActual, ctrlReserva.pathActual);
-                ReservaService.reenvioReserva(ctrlReserva.idVentaActual, ctrlReserva.pathActual).then(function () {
+                ReservaService.reenvioReserva(ctrlReserva.idVentaActual, ctrlReserva.pathActual).then(function (data) {
                     console.info("data = ", data.data);
                 });
             }

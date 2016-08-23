@@ -1,0 +1,121 @@
+{% extends ':web:TemplateVisitaYucatanDetail.html.twig' %}
+
+
+{% block section %}
+
+    {% block content %}
+        <div class="container-fluid">
+            {% set fechaCompra = ventaCompleta.fechaVenta | date('d') ~ ' de ' ~ mes ~ ' de ' ~  ventaCompleta.fechaVenta | date('Y') %}
+
+            <div class="row mb">
+                <div class="col-sm-12">
+                    <div class="row container-body-">
+
+                        <div class="col-sm-12 content-body-detail pr-n pl-n mt-lg">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <h4 class="text-uppercase text-bold color-text-pink">
+                                        {% if ventaCompleta.pagado %}
+                                            Muchas Gracias por su compra
+                                        {% else %}
+                                            Lo sentimos, su tarjeta ha sido declinada
+                                        {% endif %}
+                                    </h4>
+                                </div>
+                                <div class="col-sm-12">
+                                    <hr style="border-top: 1px solid rgb(239, 182, 78) !important;" class="mt-n">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="col-sm-8" id="printVoucher">
+
+                                    <button class="btn btn-info pull-right no-print" onclick="printVoucher()">IMPRIMIR VOUCHER</button>
+
+                                    {% include '@VisitaYucatan/web/pages/pdf/tour/voucher-tour-pdf.html.twig' %}
+
+                                </div>
+
+                                <div class="col-sm-12 mt mb">
+                                    <button class="btn btn-info pull-right no-print" onclick="printDetalleCompra()">IMPRIMIR COMPRA</button>
+                                    <div class="col-sm-12 zona-detalle" id="printDetalleCompra">
+
+                                        {% include '@VisitaYucatan/web/pages/pdf/tour/detalle-tour-pdf.html.twig' %}
+
+
+                                        <div class="mt-xxl">
+
+                                            {% if ventaCompleta.pagado %}
+                                                Muchas Gracias por su compra
+                                            {% else %}
+                                                <span style="font-size: 15px !important;color: #A00;text-decoration: underline;">
+                                                Su tarjeta de crédito ha sido declinada, por favor verifique con su banco.
+                                            Si usted cree que es un error, marque al 01800 111 1111, tenga a la mano su número de referencia: VIYUC{{ ventaCompleta.idVenta }}
+                                            </span>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    {% endblock %}
+
+    {% block scripts %}
+        {{ parent() }}
+        <script src="{{ asset('bundles/VisitaYucatanBundle/assets/plugins/printarea/jquery-printArea.js') }}" type="text/javascript"></script>
+        <script>
+            function printVoucher() {
+                $('#printVoucher').printArea();
+            }
+
+            function printDetalleCompra() {
+                $('#printDetalleCompra').printArea();
+            }
+        </script>
+        <style>
+            @media print {
+                .no-print{
+                    display: none !important;
+                }
+                .label-voucher{
+                    display: none;
+                }
+            }
+            .label-voucher{
+                font-weight: bold;
+                font-size: 20px;
+            }
+            .datos-generales{
+                border: 1px solid #bdbdbd;
+                padding: 15px;
+            }
+            .zona-detalle{
+                border: 1px solid #bdbdbd;
+                padding: 15px;
+            }
+            .title-detalle-compra{
+                font-weight: bold;
+                font-size: 20px;
+            }
+            .gray-shadow{
+                background-color: lightgray;
+            }
+        </style>
+    {% endblock %}
+
+
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+{% endblock %}

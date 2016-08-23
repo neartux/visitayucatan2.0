@@ -94,6 +94,9 @@ class Generalkeys{
     const PATH_VOUCHER_TOURS = '/bundles/VisitaYucatanBundle/voucher/tour/';
     const PATH_VOUCHER_PAQUETES = '/bundles/VisitaYucatanBundle/voucher/paquete/';
     const DOMAIN_VY = 'visitayucatan2.0';// zonadeverificacion.com
+    const NAME_VENTA_FILE = 'VIYUC-';
+    const NAME_VENTA_VOUCHER = 'VOUCHER-';
+    const NAME_VENTA_DETALLE = 'DETALLE-';
     
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);
