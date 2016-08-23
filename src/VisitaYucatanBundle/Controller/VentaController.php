@@ -26,8 +26,14 @@ class VentaController extends Controller {
 
         $em->getConnection()->beginTransaction();
         try {
+            $idVenta = $request->getSession()->get("idVentaGenerada");
+            // limpia variable para no cargar otra vez la pagina
+            $request->getSession()->set("idVentaGenerada", null);
+            if(is_null($idVenta)){
+                return $this->redirectToRoute('web_home');
+            }
             // renderiza la vista y manda la informacion
-            $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find(5);
+            $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find($idVenta);
 
             $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($venta->getVentaDetalle()->get(0)->getTour()->getId(), $venta->getIdioma()->getId(), $venta->getIdioma()->getId());
             $ventaCompletaTO = VentaUtils::getVentaCompleteTOTour($venta, $tour);
@@ -45,7 +51,7 @@ class VentaController extends Controller {
         } catch (\Exception $e) {
             $em->getConnection()->rollback();
             $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
-            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+            return $this->redirectToRoute('web_home');
         }
     }
     

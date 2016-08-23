@@ -4,5 +4,6 @@
     <option name="pathToTranslation" value="src/VisitaYucatanBundle/Resources/translations" />
     <option name="directoryToWeb" value="bundles" />
     <option name="pluginEnabled" value="true" />
+    <option name="phpHighlightServices" value="true" />
   </component>
 </project>

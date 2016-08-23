@@ -91,6 +91,9 @@ class TourController extends Controller {
             $em->getConnection()->commit();
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la reserva', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             $response->setId($idVenta);
+            
+            $request->getSession()->set("idVentaGenerada", $idVenta);
+            
             return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch (\Exception $e) {

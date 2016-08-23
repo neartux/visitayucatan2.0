@@ -109,9 +109,7 @@
                 }
                 WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {
                     console.info("response = ", response);
-                    WebService.sendMailReservaTour(response.data.id).then(function(data){
-                        console.info("termina todo = ", data.data);
-                    });
+                    WebService.redirectToSuccessSale();
                 });
             }
         };

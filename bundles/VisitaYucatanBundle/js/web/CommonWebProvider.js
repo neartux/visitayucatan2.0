@@ -99,6 +99,10 @@
             });
         };
         
+        service.redirectToSuccessSale = function () {
+            window.location.href = service.contextPath+'/venta/send/voucher/tour';  
+        };
+        
         service.sendMailReservaTour = function (idVenta) {
             return $http.post(service.contextPath+'/venta/send/voucher/tour', $.param({idVenta : idVenta}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
