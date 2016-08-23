@@ -1,0 +1,47 @@
+<div class="detalle-compra">
+    <label class="title-detalle-compra">Detalle de su compra</label>
+    <br> <br>
+    <table width="100%">
+        <thead>
+        <tr class="gray-shadow">
+            <th>Descripción</th>
+            <th class="text-center">Fecha reservada</th>
+            <th class="text-center">Adultos</th>
+            <th class="text-center">Menores</th>
+            <th class="text-center">Importe</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="text-left">
+                <b>Reservacion de hospedaje en el hotel:</b> {{ ventaCompleta.nombreHotel }}
+            </td>
+            <td>{{ fechaCompra }}</td>
+            <td class="text-center">{{ ventaCompleta.numeroAdultos }}</td>
+            <td class="text-center">{{ ventaCompleta.numeroMenores }}</td>
+            <td class="text-center">$ {{ ventaCompleta.costoTotal | number_format(2) }} MXP</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <b>*Plan de hospedaje:</b> {{ ventaCompleta.planHotelContrato }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                *Del {{ checkIn }} al {{ checkOut }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <b>Clave de su reservacion:</b> VIYUC{{ ventaCompleta.idVenta }}
+            </td>
+            <td>
+                <b>Total a pagar</b>
+            </td>
+            <td class="text-center">
+                $ {{ ventaCompleta.costoTotal | number_format(2) }} MXP
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

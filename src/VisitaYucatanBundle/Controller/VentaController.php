@@ -73,7 +73,7 @@ class VentaController extends Controller {
             $date = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));
             $monthChekIn = DateUtil::getFullNameMonth(date_format($venta->getCheckIn(), 'm'));
             $monthChekOut = DateUtil::getFullNameMonth(date_format($venta->getCheckOut(), 'm'));
-            $html = $this->renderView('@VisitaYucatan/web/pages/pdf/reserva-hotel-pdf.html.twig',array('ventaCompleta' => $venta,
+            $html = $this->renderView('@VisitaYucatan/web/pages/pdf/hotel/reserva-hotel-pdf.html.twig',array('ventaCompleta' => $venta,
                 'mes' => $date, 'mesCheckIn' => $monthChekIn, 'monthCheckOut' => $monthChekOut));
 
             $file = $this->getPdf($html, $venta, Generalkeys::PATH_VOUCHER_HOTELES, Generalkeys::NAME_VENTA_FILE);
