@@ -115,6 +115,10 @@
             });
         };
 
+        service.redirectToSuccessSaleHotel = function () {
+            window.location.href = service.contextPath+'/venta/send/voucher/hotel';
+        };
+
         service.createReservationPackage = function(ventaCompletaTO){
             return $http.post(service.contextPath+'/paquete/createReservationPackage', $.param({ventaCompletaTO : JSON.stringify(ventaCompletaTO)}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

@@ -175,6 +175,7 @@
         ctrlHotel.createRerservaHotel = function () {
             WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).then(function (response) {
                 console.info("resultado reserva hotel = ", response);
+                WebService.redirectToSuccessSaleHotel();
             });
         };
 
