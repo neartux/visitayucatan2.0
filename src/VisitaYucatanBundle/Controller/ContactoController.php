@@ -24,7 +24,7 @@ class ContactoController extends Controller {
      */
     public function sendMailContact(Request $request) {
         $message = \Swift_Message::newInstance();
-        $message->setSubject('Se ha generado un nuevo prospecto | Visita Yucatan‏');
+        $message->setSubject('TEST(ZV) Se ha generado un nuevo prospecto | Visita Yucatan‏');
         $message->setFrom(Generalkeys::from_email_contact);
         // TODO desconmentar la siguiente linea cuando ya este en produccion
         //$message->setTo(Generalkeys::gabino_martinez_email);

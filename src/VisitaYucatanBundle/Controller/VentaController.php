@@ -148,7 +148,7 @@ class VentaController extends Controller {
 
     private function sendMailSale($email, $file) {
         $message = \Swift_Message::newInstance();
-        $message->setSubject('Informe de su reservacion‏');
+        $message->setSubject('TEST(ZV) Informe de su reservacion‏');
         $message->setFrom(Generalkeys::from_email_contact);
         // TODO desconmentar la siguiente linea cuando ya este en produccion
         //$message->setTo(Generalkeys::gabino_martinez_email);
