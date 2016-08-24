@@ -60,7 +60,6 @@ class VentaController extends Controller {
      * @Method("GET")
      */
     public function indexAction(Request $request) {
-        $serializer = $this->get('serializer');
         $em = $this->getDoctrine()->getManager();
 
         $em->getConnection()->beginTransaction();
@@ -85,16 +84,12 @@ class VentaController extends Controller {
 
             $file = $this->getPdf($html, $venta, Generalkeys::PATH_VOUCHER_HOTELES, Generalkeys::NAME_VENTA_FILE);
             $this->sendMailSale($venta->getEmail(), $file);
-            //$response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'El voucher se ha enviado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
 
             return $this->render('@VisitaYucatan/web/pages/pdf/hotel/success-sale-hotel.html.twig', array('ventaCompleta' => $venta,
                 'mes' => $date, 'mesCheckIn' => $monthChekIn, 'monthCheckOut' => $monthChekOut));
-            
-            //return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch (\Exception $e) {
             $em->getConnection()->rollback();
-            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
             return $this->redirectToRoute('web_home');
         }
     }
