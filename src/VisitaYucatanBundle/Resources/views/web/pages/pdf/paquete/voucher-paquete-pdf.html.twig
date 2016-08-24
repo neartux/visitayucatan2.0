@@ -1,0 +1,40 @@
+<div class="datos-generales">
+    <label class="label-voucher">Voucher Electrónico</label> <br> <br>
+    <table class="table-datos-generales" style="width: 70%">
+        <tbody>
+        <tr>
+            <th class="labe-bold">NÚMERO DE VOUCHER</th>
+            <th>92823894778</th>
+        </tr>
+        <tr>
+            <th class="labe-bold label-aprovado">APROVADA</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr>
+            <th><span class="labe-bold">AÚT:</span> 297989</th>
+            <th><span class="labe-bold">OPER:</span>876</th>
+        </tr>
+        <tr>
+            <th><b>ORDER:</b> VIYUC{{ ventaCompleta.idVenta }}</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <th><span class="labe-bold">IMPORTE</span> $ {{ ventaCompleta.costoTotal | number_format(2) }} MXP</th>
+        </tr>
+        </tbody>
+    </table>
+    <br> <br>
+
+    <table>
+        <tr>
+            <th>
+                <span class="labe-bold">Fecha:</span> {{ fechaCompra }}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="labe-bold">Hora:</span> {{ ventaCompleta.fechaVenta | date('h:i:s a') }}
+            </th>
+        </tr>
+    </table>
+
+
+</div>

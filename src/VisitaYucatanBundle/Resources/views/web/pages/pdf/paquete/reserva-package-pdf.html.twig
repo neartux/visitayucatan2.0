@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reserva</title>
+    <style>
+        body {
+            font-size: 11px;;
+        }
+        .title {
+            color: #00B0C7;
+        }
+
+        .datos-generales {
+            border: 1px grey solid;
+        }
+
+        .datos-personales {
+            border: 1px grey solid;
+        }
+
+        .label-voucher {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .labe-bold {
+            font-weight: bold;
+        }
+        .detalle-compra{
+            border: 1px grey solid;
+        }
+        .label-aprovado {
+            color: #37c759;
+        }
+        .title-detalle-compra{
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .title-detalle-compra{
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .gray-shadow {
+            background-color: grey;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .text-center{
+            text-align: center !important;
+        }
+        .text-right {
+            text-align: right !important;
+        }
+        .text-left {
+            text-align: left !important;
+        }
+    </style>
+</head>
+<body>
+
+{% set fechaCompra = ventaCompleta.fechaVenta | date('d') ~ ' de ' ~ mes ~ ' de ' ~  ventaCompleta.fechaVenta | date('Y') %}
+
+<div class="row-logo">
+    <img src="{{ asset('bundles/VisitaYucatanBundle/img/logos/logo.png') }}" width="150"/>
+</div>
+<div class="row-normal" style="margin-top: 0;padding-top: 0;">
+    {% if ventaCompleta.pagado %}
+        <h1 class="title">Muchas Gracias por su compra</h1>
+    {% else %}
+        <h1 class="title">Lo sentimos, su tarjeta ha sido declinada</h1>
+    {% endif %}
+</div>
+
+
+{% include '@VisitaYucatan/web/pages/pdf/paquete/voucher-paquete-pdf.html.twig' %}
+
+
+{% include '@VisitaYucatan/web/pages/pdf/paquete/detalle-paquete-pdf.html.twig' %}
+
+
+<div class="datos-personales">
+    <label class="title-detalle-compra">Datos Personales</label>
+    <br><br>
+    <table>
+        <thead>
+        <tr class="gray-shadow">
+            <td>Nombre</td>
+            <td>Teléfono</td>
+            <td>Email</td>
+            <td>Ciduad Origen</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ ventaCompleta.nombres ~ ' ' ~ ventaCompleta.apellidos }}</td>
+            <td>{{ ventaCompleta.lada }}&nbsp;{{ ventaCompleta.telefono }}</td>
+            <td>{{ ventaCompleta.email }}</td>
+            <td>{{ ventaCompleta.ciudad }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>
