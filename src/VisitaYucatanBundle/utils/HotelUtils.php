@@ -345,9 +345,9 @@ class HotelUtils {
         $costoTotal = self::getTotalRate($costo, $tarifa['ish'], $tarifa['markup'], $tarifa['iva'], $tarifa['fee'], $tarifa['aplicaimpuesto']);
         $reserva->setTarifaAdulto(number_format($costoTotal, 2));
         $reserva->setTarifaMenor(floatval(0));
-        $reserva->setCostoTotal(ceil($costoTotal * $adultos));
         $dias = DateUtil::diffDays(DateUtil::formatDate($fechaInicio), DateUtil::formatDate($fechaFin));
         $reserva->setEstadiaDias($dias);
+        $reserva->setCostoTotal(ceil($costoTotal * ($dias-1)));
         $reserva->setEstadiaNoches($dias - Generalkeys::NUMBER_ONE);
 
         return $reserva;

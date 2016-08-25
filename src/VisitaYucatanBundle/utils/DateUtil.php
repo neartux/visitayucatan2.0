@@ -108,4 +108,11 @@ class DateUtil {
         // dd/mm/yyyy
         return $fechaParts[Generalkeys::NUMBER_TWO] . Generalkeys::STRING_SLASH . $fechaParts[Generalkeys::NUMBER_ONE] . Generalkeys::STRING_SLASH . $fechaParts[Generalkeys::NUMBER_ZERO];
     }
+
+    public static function formatDateMysql($fecha){
+        // dd/mm/yyyy
+        $fechaParts = explode('/', trim($fecha));
+        // yyyy-mm-dd
+        return $fechaParts[Generalkeys::NUMBER_TWO] . Generalkeys::STRING_DASH . $fechaParts[Generalkeys::NUMBER_ONE] . Generalkeys::STRING_DASH . $fechaParts[Generalkeys::NUMBER_ZERO];
+    }
 }

@@ -3,6 +3,7 @@
 namespace VisitaYucatanBundle\Repository;
 use VisitaYucatanBundle\Entity\DatosReserva;
 use VisitaYucatanBundle\utils\DateUtil;
+use VisitaYucatanBundle\utils\Generalkeys;
 
 /**
  * DatosReservaRepository
@@ -15,8 +16,8 @@ class DatosReservaRepository extends \Doctrine\ORM\EntityRepository {
     public function createDataReserva($hotelPickUp, $checkIn, $checkOut){
         $dataReservation = new DatosReserva();
         $dataReservation->setHotelPickUp($hotelPickUp);
-        $dataReservation->setCheckIn(new \DateTime(DateUtil::stringToDate($checkIn)));
-        $dataReservation->setCheckOut(is_null($checkOut) ? $checkOut : new \DateTime(DateUtil::stringToDate($checkOut)));
+        $dataReservation->setCheckIn(new \DateTime(DateUtil::formatDateMysql($checkIn)));
+        $dataReservation->setCheckOut(is_null($checkOut) ? $checkOut : new \DateTime(DateUtil::formatDateMysql($checkOut)));
 
         return $dataReservation;
     }
