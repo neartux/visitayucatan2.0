@@ -66,7 +66,7 @@ final class VentaUtils {
         $ventaCompletaTO->setCostoTotal($venta->getTotal());
         $ventaCompletaTO->setNombrePaquete($package->getDescripcion());
         $ventaCompletaTO->setCircuito($package->getCircuito());
-        $ventaCompletaTO->setHotelPickup($venta->getDatosReserva()->getHotelPickUp());
+        $ventaCompletaTO->setHotelPickup($venta->getVentaDetalle()->get(0)->getHotel()->getDescripcion());
         $ventaCompletaTO->setNumeroAdultos($venta->getVentaDetalle()->get(0)->getNumeroAdultos());
         $ventaCompletaTO->setNumeroMenores($venta->getVentaDetalle()->get(0)->getNumeroMenores());
         $ventaCompletaTO->setNombres($venta->getDatosPersonales()->getNombres());
@@ -75,6 +75,9 @@ final class VentaUtils {
         $ventaCompletaTO->setTelefono($venta->getDatosUbicacion()->getTelefono());
         $ventaCompletaTO->setEmail($venta->getDatosUbicacion()->getEmail());
         $ventaCompletaTO->setCiudad($venta->getDatosUbicacion()->getCiudad());
+        $dias = $package->getPaqueteIdioma()->get(0)->getDias();
+        $ventaCompletaTO->setDiasPaquete($package->getPaqueteIdioma()->get(0)->getDias());
+        $ventaCompletaTO->setNochePaquete((int)$dias - 1);
         //print_r($venta->getVentaDetalle()->get(0)->getTour()->getDescripcion());
         return $ventaCompletaTO;
     }

@@ -69,11 +69,6 @@ class PaqueteController extends Controller {
         $imagesPaquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteImagen')->findPaqueteImagesByIdPaquete($id);
         $paqueteCombinacion = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findPaqueteCombinacionById($id,$datos[Generalkeys::NUMBER_ONE]);
         return $this->render('VisitaYucatanBundle:web/pages:detalle-package.html.twig', array('paquete' => PaqueteUtils::getPaqueteTO($paquete, $imagesPaquete,$paqueteCombinacion)));
-        //return $paquete;
-        /*$imagesTour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->findTourImagesByIdTour($id);
-
-        return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 'monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));*/
     }
     /**
      * @Route("/paquete/reserva", name="web_paquete_reserva")
@@ -119,18 +114,9 @@ class PaqueteController extends Controller {
          $importeTotal = $costo * $adultos;
          $paqueteCombinacion = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findCombinacionPaqueteById((int)$id,$datos[Generalkeys::NUMBER_ONE]);
         $imagesPaquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteImagen')->findPaqueteImagesByIdPaquete($idPackage);
-         
-         //print_r($paqueteCombinacion);
-         //print_r(PaqueteUtils::getPaqueteTO(null, null,$paqueteCombinacion));
-         //exit();
 
          return $this->render('VisitaYucatanBundle:web/pages:reserv-paquete.html.twig', array('paqueteCombinacion' => PaqueteUtils::getPaqueteTO(null, null,$paqueteCombinacion),'detailPaquete'=>$detailPaquete,'importe'=>number_format($importeTotal),
           'paquete' => PaqueteUtils::getPaqueteTO($paquete, $imagesPaquete,$paqueteCombinacion)));
-
-         /*return $this->render('VisitaYucatanBundle:web/pages:reserva-paquete.html.twig', array('paqueteCombinacion' => PaqueteUtils::getPaqueteTO(null, null,$paqueteCombinacion),'detailPaquete'=>$detailPaquete,'importe'=>$importeTotal, 'claseImg' => Generalkeys::CLASS_HEADER_PACKAGE, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_PACKAGE));*/
-        //$paqueteCombinacion=$this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findCombinacionPaqueteById($id);
-        //print_r($paqueteCombinacion);
-        //exit();
     }
 
     /**
@@ -164,8 +150,6 @@ class PaqueteController extends Controller {
         try {
             $ventaCompletaTO = $serializer->deserialize($request->get('ventaCompletaTO'), 'VisitaYucatanBundle\utils\to\VentaCompletaTO', Generalkeys::JSON_STRING);
             $idVenta = $em->getRepository('VisitaYucatanBundle:Venta')->createSalePackage($ventaCompletaTO);
-            //echo "idventa = ".$idVenta;
-            //$this->voucherTour($idVenta);
             $em->getConnection()->commit();
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la reserva', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             $response->setId($idVenta);

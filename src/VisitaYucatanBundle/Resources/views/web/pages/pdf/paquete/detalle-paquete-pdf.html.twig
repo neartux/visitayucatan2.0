@@ -28,7 +28,16 @@
         </tr>
         <tr>
             <td colspan="3">
-                Circuito: {{ ventaCompleta.circuito }}
+                {{ ventaCompleta.diasPaquete }} Dias y {{ ventaCompleta.nochePaquete }} Noches en habitacion
+                {% if ventaCompleta.numeroAdultos == 1 %}
+                    Sencilla
+                {% elseif ventaCompleta.numeroAdultos == 2 %}
+                    Doble
+                {% elseif ventaCompleta.numeroAdultos == 3 %}
+                    Triple
+                {% else %}
+                    Cuadruple
+                {% endif %}
             </td>
         </tr>
         <tr>

@@ -45,6 +45,8 @@ class VentaCompletaTO{
     private $idPaquete;
     private $idCombinacion;
     private $nombrePaquete;
+    private $diasPaquete;
+    private $nochePaquete;
 
     /**
      * @return mixed
@@ -637,6 +639,37 @@ class VentaCompletaTO{
     {
         $this->nombrePaquete = $nombrePaquete;
     }
-          
-          
+
+    /**
+     * @return mixed
+     */
+    public function getDiasPaquete()
+    {
+        return $this->diasPaquete;
+    }
+
+    /**
+     * @param mixed $diasPaquete
+     */
+    public function setDiasPaquete($diasPaquete)
+    {
+        $this->diasPaquete = $diasPaquete;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNochePaquete()
+    {
+        return $this->nochePaquete;
+    }
+
+    /**
+     * @param mixed $nochePaquete
+     */
+    public function setNochePaquete($nochePaquete)
+    {
+        $this->nochePaquete = $nochePaquete;
+    }
+    
 }
