@@ -99,6 +99,11 @@ class Estatus {
     private $paqueteCombinacionHotel;
 
     /**
+     * @ORM\OneToMany(targetEntity="PaqueteImagen", mappedBy="estatus")
+     */
+    private $paqueteImagen;
+
+    /**
      * @ORM\OneToMany(targetEntity="Origen", mappedBy="estatus")
      */
     private $origen;
@@ -1144,5 +1149,39 @@ class Estatus {
     public function getVentaDetalle()
     {
         return $this->ventaDetalle;
+    }
+
+    /**
+     * Add paqueteImagen
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteImagen $paqueteImagen
+     *
+     * @return Estatus
+     */
+    public function addPaqueteImagen(\VisitaYucatanBundle\Entity\PaqueteImagen $paqueteImagen)
+    {
+        $this->paqueteImagen[] = $paqueteImagen;
+
+        return $this;
+    }
+
+    /**
+     * Remove paqueteImagen
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteImagen $paqueteImagen
+     */
+    public function removePaqueteImagen(\VisitaYucatanBundle\Entity\PaqueteImagen $paqueteImagen)
+    {
+        $this->paqueteImagen->removeElement($paqueteImagen);
+    }
+
+    /**
+     * Get paqueteImagen
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaqueteImagen()
+    {
+        return $this->paqueteImagen;
     }
 }

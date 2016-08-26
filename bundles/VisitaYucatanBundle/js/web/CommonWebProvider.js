@@ -126,7 +126,6 @@
         };
 
         service.redirectToSuccessSalePackage = function () {
-            console.info("en redirect");
             window.location.href = service.contextPath+'/venta/send/voucher/paquete';
         };
 

@@ -350,4 +350,45 @@ class PaqueteCombinacionHotel {
     {
         return $this->hotel;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ventaDetalle = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     *
+     * @return PaqueteCombinacionHotel
+     */
+    public function addVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle[] = $ventaDetalle;
+
+        return $this;
+    }
+
+    /**
+     * Remove ventaDetalle
+     *
+     * @param \VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle
+     */
+    public function removeVentaDetalle(\VisitaYucatanBundle\Entity\VentaDetalle $ventaDetalle)
+    {
+        $this->ventaDetalle->removeElement($ventaDetalle);
+    }
+
+    /**
+     * Get ventaDetalle
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVentaDetalle()
+    {
+        return $this->ventaDetalle;
+    }
 }
