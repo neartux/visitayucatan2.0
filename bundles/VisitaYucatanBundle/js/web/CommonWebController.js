@@ -38,7 +38,6 @@
 
         ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson, contextPath,
                                             idIdioma, idMoneda, idTour, soloadultos){
-            console.info("soloadultos = ", soloadultos);
             ctrlWeb.soloAdultos = soloadultos;
             ctrlWeb.totalPersons = {
                 numeroMenores : totalMenores,
@@ -108,7 +107,6 @@
                     return
                 }
                 WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {
-                    console.info("response = ", response);
                     WebService.redirectToSuccessSale();
                 });
             }
@@ -174,7 +172,6 @@
 
         ctrlHotel.createRerservaHotel = function () {
             WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).then(function (response) {
-                console.info("resultado reserva hotel = ", response);
                 WebService.redirectToSuccessSaleHotel();
             });
         };
@@ -328,7 +325,6 @@
             paqWebVM.detailReserva = JSON.parse(detailReserva);
             paqWebVM.importe = importe;
             var combinacion = JSON.parse(paqueteCombinacion);
-            console.info("combinacin = ", combinacion);
             paqWebVM.paqueteCombinacion= combinacion[0];
             paqWebVM.reservar = {
                 adultos:paqWebVM.detailReserva.adultos.toString(),
@@ -358,7 +354,6 @@
         };
 
         paqWebVM.initVentaCompletaTO = function (idPaquete, idIdioma, idMoneda, combinacion) {
-            console.info("combinacion = ", combinacion);
             paqWebVM.ventaCompletaTO = {
                 idPaquete: idPaquete,
                 numeroAdultos: paqWebVM.reservar.adultos,
@@ -372,7 +367,6 @@
                 costoAdulto: combinacion[0].costomenor,
                 tipoCambio: combinacion[0].tipocambio
             };
-            console.info("la venta final = ", paqWebVM.ventaCompletaTO);
         };
 
 
@@ -444,23 +438,18 @@
 
             paqWebVM.ventaCompletaTO.checkIn = $("#fechaPaquete").val();
             paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
-            
-            console.info("isFormValid = ", isFormValid, " paqWebVM.reservar.menores = ", paqWebVM.reservar.menores, " paqWebVM.reservar.adultos = ", paqWebVM.reservar.adultos);
             paqWebVM.ventaCompletaTO.fechaLlegada = $("#fechaLlegada").val();
             paqWebVM.ventaCompletaTO.horaLlegada = $("#horaLlegada").val();
-            console.info("fechallegada = ", paqWebVM.ventaCompletaTO.fechaLlegada);
-            console.info("horallegada = ", paqWebVM.ventaCompletaTO);
+            paqWebVM.ventaCompletaTO.numeroAdultos = paqWebVM.reservar.adultos;
+            paqWebVM.ventaCompletaTO.numeroMenores = paqWebVM.reservar.menores.value;
+            paqWebVM.ventaCompletaTO.costoTotal = paqWebVM.importeTotal;
+            paqWebVM.ventaCompletaTO.costoAdulto = paqWebVM.detailReserva.costo;
 
-            console.info("paqWebVM.ventaCompletaTO final = ", paqWebVM.ventaCompletaTO);
             WebService.createReservationPackage(paqWebVM.ventaCompletaTO).then(function (response) {
-                console.info("respuesta = ", response);
                 WebService.redirectToSuccessSalePackage();
             });
         };
-        paqWebVM.changeDatePackage = function () {
-            console.info("paqWebVM.ventaCompletaTO.fechaPaquete = ", paqWebVM.ventaCompletaTO.fechaPaquete);
-            console.info("paqWebVM.ventaCompletaTO.fechaSalida = ", paqWebVM.ventaCompletaTO.fechaSalida);
-        };
+
         $scope.$watch('paqWebVM.reservar.menores',function(val){
             if(val){
                 if(paqWebVM.reservar.adultos==3){

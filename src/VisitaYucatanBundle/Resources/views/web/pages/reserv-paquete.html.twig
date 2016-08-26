@@ -392,8 +392,8 @@
                     startDate: '+2d',
                     setDate: new Date()
                 });
-                $('.datepicker-fs').datepicker();
-                $('.datepicker').datepicker();
+                $('.datepicker-fs').datepicker({format: 'dd/mm/yyyy'});
+                $('.datepicker').datepicker({format: 'dd/mm/yyyy', setDate: new Date()});
                 $('.timepicker').timepicker({
                     minuteStep: 5,
                     showInputs: false,

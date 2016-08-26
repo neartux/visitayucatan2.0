@@ -126,7 +126,8 @@
         };
 
         service.redirectToSuccessSalePackage = function () {
-            //window.location.href = service.contextPath+'/venta/send/voucher/paquete';
+            console.info("en redirect");
+            window.location.href = service.contextPath+'/venta/send/voucher/paquete';
         };
 
         service.findImagesHotel = function(idHotel){

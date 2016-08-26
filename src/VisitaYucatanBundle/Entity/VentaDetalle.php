@@ -111,6 +111,16 @@ class VentaDetalle {
      * @ORM\JoinColumn(name="id_paquete", referencedColumnName="id", nullable=true)
      */
     private $paquete;
+    /**
+     * @ORM\OneToOne(targetEntity="PaqueteCombinacionHotel")
+     * @ORM\JoinColumn(name="id_paqute_combinacion", referencedColumnName="id", nullable=true)
+     */
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PaqueteCombinacionHotel", inversedBy="ventaDetalle")
+     * @ORM\JoinColumn(name="id_paqute_combinacion", referencedColumnName="id", nullable=true)
+     */
+    private $paqueteCombinacionHotel;
 
 
     /**
@@ -457,5 +467,31 @@ class VentaDetalle {
     public function getHotelHabitacion()
     {
         return $this->hotelHabitacion;
+    }
+    
+    
+
+    /**
+     * Set paqueteCombinacionHotel
+     *
+     * @param \VisitaYucatanBundle\Entity\PaqueteCombinacionHotel $paqueteCombinacionHotel
+     *
+     * @return VentaDetalle
+     */
+    public function setPaqueteCombinacionHotel(\VisitaYucatanBundle\Entity\PaqueteCombinacionHotel $paqueteCombinacionHotel = null)
+    {
+        $this->paqueteCombinacionHotel = $paqueteCombinacionHotel;
+
+        return $this;
+    }
+
+    /**
+     * Get paqueteCombinacionHotel
+     *
+     * @return \VisitaYucatanBundle\Entity\PaqueteCombinacionHotel
+     */
+    public function getPaqueteCombinacionHotel()
+    {
+        return $this->paqueteCombinacionHotel;
     }
 }

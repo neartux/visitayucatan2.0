@@ -88,6 +88,12 @@ class PaqueteCombinacionHotel {
     private $hotel;
 
     /**
+     * @ORM\OneToMany(targetEntity="VentaDetalle", mappedBy="paqueteCombinacionHotel")
+     */
+    private $ventaDetalle;
+
+
+    /**
      * @param int $id
      */
     public function setId($id)
