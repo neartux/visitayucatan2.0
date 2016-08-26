@@ -2,6 +2,7 @@
 
 namespace VisitaYucatanBundle\Repository;
 use VisitaYucatanBundle\Entity\DatosVuelo;
+use VisitaYucatanBundle\utils\DateUtil;
 use VisitaYucatanBundle\utils\to\VentaCompletaTO;
 
 /**
@@ -16,7 +17,9 @@ class DatosVueloRepository extends \Doctrine\ORM\EntityRepository {
         $datosVuelo = new DatosVuelo();
         $datosVuelo->setAerolinea($ventaCompletaTO->getAerolinea());
         $datosVuelo->setNumeroVuelo($ventaCompletaTO->getNumeroVuelo());
-        $datosVuelo->setFechaLlegada($ventaCompletaTO->getFechaLlegada());
-        $datosVuelo->setHoraLlegada($ventaCompletaTO->getHoraLlegada());
+        $datosVuelo->setFechaLlegada(new \DateTime(DateUtil::formatDateMysql($ventaCompletaTO->getFechaLlegada())));
+        $datosVuelo->setHoraLlegada(new \DateTime (date("H:i", strtotime($ventaCompletaTO->getHoraLlegada()))));
+
+        return $datosVuelo;
     }
 }

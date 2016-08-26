@@ -103,11 +103,14 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
         $em->persist($dataReservation);
         $datosPago = $em->getRepository('VisitaYucatanBundle:DatosPago')->createDatosPago();
         $em->persist($datosPago);
+        $datosVuelo = $em->getRepository('VisitaYucatanBundle:DatosVuelo')->createDatosVuelo($ventaCompletaTO);
+        $em->persist($datosVuelo);
 
         $venta->setDatosPersonales($personalData);
         $venta->setDatosUbicacion($dataLocation);
         $venta->setDatosReserva($dataReservation);
         $venta->setDatosPago($datosPago);
+        $venta->setDatosVuelo($datosVuelo);
         $venta->setFechaVenta(new \DateTime());
         $venta->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
         $venta->setIdioma($em->getReference('VisitaYucatanBundle:Idioma', $ventaCompletaTO->getIdIdioma()));

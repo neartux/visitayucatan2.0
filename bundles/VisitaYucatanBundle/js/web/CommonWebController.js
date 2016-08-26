@@ -280,7 +280,7 @@
                 doble: $("#messagePckDouble").val(),
                 triple: $("#messagePckTriple").val(),
                 cuadruple: $("#messagePckQuadruple").val()
-            }
+            };
 
             paqWebVM.changeHabitacion('doble');
 
@@ -358,6 +358,7 @@
         };
 
         paqWebVM.initVentaCompletaTO = function (idPaquete, idIdioma, idMoneda, combinacion) {
+            console.info("combinacion = ", combinacion);
             paqWebVM.ventaCompletaTO = {
                 idPaquete: idPaquete,
                 numeroAdultos: paqWebVM.reservar.adultos,
@@ -368,6 +369,7 @@
                 idCombinacion: combinacion[0].id,
                 idHotel: combinacion[0].id_hotel,
                 costoMenor: combinacion[0].costomenor,
+                costoAdulto: combinacion[0].costomenor,
                 tipoCambio: combinacion[0].tipocambio
             };
             console.info("la venta final = ", paqWebVM.ventaCompletaTO);
@@ -444,10 +446,15 @@
             paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
             
             console.info("isFormValid = ", isFormValid, " paqWebVM.reservar.menores = ", paqWebVM.reservar.menores, " paqWebVM.reservar.adultos = ", paqWebVM.reservar.adultos);
-            console.info("ver fechas = ", paqWebVM.ventaCompletaTO);
+            paqWebVM.ventaCompletaTO.fechaLlegada = $("#fechaLlegada").val();
+            paqWebVM.ventaCompletaTO.horaLlegada = $("#horaLlegada").val();
+            console.info("fechallegada = ", paqWebVM.ventaCompletaTO.fechaLlegada);
+            console.info("horallegada = ", paqWebVM.ventaCompletaTO);
 
+            console.info("paqWebVM.ventaCompletaTO final = ", paqWebVM.ventaCompletaTO);
             WebService.createReservationPackage(paqWebVM.ventaCompletaTO).then(function (response) {
                 console.info("respuesta = ", response);
+                WebService.redirectToSuccessSalePackage();
             });
         };
         paqWebVM.changeDatePackage = function () {

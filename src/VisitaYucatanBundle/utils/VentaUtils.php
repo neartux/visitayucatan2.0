@@ -8,6 +8,7 @@ namespace VisitaYucatanBundle\utils;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use VisitaYucatanBundle\Entity\Paquete;
 use VisitaYucatanBundle\Entity\Venta;
 use VisitaYucatanBundle\utils\to\VentaCompletaTO;
 
@@ -45,6 +46,26 @@ final class VentaUtils {
         $ventaCompletaTO->setCostoTotal($venta->getTotal());
         $ventaCompletaTO->setNombreTour($tour['nombre']);
         $ventaCompletaTO->setCircuito($tour['circuito']);
+        $ventaCompletaTO->setHotelPickup($venta->getDatosReserva()->getHotelPickUp());
+        $ventaCompletaTO->setNumeroAdultos($venta->getVentaDetalle()->get(0)->getNumeroAdultos());
+        $ventaCompletaTO->setNumeroMenores($venta->getVentaDetalle()->get(0)->getNumeroMenores());
+        $ventaCompletaTO->setNombres($venta->getDatosPersonales()->getNombres());
+        $ventaCompletaTO->setApellidos($venta->getDatosPersonales()->getApellidos());
+        $ventaCompletaTO->setLada($venta->getDatosUbicacion()->getLada());
+        $ventaCompletaTO->setTelefono($venta->getDatosUbicacion()->getTelefono());
+        $ventaCompletaTO->setEmail($venta->getDatosUbicacion()->getEmail());
+        $ventaCompletaTO->setCiudad($venta->getDatosUbicacion()->getCiudad());
+        //print_r($venta->getVentaDetalle()->get(0)->getTour()->getDescripcion());
+        return $ventaCompletaTO;
+    }
+
+    public static function getVentaCompleteTOPackage(Venta $venta, Paquete $package){
+        //print_r($venta->getDatosReserva());
+        $ventaCompletaTO = new VentaCompletaTO();
+        $ventaCompletaTO->setIdVenta($venta->getId());
+        $ventaCompletaTO->setCostoTotal($venta->getTotal());
+        $ventaCompletaTO->setNombrePaquete($package->getDescripcion());
+        $ventaCompletaTO->setCircuito($package->getCircuito());
         $ventaCompletaTO->setHotelPickup($venta->getDatosReserva()->getHotelPickUp());
         $ventaCompletaTO->setNumeroAdultos($venta->getVentaDetalle()->get(0)->getNumeroAdultos());
         $ventaCompletaTO->setNumeroMenores($venta->getVentaDetalle()->get(0)->getNumeroMenores());

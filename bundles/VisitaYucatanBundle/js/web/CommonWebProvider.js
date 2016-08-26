@@ -125,6 +125,10 @@
             });
         };
 
+        service.redirectToSuccessSalePackage = function () {
+            //window.location.href = service.contextPath+'/venta/send/voucher/paquete';
+        };
+
         service.findImagesHotel = function(idHotel){
             var path = $("#pathImagesHotel").val();
             return $http.post(path, $.param({idHotel : idHotel}), {
