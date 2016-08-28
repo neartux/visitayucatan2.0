@@ -123,20 +123,6 @@ class PaqueteRepository extends \Doctrine\ORM\EntityRepository {
     }
    public function getPaqueteById($idPaquete, $idioma, $idMoneda){
         	$em = $this->getEntityManager();
-        	/*$sql = "SELECT tour.id, tour.descripcion AS nombre,tour_idioma.circuito,tour_idioma.descripcion,tour_idioma.soloadultos,tour.minimopersonas,
-                (tour_origen.tarifaadulto/moneda.tipo_cambio) AS tarifaadulto,(tour_origen.tarifamenor/moneda.tipo_cambio) AS tarifamenor,
-                tour_imagen.path AS imagen,moneda.simbolo AS simbolomoneda,origen.descripcion AS origen, moneda.tipo_cambio AS tipocambio
-                FROM tour
-                INNER JOIN tour_idioma ON tour.id = tour_idioma.id_tour AND tour_idioma.id_idioma = :idioma AND tour_idioma.id_estatus = :estatusActivo
-                INNER JOIN tour_origen ON tour.id = tour_origen.id_tour AND tour_origen.id_origen = :origen AND tour_origen.id_estatus = :estatusActivo
-                INNER JOIN idioma ON idioma.id = tour_idioma.id_idioma AND idioma.id = :idioma
-                INNER JOIN moneda ON moneda.id = :moneda
-                LEFT JOIN tour_imagen ON tour.id = tour_imagen.id_tour AND tour_imagen.id_estatus = :estatusActivo AND tour_imagen.principal = TRUE,origen
-                WHERE tour.id = :idTour
-                AND tour.id_estatus = :estatusActivo
-                AND tour.promovido = TRUE
-                AND origen.id = tour_origen.id_origen";*/
-
          $sql ="SELECT paquete.id,pIdioma.descripcion as nombre,paquete.circuito,pIdioma.descripcioncorta,pIdioma.descripcionlarga,pIdioma.itinerario, 
 				pIdioma.incluye,pIdioma.dias,pImg.path as imagen,moneda.simbolo,moneda.tipo_cambio as tipocambio,
 				pIdioma.id_idioma AS ididioma,moneda.id AS idmoneda

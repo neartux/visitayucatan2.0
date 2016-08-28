@@ -435,19 +435,24 @@
         };
         
         paqWebVM.reservarPackage = function(isFormValid){
+            if(isFormValid){
+                HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
+                paqWebVM.ventaCompletaTO.checkIn = $("#fechaPaquete").val();
+                paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
+                paqWebVM.ventaCompletaTO.fechaLlegada = $("#fechaLlegada").val();
+                paqWebVM.ventaCompletaTO.horaLlegada = $("#horaLlegada").val();
+                paqWebVM.ventaCompletaTO.numeroAdultos = paqWebVM.reservar.adultos;
+                paqWebVM.ventaCompletaTO.numeroMenores = paqWebVM.reservar.menores.value;
+                paqWebVM.ventaCompletaTO.costoTotal = paqWebVM.importeTotal;
+                paqWebVM.ventaCompletaTO.costoAdulto = paqWebVM.detailReserva.costo;
 
-            paqWebVM.ventaCompletaTO.checkIn = $("#fechaPaquete").val();
-            paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
-            paqWebVM.ventaCompletaTO.fechaLlegada = $("#fechaLlegada").val();
-            paqWebVM.ventaCompletaTO.horaLlegada = $("#horaLlegada").val();
-            paqWebVM.ventaCompletaTO.numeroAdultos = paqWebVM.reservar.adultos;
-            paqWebVM.ventaCompletaTO.numeroMenores = paqWebVM.reservar.menores.value;
-            paqWebVM.ventaCompletaTO.costoTotal = paqWebVM.importeTotal;
-            paqWebVM.ventaCompletaTO.costoAdulto = paqWebVM.detailReserva.costo;
-
-            WebService.createReservationPackage(paqWebVM.ventaCompletaTO).then(function (response) {
-                WebService.redirectToSuccessSalePackage();
-            });
+                WebService.createReservationPackage(paqWebVM.ventaCompletaTO).then(function (response) {
+                    setTimeout(function () {
+                        WebService.redirectToSuccessSalePackage();
+                        HoldOn.close();
+                    }, 5000);
+                });
+            }
         };
 
         $scope.$watch('paqWebVM.reservar.menores',function(val){

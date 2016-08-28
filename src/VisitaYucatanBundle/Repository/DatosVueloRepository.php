@@ -17,7 +17,9 @@ class DatosVueloRepository extends \Doctrine\ORM\EntityRepository {
         $datosVuelo = new DatosVuelo();
         $datosVuelo->setAerolinea($ventaCompletaTO->getAerolinea());
         $datosVuelo->setNumeroVuelo($ventaCompletaTO->getNumeroVuelo());
-        $datosVuelo->setFechaLlegada(new \DateTime(DateUtil::formatDateMysql($ventaCompletaTO->getFechaLlegada())));
+        if($ventaCompletaTO->getFechaLlegada() != ''){
+            $datosVuelo->setFechaLlegada(new \DateTime(DateUtil::formatDateMysql($ventaCompletaTO->getFechaLlegada())));
+        }
         $datosVuelo->setHoraLlegada(new \DateTime (date("H:i", strtotime($ventaCompletaTO->getHoraLlegada()))));
 
         return $datosVuelo;

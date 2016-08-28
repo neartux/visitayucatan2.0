@@ -69,7 +69,7 @@
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                     <input type="text" readonly data-ng-model="paqWebVM.ventaCompletaTO.checkIn"
                                                            onchange="cambiaFechaPaquete()"
-                                                           required id="fechaPaquete" name="fechaPaquete" class="form-control datepicker-fp"/>
+                                                           id="fechaPaquete" name="fechaPaquete" class="form-control datepicker-fp"/>
                                                         </div>
                                             <span ng-show="formReserva.fechaPaquete.$invalid && !formReserva.fechaPaquete.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
@@ -88,7 +88,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                     <input type="text" readonly data-ng-model="paqWebVM.ventaCompletaTO.checkOut" id="fechaSalida"
-                                                           name="fechaSalida" required class="form-control datepicker-fs"/>
+                                                           name="fechaSalida" class="form-control datepicker-fs"/>
                                                         </div>
                                             <span ng-show="formReserva.fechaSalida.$invalid && !formReserva.fechaSalida.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
@@ -344,6 +344,7 @@
                                 <div class="col-sm-12">
                                     <div class="col-sm-12 mt-xxl text-left mb-xxl ml">
                                         <input type="button" data-ng-click="paqWebVM.reservarPackage(formReserva.$valid)"
+                                               data-ng-disabled="formReserva.$invalid"
                                                value="{% trans %}page.web.label.reserva.book.now{% endtrans %}" class="btn btn-primary p"/>
                                     </div>
                                 </div>

@@ -21,7 +21,6 @@ class VentaController extends Controller {
      * @Method("GET")
      */
     public function voucherTour(Request $request) {
-        $serializer = $this->get('serializer');
         $em = $this->getDoctrine()->getManager();
 
         $em->getConnection()->beginTransaction();
@@ -41,12 +40,8 @@ class VentaController extends Controller {
             $html = $this->renderView('@VisitaYucatan/web/pages/pdf/tour/reserva-tour-pdf.html.twig',array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes));
             $file = $this->getPdf($html, $ventaCompletaTO, Generalkeys::PATH_VOUCHER_TOURS, Generalkeys::NAME_VENTA_FILE);
             $this->sendMailSale($ventaCompletaTO->getEmail(), $file);
-            //$response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'El voucher se ha enviado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
 
             return $this->render('@VisitaYucatan/web/pages/pdf/tour/success-sale-tour.html.twig', array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes));
-
-
-            //return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
 
         } catch (\Exception $e) {
             $em->getConnection()->rollback();
@@ -95,20 +90,19 @@ class VentaController extends Controller {
 
     /**
      * @Route("/venta/send/voucher/paquete", name="web_voucher_paquete")
-     * @Method("GET") // todo to end convert to POST
+     * @Method("GET")
      */
-    public function voucherPackage(Request $request) { // todo pendiente terminar lo de paquetes
-        $serializer = $this->get('serializer');
+    public function voucherPackage(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
         $em->getConnection()->beginTransaction();
-        //try {
+        try {
             $idVenta = $request->getSession()->get("idVentaGenerada");
             // limpia variable para no cargar otra vez la pagina
-            /*$request->getSession()->set("idVentaGenerada", null);
+            $request->getSession()->set("idVentaGenerada", null);
             if(is_null($idVenta)){
                 return $this->redirectToRoute('web_home');
-            }*/
+            }
             
             // renderiza la vista y manda la informacion
             $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find($idVenta);
@@ -116,20 +110,19 @@ class VentaController extends Controller {
             $paquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->find($venta->getVentaDetalle()->get(0)->getPaquete()->getId());
             $ventaCompletaTO = VentaUtils::getVentaCompleteTOPackage($venta, $paquete);
             $mes = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));
-            $html = $this->renderView('@VisitaYucatan/web/pages/pdf/paquete/reserva-package-pdf.html.twig',array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes));
+            $mesReserva = DateUtil::getFullNameMonth(date_format($venta->getDatosReserva()->getCheckIn(), 'm'));
+            $html = $this->renderView('@VisitaYucatan/web/pages/pdf/paquete/reserva-package-pdf.html.twig',array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes, 'mesReserva' => $mesReserva));
             $file = $this->getPdf($html, $ventaCompletaTO, Generalkeys::PATH_VOUCHER_PAQUETES, Generalkeys::NAME_VENTA_FILE);
             $this->sendMailSale($ventaCompletaTO->getEmail(), $file);
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'El voucher se ha enviado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
 
 
-            return $this->render('@VisitaYucatan/web/pages/pdf/paquete/success-sale-paquete-html.twig', array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes));
-            //return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+            return $this->render('@VisitaYucatan/web/pages/pdf/paquete/success-sale-paquete-html.twig', array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes, 
+                'mesReserva' => $mesReserva));
 
-        /*} catch (\Exception $e) {
+        } catch (\Exception $e) {
             $em->getConnection()->rollback();
-            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
             return $this->redirectToRoute('web_home');
-        }*/
+        }
     }
 
     private function getPdf($html, VentaCompletaTO $ventaCompletaTO, $pathDir, $nameFile){
@@ -163,9 +156,6 @@ class VentaController extends Controller {
         $message->setBody('Confirmación  de Reservación');
         $message->attach(\Swift_Attachment::fromPath($file));
         $this->get('mailer')->send($message);
-
-
-        //return $this->redirectToRoute('web_contacto');
     }
 
     /**

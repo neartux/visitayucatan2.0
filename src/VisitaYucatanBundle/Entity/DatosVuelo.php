@@ -24,28 +24,28 @@ class DatosVuelo
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechallegada", type="date")
+     * @ORM\Column(name="fechallegada", type="date", nullable=true)
      */
     private $fechaLlegada;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="horallegada", type="time")
+     * @ORM\Column(name="horallegada", type="time", nullable=true)
      */
     private $horaLlegada;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="numerovuelo", type="string", length=50)
+     * @ORM\Column(name="numerovuelo", type="string", length=50, nullable=true)
      */
     private $numeroVuelo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aerolinea", type="string", length=100)
+     * @ORM\Column(name="aerolinea", type="string", length=100, nullable=true)
      */
     private $aerolinea;
 

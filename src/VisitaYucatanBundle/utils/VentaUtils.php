@@ -40,7 +40,6 @@ final class VentaUtils {
     }
     
     public static function getVentaCompleteTOTour(Venta $venta, $tour){
-        //print_r($venta->getDatosReserva());
         $ventaCompletaTO = new VentaCompletaTO();
         $ventaCompletaTO->setIdVenta($venta->getId());
         $ventaCompletaTO->setCostoTotal($venta->getTotal());
@@ -55,12 +54,10 @@ final class VentaUtils {
         $ventaCompletaTO->setTelefono($venta->getDatosUbicacion()->getTelefono());
         $ventaCompletaTO->setEmail($venta->getDatosUbicacion()->getEmail());
         $ventaCompletaTO->setCiudad($venta->getDatosUbicacion()->getCiudad());
-        //print_r($venta->getVentaDetalle()->get(0)->getTour()->getDescripcion());
         return $ventaCompletaTO;
     }
 
     public static function getVentaCompleteTOPackage(Venta $venta, Paquete $package){
-        //print_r($venta->getDatosReserva());
         $ventaCompletaTO = new VentaCompletaTO();
         $ventaCompletaTO->setIdVenta($venta->getId());
         $ventaCompletaTO->setCostoTotal($venta->getTotal());
@@ -78,7 +75,7 @@ final class VentaUtils {
         $dias = $package->getPaqueteIdioma()->get(0)->getDias();
         $ventaCompletaTO->setDiasPaquete($package->getPaqueteIdioma()->get(0)->getDias());
         $ventaCompletaTO->setNochePaquete((int)$dias - 1);
-        //print_r($venta->getVentaDetalle()->get(0)->getTour()->getDescripcion());
+        $ventaCompletaTO->setCheckIn($venta->getDatosReserva()->getCheckIn());
         return $ventaCompletaTO;
     }
 
