@@ -106,8 +106,12 @@
                     alert("El minimo de personas para este paquete es "+ctrlWeb.minimoPersonas);
                     return
                 }
+                HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
                 WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {
-                    WebService.redirectToSuccessSale();
+                    setTimeout(function () {
+                        WebService.redirectToSuccessSale();
+                        HoldOn.close();
+                    }, 5000);
                 });
             }
         };
@@ -171,8 +175,13 @@
         };
 
         ctrlHotel.createRerservaHotel = function () {
+            HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
+
             WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).then(function (response) {
-                WebService.redirectToSuccessSaleHotel();
+                setTimeout(function () {
+                    WebService.redirectToSuccessSaleHotel();
+                    HoldOn.close();
+                }, 5000);
             });
         };
 
