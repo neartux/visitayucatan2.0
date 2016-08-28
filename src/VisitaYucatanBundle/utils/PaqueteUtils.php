@@ -172,7 +172,7 @@ class PaqueteUtils {
         return $paqueteTO;
     }
     
-    public function mangerCombinacionesPaquetes($combinaciones){
+    public static function mangerCombinacionesPaquetes($combinaciones){
         $combinacionesArray = new ArrayCollection();
         $imagenes = new ArrayCollection();
         if (count($combinaciones) > Generalkeys::NUMBER_ZERO){
