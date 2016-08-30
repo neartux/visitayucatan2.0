@@ -6,18 +6,14 @@
 		</button>
 	</div>
 </div>
-
-<!--<div class="panel panel-primary" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
-	<div class="panel-heading"></div>
-	<div class="panel-body no-padding">-->
 	  <table class="table table-striped table-bordered mt-md" cellspacing="0" width="100%">
 	      <thead class="text-uppercase">
 	      <tr>
 	          <th width="4%">Id</th>
 	          <th width="15%">Nombre hotel</th>
-	          <th width="10%">Noches</th>
-	          <th width="10%">Dias</th>
 	          <th width="10%">Costo sencillo</th>
+	          <th width="10%">Costo doble</th>
+	          <th width="10%">Costo triple</th>
 	          <!--Columna para promover o remover promover, (0) es no promovido, (1) es promovido-->
 	          <th width="8%">Panel</th>
 	      </tr>
@@ -26,9 +22,9 @@
 	      <tr class="odd gradeX" data-ng-repeat="p in paquetesVM.listPaquetesCombinacion">
 	          <td>[[ p.id ]]</td>
 	          <td>[[ p.nomhotel]]</td>
-	          <td>[[ p.dias ]]</td>
-	          <td>[[ p.noches ]]</td>
 	          <td>[[ p.costoSencillo ]]</td>
+	          <td>[[ p.costoDoble ]]</td>
+	          <td>[[ p.costoTriple ]]</td>
 	          <td>
 	              <a class="btn btn-success-alt" data-ng-click="paquetesVM.displayEditPaqueteCombinacion(p)" href="javascript:;" ><i class="fa fa-pencil"></i></a>
 	              <a class="btn btn-danger-alt" data-ng-click="paquetesVM.deletePaqueteCombinacion(p.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
@@ -36,119 +32,3 @@
 	      </tr>
 	      </tbody>
 	  </table>
-<!--	</div>
-</div>-->
-<!--<form name="formPaqueteCombinacion" novalidate>
-		<div class="row">
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.hotel.$invalid && !formPaqueteCombinacion.hotel.$pristine }">
-							<label class="col-sm-6 control-label text-bold text-uppercase">
-				            Hotel
-				        	</label>
-							<select name="hotel" id="hotel" class="form-control" ng-model="paquetesVM.paqComHotel.idHotel" required>
-								<option>SELECCIONA</option>
-								<option value="[[h.id]]" ng-repeat="h in paquetesVM.hoteles">[[h.descripcion]]</option>
-							</select>
-							<span ng-show="formPaqueteCombinacion.hotel.$invalid && !formPaqueteCombinacion.hotel.$pristine" class="help-block">
-                        Seleccione hotel
-                    	</span>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.dias.$invalid && !formPaqueteCombinacion.dias.$pristine }">
-							<label for="dias" class="col-sm-6 control-label text-bold text-uppercase">
-				            Dias:
-				            <span class="required">*</span>
-				        	</label>
-				        	<input type="text" class="form-control" name="dias" id="dias" ng-model="paquetesVM.paqComHotel.dias" required>
-				        	<span ng-show="formPaqueteCombinacion.dias.$invalid && !formPaqueteCombinacion.dias.$pristine" class="help-block">
-                        Dias es requerido
-                    	</span>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.noches.$invalid && !formPaqueteCombinacion.noches.$pristine }">
-							<label for="noches" class="col-sm-6 control-label text-bold text-uppercase">
-				            Noches:
-				            <span class="required">*</span>
-				        	</label>
-				        	<input type="text" class="form-control" name="noches" id="noches" ng-model="paquetesVM.paqComHotel.noches" required>
-				        	<span ng-show="formPaqueteCombinacion.dias.$invalid && !formPaqueteCombinacion.dias.$pristine" class="help-block">
-                        Noches es requerido
-                    	</span>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoSencillo.$invalid && !formPaqueteCombinacion.costoSencillo.$pristine }">
-							<label for="costoSencillo" class="col-sm-6 control-label text-bold text-uppercase">
-				            Habitación sencilla:
-				            <span class="required">*</span>
-				        	</label>
-				        	<input type="text" class="form-control" name="costoSencillo" id="costoSencillo" ng-model="paquetesVM.paqComHotel.costoSencillo" required>
-				        	<span ng-show="formPaqueteCombinacion.costoSencillo.$invalid && !formPaqueteCombinacion.costoSencillo.$pristine" class="help-block">
-                        Habitación sencilla es requerido
-                    	</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoDoble.$invalid && !formPaqueteCombinacion.costoDoble.$pristine }">
-							<label for="costoDoble" class="col-sm-6 control-label text-bold text-uppercase">
-				            Habitación doble:
-				            <span class="required">*</span>
-				        	</label>
-				        	<input type="text" class="form-control" name="costoDoble" id="costoDoble" ng-model="paquetesVM.paqComHotel.costoDoble" required>
-				        	<span ng-show="formPaqueteCombinacion.costoDoble.$invalid && !formPaqueteCombinacion.costoDoble.$pristine" class="help-block">
-                        Habitación doble es requerido
-                    	</span>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoTriple.$invalid && !formPaqueteCombinacion.costoTriple.$pristine }">
-							<label for="costoTriple" class="col-sm-6 control-label text-bold text-uppercase">
-				            Habitación triple:
-				            <span class="required">*</span>
-				        	</label>
-				        	<input type="text" class="form-control" name="costoTriple" id="costoTriple" ng-model="paquetesVM.paqComHotel.costoTriple" required>
-				        	<span ng-show="formPaqueteCombinacion.costoTriple.$invalid && !formPaqueteCombinacion.costoTriple.$pristine" class="help-block">
-                        Habitación triple es requerido
-                    	</span>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoCuadruple.$invalid && !formPaqueteCombinacion.costoCuadruple.$pristine }">
-							<label for="costoCuadruple" class="col-sm-6 control-label text-bold text-uppercase">
-				           	Habitación cuadruple:
-				            <span class="required">*</span>
-				        	</label>
-				        	<input type="text" class="form-control" name="costoCuadruple" id="costoCuadruple" ng-model="paquetesVM.paqComHotel.costoCuadruple" required>
-				        	<span ng-show="formPaqueteCombinacion.costoCuadruple.$invalid && !formPaqueteCombinacion.costoCuadruple.$pristine" class="help-block">
-                        Habitación cuadruple es requerido
-                    	</span>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoMenor.$invalid && !formPaqueteCombinacion.costoMenor.$pristine }">
-							<label for="costoMenor" class="col-sm-6 control-label text-bold text-uppercase">
-				            Tarifa Menor:
-				            <span class="required">*</span>
-				        	</label>
-				        	<input type="text" class="form-control" name="costoMenor" id="costoMenor" ng-model="paquetesVM.paqComHotel.costoMenor" required>
-				        	<span ng-show="formPaqueteCombinacion.costoMenor.$invalid && !formPaqueteCombinacion.costoMenor.$pristine" class="help-block">
-                        Tarifa menor es requerido
-                    	</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-12">
-				<button type="button" class="btn btn-primary pull-right" data-ng-click="paquetesVM.savePaqueteCombinacion(formPaqueteCombinacion.$valid,paquetesVM.paqComHotel)" ng-disabled="formPaqueteCombinacion.$invalid">Guardar</button>
-			</div>
-		</div>
-		
-</form>-->

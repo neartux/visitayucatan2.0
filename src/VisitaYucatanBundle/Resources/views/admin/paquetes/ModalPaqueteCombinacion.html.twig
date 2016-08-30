@@ -24,7 +24,7 @@
 		                    	</span>
 								</div>
 							</div>
-							<div class="col-md-12">
+							{#<div class="col-md-12">
 								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.dias.$invalid && !formPaqueteCombinacion.dias.$pristine }">
 									<label for="dias" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
 						            Dias:
@@ -47,7 +47,7 @@
 		                        Noches es requerido
 		                    	</span>
 								</div>
-							</div>
+							</div>#}
 							<div class="col-md-12">
 								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoSencillo.$invalid && !formPaqueteCombinacion.costoSencillo.$pristine }">
 									<label for="costoSencillo" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
@@ -60,34 +60,34 @@
 		                    	</span>
 								</div>
 							</div>
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoDoble.$invalid && !formPaqueteCombinacion.costoDoble.$pristine }">
+                                    <label for="costoDoble" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
+                                        Habitación doble:
+                                        <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" name="costoDoble" id="costoDoble" ng-model="paquetesVM.paqComHotel.costoDoble" required>
+						        	<span ng-show="formPaqueteCombinacion.costoDoble.$invalid && !formPaqueteCombinacion.costoDoble.$pristine" class="help-block">
+		                        Habitación doble es requerido
+		                    	</span>
+                                </div>
+                            </div>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="row pr-md pl-md">
-							<div class="col-md-12">
-								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoDoble.$invalid && !formPaqueteCombinacion.costoDoble.$pristine }">
-									<label for="costoDoble" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
-						            Habitación doble:
-						            <span class="required">*</span>
-						        	</label>
-						        	<input type="text" class="form-control" name="costoDoble" id="costoDoble" ng-model="paquetesVM.paqComHotel.costoDoble" required>
-						        	<span ng-show="formPaqueteCombinacion.costoDoble.$invalid && !formPaqueteCombinacion.costoDoble.$pristine" class="help-block">
-		                        Habitación doble es requerido
-		                    	</span>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoTriple.$invalid && !formPaqueteCombinacion.costoTriple.$pristine }">
-									<label for="costoTriple" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
-						            Habitación triple:
-						            <span class="required">*</span>
-						        	</label>
-						        	<input type="text" class="form-control" name="costoTriple" id="costoTriple" ng-model="paquetesVM.paqComHotel.costoTriple" required>
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoTriple.$invalid && !formPaqueteCombinacion.costoTriple.$pristine }">
+                                    <label for="costoTriple" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">
+                                        Habitación triple:
+                                        <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" name="costoTriple" id="costoTriple" ng-model="paquetesVM.paqComHotel.costoTriple" required>
 						        	<span ng-show="formPaqueteCombinacion.costoTriple.$invalid && !formPaqueteCombinacion.costoTriple.$pristine" class="help-block">
 		                        Habitación triple es requerido
 		                    	</span>
-								</div>
-							</div>
+                                </div>
+                            </div>
 							<div class="col-md-12">
 								<div class="form-group" ng-class="{ 'has-error' : formPaqueteCombinacion.costoCuadruple.$invalid && !formPaqueteCombinacion.costoCuadruple.$pristine }">
 									<label for="costoCuadruple" class="col-sm-12 control-label text-bold text-uppercase m-l-n-16">

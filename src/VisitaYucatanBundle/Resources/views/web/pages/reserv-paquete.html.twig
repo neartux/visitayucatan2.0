@@ -264,9 +264,8 @@
                                             <div class="form-group mb">
                                                 <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.tipo.estadia{% endtrans %}:</label>
                                                 <br>
-                                                [[paqWebVM.paqueteCombinacion.dias]] {% trans %}page.web.labe.reserva.dias{% endtrans %}
-                                                {% trans %}page.web.labe.reserva.y{% endtrans %} [[paqWebVM.paqueteCombinacion.noches]] {% trans %}page.web.labe.reserva.noches{% endtrans %}
-                                                <input type="hidden" value="[[paqWebVM.paqueteCombinacion.dias]]" id="diasPaqueteCombinacion"/>
+                                                {{ paquete.dias }} {% trans %}page.web.labe.reserva.dias{% endtrans %}
+                                                {% trans %}page.web.labe.reserva.y{% endtrans %} {{ paquete.noches }} {% trans %}page.web.labe.reserva.noches{% endtrans %}
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -404,7 +403,6 @@
             });
 
             function cambiaFechaPaquete() {
-                diasPaquete = $("#diasPaqueteCombinacion").val();
                 var packageDate = $("#fechaPaquete").val();
                 $(".datepicker-fs").val(moment(getDate(packageDate)).add(parseInt(diasPaquete), 'day').format('DD/MM/YYYY'));
             }
