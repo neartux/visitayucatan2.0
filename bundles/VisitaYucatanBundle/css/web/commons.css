@@ -42,3 +42,7 @@
 .gray-shadow{
     background-color: lightgray;
 }
+
+.display-hide {
+    display: none !important;
+}

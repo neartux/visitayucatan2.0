@@ -23,6 +23,10 @@
         ctrlWeb.minimoPersonas = 0;
         ctrlWeb.ventaCompletaTO = {};
         ctrlWeb.soloAdultos= undefined;
+        ctrlWeb.CurrencyMexico = {
+            id: undefined,
+            tipoCambio: undefined
+        };
 
 
         ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate, idTour) {
@@ -37,7 +41,7 @@
         };
 
         ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson, contextPath,
-                                            idIdioma, idMoneda, idTour, soloadultos){
+                                            idIdioma, idMoneda, idTour, soloadultos, idMonedaMexico, tipoCambioMexico){
             ctrlWeb.soloAdultos = soloadultos;
             ctrlWeb.totalPersons = {
                 numeroMenores : totalMenores,
@@ -58,7 +62,12 @@
                 numeroMenores: ctrlWeb.totalPersons.numeroMenores,
                 numeroAdultos: ctrlWeb.totalPersons.numeroAdultos,
                 idTour: idTour
-            }
+            };
+
+            ctrlWeb.CurrencyMexico = {
+                id: idMonedaMexico,
+                tipoCambio: tipoCambioMexico
+            };
             
         };
 
@@ -105,6 +114,12 @@
                 if(parseInt(ctrlWeb.minimoPersonas) > (parseInt(ctrlWeb.totalPersons.numeroAdultos)+parseInt(ctrlWeb.totalPersons.numeroMenores))){
                     alert("El minimo de personas para este paquete es "+ctrlWeb.minimoPersonas);
                     return
+                }
+                // Si no esta en moneda mexicana la convierte a pesos
+                if(ctrlWeb.ventaCompletaTO.idMoneda != ctrlWeb.CurrencyMexico.id){
+                    ctrlWeb.ventaCompletaTO.costoAdulto = parseFloat((ctrlWeb.rateAdult * parseInt(ctrlWeb.totalPersons.numeroAdultos))*(ctrlWeb.ventaCompletaTO.tipoCambio));
+                    ctrlWeb.ventaCompletaTO.costoMenor = parseFloat((ctrlWeb.rateChild * parseInt(ctrlWeb.totalPersons.numeroMenores))*(ctrlWeb.ventaCompletaTO.tipoCambio));
+                    ctrlWeb.ventaCompletaTO.costoTotal = parseFloat(ctrlWeb.ventaCompletaTO.costoAdulto)+parseFloat(ctrlWeb.ventaCompletaTO.costoMenor);
                 }
                 HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
                 WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {

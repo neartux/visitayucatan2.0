@@ -4,6 +4,7 @@ namespace VisitaYucatanBundle\Repository;
 use Doctrine\ORM\EntityNotFoundException;
 use VisitaYucatanBundle\Entity\Estatus;
 use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\Generalkeys;
 
 /**
  * MonedaRepository
@@ -12,6 +13,10 @@ use VisitaYucatanBundle\utils\Estatuskeys;
  * repository methods below.
  */
 class MonedaRepository extends \Doctrine\ORM\EntityRepository{
+    
+    public function findMonedaMexico(){
+        return $this->find(Generalkeys::MEXICAN_CURRENCY);
+    }
 
     public function findAllCurrency(){
         $em = $this->getEntityManager();
