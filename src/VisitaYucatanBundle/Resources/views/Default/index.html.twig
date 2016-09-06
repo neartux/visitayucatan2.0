@@ -17,6 +17,7 @@
                 <tr>
                     <th># R</th>
                     <th>T. Reserva</th>
+                    <th>Descripcion</th>
                     <th>Nombre</th>
                     <th>Telefono</th>
                     <th>Correo</th>
@@ -45,6 +46,7 @@
                                 Paquete
                             {% endif %}
                         </td>
+                        <td> {{ venta.nombreProducto }}</td>
                         <td>{{ venta.nombres }}&nbsp;{{ venta.apellidos }}</td>
                         <td>{{ venta.telefono }}</td>
                         <td>{{ venta.email }}</td>

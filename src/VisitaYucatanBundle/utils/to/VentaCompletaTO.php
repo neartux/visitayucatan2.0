@@ -47,6 +47,7 @@ class VentaCompletaTO{
     private $nombrePaquete;
     private $diasPaquete;
     private $nochePaquete;
+    private $nombreProducto;
 
     /**
      * @return mixed
@@ -671,5 +672,21 @@ class VentaCompletaTO{
     {
         $this->nochePaquete = $nochePaquete;
     }
-    
+
+    /**
+     * @return mixed
+     */
+    public function getNombreProducto()
+    {
+        return $this->nombreProducto;
+    }
+
+    /**
+     * @param mixed $nombreProducto
+     */
+    public function setNombreProducto($nombreProducto)
+    {
+        $this->nombreProducto = $nombreProducto;
+    }
+       
 }

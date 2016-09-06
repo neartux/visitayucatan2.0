@@ -91,6 +91,9 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
     }
 
     public function createSalePackage(VentaCompletaTO $ventaCompletaTO) {
+
+
+
         $em = $this->getEntityManager();
 
         $venta = new Venta();

@@ -10,6 +10,7 @@ namespace VisitaYucatanBundle\utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use VisitaYucatanBundle\Entity\Paquete;
 use VisitaYucatanBundle\Entity\Venta;
+use VisitaYucatanBundle\Entity\VentaDetalle;
 use VisitaYucatanBundle\utils\to\VentaCompletaTO;
 
 final class VentaUtils {
@@ -95,11 +96,24 @@ final class VentaUtils {
                 $ventaTO->setNumeroMenores($ventaDetalle->getNumeroMenores());
                 $ventaTO->setCostoTotal($venta->getTotal());
                 $ventaTO->setPagado($venta->getDatosPago()->getPagado());
+                $ventaTO->setNombreProducto(self::getDescripcionProducto($ventaDetalle));
 
 
                 $ventasTO->add($ventaTO);
             }
         }
         return $ventasTO->getValues();
+    }
+
+    private static function getDescripcionProducto(VentaDetalle $ventaDetalle){
+        $descripcion = '';
+        if ($ventaDetalle->getTipoProducto() == Generalkeys::TIPO_PRODUCTO_PAQUETE){
+            $descripcion = $ventaDetalle->getPaquete()->getDescripcion();
+        } else if ($ventaDetalle->getTipoProducto() == Generalkeys::TIPO_PRODUCTO_HOTEL){
+            $descripcion = $ventaDetalle->getHotel()->getDescripcion();
+        } else if ($ventaDetalle->getTipoProducto() == Generalkeys::TIPO_PRODUCTO_TOUR){
+            $descripcion = $ventaDetalle->getTour()->getDescripcion();
+        }
+        return $descripcion;
     }
 }
