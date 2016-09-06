@@ -6,7 +6,8 @@
     {% block content %}
         <div class="container-fluid" data-ng-controller="WebHotelController as ctrlWeb" data-ng-init="ctrlWeb.initReserva({{ reserva.tarifaAdulto }}, {{ reserva.tarifaMenor }}, {{ reserva.idIdioma }},
         {{ reserva.idMoneda }}, {{ reserva.tipoCambio }}, {{ reserva.costoTotal }}, '{{ reserva.fechaInicio }}', '{{ reserva.fechaFin }}', '{{ reserva.adultos }}',
-        '{{ reserva.menores }}', '{{ app.request.getBaseURL() }}', {{ reserva.idHotel }}, {{ reserva.idHabitacion }})">
+        '{{ reserva.menores }}', '{{ app.request.getBaseURL() }}', {{ reserva.idHotel }}, {{ reserva.idHabitacion }},
+        {{ tipoCambioMexico.id }}, {{ tipoCambioMexico.tipoCambio }})">
 
             {#{{ dump(reserva) }}#}
 
@@ -239,7 +240,7 @@
                                         </div>
 
                                         <div class="col-sm-12 mt-xxl text-left mb">
-                                            <input type="button" data-ng-click="ctrlWeb.createRerservaHotel()"
+                                            <input type="button" data-ng-click="ctrlWeb.createRerservaHotel(formReserva.$valid)"
                                                    data-ng-disabled="formReserva.$invalid"
                                                    value="{% trans %}page.web.label.reserva.book.now{% endtrans %}" class="btn btn-primary p"/>
                                         </div>
@@ -282,7 +283,7 @@
                                                     {% endif %}
                                                     :</label>
                                                 <br>
-                                                $ {{ reserva.tarifaAdulto }} {{ reserva.simboloMoneda }}
+                                                $ {{ reserva.tarifaAdulto | round(0, 'ceil') }} {{ reserva.simboloMoneda }}
                                             </div>
                                         </div>
                                         <div class="col-sm-12">

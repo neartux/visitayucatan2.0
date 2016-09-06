@@ -21,7 +21,7 @@ class LoginController extends Controller {
         if(! $request->getSession()->get(Generalkeys::LABEL_STATUS)){
             return $this->redirectToRoute('admin_login');
         }
-        $ventas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->findAll();
+        $ventas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->findBy([], ['id' => 'DESC']);
         return $this->render('VisitaYucatanBundle:Default:index.html.twig', array("ventas" => VentaUtils::getAllVentas($ventas)));
     }
 

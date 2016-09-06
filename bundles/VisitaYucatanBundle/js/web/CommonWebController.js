@@ -141,6 +141,10 @@
         ctrlHotel.symbolCurrency = 'MXP';
         ctrlHotel.ventaCompletaTO = {};
         ctrlHotel.arrayEstrellas = [];
+        ctrlHotel.CurrencyMexico = {
+            id: undefined,
+            tipoCambio: undefined
+        };
 
         ctrlHotel.init = function(idHotel, ageMinor, estrellas) {
             ctrlHotel.formRate = {
@@ -168,7 +172,8 @@
             ctrlHotel.arrayEstrellas = array;
         };
         
-        ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath, idHotel, idHabitacion) {
+        ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath, idHotel, idHabitacion,
+            idMonedaMexico, tipoCambioMexico) {
             WebService.setContextPath(contextPath);
             ctrlHotel.ventaCompletaTO = {
                 tarifaAdulto: tarifaAdulto,
@@ -185,19 +190,31 @@
                 numeroAdultos: adultos,
                 idHotel: idHotel,
                 idHabitacion: idHabitacion
-            }
+            };
+            ctrlHotel.CurrencyMexico = {
+                id: idMonedaMexico,
+                tipoCambio: tipoCambioMexico
+            };
 
         };
 
-        ctrlHotel.createRerservaHotel = function () {
-            HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
+        ctrlHotel.createRerservaHotel = function (isValidForm) {
+            if(isValidForm){
+                // Si no esta en moneda mexicana la convierte a pesos
+                if(ctrlHotel.ventaCompletaTO.idMoneda != ctrlHotel.CurrencyMexico.id){
+                    ctrlHotel.ventaCompletaTO.costoAdulto = parseFloat(Math.ceil(ctrlHotel.ventaCompletaTO.costoAdulto)*(ctrlHotel.ventaCompletaTO.tipoCambio));
+                    ctrlHotel.ventaCompletaTO.costoMenor = parseFloat(Math.ceil(ctrlHotel.ventaCompletaTO.costoMenor)*(ctrlHotel.ventaCompletaTO.tipoCambio));
+                    ctrlHotel.ventaCompletaTO.costoTotal = parseFloat(ctrlHotel.ventaCompletaTO.costoAdulto)+parseFloat(ctrlHotel.ventaCompletaTO.costoMenor);
+                }
+                HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
 
-            WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).then(function (response) {
-                setTimeout(function () {
-                    WebService.redirectToSuccessSaleHotel();
-                    HoldOn.close();
-                }, 5000);
-            });
+                WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).then(function (response) {
+                    setTimeout(function () {
+                        WebService.redirectToSuccessSaleHotel();
+                        HoldOn.close();
+                    }, 5000);
+                });
+            }
         };
 
         ctrlHotel.findTarifasHotel = function() {
@@ -290,6 +307,11 @@
         ];
         paqWebVM.idPaquete = 0;
         paqWebVM.mensageDetallePaquete = '';
+        paqWebVM.CurrencyMexico = {
+            id: undefined,
+            tipoCambio: undefined
+        };
+        
         paqWebVM.initPaquete = function (combinacionespaquete, idPackage) {
             paqWebVM.idPaquete = idPackage;
             paqWebVM.habitacion = 'doble';
@@ -345,7 +367,7 @@
             return array;
         };
         //paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
-        paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe, contextPath, idPaquete, idIdioma, idMoneda){
+        paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe, contextPath, idPaquete, idIdioma, idMoneda, idMonedaMexico, tipoCambioMexico){
             paqWebVM.detailReserva = JSON.parse(detailReserva);
             paqWebVM.importe = importe;
             var combinacion = JSON.parse(paqueteCombinacion);
@@ -375,6 +397,11 @@
             WebService.contextPath = contextPath;
 
             paqWebVM.initVentaCompletaTO(idPaquete, idIdioma, idMoneda, combinacion);
+
+            paqWebVM.CurrencyMexico = {
+                id: idMonedaMexico,
+                tipoCambio: tipoCambioMexico
+            };
         };
 
         paqWebVM.initVentaCompletaTO = function (idPaquete, idIdioma, idMoneda, combinacion) {
