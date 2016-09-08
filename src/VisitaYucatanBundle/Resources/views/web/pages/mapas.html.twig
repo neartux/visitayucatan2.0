@@ -1,0 +1,109 @@
+{% extends ':web:TemplateVisitaYucatanDetail.html.twig' %}
+
+
+{% block section %}
+
+    {% block content %}
+        <div class="container-fluid">
+            <div class="row mb mb-xxl">
+                <div class="col-sm-12 mb-xxl">
+                    <div class="row container-body- mb-xxl">
+
+                        <div class="col-sm-12 content-body-detail pr-n pl-n mt-lg mb-xxl">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <h4 class="text-uppercase text-bold color-text-pink">
+                                        MAPAS
+                                    </h4>
+                                </div>
+                                <div class="col-sm-12">
+                                    <hr style="border-top: 1px solid rgb(239, 182, 78) !important;" class="mt-n">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-8">
+                                <div class="">
+                                    <div class="tab-pane active">
+                                        <div class="tab-container tab-default">
+                                        <ul class="nav nav-tabs">
+                                            <li><a class="tab-title tab-title-yucatan" href="javascript:;" onclick="showTabMapa('yucatan')">Yucatán</a></li>
+                                            <li><a class="tab-title tab-title-valladolid" href="javascript:;" onclick="showTabMapa('valladolid')">Valladolid</a></li>
+                                            <li><a class="tab-title tab-title-izamal" href="javascript:;" onclick="showTabMapa('izamal')">Izamal</a></li>
+                                            <li><a class="tab-title tab-title-merida" href="javascript:;" onclick="showTabMapa('merida')">Mérida</a></li>
+                                            <li><a class="tab-title tab-title-centro" href="javascript:;" onclick="showTabMapa('centro')">Centro histórico</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane-tab" id="yucatan">
+                                                <img src="{{ asset('bundles/VisitaYucatanBundle/images/mapas/yucatan.png') }}" class="img-responsive"/>
+                                            </div>
+                                            <div class="tab-pane-tab" id="valladolid">
+                                                <img src="{{ asset('bundles/VisitaYucatanBundle/images/mapas/valladolid.png') }}"/>
+                                            </div>
+                                            <div class="tab-pane-tab" id="izamal">
+                                                <img src="{{ asset('bundles/VisitaYucatanBundle/images/mapas/izamal.jpg') }}"/>
+                                            </div>
+                                            <div class="tab-pane-tab" id="merida">
+                                                <img src="{{ asset('bundles/VisitaYucatanBundle/images/mapas/merida.jpg') }}"/>
+                                            </div>
+                                            <div class="tab-pane-tab" id="centro">
+                                                <img src="{{ asset('bundles/VisitaYucatanBundle/images/mapas/centrohistorico.gif') }}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-4">
+                                {% include 'web/Aside_Web.html.twig' %}
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    {% endblock %}
+
+    {% block scripts %}
+        {{ parent() }}
+        <script>
+            $(function () {
+                $('.top-aside').addClass('hide-element');
+                $('.redes-sociales').addClass('hide-element');
+                $('.tab-pane-tab').hide();
+                $('#yucatan').show();
+                $('.tab-title-yucatan').addClass('panel-mapa-activo');
+            });
+            function showTabMapa(idTabMap){
+                $('.tab-pane-tab').hide();
+                $('.tab-title').removeClass('panel-mapa-activo');
+                $('.tab-title-'+idTabMap).addClass('panel-mapa-activo');
+                $('#'+idTabMap).show();
+            }
+        </script>
+        <style>
+            aside{
+                width: 82% !important;
+            }
+            .panel-mapa-activo{
+                background-color: #00B0C7 !important;
+                color: #FFFFFF !important;
+            }
+            .hide-element {
+                display: none !important;
+            }
+        </style>
+    {% endblock %}
+
+
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+{% endblock %}

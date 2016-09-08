@@ -28,6 +28,15 @@ class ArticleController extends Controller{
 
      }
 
+    /**
+     * @Route("/mapas", name="web_mapas")
+     * @Method("GET")
+     */
+    public function mapas(){
+        return $this->render('VisitaYucatanBundle:web/pages:mapas.html.twig');
+
+    }
+
      private function getParamsPeninsula($request){
       // Obtiene la session del request para obtener moneda e idioma
       $session = $request->getSession();
