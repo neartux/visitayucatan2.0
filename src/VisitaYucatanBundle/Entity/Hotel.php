@@ -31,7 +31,7 @@ class Hotel {
     /**
      * @var string
      *
-     * @ORM\Column(name="mapa", type="text")
+     * @ORM\Column(name="mapa", type="text", nullable=true)
      */
     private $mapa;
 
