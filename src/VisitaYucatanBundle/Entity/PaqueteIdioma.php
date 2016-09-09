@@ -44,7 +44,7 @@ class PaqueteIdioma {
     /**
      * @var string
      *
-     * @ORM\Column(name="circuito", type="string", length=255, nullable=true))
+     * @ORM\Column(name="circuito", type="string", length=255, nullable=true)
      */
     private $circuito;
 
@@ -58,14 +58,14 @@ class PaqueteIdioma {
     /**
      * @var string
      *
-     * @ORM\Column(name="itinerario", type="text")
+     * @ORM\Column(name="itinerario", type="text", nullable=true)
      */
     private $itinerario;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="dias", type="integer")
+     * @ORM\Column(name="dias", type="integer", nullable=true)
      */
     private $dias;
 
