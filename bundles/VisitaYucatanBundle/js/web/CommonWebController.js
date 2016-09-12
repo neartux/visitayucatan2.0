@@ -120,6 +120,8 @@
                     ctrlWeb.ventaCompletaTO.costoAdulto = parseFloat((ctrlWeb.rateAdult * parseInt(ctrlWeb.totalPersons.numeroAdultos))*(ctrlWeb.ventaCompletaTO.tipoCambio));
                     ctrlWeb.ventaCompletaTO.costoMenor = parseFloat((ctrlWeb.rateChild * parseInt(ctrlWeb.totalPersons.numeroMenores))*(ctrlWeb.ventaCompletaTO.tipoCambio));
                     ctrlWeb.ventaCompletaTO.costoTotal = parseFloat(ctrlWeb.ventaCompletaTO.costoAdulto)+parseFloat(ctrlWeb.ventaCompletaTO.costoMenor);
+                    ctrlWeb.ventaCompletaTO.numeroMenores = ctrlWeb.totalPersons.numeroMenores;
+                    ctrlWeb.ventaCompletaTO.numeroAdultos = ctrlWeb.totalPersons.numeroAdultos;
                 }
                 HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
                 WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {
