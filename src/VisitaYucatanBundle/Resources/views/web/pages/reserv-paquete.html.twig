@@ -404,7 +404,7 @@
 
             function cambiaFechaPaquete() {
                 var packageDate = $("#fechaPaquete").val();
-                $(".datepicker-fs").val(moment(getDate(packageDate)).add(parseInt(diasPaquete), 'day').format('DD/MM/YYYY'));
+                $(".datepicker-fs").val(moment(getDate(packageDate)).add(parseInt(diasPaquete - 1), 'day').format('DD/MM/YYYY'));
                 $("#fechaLlegada").val(packageDate);
             }
             function getDate(date){

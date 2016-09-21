@@ -302,28 +302,24 @@
 
                         </div>
                         <div class="col-sm-2 pl pr">
+                            <input type="hidden" id="pathSimilars" value="{{ path('paquete_find_list_similares') }}">
                             <div class="col-sm-12 text-center">
                                 <h3 class="similar-package-title">{% trans %}page.web.labe.reserva.similar.package{% endtrans %}</h3>
                             </div>
-                            <div class="col-sm-12 pl-n pr-n text-center" data-ng-repeat="tourDetail in ctrlWeb.listItemsSimilar.data">
+                            <div class="col-sm-12 pl-n pr-n text-center" data-ng-repeat="package in ctrlWeb.listItemsSimilar.data">
 
-                                <a href="{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/tour/detail/id/[[tourDetail.id]]">
-                                    <img src="{{ asset('[[ tourDetail.imagen ]]') }}" class="img-similar img-thumbnail"/>
-                                </a>
+                                <a href="{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/paquete/detail/id/[[package.id]]">
+                                    <img src="{{ asset('[[ package.path ]]') }}" class="img-similar img-thumbnail"/></a>
                                 <br>
-                                <span class="text-center">[[ tourDetail.nombre ]] [[tourDetail.id]]</span> <br>
+                                <span class="text-center">[[ package.descripcion ]]</span> <br>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <br>
-                                <span class="text-bold text-center">
-                                    {% trans %}page.web.labe.reserva.tour.adults{% endtrans %}:$[[ tourDetail.tarifaadulto | myCurrency2 ]] [[ tourDetail.simbolomoneda ]]
-                                </span><br>
-                                <span class="text-bold text-center">
-                                    {% trans %}page.web.labe.reserva.tour.minors{% endtrans %}: $[[ tourDetail.tarifamenor | myCurrency2 ]] [[ tourDetail.simbolomoneda ]]
-                                </span>
+                                <span class="text-bold text-center">$[[ package.costo | myCurrency2 ]] [[ package.simbolo ]]</span>
                                 <hr style="border-top: 1px solid rgb(239, 182, 78) !important;">
+
                             </div>
                         </div>
                     </div>

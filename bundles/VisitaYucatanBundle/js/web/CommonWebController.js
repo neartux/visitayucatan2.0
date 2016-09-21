@@ -197,7 +197,7 @@
                 id: idMonedaMexico,
                 tipoCambio: tipoCambioMexico
             };
-
+            ctrlHotel.findItemsSimilar();
         };
 
         ctrlHotel.createRerservaHotel = function (isValidForm) {
