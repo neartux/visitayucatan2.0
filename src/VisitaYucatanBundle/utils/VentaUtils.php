@@ -55,6 +55,7 @@ final class VentaUtils {
         $ventaCompletaTO->setTelefono($venta->getDatosUbicacion()->getTelefono());
         $ventaCompletaTO->setEmail($venta->getDatosUbicacion()->getEmail());
         $ventaCompletaTO->setCiudad($venta->getDatosUbicacion()->getCiudad());
+        $ventaCompletaTO->setFechaReserva($venta->getDatosReserva()->getCheckIn());
         return $ventaCompletaTO;
     }
 

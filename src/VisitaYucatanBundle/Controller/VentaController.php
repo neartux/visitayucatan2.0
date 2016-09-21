@@ -36,11 +36,12 @@ class VentaController extends Controller {
             $tour = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getTourById($venta->getVentaDetalle()->get(0)->getTour()->getId(), $venta->getIdioma()->getId(), $venta->getMoneda()->getId());
             $ventaCompletaTO = VentaUtils::getVentaCompleteTOTour($venta, $tour);
             $mes = DateUtil::getFullNameMonth(date_format($venta->getFechaVenta(), 'm'));
-            $html = $this->renderView('@VisitaYucatan/web/pages/pdf/tour/reserva-tour-pdf.html.twig',array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes));
+            $mesReserva = DateUtil::getFullNameMonth(date_format($venta->getDatosReserva()->getCheckIn(), 'm'));
+            $html = $this->renderView('@VisitaYucatan/web/pages/pdf/tour/reserva-tour-pdf.html.twig',array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes, 'mesReserva' => $mesReserva));
             $file = $this->getPdf($html, $ventaCompletaTO, Generalkeys::PATH_VOUCHER_TOURS, Generalkeys::NAME_VENTA_FILE);
             $this->sendMailSale($ventaCompletaTO->getEmail(), $file);
 
-            return $this->render('@VisitaYucatan/web/pages/pdf/tour/success-sale-tour.html.twig', array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes));
+            return $this->render('@VisitaYucatan/web/pages/pdf/tour/success-sale-tour.html.twig', array('ventaCompleta' => $ventaCompletaTO, 'mes' => $mes, 'mesReserva' => $mesReserva));
 
         } catch (\Exception $e) {
             $em->getConnection()->rollback();

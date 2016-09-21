@@ -6,6 +6,7 @@
     {% block content %}
         <div class="container-fluid">
             {% set fechaCompra = ventaCompleta.fechaVenta | date('d') ~ ' de ' ~ mes ~ ' de ' ~  ventaCompleta.fechaVenta | date('Y') %}
+            {% set fechaReserva = ventaCompleta.fechaReserva | date('d') ~ ' de ' ~ mesReserva ~ ' de ' ~  ventaCompleta.fechaReserva | date('Y') %}
 
             <div class="row mb">
                 <div class="col-sm-12">

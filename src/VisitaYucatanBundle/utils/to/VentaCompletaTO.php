@@ -48,6 +48,7 @@ class VentaCompletaTO{
     private $diasPaquete;
     private $nochePaquete;
     private $nombreProducto;
+    private $fechaReserva;
 
     /**
      * @return mixed
@@ -688,5 +689,20 @@ class VentaCompletaTO{
     {
         $this->nombreProducto = $nombreProducto;
     }
-       
+
+    /**
+     * @return mixed
+     */
+    public function getFechaReserva()
+    {
+        return $this->fechaReserva;
+    }
+
+    /**
+     * @param mixed $fechaReserva
+     */
+    public function setFechaReserva($fechaReserva)
+    {
+        $this->fechaReserva = $fechaReserva;
+    }
 }

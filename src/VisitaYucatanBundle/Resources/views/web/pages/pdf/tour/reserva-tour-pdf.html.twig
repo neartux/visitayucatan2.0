@@ -60,6 +60,7 @@
 <body>
 
 {% set fechaCompra = ventaCompleta.fechaVenta | date('d') ~ ' de ' ~ mes ~ ' de ' ~  ventaCompleta.fechaVenta | date('Y') %}
+{% set fechaReserva = ventaCompleta.fechaReserva | date('d') ~ ' de ' ~ mesReserva ~ ' de ' ~  ventaCompleta.fechaReserva | date('Y') %}
 
 <div class="row-logo">
     <img src="{{ asset('bundles/VisitaYucatanBundle/img/logos/logo.png') }}" width="150"/>
