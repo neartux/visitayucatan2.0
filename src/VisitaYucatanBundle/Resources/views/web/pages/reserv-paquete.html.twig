@@ -134,7 +134,8 @@
                                                     <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.lada" required id="lada" name="lada" class="form-control"/>
+                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.lada" required id="lada" name="lada" class="form-control"
+                                                    maxlength="5"/>
                                             <span ng-show="formReserva.lada.$invalid && !formReserva.lada.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.lada.required{% endtrans %}
                                             </span>
@@ -149,7 +150,8 @@
                                                     <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.telefono" required id="telefono" name="telefono" class="form-control"/>
+                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.telefono" required id="telefono" name="telefono" class="form-control"
+                                                    maxlength="15"/>
                                             <span ng-show="formReserva.telefono.$invalid && !formReserva.telefono.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.phone.required{% endtrans %}
                                             </span>
