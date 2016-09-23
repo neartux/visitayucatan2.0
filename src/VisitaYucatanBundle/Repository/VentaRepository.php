@@ -166,7 +166,7 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
     public function findVentaById($idVenta){ // todo no se esta utilizando
         $em = $this->getEntityManager();
         $sql = "SELECT venta.id AS idreserva,venta.fechaventa,venta.total,venta_detalle.numeromenores,venta_detalle.numeroadultos,venta_detalle.tipoproducto,
-                datos_personales.nombres,datos_personales.apellidos,datos_ubicacion.telefono,datos_ubicacion.email,datos_pago.pagado
+                datos_personales.nombres,datos_personales.apellidos,datos_ubicacion.telefono,datos_ubicacion.email,datos_pago.pagado,tour.descripcion AS descripciontour
                 FROM venta
                 INNER JOIN venta_detalle ON venta.id = venta_detalle.id_venta
                 INNER JOIN datos_personales ON venta.id_datospersonales = datos_personales.id
@@ -179,8 +179,10 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
                 LEFT JOIN paquete ON venta_detalle.id_paquete = paquete.id
                 LEFT JOIN hotel_habitacion ON venta_detalle.id_hotel_habitacion = hotel_habitacion.id
                 WHERE venta.id_estatus = :estatus
+                AND venta.id = :idVenta
                 AND venta_detalle.id_estatus = :estatus";
         $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+        $params['idVenta'] = $idVenta;
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetch();

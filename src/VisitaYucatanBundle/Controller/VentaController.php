@@ -173,11 +173,11 @@ class VentaController extends Controller {
     }
 
     /**
-     * @Route("/venta/findVentaById", name="find_venta_by_id")
+     * @Route("/venta/findVentaById/{idVenta}", name="find_venta_by_id")
      * @Method("GET")
      */
-    public function findVentaById(Request $request) {
-        $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->findVentaById($request->get('idVenta'));
+    public function findVentaById(Request $request, $idVenta) {
+        $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->findVentaById($idVenta);
         return new Response($this->get('serializer')->serialize($venta, Generalkeys::JSON_STRING));
     }
 }

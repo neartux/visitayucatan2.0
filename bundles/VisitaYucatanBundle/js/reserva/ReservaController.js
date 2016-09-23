@@ -27,19 +27,20 @@
             $("#pdfReserva").modal();  
         };
         
-        ctrlReserva.findDetalleReserva = function (idVenta) {
-            console.info("idventa = ", idVenta);
-            ReservaService.findVentaById(idVenta).then(function (data) {
+        ctrlReserva.findDetalleReserva = function (idVenta, tipoProducto) {
+            ReservaService.findVentaById(idVenta, tipoProducto).then(function (data) {
                 $("#modalDetalleReserva").modal();
             });
         };
         
         ctrlReserva.reenvioReserva = function () {
-            if (ctrlReserva.idVentaActual != undefined && ctrlReserva.pathActual != undefined){
-                console.info(ctrlReserva.idVentaActual, ctrlReserva.pathActual);
-                ReservaService.reenvioReserva(ctrlReserva.idVentaActual, ctrlReserva.pathActual).then(function (data) {
-                    console.info("data = ", data.data);
-                });
+            if(confirm("¿Seguro desea reenviar el archivo de reserva?")){
+                if (ctrlReserva.idVentaActual != undefined && ctrlReserva.pathActual != undefined){
+                    console.info(ctrlReserva.idVentaActual, ctrlReserva.pathActual);
+                    ReservaService.reenvioReserva(ctrlReserva.idVentaActual, ctrlReserva.pathActual).then(function (data) {
+                        console.info("data = ", data.data);
+                    });
+                }
             }
         };
 

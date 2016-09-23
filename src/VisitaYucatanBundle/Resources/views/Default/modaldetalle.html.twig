@@ -12,105 +12,27 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-6">
+                                <div class="col-sm-4">Tipo Reserva</div>
+                                <div class="col-sm-8">[[ ctrl.VentaCompletaTO.data.tipoProducto]]</div>
 
-                                <div class="form-group" ng-class="{ 'has-error' : formHotel.descripcion.$invalid && !formHotel.descripcion.$pristine }">
-                                    <label class="col-sm-4 control-label text-bold text-uppercase" for="description">
-                                        Descripción <span class="required">*</span>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="description" ng-model="ctrlHotel.hotelTO.descripcion" name="descripcion" class="form-control" required/>
-                                        <span ng-show="formHotel.descripcion.$invalid && !formHotel.descripcion.$pristine" class="help-block">
-                                            Captura Nombre del Hotel
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" ng-class="{ 'has-error' : formHotel.estrellas.$invalid && !formHotel.estrellas.$pristine }">
-                                    <label for="estrellas" class="col-sm-4 control-label text-bold text-uppercase">
-                                        Estrellas <span class="required">*</span>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <select name="estrellas" id="estrellas" class="form-control" ng-model="ctrlHotel.hotelTO.estrellas" required>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" ng-class="{ 'has-error' : formHotel.direccion.$invalid && !formHotel.direccion.$pristine }">
-                                    <label class="col-sm-4 control-label text-bold text-uppercase" for="direccion">
-                                        Dirección <span class="required">*</span>
-                                    </label>
-
-                                    <div class="col-sm-8">
-                                        <textarea name="direccion" ng-model="ctrlHotel.hotelTO.direccion"  class="form-control" id="direccion" cols="30" rows="2" required></textarea>
-                                        <span ng-show="formHotel.direccion.$invalid && !formHotel.direccion.$pristine" class="help-block">
-                                                Captura Dirección Hotel
-                                        </span>
-                                    </div>
-                                </div>
-
+                                <div class="col-sm-4">Nombres</div>
+                                <div class="col-sm-8">[[ ctrl.VentaCompletaTO.data.nombres]] [[ ctrl.VentaCompletaTO.data.apellidos]]</div>
                             </div>
-
                             <div class="col-md-6">
-
-                                <div class="form-group" ng-class="{ 'has-error' : formHotel.telefono.$invalid && !formHotel.telefono.$pristine }">
-                                    <label class="col-sm-4 control-label text-bold text-uppercase">
-                                        Télefono <span class="required">*</span>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="telefono" ng-model="ctrlHotel.hotelTO.telefono" name="telefono" class="form-control" required/>
-                                        <span ng-show="formHotel.telefono.$invalid && !formHotel.telefono.$pristine" class="help-block">
-                                            El Télefono es Requerido
-                                        </span>
-                                    </div>
+                                <div class="col-sm-4">Descripción</div>
+                                <div class="col-sm-8">
+                                    {% if (tipoProducto == 'Tour') %}
+                                        [[ ctrl.VentaCompletaTO.data.descripciontour]]
+                                    {% elseif (tipoProducto == 'Hotel') %}
+                                        [[ ctrl.VentaCompletaTO.data.descripciontour]]
+                                    {% else %}
+                                        [[ ctrl.VentaCompletaTO.data.descripciontour]]
+                                    {% endif %}
                                 </div>
 
-                                <div class="form-group" ng-class="{ 'has-error' : formHotel.state.$invalid && !formHotel.state.$pristine }">
-                                    <label class="col-sm-4 control-label text-bold text-uppercase">
-                                        Estado <span class="required">*</span>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <select name="state" class="form-control" ng-model="ctrlHotel.hotelTO.state" required data-ng-change="ctrlHotel.findCitiesByState();ctrlHotel.hotelTO.city = '';">
-                                            <option value="">SELECCIONA</option>
-                                            <option value="[[ state.id ]]" ng-repeat="state in ctrlHotel.listStates.data">[[ state.nombre | uppercase ]]</option>
-                                        </select>
-                                        <span ng-show="formHotel.state.$invalid && !formHotel.state.$pristine" class="help-block">
-                                            El Estado es Requerido
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" ng-class="{ 'has-error' : formHotel.city.$invalid && !formHotel.city.$pristine }">
-                                    <label class="col-sm-4 control-label text-bold text-uppercase">
-                                        Ciudad <span class="required">*</span>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <select name="city" class="form-control" ng-model="ctrlHotel.hotelTO.city" required>
-                                            <option value="">SELECCIONA</option>
-                                            <option value="[[ city.id ]]" ng-repeat="city in ctrlHotel.listCities.data">[[ city.nombre | uppercase ]]</option>
-                                        </select>
-
-                                        <span ng-show="formHotel.city.$invalid && !formHotel.city.$pristine" class="help-block">
-                                            La Ciudad es Requerido
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label text-bold text-uppercase">
-                                        Mapa
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="ctrlHotel.hotelTO.mapa"/>
-                                    </div>
-                                </div>
-
+                                <div class="col-sm-4">Fecha</div>
+                                <div class="col-sm-8">[[ ctrl.VentaCompletaTO.data.fechaventa]]</div>
                             </div>
-
                         </div>
                     </div>
 

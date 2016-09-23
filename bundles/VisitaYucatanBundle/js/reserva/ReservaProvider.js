@@ -12,10 +12,10 @@
         };
         service.contextPath = '';
 
-        service.findVentaById= function(idVenta){
-            return $http.get(service.contextPath+'/venta/findVentaById', $.param({idVenta: JSON.stringify(idVenta)})).then(function(data){
-                console.info("data = ", data.data);
+        service.findVentaById= function(idVenta, tipoProducto){
+            return $http.get(service.contextPath+'/venta/findVentaById/'+idVenta).then(function(data){
                 service.VentaCompletaTO.data = data.data;
+                service.VentaCompletaTO.data.tipoProducto = tipoProducto;
             });
         };
 

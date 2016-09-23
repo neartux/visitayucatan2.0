@@ -19,8 +19,10 @@
                     <th>T. Reserva</th>
                     <th>Descripcion</th>
                     <th>Nombre</th>
+                    <th>Fecha</th>
                     <th>Telefono</th>
                     <th>Correo</th>
+                    <th>Hotel</th>
                     <th>Adultos</th>
                     <th>Menores</th>
                     <th>Importe</th>
@@ -29,27 +31,36 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% set TPT = constant('VisitaYucatanBundle\\utils\\GeneralKeys::TIPO_PRODUCTO_TOUR') %}
+                {% set TPH = constant('VisitaYucatanBundle\\utils\\GeneralKeys::TIPO_PRODUCTO_HOTEL') %}
+                {% set TPP = constant('VisitaYucatanBundle\\utils\\GeneralKeys::TIPO_PRODUCTO_PAQUETE') %}
+                {% set tipoProducto = 0 %}
                 {% for venta in ventas %}
                     <tr>
                         <td>{{ venta.idVenta }}</td>
                         <td>
-                            {% if(venta.tipoReserva == constant('VisitaYucatanBundle\\utils\\GeneralKeys::TIPO_PRODUCTO_TOUR')) %}
+                            {% if(venta.tipoReserva == TPT) %}
+                                {% set tipoProducto = 'Tour' %}
                                 {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_TOURS') %}
                                 Tour
                             {% endif %}
-                            {% if(venta.tipoReserva == constant('VisitaYucatanBundle\\utils\\GeneralKeys::TIPO_PRODUCTO_HOTEL')) %}
+                            {% if(venta.tipoReserva == TPH) %}
+                                {% set tipoProducto = 'Hotel' %}
                                 {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_HOTELES') %}
                                 Hotel
                             {% endif %}
-                            {% if(venta.tipoReserva == constant('VisitaYucatanBundle\\utils\\GeneralKeys::TIPO_PRODUCTO_PAQUETE')) %}
+                            {% if(venta.tipoReserva == TPP) %}
+                                {% set tipoProducto = 'Paquete' %}
                                 {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_PAQUETES') %}
                                 Paquete
                             {% endif %}
                         </td>
                         <td> {{ venta.nombreProducto }}</td>
                         <td>{{ venta.nombres }}&nbsp;{{ venta.apellidos }}</td>
+                        <td> {{ venta.fechaReserva | date('Y-M-d') }}</td>
                         <td>{{ venta.telefono }}</td>
                         <td>{{ venta.email }}</td>
+                        <td>{{ venta.hotelPickup }}</td>
                         <td>{{ venta.numeroAdultos }}</td>
                         <td>{{ venta.numeroMenores }}</td>
                         <td>${{ venta.costoTotal | number_format(2) }} MXP</td>
@@ -61,9 +72,9 @@
                             {% endif %}
                         </td>
                         <td>
-                            {#<a class="btn btn-success-alt" href="javascript:;" data-ng-click="ctrl.findDetalleReserva({{ venta.idVenta }})">
+                            <a class="btn btn-success-alt" href="javascript:;" data-ng-click="ctrl.findDetalleReserva({{ venta.idVenta }}, '{{ tipoProducto }}')">
                                 <i class="fa fa-search"></i>
-                            </a>#}
+                            </a>
                             <a class="btn btn-success-alt" href="javascript:;" data-ng-click="ctrl.displayReservaPDF({{ venta.idVenta }}, '{{ path }}')">
                                 <i class="fa  fa-gears"></i>
                             </a>

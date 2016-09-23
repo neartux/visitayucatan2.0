@@ -98,8 +98,8 @@ final class VentaUtils {
                 $ventaTO->setCostoTotal($venta->getTotal());
                 $ventaTO->setPagado($venta->getDatosPago()->getPagado());
                 $ventaTO->setNombreProducto(self::getDescripcionProducto($ventaDetalle));
-
-
+                $ventaTO->setFechaReserva(get_object_vars($venta->getDatosReserva()->getCheckIn())['date']);
+                $ventaTO->setHotelPickup($venta->getDatosReserva()->getHotelPickup());
                 $ventasTO->add($ventaTO);
             }
         }
