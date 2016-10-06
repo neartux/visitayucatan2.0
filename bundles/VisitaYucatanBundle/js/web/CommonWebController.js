@@ -30,9 +30,11 @@
 
 
         ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate, idTour) {
+            console.info("init");
             ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate);
             ctrlWeb.idTour = idTour;
             ctrlWeb.findItemsSimilar();
+            WebService.getSession();
         };
 
         ctrlWeb.findItemsSimilar = function () {

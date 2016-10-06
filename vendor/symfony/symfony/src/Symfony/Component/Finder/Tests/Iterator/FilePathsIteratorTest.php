@@ -45,7 +45,7 @@ class FilePathsIteratorTest extends RealIteratorTestCase
                     $tmpDir.DIRECTORY_SEPARATOR.'test.py' => $tmpDir.DIRECTORY_SEPARATOR.'test.py',
                     $tmpDir.DIRECTORY_SEPARATOR.'foo' => $tmpDir.DIRECTORY_SEPARATOR.'foo',
                     $tmpDir.DIRECTORY_SEPARATOR.'foo'.DIRECTORY_SEPARATOR.'bar.tmp' => $tmpDir.DIRECTORY_SEPARATOR.'foo'.DIRECTORY_SEPARATOR.'bar.tmp',
-                    $tmpDir.DIRECTORY_SEPARATOR.'test.php' => $tmpDir.DIRECTORY_SEPARATOR.'test.php',
+                    $tmpDir.DIRECTORY_SEPARATOR.'test.html.twig' => $tmpDir.DIRECTORY_SEPARATOR.'test.html.twig',
                     $tmpDir.DIRECTORY_SEPARATOR.'toto' => $tmpDir.DIRECTORY_SEPARATOR.'toto',
                 ),
                 array(
@@ -54,7 +54,7 @@ class FilePathsIteratorTest extends RealIteratorTestCase
                     $tmpDir.DIRECTORY_SEPARATOR.'test.py' => '',
                     $tmpDir.DIRECTORY_SEPARATOR.'foo' => '',
                     $tmpDir.DIRECTORY_SEPARATOR.'foo'.DIRECTORY_SEPARATOR.'bar.tmp' => 'foo',
-                    $tmpDir.DIRECTORY_SEPARATOR.'test.php' => '',
+                    $tmpDir.DIRECTORY_SEPARATOR.'test.html.twig' => '',
                     $tmpDir.DIRECTORY_SEPARATOR.'toto' => '',
                 ),
                 array(
@@ -63,7 +63,7 @@ class FilePathsIteratorTest extends RealIteratorTestCase
                     $tmpDir.DIRECTORY_SEPARATOR.'test.py' => 'test.py',
                     $tmpDir.DIRECTORY_SEPARATOR.'foo' => 'foo',
                     $tmpDir.DIRECTORY_SEPARATOR.'foo'.DIRECTORY_SEPARATOR.'bar.tmp' => 'foo'.DIRECTORY_SEPARATOR.'bar.tmp',
-                    $tmpDir.DIRECTORY_SEPARATOR.'test.php' => 'test.php',
+                    $tmpDir.DIRECTORY_SEPARATOR.'test.html.twig' => 'test.html.twig',
                     $tmpDir.DIRECTORY_SEPARATOR.'toto' => 'toto',
                 ),
             ),

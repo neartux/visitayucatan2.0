@@ -34,6 +34,23 @@
             });
         };
 
+        service.getSession = function(){
+            return $http.post('https://banamex.dialectpayments.com/api/rest/version/38/merchant/TEST1032478HPP/session',
+                {
+                    apiOperation: 'CREATE_CHECKOUT_SESSION',
+                    apiUsername: 'merchant.TEST1032478HPP',
+                    apiPassword: '04b872592f8f93bb5448f048fc82e4f9',
+                    merchant: 'TEST1032478HPP',
+                    order: {
+                        id: 'viyuc-1109',
+                        amount: 25.00,
+                        currency: 'MXN'
+                    }
+                }).then(function(data){
+                console.info("DATA = ", data);
+            });
+        };
+
         service.findItemsSimilar = function(path, id){
             return $http.post(path, $.param({id : id}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

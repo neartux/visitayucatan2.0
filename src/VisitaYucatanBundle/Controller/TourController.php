@@ -142,4 +142,46 @@ class TourController extends Controller {
         $tours = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getToursSimilares($datos[0], $datos[1], $request->get('id'), 3);
         return new Response($this->get('serializer')->serialize($tours, Generalkeys::JSON_STRING));
     }
+    /**
+     * @Route("/test", name="test")
+     * @Method("GET")
+     */
+    public function test(Request $request) {
+        return $this->render('@VisitaYucatan/web/pages/test.html.twig');
+    }
+
+    /**
+     * @Route("/testsuccess", name="testsuccess")
+     * @Method("GET")
+     */
+    public function testsuccess(Request $request) {
+        return $this->render('@VisitaYucatan/web/pages/test.html.twig');
+    }
+
+    /**
+     * @Route("/testcurl", name="testcurl")
+     * @Method("GET")
+     */
+    public function testcurl() {
+        $url = 'https://banamex.dialectpayments.com/api/nvp/version/33';
+
+        $command = 'curl https://banamex.dialectpayments.com/api/nvp/version/33 \ -d "apiOperation=CREATE_CHECKOUT_SESSION" \ -d "apiPassword=6bfc0712d6d575a154f883e10362ca10" \ -d "apiUsername=merchant.TEST1032478HPP" \ -d "merchant=TEST1032478HPP" \ -d "order.id=viyuc-25" \ -d "order.amount=100.00" \ -d "order.currency=MXN" ';
+
+
+        $postData = ["apiOperation" => "CREATE_CHECKOUT_SESSION", "apiPassword" => "04b872592f8f93bb5448f048fc82e4f9",
+        "apiUsername" => "merchant.TEST1032478HPP", "merchant" => "TEST1032478HPP", "order.id" => "viyuc-2011q", "order.amount" => "100.00",
+        "order.currency" => "MXN"];
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo "<br>";
+        print_r($response);
+
+        //echo "Resultado = ".print_r($result)." como valor unidco = ".$result;
+        return new Response($response);
+    }
+    
 }
