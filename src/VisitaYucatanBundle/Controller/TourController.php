@@ -146,7 +146,8 @@ class TourController extends Controller {
      * @Route("/test", name="test")
      * @Method("GET")
      */
-    public function test(Request $request) {
+    public function test() {
+        header('Access-Control-Allow-Origin: *');
         return $this->render('@VisitaYucatan/web/pages/test.html.twig');
     }
 
@@ -154,7 +155,8 @@ class TourController extends Controller {
      * @Route("/testsuccess", name="testsuccess")
      * @Method("GET")
      */
-    public function testsuccess(Request $request) {
+    public function testsuccess() {
+        echo "ENTRO AL WEBHOOK *************************************************************************************************************************";
         return $this->render('@VisitaYucatan/web/pages/test.html.twig');
     }
 
@@ -163,13 +165,13 @@ class TourController extends Controller {
      * @Method("GET")
      */
     public function testcurl() {
-        $url = 'https://banamex.dialectpayments.com/api/nvp/version/33';
+        $url = 'https://secure.na.tnspayments.com/api/page/version/27/pay';
 
         $command = 'curl https://banamex.dialectpayments.com/api/nvp/version/33 \ -d "apiOperation=CREATE_CHECKOUT_SESSION" \ -d "apiPassword=6bfc0712d6d575a154f883e10362ca10" \ -d "apiUsername=merchant.TEST1032478HPP" \ -d "merchant=TEST1032478HPP" \ -d "order.id=viyuc-25" \ -d "order.amount=100.00" \ -d "order.currency=MXN" ';
 
 
-        $postData = ["apiOperation" => "CREATE_CHECKOUT_SESSION", "apiPassword" => "04b872592f8f93bb5448f048fc82e4f9",
-        "apiUsername" => "merchant.TEST1032478HPP", "merchant" => "TEST1032478HPP", "order.id" => "viyuc-2011q", "order.amount" => "100.00",
+        $postData = ["apiOperation" => "CREATE_CHECKOUT_SESSION", "apiPassword" => "acf4097b7dcc175966aa9f279448d93e",
+        "apiUsername" => "merchant.TEST1032478HPP", "merchant" => "1032478HPP", "order.id" => "viyuc-0001", "order.amount" => "100.00",
         "order.currency" => "MXN"];
 
         $ch = curl_init($url);
@@ -181,7 +183,7 @@ class TourController extends Controller {
         print_r($response);
 
         //echo "Resultado = ".print_r($result)." como valor unidco = ".$result;
-        return new Response($response);
+        return new Response("*****************************************************************");
     }
     
 }
