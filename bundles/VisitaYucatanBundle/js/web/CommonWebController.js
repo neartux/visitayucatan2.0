@@ -43,7 +43,7 @@
         };
 
         ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson, contextPath,
-                                            idIdioma, idMoneda, idTour, soloadultos, idMonedaMexico, tipoCambioMexico){
+                                            idIdioma, idMoneda, idTour, soloadultos, idMonedaMexico, tipoCambioMexico, nombreTour){
             ctrlWeb.soloAdultos = soloadultos;
             ctrlWeb.totalPersons = {
                 numeroMenores : totalMenores,
@@ -70,6 +70,8 @@
                 id: idMonedaMexico,
                 tipoCambio: tipoCambioMexico
             };
+
+            ctrlWeb.nombreTour = nombreTour;
             
         };
 
@@ -127,6 +129,8 @@
                 ctrlWeb.ventaCompletaTO.numeroAdultos = ctrlWeb.totalPersons.numeroAdultos;
                 HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
                 WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {
+                    var folioVenta = 'VIYUC'+response.data.id;
+                    getIdSessionCheckout(ctrlWeb.ventaCompletaTO.costoTotal, ctrlWeb.nombreTour, folioVenta, idSessionCheckout);
                     setTimeout(function () {
                         WebService.redirectToSuccessSale();
                         HoldOn.close();

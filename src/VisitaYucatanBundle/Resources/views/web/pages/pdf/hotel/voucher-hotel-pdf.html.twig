@@ -7,7 +7,11 @@
             <th>92823894778</th>
         </tr>
         <tr>
-            <th class="labe-bold label-aprovado">APROBADA</th>
+            <th class="labe-bold label-aprovado">
+                {% if ventaCompleta.pagado %}
+                    APROBADA
+                {% endif %}
+            </th>
             <th>&nbsp;</th>
         </tr>
         <tr>

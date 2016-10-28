@@ -5,7 +5,7 @@
 
     {% block content %}
         <div class="container-fluid" data-ng-controller="WebTourController as ctrlWeb" ng-init="ctrlWeb.initReservaTour('{{ tour.fechaReserva }}', '{{ tour.totalAdultos }}', '{{ tour.totalMenores }}', {{ tour.tarifamenor }}, {{ tour.tarifaadulto }}, {{ tour.tipoCambio }},
-        {{ tour.minimopersonas }}, '{{ app.request.getBaseURL() }}', {{ tour.idIdioma }}, {{ tour.idMoneda }}, {{ tour.id }}, {{ tour.soloAdultos }}, {{ tipoCambioMexico.id }}, {{ tipoCambioMexico.tipoCambio }});">
+        {{ tour.minimopersonas }}, '{{ app.request.getBaseURL() }}', {{ tour.idIdioma }}, {{ tour.idMoneda }}, {{ tour.id }}, {{ tour.soloAdultos }}, {{ tipoCambioMexico.id }}, {{ tipoCambioMexico.tipoCambio }}, '{{ tour.nombreTour }}');">
             <input type="hidden" value="{{ tour.simboloMoneda }}" id="symbolCurrencyHidden"/>
 
             <div class="row background-gray-light">

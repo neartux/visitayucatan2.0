@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use VisitaYucatanBundle\Resources\payment\Merchant;
+use VisitaYucatanBundle\Resources\payment\Parser;
 use VisitaYucatanBundle\utils\DateUtil;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\StringUtils;
@@ -142,48 +144,131 @@ class TourController extends Controller {
         $tours = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tour')->getToursSimilares($datos[0], $datos[1], $request->get('id'), 3);
         return new Response($this->get('serializer')->serialize($tours, Generalkeys::JSON_STRING));
     }
+
     /**
-     * @Route("/test", name="test")
+     * @Route("/tour/test", name="test")
      * @Method("GET")
      */
     public function test() {
-        header('Access-Control-Allow-Origin: *');
-        return $this->render('@VisitaYucatan/web/pages/test.html.twig');
+        return $this->render('@VisitaYucatan/web/pages/pay.html.twig');
     }
 
     /**
-     * @Route("/testsuccess", name="testsuccess")
-     * @Method("GET")
+     * @Route("/tour/process", name="web_tour_process")
+     * @Method("POST")
      */
-    public function testsuccess() {
-        echo "ENTRO AL WEBHOOK *************************************************************************************************************************";
-        return $this->render('@VisitaYucatan/web/pages/test.html.twig');
-    }
-
-    /**
-     * @Route("/testcurl", name="testcurl")
-     * @Method("GET")
-     */
-    public function testcurl() {
-        $url = 'https://secure.na.tnspayments.com/api/page/version/27/pay';
-
-        $command = 'curl https://banamex.dialectpayments.com/api/nvp/version/33 \ -d "apiOperation=CREATE_CHECKOUT_SESSION" \ -d "apiPassword=6bfc0712d6d575a154f883e10362ca10" \ -d "apiUsername=merchant.TEST1032478HPP" \ -d "merchant=TEST1032478HPP" \ -d "order.id=viyuc-25" \ -d "order.amount=100.00" \ -d "order.currency=MXN" ';
+    public function process(Request $request) {
+        echo "INICIANDO ***************************************** <br>";
+        $configArray = array();
+        $configArray["certificateVerifyPeer"] = TRUE;
+        $configArray["certificateVerifyHost"] = 2;
+        $configArray["gatewayUrl"] = "https://banamex.dialectpayments.com/api/nvp";
+        $configArray["merchantId"] = "TEST1032478HPP";
+        $configArray["apiUsername"] = "merchant.TEST1032478HPP";
+        $configArray["password"] = "acf4097b7dcc175966aa9f279448d93e";
+        $configArray["debug"] = FALSE;
+        $configArray["version"] = "13";
 
 
-        $postData = ["apiOperation" => "CREATE_CHECKOUT_SESSION", "apiPassword" => "acf4097b7dcc175966aa9f279448d93e",
-        "apiUsername" => "merchant.TEST1032478HPP", "merchant" => "1032478HPP", "order.id" => "viyuc-0001", "order.amount" => "100.00",
-        "order.currency" => "MXN"];
+        if (array_key_exists("submit", $_POST))
+            unset($_POST["submit"]);
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        echo "<br>";
-        print_r($response);
+        $merchantObj = new Merchant($configArray);
+        $parserObj = new Parser($merchantObj);
 
-        //echo "Resultado = ".print_r($result)." como valor unidco = ".$result;
-        return new Response("*****************************************************************");
+        if (array_key_exists("version", $_POST)) {
+            $merchantObj->SetVersion($_POST["version"]);
+            unset($_POST["version"]);
+        }
+
+        $request = $parserObj->ParseRequest($merchantObj, $_POST);
+
+        if ($request == "")
+            //echo "die <br>";
+            die();
+        echo "Llego aqui <br>";
+        if ($merchantObj->GetDebug())
+            echo $request . "<br/><br/>";
+
+        $requestUrl = $parserObj->FormRequestUrl($merchantObj);
+
+        if ($merchantObj->GetDebug())
+            echo $requestUrl . "<br/><br/>";
+
+        $response = $parserObj->SendTransaction($merchantObj, $request);
+
+        if ($merchantObj->GetDebug()) {
+            // replace the newline chars with html newlines
+            $response = str_replace("\n", "<br/>", $response);
+            echo $response . "<br/><br/>";
+            die();
+        }
+
+        //TODO receipt.php
+        $errorMessage = "";
+        $errorCode = "";
+        $gatewayCode = "";
+        $result = "";
+
+        $responseArray = array();
+
+        if (strstr($response, "cURL Error") != FALSE) {
+            print("Communication failed. Please review payment server return response (put code into debug mode).");
+            die();
+        }
+
+        if (strlen($response) != 0) {
+            $pairArray = explode("&", $response);
+            foreach ($pairArray as $pair) {
+                $param = explode("=", $pair);
+                $responseArray[urldecode($param[0])] = urldecode($param[1]);
+            }
+        }
+
+        if (array_key_exists("result", $responseArray))
+            $result = $responseArray["result"];
+
+        if ($result == "FAIL") {
+            if (array_key_exists("failureExplanation", $responseArray)) {
+                $errorMessage = rawurldecode($responseArray["failureExplanation"]);
+            }
+            else if (array_key_exists("supportCode", $responseArray)) {
+                $errorMessage = rawurldecode($responseArray["supportCode"]);
+            }
+            else {
+                $errorMessage = "Reason unspecified.";
+            }
+
+            if (array_key_exists("failureCode", $responseArray)) {
+                $errorCode = "Error (" . $responseArray["failureCode"] . ")";
+            }
+            else {
+                $errorCode = "Error (UNSPECIFIED)";
+            }
+        }
+
+        else {
+            if (array_key_exists("response.gatewayCode", $responseArray))
+                $gatewayCode = rawurldecode($responseArray["response.gatewayCode"]);
+            else
+                $gatewayCode = "Response not received.";
+        }
+
+        if ($errorCode != "" || $errorMessage != "") {
+            echo $errorCode." = = = ".$errorMessage;
+        }else {
+            echo $gatewayCode." = =  = ".$result."<br>";
+        }
+
+        foreach ($responseArray as $field => $value) {
+            echo $field." **** ".$value."<br>";
+        }
+
+
+
+
+
+        return new Response("FINALIZANDO **************************************");
     }
     
 }
