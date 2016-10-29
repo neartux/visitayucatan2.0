@@ -105,4 +105,18 @@ class Generalkeys{
     public static function getMailsCcSale(){
         return Array(self::director_viyuc_email, self::gabino_martinez_email, self::faustino_pech_email);
     }
+    
+    public static function getConfigurationPayment(){
+        $configArray = array();
+        $configArray["certificateVerifyPeer"] = TRUE;
+        $configArray["certificateVerifyHost"] = 2;
+        $configArray["gatewayUrl"] = "https://banamex.dialectpayments.com/api/nvp";
+        $configArray["merchantId"] = "TEST1032478HPP";
+        $configArray["apiUsername"] = "merchant.TEST1032478HPP";
+        $configArray["password"] = "acf4097b7dcc175966aa9f279448d93e";
+        $configArray["debug"] = FALSE;
+        $configArray["version"] = "13";
+        
+        return $configArray;
+    }
 }

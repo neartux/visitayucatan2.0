@@ -31,3 +31,18 @@ $(function () {
         $(".name-hotel-"+event.target.id).removeClass("crece-titulo");
     });
 });
+
+function payTour(data) {
+    console.info("DATA ** = ", data);
+    $.ajax({
+        type: 'POST',
+        url: $("payTour").val(),
+        data: data,   // I WANT TO ADD EXTRA DATA + SERIALIZE DATA
+        success: function(data){
+            console.info("DATA = ", data);
+        },
+        error: function (error) {
+            console.info("ERROR = ", error);
+        }
+    });
+}

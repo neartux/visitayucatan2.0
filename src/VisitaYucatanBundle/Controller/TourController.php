@@ -157,17 +157,8 @@ class TourController extends Controller {
      * @Route("/tour/process", name="web_tour_process")
      * @Method("POST")
      */
-    public function process(Request $request) {
-        echo "INICIANDO ***************************************** <br>";
-        $configArray = array();
-        $configArray["certificateVerifyPeer"] = TRUE;
-        $configArray["certificateVerifyHost"] = 2;
-        $configArray["gatewayUrl"] = "https://banamex.dialectpayments.com/api/nvp";
-        $configArray["merchantId"] = "TEST1032478HPP";
-        $configArray["apiUsername"] = "merchant.TEST1032478HPP";
-        $configArray["password"] = "acf4097b7dcc175966aa9f279448d93e";
-        $configArray["debug"] = FALSE;
-        $configArray["version"] = "13";
+    public function process() {
+        $configArray = Generalkeys::getConfigurationPayment();
 
 
         if (array_key_exists("submit", $_POST))
@@ -184,9 +175,8 @@ class TourController extends Controller {
         $request = $parserObj->ParseRequest($merchantObj, $_POST);
 
         if ($request == "")
-            //echo "die <br>";
             die();
-        echo "Llego aqui <br>";
+
         if ($merchantObj->GetDebug())
             echo $request . "<br/><br/>";
 
@@ -253,8 +243,12 @@ class TourController extends Controller {
             else
                 $gatewayCode = "Response not received.";
         }
+        
+        $responseArray["errorMessage"] = $errorMessage;
+        $responseArray["errorCode"] = $errorCode;
+        $responseArray["gatewayCode"] = $gatewayCode;
 
-        if ($errorCode != "" || $errorMessage != "") {
+        /*if ($errorCode != "" || $errorMessage != "") {
             echo $errorCode." = = = ".$errorMessage;
         }else {
             echo $gatewayCode." = =  = ".$result."<br>";
@@ -262,13 +256,9 @@ class TourController extends Controller {
 
         foreach ($responseArray as $field => $value) {
             echo $field." **** ".$value."<br>";
-        }
+        }*/
 
-
-
-
-
-        return new Response("FINALIZANDO **************************************");
+        return new Response($this->get('serializer')->serialize($responseArray, Generalkeys::JSON_STRING));
     }
     
 }

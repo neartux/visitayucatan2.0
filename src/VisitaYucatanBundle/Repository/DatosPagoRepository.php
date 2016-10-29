@@ -17,4 +17,17 @@ class DatosPagoRepository extends \Doctrine\ORM\EntityRepository {
         $datosPago->setPagado(Generalkeys::BOOLEAN_FALSE);
         return $datosPago;
     }
+    
+    public function updateDatosPagoVenta($idDatoPago, $pagado, $numeroOperacion, $numeroAutorizacion, $tipoTarjeta){
+        $em = $this->getEntityManager();
+        
+        $datosPago = parent::find($idDatoPago);
+        $datosPago->setPagado($pagado);
+        $datosPago->setNumeroOperacion($numeroOperacion);
+        $datosPago->setNumeroAutorizacion($numeroAutorizacion);
+        $datosPago->setTipoTarjeta($tipoTarjeta);
+        
+        $em->persist($datosPago);
+        $em->flush();
+    }
 }

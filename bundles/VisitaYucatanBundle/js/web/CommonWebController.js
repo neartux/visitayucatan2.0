@@ -127,14 +127,39 @@
                 }
                 ctrlWeb.ventaCompletaTO.numeroMenores = ctrlWeb.totalPersons.numeroMenores;
                 ctrlWeb.ventaCompletaTO.numeroAdultos = ctrlWeb.totalPersons.numeroAdultos;
-                HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
-                WebService.createReservationTour(ctrlWeb.ventaCompletaTO).then(function (response) {
-                    var folioVenta = 'VIYUC'+response.data.id;
-                    getIdSessionCheckout(ctrlWeb.ventaCompletaTO.costoTotal, ctrlWeb.nombreTour, folioVenta, idSessionCheckout);
-                    setTimeout(function () {
-                        WebService.redirectToSuccessSale();
-                        HoldOn.close();
-                    }, 5000);
+                //HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
+                WebService.createReservationTour(ctrlWeb.ventaCompletaTO).success(function (response) {
+                    console.info("id = ", response);
+                    $scope.formPay.$setPristine();
+                    if(response.status){
+                        ctrlWeb.card = {
+                            number: '',
+                            month: '01',
+                            year: '16',
+                            code: ''
+                        };
+                        ctrlWeb.ventaCompletaTO.id = response.id;
+                        $("#modalPago").modal();   
+                    } else {
+                        alert("Ocurrio algun error, intente de nuevo");
+                        document.location.reload (true);
+                    }
+                });
+                //HoldOn.close();
+            }
+        };
+
+        ctrlWeb.payProduct = function(isFormValid){
+            console.info("is valid = ", isFormValid);
+            console.info("CARD = ", ctrlWeb.card);
+            if(isFormValid){
+                WebService.payProduct(ctrlWeb.ventaCompletaTO.id, ctrlWeb.card.number, ctrlWeb.card.month, ctrlWeb.card.year, ctrlWeb.card.code, ctrlWeb.ventaCompletaTO.costoTotal).success(function (data) {
+                    console.info("RESTULTADO TRANSACCION = "+ data);
+                    if(data.errorMessage.length || data.errorCode.length || data.result == "ERROR"){
+                        alert("Lo sentimos su tarjeta fue declinada: "+data.errorMensage);
+                    } else {
+                        WebService.updateDatosPago(ctrlWeb.ventaCompletaTO.id);
+                    }
                 });
             }
         };

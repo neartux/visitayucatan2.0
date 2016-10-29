@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="datos_pago")
  * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\DatosPagoRepository")
  */
-class DatosPago
-{
+class DatosPago {
     /**
      * @var int
      *
@@ -28,6 +27,13 @@ class DatosPago
      */
     private $pagado;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipotarjeta", type="string", length=255, nullable=true)
+     */
+    private $tipoTarjeta;
+    
     /**
      * @var string
      *
@@ -123,5 +129,29 @@ class DatosPago
     public function getNumeroOperacion()
     {
         return $this->numeroOperacion;
+    }
+
+    /**
+     * Set tipoTarjeta
+     *
+     * @param string $tipoTarjeta
+     *
+     * @return DatosPago
+     */
+    public function setTipoTarjeta($tipoTarjeta)
+    {
+        $this->tipoTarjeta = $tipoTarjeta;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoTarjeta
+     *
+     * @return string
+     */
+    public function getTipoTarjeta()
+    {
+        return $this->tipoTarjeta;
     }
 }

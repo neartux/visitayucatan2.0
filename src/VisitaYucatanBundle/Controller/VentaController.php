@@ -5,8 +5,11 @@ namespace VisitaYucatanBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use VisitaYucatanBundle\Resources\payment\Merchant;
+use VisitaYucatanBundle\Resources\payment\Parser;
 use VisitaYucatanBundle\utils\DateUtil;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\to\ResponseTO;
@@ -179,5 +182,135 @@ class VentaController extends Controller {
     public function findVentaById(Request $request, $idVenta) {
         $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->findVentaById($idVenta);
         return new Response($this->get('serializer')->serialize($venta, Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/venta/process", name="procesa_pago")
+     * @Method("POST")
+     */
+    public function process() {
+        $configArray = Generalkeys::getConfigurationPayment();
+
+
+        if (array_key_exists("submit", $_POST))
+            unset($_POST["submit"]);
+
+        $merchantObj = new Merchant($configArray);
+        $parserObj = new Parser($merchantObj);
+
+        if (array_key_exists("version", $_POST)) {
+            $merchantObj->SetVersion($_POST["version"]);
+            unset($_POST["version"]);
+        }
+
+        $request = $parserObj->ParseRequest($merchantObj, $_POST);
+
+        if ($request == "")
+            die();
+
+        if ($merchantObj->GetDebug())
+            echo $request . "<br/><br/>";
+
+        $requestUrl = $parserObj->FormRequestUrl($merchantObj);
+
+        if ($merchantObj->GetDebug())
+            echo $requestUrl . "<br/><br/>";
+
+        $response = $parserObj->SendTransaction($merchantObj, $request);
+
+        if ($merchantObj->GetDebug()) {
+            // replace the newline chars with html newlines
+            $response = str_replace("\n", "<br/>", $response);
+            echo $response . "<br/><br/>";
+            die();
+        }
+
+        //TODO receipt.php
+        $errorMessage = "";
+        $errorCode = "";
+        $gatewayCode = "";
+        $result = "";
+
+        $responseArray = array();
+
+        if (strstr($response, "cURL Error") != FALSE) {
+            print("Communication failed. Please review payment server return response (put code into debug mode).");
+            die();
+        }
+
+        if (strlen($response) != 0) {
+            $pairArray = explode("&", $response);
+            foreach ($pairArray as $pair) {
+                $param = explode("=", $pair);
+                $responseArray[urldecode($param[0])] = urldecode($param[1]);
+            }
+        }
+
+        if (array_key_exists("result", $responseArray))
+            $result = $responseArray["result"];
+
+        if ($result == "FAIL") {
+            if (array_key_exists("failureExplanation", $responseArray)) {
+                $errorMessage = rawurldecode($responseArray["failureExplanation"]);
+            }
+            else if (array_key_exists("supportCode", $responseArray)) {
+                $errorMessage = rawurldecode($responseArray["supportCode"]);
+            }
+            else {
+                $errorMessage = "Reason unspecified.";
+            }
+
+            if (array_key_exists("failureCode", $responseArray)) {
+                $errorCode = "Error (" . $responseArray["failureCode"] . ")";
+            }
+            else {
+                $errorCode = "Error (UNSPECIFIED)";
+            }
+        }
+
+        else {
+            if (array_key_exists("response.gatewayCode", $responseArray))
+                $gatewayCode = rawurldecode($responseArray["response.gatewayCode"]);
+            else
+                $gatewayCode = "Response not received.";
+        }
+
+        $responseArray["errorMessage"] = $errorMessage;
+        $responseArray["errorCode"] = $errorCode;
+        $responseArray["gatewayCode"] = $gatewayCode;
+
+        /*if ($errorCode != "" || $errorMessage != "") {
+            echo $errorCode." = = = ".$errorMessage;
+        }else {
+            echo $gatewayCode." = =  = ".$result."<br>";
+        }
+
+        foreach ($responseArray as $field => $value) {
+            echo $field." **** ".$value."<br>";
+        }*/
+
+        return new Response($this->get('serializer')->serialize($responseArray, Generalkeys::JSON_STRING));
+    }
+
+
+    /**
+     * @Route("/venta/upadteDatosPago", name="venta_updatedatospago")
+     * @Method("POST")
+     */
+    public function updateDatosPago(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->getConnection()->beginTransaction();
+        try {
+
+            $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find($request->get('idVenta'));
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:DatosPago')->updateDatosPagoVenta($venta->getDatosPago()->getId(), $request->get('pagado'), $request->get('numeroOperacion'), $request->get('numeroAutorizacion'), $request->get('tipoTarjeta'));
+            return new JsonResponse(array("message" => "success"));
+
+        } catch (\Exception $e) {
+            $em->getConnection()->rollback();
+            return new JsonResponse(array("message" => "error"));
+        }
     }
 }
