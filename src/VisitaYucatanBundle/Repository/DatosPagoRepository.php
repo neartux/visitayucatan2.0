@@ -19,6 +19,7 @@ class DatosPagoRepository extends \Doctrine\ORM\EntityRepository {
     }
     
     public function updateDatosPagoVenta($idDatoPago, $pagado, $numeroOperacion, $numeroAutorizacion, $tipoTarjeta){
+        echo "** = ".$pagado." ".$numeroOperacion." ".$tipoTarjeta." ".$numeroAutorizacion." ".$idDatoPago." **:)";
         $em = $this->getEntityManager();
         
         $datosPago = parent::find($idDatoPago);

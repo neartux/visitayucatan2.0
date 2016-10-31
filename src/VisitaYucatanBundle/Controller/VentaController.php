@@ -188,7 +188,7 @@ class VentaController extends Controller {
      * @Route("/venta/process", name="procesa_pago")
      * @Method("POST")
      */
-    public function process() {
+    public function process(Request $requestG) {
         $configArray = Generalkeys::getConfigurationPayment();
 
 
@@ -249,7 +249,10 @@ class VentaController extends Controller {
         if (array_key_exists("result", $responseArray))
             $result = $responseArray["result"];
 
-        if ($result == "FAIL") {
+        $pagado = FALSE;
+
+        if ($result == "FAILURE") {
+            $pagado = FALSE;
             if (array_key_exists("failureExplanation", $responseArray)) {
                 $errorMessage = rawurldecode($responseArray["failureExplanation"]);
             }
@@ -266,14 +269,22 @@ class VentaController extends Controller {
             else {
                 $errorCode = "Error (UNSPECIFIED)";
             }
-        }
-
-        else {
+        } else {
+            $pagado = TRUE;
             if (array_key_exists("response.gatewayCode", $responseArray))
                 $gatewayCode = rawurldecode($responseArray["response.gatewayCode"]);
             else
                 $gatewayCode = "Response not received.";
         }
+
+        $receipt = $responseArray["transaction.receipt"];
+        $tarjeta = $responseArray["sourceOfFunds.provided.card.brand"];
+        $numAutorizacion = array_key_exists("transaction.authorizationCode", $responseArray) ? $responseArray["transaction.authorizationCode"] : Generalkeys::NUMBER_ZERO;
+        echo "antes de obtener id de venta";
+        $idVenta = $requestG->getSession()->get("idVentaGenerada");
+        echo "antes";
+        $this->updateDatosPago($pagado, $receipt, $tarjeta, $numAutorizacion, $idVenta);
+        echo "despues";
 
         $responseArray["errorMessage"] = $errorMessage;
         $responseArray["errorCode"] = $errorCode;
@@ -293,24 +304,21 @@ class VentaController extends Controller {
     }
 
 
-    /**
-     * @Route("/venta/upadteDatosPago", name="venta_updatedatospago")
-     * @Method("POST")
-     */
-    public function updateDatosPago(Request $request) {
+
+    private function updateDatosPago($pagado, $receipt, $tarjeta, $numeroAutorizacion, $idVenta) {
 
         $em = $this->getDoctrine()->getManager();
 
         $em->getConnection()->beginTransaction();
         try {
 
-            $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find($request->get('idVenta'));
-            $this->getDoctrine()->getRepository('VisitaYucatanBundle:DatosPago')->updateDatosPagoVenta($venta->getDatosPago()->getId(), $request->get('pagado'), $request->get('numeroOperacion'), $request->get('numeroAutorizacion'), $request->get('tipoTarjeta'));
-            return new JsonResponse(array("message" => "success"));
+            $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find($idVenta);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:DatosPago')->updateDatosPagoVenta($venta->getDatosPago()->getId(), $pagado, $receipt, $numeroAutorizacion, $tarjeta);
+            //return new JsonResponse(array("message" => "success"));
 
         } catch (\Exception $e) {
             $em->getConnection()->rollback();
-            return new JsonResponse(array("message" => "error"));
+            //return new JsonResponse(array("message" => "error"));
         }
     }
 }

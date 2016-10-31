@@ -248,7 +248,7 @@ class TourController extends Controller {
         $responseArray["errorCode"] = $errorCode;
         $responseArray["gatewayCode"] = $gatewayCode;
 
-        /*if ($errorCode != "" || $errorMessage != "") {
+        if ($errorCode != "" || $errorMessage != "") {
             echo $errorCode." = = = ".$errorMessage;
         }else {
             echo $gatewayCode." = =  = ".$result."<br>";
@@ -256,7 +256,7 @@ class TourController extends Controller {
 
         foreach ($responseArray as $field => $value) {
             echo $field." **** ".$value."<br>";
-        }*/
+        }
 
         return new Response($this->get('serializer')->serialize($responseArray, Generalkeys::JSON_STRING));
     }

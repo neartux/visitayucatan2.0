@@ -157,39 +157,13 @@
         
         service.payProduct = function (idVenta, numberCard, month, year, code, amount) {
             console.info(idVenta, numberCard, month, year, code, amount);
-            var data = {
-                version: 34,
-                order: {
-                    id: "VIYUC"+idVenta,
-                    amount: amount,
-                    currency: "MXN"
-                },
-                transaction: {
-                    id: idVenta
-                },
-                apiOperation: "PAY",
-                sourceOfFunds: {
-                    type: "CARD",
-                    provided: {
-                        card: {
-                            number: numberCard,
-                            expiry: {
-                                month: month,
-                                year: year
-                            },
-                            securityCode: code
-                        }
-                    }
-                }
-            };
-
-            var envioDatos = "version=34&order.id=VIYUC-"+idVenta+"&transaction.id="+idVenta+"&apiOperation=PAY&sourceOfFunds.type=CARD&" +
+            var data = "version=34&order.id=VIYUC"+idVenta+"&transaction.id="+idVenta+"&apiOperation=PAY&sourceOfFunds.type=CARD&" +
                 "sourceOfFunds.provided.card.number="+numberCard+"&sourceOfFunds.provided.card.expiry.month="+month+"&sourceOfFunds.provided.card.expiry.year="+year+"&" +
                 "sourceOfFunds.provided.card.securityCode="+code+"&order.amount="+amount+"&order.currency=MXN";
 
             console.info("DAtos a enviar pago = ", data);
 
-            return $http.post(service.contextPath+'/venta/process', envioDatos, {
+            return $http.post(service.contextPath+'/venta/process', data, {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
             
@@ -199,6 +173,11 @@
             return $http.post(service.contextPath+'/venta/upadteDatosPago', $.param({idVenta: idVenta, pagado: pagado, numeroOperacion: numeroOperacion, numeroAutorizacion: numeroAutorizacion, tipoTarjeta: tipoTarjeta}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
+        };
+        
+        service.isPaySuccess = function (result) {
+            console.info("RESULT  = ", result);
+            return result == "SUCCESS";
         };
 
         return service;
