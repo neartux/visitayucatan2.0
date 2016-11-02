@@ -280,11 +280,8 @@ class VentaController extends Controller {
         $receipt = $responseArray["transaction.receipt"];
         $tarjeta = $responseArray["sourceOfFunds.provided.card.brand"];
         $numAutorizacion = array_key_exists("transaction.authorizationCode", $responseArray) ? $responseArray["transaction.authorizationCode"] : Generalkeys::NUMBER_ZERO;
-        echo "antes de obtener id de venta";
         $idVenta = $requestG->getSession()->get("idVentaGenerada");
-        echo "antes";
         $this->updateDatosPago($pagado, $receipt, $tarjeta, $numAutorizacion, $idVenta);
-        echo "despues";
 
         $responseArray["errorMessage"] = $errorMessage;
         $responseArray["errorCode"] = $errorCode;
@@ -299,6 +296,7 @@ class VentaController extends Controller {
         foreach ($responseArray as $field => $value) {
             echo $field." **** ".$value."<br>";
         }*/
+	$arrayResult = new Array();
 
         return new Response($this->get('serializer')->serialize($responseArray, Generalkeys::JSON_STRING));
     }
@@ -306,19 +304,8 @@ class VentaController extends Controller {
 
 
     private function updateDatosPago($pagado, $receipt, $tarjeta, $numeroAutorizacion, $idVenta) {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $em->getConnection()->beginTransaction();
-        try {
-
             $venta = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Venta')->find($idVenta);
-            $this->getDoctrine()->getRepository('VisitaYucatanBundle:DatosPago')->updateDatosPagoVenta($venta->getDatosPago()->getId(), $pagado, $receipt, $numeroAutorizacion, $tarjeta);
-            //return new JsonResponse(array("message" => "success"));
-
-        } catch (\Exception $e) {
-            $em->getConnection()->rollback();
-            //return new JsonResponse(array("message" => "error"));
-        }
+         $numAfected = $this->getDoctrine()->getRepository('VisitaYucatanBundle:DatosPago')->updateDatosPagoVenta($venta->getDatosPago()->getId(), $pagado, $receipt, $numeroAutorizacion, $tarjeta);
+	$numAfected > Generalkeys::NUMBER_ZERO;
     }
 }
