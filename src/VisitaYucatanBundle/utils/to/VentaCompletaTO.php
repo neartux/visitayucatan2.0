@@ -49,6 +49,7 @@ class VentaCompletaTO{
     private $nochePaquete;
     private $nombreProducto;
     private $fechaReserva;
+    private $numeroVoucher;
 
     /**
      * @return mixed
@@ -705,4 +706,22 @@ class VentaCompletaTO{
     {
         $this->fechaReserva = $fechaReserva;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNumeroVoucher()
+    {
+        return $this->numeroVoucher;
+    }
+
+    /**
+     * @param mixed $numeroVoucher
+     */
+    public function setNumeroVoucher($numeroVoucher)
+    {
+        $this->numeroVoucher = $numeroVoucher;
+    }
+
+
 }

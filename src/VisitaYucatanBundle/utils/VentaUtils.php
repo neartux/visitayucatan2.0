@@ -27,6 +27,7 @@ final class VentaUtils {
         $ventaCompletaTO->setPagado($venta['pagado']);
         $ventaCompletaTO->setNumeroAutorizacion($venta['numeroautorizacion']);
         $ventaCompletaTO->setNumeroOperacion($venta['numerooperacion']);
+        $ventaCompletaTO->setNumeroVoucher($venta['numerovoucher']);
         $ventaCompletaTO->setPlanHotelContrato($venta['plan']);
         $ventaCompletaTO->setCheckIn(new \DateTime($venta['checkin']));
         $ventaCompletaTO->setCheckOut(new \DateTime($venta['checkout']));
@@ -56,6 +57,10 @@ final class VentaUtils {
         $ventaCompletaTO->setEmail($venta->getDatosUbicacion()->getEmail());
         $ventaCompletaTO->setCiudad($venta->getDatosUbicacion()->getCiudad());
         $ventaCompletaTO->setFechaReserva($venta->getDatosReserva()->getCheckIn());
+        $ventaCompletaTO->setPagado($venta->getDatosPago()->getPagado());
+        $ventaCompletaTO->setNumeroVoucher($venta->getDatosPago()->getNumeroVoucher());
+        $ventaCompletaTO->setNumeroOperacion($venta->getDatosPago()->getNumeroOperacion());
+        $ventaCompletaTO->setNumeroAutorizacion($venta->getDatosPago()->getNumeroAutorizacion());
         return $ventaCompletaTO;
     }
 
@@ -78,6 +83,10 @@ final class VentaUtils {
         $ventaCompletaTO->setDiasPaquete($package->getPaqueteIdioma()->get(0)->getDias());
         $ventaCompletaTO->setNochePaquete((int)$dias - 1);
         $ventaCompletaTO->setCheckIn($venta->getDatosReserva()->getCheckIn());
+        $ventaCompletaTO->setPagado($venta->getDatosPago()->getPagado());
+        $ventaCompletaTO->setNumeroVoucher($venta->getDatosPago()->getNumeroVoucher());
+        $ventaCompletaTO->setNumeroOperacion($venta->getDatosPago()->getNumeroOperacion());
+        $ventaCompletaTO->setNumeroAutorizacion($venta->getDatosPago()->getNumeroAutorizacion());
         return $ventaCompletaTO;
     }
 

@@ -18,8 +18,10 @@ class DatosPagoRepository extends \Doctrine\ORM\EntityRepository {
         return $datosPago;
     }
     
-    public function updateDatosPagoVenta($idDatoPago, $pagado, $numeroOperacion, $numeroAutorizacion, $tipoTarjeta){
+    public function updateDatosPagoVenta($idDatoPago, $pagado, $numeroOperacion, $numeroAutorizacion, $tipoTarjeta, $idTransaccion){
         $em = $this->getEntityManager();
-	return $em->getConnection()->exec('UPDATE datos_pago SET pagado = TRUE, numeroautorizacion = '.$numeroAutorizacion.', numerooperacion = '.$numeroOperacion.', tipotarjeta = "'.$tipoTarjeta.'" WHERE datos_pago.id = '.$idDatoPago);
+	return $em->getConnection()->exec('UPDATE datos_pago 
+    SET pagado = '.$pagado.', numeroautorizacion = '.$numeroAutorizacion.', numerooperacion = '.$idTransaccion.', tipotarjeta = "'.$tipoTarjeta.'", numerovoucher = '.$numeroOperacion.' 
+	WHERE datos_pago.id = '.$idDatoPago);
     }
 }

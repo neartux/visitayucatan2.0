@@ -140,9 +140,6 @@
                         };
                         ctrlWeb.ventaCompletaTO.id = response.id;
                         $("#modalPago").modal();   
-                    } else {
-                        alert("Ocurrio algun error, intente de nuevo");
-                        document.location.reload (true);
                     }
                 });
                 //HoldOn.close();
@@ -153,22 +150,13 @@
             console.info("is valid = ", isFormValid);
             console.info("CARD = ", ctrlWeb.card);
             if(isFormValid){
+                HoldOn.open({message: 'Por favor espere, estamos procesando su pago'});
                 WebService.payProduct(ctrlWeb.ventaCompletaTO.id, ctrlWeb.card.number, ctrlWeb.card.month, ctrlWeb.card.year, ctrlWeb.card.code, ctrlWeb.ventaCompletaTO.costoTotal).success(function (data) {
                     console.info("RESTULTADO TRANSACCION = ", data);
-                    var pagado = false;
-                    if(WebService.isPaySuccess(data.result)){
-                        pagado = true;
-                    }
-                    console.info("data.transaction = ", data.transaction);
-                    console.info(ctrlWeb.ventaCompletaTO.id, pagado, data.transaction.receipt, data.transaction.authorizationCode,
-                        data.sourceOfFunds.provided.card.scheme);
-
-                    if(data.errorMessage.length || data.errorCode.length || data.result == "ERROR"){
-                        alert("Lo sentimos su tarjeta fue declinada: "+data.errorMensage);
-                    } else {
-                        WebService.updateDatosPago(ctrlWeb.ventaCompletaTO.id, true, data.transaction.receipt, data.transaction.authorizationCode,
-                        data.sourceOfFunds.provided.card.scheme);
-                    }
+                    setTimeout(function(){
+                        HoldOn.close();
+                        return WebService.redirectToSuccessSale();
+                    }, 3000);
                 });
             }
         };

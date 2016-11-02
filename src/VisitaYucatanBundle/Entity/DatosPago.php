@@ -33,7 +33,14 @@ class DatosPago {
      * @ORM\Column(name="tipotarjeta", type="string", length=255, nullable=true)
      */
     private $tipoTarjeta;
-    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numerovoucher", type="string", length=255, nullable=true)
+     */
+    private $numeroVoucher;
+
     /**
      * @var string
      *
@@ -153,5 +160,29 @@ class DatosPago {
     public function getTipoTarjeta()
     {
         return $this->tipoTarjeta;
+    }
+
+    /**
+     * Set numeroVoucher
+     *
+     * @param string $numeroVoucher
+     *
+     * @return DatosPago
+     */
+    public function setNumeroVoucher($numeroVoucher)
+    {
+        $this->numeroVoucher = $numeroVoucher;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroVoucher
+     *
+     * @return string
+     */
+    public function getNumeroVoucher()
+    {
+        return $this->numeroVoucher;
     }
 }
