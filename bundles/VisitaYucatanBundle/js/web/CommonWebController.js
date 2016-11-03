@@ -2,7 +2,7 @@
  * Created by ricardo on 26/03/16.
  */
 (function () {
-    var app = angular.module('Web', ['ngSanitize', 'WebProvider','WebDirectives','WebFilters']).config(['$interpolateProvider', function ($interpolateProvider) {
+    var app = angular.module('Web', ['ngSanitize', 'WebProvider', 'WebDirectives', 'WebFilters']).config(['$interpolateProvider', function ($interpolateProvider) {
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
     }]);
@@ -17,16 +17,17 @@
         ctrlWeb.rateChild = 0;
         ctrlWeb.rateAdult = 0;
         ctrlWeb.totalPersons = {
-            numeroMenores : '0',
-            numeroAdultos : '2'
+            numeroMenores: '0',
+            numeroAdultos: '2'
         };
         ctrlWeb.minimoPersonas = 0;
         ctrlWeb.ventaCompletaTO = {};
-        ctrlWeb.soloAdultos= undefined;
+        ctrlWeb.soloAdultos = undefined;
         ctrlWeb.CurrencyMexico = {
             id: undefined,
             tipoCambio: undefined
         };
+        ctrlWeb.contextPathThis = '';
 
 
         ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate, idTour) {
@@ -34,7 +35,6 @@
             ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate);
             ctrlWeb.idTour = idTour;
             ctrlWeb.findItemsSimilar();
-            WebService.getSession();
         };
 
         ctrlWeb.findItemsSimilar = function () {
@@ -43,11 +43,12 @@
         };
 
         ctrlWeb.initReservaTour = function (fechaReserva, totalAdultos, totalMenores, rateChild, rateAdult, exchangeRate, minimoPerson, contextPath,
-                                            idIdioma, idMoneda, idTour, soloadultos, idMonedaMexico, tipoCambioMexico, nombreTour){
+                                            idIdioma, idMoneda, idTour, soloadultos, idMonedaMexico, tipoCambioMexico, nombreTour) {
+            ctrlWeb.contextPathThis = contextPath;
             ctrlWeb.soloAdultos = soloadultos;
             ctrlWeb.totalPersons = {
-                numeroMenores : totalMenores,
-                numeroAdultos : totalAdultos
+                numeroMenores: totalMenores,
+                numeroAdultos: totalAdultos
             };
             //$('.datepicker').val(fechaReserva);
             ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate, minimoPerson);
@@ -72,10 +73,10 @@
             };
 
             ctrlWeb.nombreTour = nombreTour;
-            
+
         };
 
-        ctrlWeb.configureParametersInit = function(rateChild, rateAdult, exchangeRate, minimoPerson){
+        ctrlWeb.configureParametersInit = function (rateChild, rateAdult, exchangeRate, minimoPerson) {
             ctrlWeb.symbolCurrency = angular.element(document.querySelector('#symbolCurrencyHidden')).context.value;
             ctrlWeb.exchangeRate = parseFloat(exchangeRate);
             ctrlWeb.rateChild = parseFloat(rateChild);
@@ -83,7 +84,7 @@
             ctrlWeb.minimoPersonas = parseInt(minimoPerson);
         };
 
-        ctrlWeb.recalculateCostTour = function(){
+        ctrlWeb.recalculateCostTour = function () {
             var totalAdults = parseInt(ctrlWeb.totalPersons.numeroAdultos);
             var totalChildren = parseInt(ctrlWeb.totalPersons.numeroMenores);
 
@@ -92,73 +93,128 @@
 
             var totalCost = costTotalAdults + costTotalChildren;
 
-            $('#totalCostTour').text('$'+totalCost.toLocaleString()+' '+ctrlWeb.symbolCurrency);
+            $('#totalCostTour').text('$' + totalCost.toLocaleString() + ' ' + ctrlWeb.symbolCurrency);
 
         };
-        
+
         ctrlWeb.calculateCost = function () {
             var totalAdults = parseInt(ctrlWeb.totalPersons.numeroAdultos);
             var totalChildren = parseInt(ctrlWeb.totalPersons.numeroMenores);
 
             var costTotalAdults = totalAdults * ctrlWeb.rateAdult;
             var costTotalChildren = totalChildren * ctrlWeb.rateChild;
-            
+
             return costTotalAdults + costTotalChildren;
         };
 
         ctrlWeb.reservarTour = function (isFormValid) {
-            if(isFormValid) {
+            if (isFormValid) {
                 ctrlWeb.ventaCompletaTO.costoTotal = ctrlWeb.calculateCost();
-                if(parseInt(ctrlWeb.totalPersons.numeroMenores) > 0){
-                    if(ctrlWeb.soloAdultos != undefined && ctrlWeb.soloAdultos){
+                if (parseInt(ctrlWeb.totalPersons.numeroMenores) > 0) {
+                    if (ctrlWeb.soloAdultos != undefined && ctrlWeb.soloAdultos) {
                         alert("este tour es solo para adultos");
                         return;
                     }
                 }
-                if(parseInt(ctrlWeb.minimoPersonas) > (parseInt(ctrlWeb.totalPersons.numeroAdultos)+parseInt(ctrlWeb.totalPersons.numeroMenores))){
-                    alert("El minimo de personas para este paquete es "+ctrlWeb.minimoPersonas);
+                if (parseInt(ctrlWeb.minimoPersonas) > (parseInt(ctrlWeb.totalPersons.numeroAdultos) + parseInt(ctrlWeb.totalPersons.numeroMenores))) {
+                    alert("El minimo de personas para este paquete es " + ctrlWeb.minimoPersonas);
                     return
                 }
                 // Si no esta en moneda mexicana la convierte a pesos
-                if(ctrlWeb.ventaCompletaTO.idMoneda != ctrlWeb.CurrencyMexico.id){
-                    ctrlWeb.ventaCompletaTO.costoAdulto = parseFloat((ctrlWeb.rateAdult * parseInt(ctrlWeb.totalPersons.numeroAdultos))*(ctrlWeb.ventaCompletaTO.tipoCambio));
-                    ctrlWeb.ventaCompletaTO.costoMenor = parseFloat((ctrlWeb.rateChild * parseInt(ctrlWeb.totalPersons.numeroMenores))*(ctrlWeb.ventaCompletaTO.tipoCambio));
-                    ctrlWeb.ventaCompletaTO.costoTotal = parseFloat(ctrlWeb.ventaCompletaTO.costoAdulto)+parseFloat(ctrlWeb.ventaCompletaTO.costoMenor);
+                if (ctrlWeb.ventaCompletaTO.idMoneda != ctrlWeb.CurrencyMexico.id) {
+                    ctrlWeb.ventaCompletaTO.costoAdulto = parseFloat((ctrlWeb.rateAdult * parseInt(ctrlWeb.totalPersons.numeroAdultos)) * (ctrlWeb.ventaCompletaTO.tipoCambio));
+                    ctrlWeb.ventaCompletaTO.costoMenor = parseFloat((ctrlWeb.rateChild * parseInt(ctrlWeb.totalPersons.numeroMenores)) * (ctrlWeb.ventaCompletaTO.tipoCambio));
+                    ctrlWeb.ventaCompletaTO.costoTotal = parseFloat(ctrlWeb.ventaCompletaTO.costoAdulto) + parseFloat(ctrlWeb.ventaCompletaTO.costoMenor);
                 }
                 ctrlWeb.ventaCompletaTO.numeroMenores = ctrlWeb.totalPersons.numeroMenores;
                 ctrlWeb.ventaCompletaTO.numeroAdultos = ctrlWeb.totalPersons.numeroAdultos;
                 //HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
                 WebService.createReservationTour(ctrlWeb.ventaCompletaTO).success(function (response) {
-                    console.info("id = ", response);
                     $scope.formPay.$setPristine();
-                    if(response.status){
+                    if (response.status) {
                         ctrlWeb.card = {
                             number: '',
                             month: '01',
                             year: '16',
-                            code: ''
+                            code: '',
+                            expiryDate: ''
                         };
                         ctrlWeb.ventaCompletaTO.id = response.id;
-                        $("#modalPago").modal();   
+                        $("#modalPago").modal();
                     }
                 });
                 //HoldOn.close();
             }
         };
 
-        ctrlWeb.payProduct = function(isFormValid){
+        ctrlWeb.findTypeCard = function () {
+            console.info("Typed");
+            var seccionCard = $("#seccionCard");
+            if(ctrlWeb.card.number != undefined){
+                if(ctrlWeb.card.number.length){
+                    console.info("her");
+                    var cardType = $.payment.cardType($('.cc-number').val());
+                    console.info("cardType = ", cardType);
+                    seccionCard.html("");
+                    if(cardType == "visa"){
+                        seccionCard.html("<img src='"+ctrlWeb.contextPathThis+"/bundles/VisitaYucatanBundle/images/tarjetas/Visa.png'/>")
+                    } else if(cardType == "mastercard"){
+                        seccionCard.html("<img src='"+ctrlWeb.contextPathThis+"/bundles/VisitaYucatanBundle/images/tarjetas/MasterCard.png'/>")
+                    } else {
+                        seccionCard.html("");
+                    }
+                } else {
+                    seccionCard.html("");
+                }
+            } else {
+                seccionCard.html("");
+            }
+        };
+
+        ctrlWeb.payProduct = function (isFormValid) {
             console.info("is valid = ", isFormValid);
             console.info("CARD = ", ctrlWeb.card);
-            if(isFormValid){
-                HoldOn.open({message: 'Por favor espere, estamos procesando su pago'});
-                WebService.payProduct(ctrlWeb.ventaCompletaTO.id, ctrlWeb.card.number, ctrlWeb.card.month, ctrlWeb.card.year, ctrlWeb.card.code, ctrlWeb.ventaCompletaTO.costoTotal).success(function (data) {
-                    console.info("RESTULTADO TRANSACCION = ", data);
-                    setTimeout(function(){
-                        HoldOn.close();
-                        return WebService.redirectToSuccessSale();
-                    }, 3000);
-                });
+            if (isFormValid) {
+                if(ctrlWeb.validateCard()){
+                    HoldOn.open({message: 'Por favor espere, estamos procesando su pago'});
+                    var expiryDate = $.trim(ctrlWeb.card.expiryDate).split('/');
+                    ctrlWeb.card.month = expiryDate[0];
+                    ctrlWeb.card.year = expiryDate[1];
+                    WebService.payProduct(ctrlWeb.ventaCompletaTO.id, ctrlWeb.card.number, ctrlWeb.card.month, ctrlWeb.card.year, ctrlWeb.card.code, ctrlWeb.ventaCompletaTO.costoTotal).success(function (data) {
+                        console.info("RESTULTADO TRANSACCION = ", data);
+                        setTimeout(function () {
+                            HoldOn.close();
+                            // return WebService.redirectToSuccessSale();
+                        }, 3000);
+                    });
+                }
+
             }
+        };
+
+        ctrlWeb.validateCard = function () {
+            var CN = $('.cc-number');
+            var CE = $('.cc-exp');
+            var CC = $('.cc-cvc');
+            var validCardNumber = $.payment.validateCardNumber(CN.val());
+            var validCardExpiry = $.payment.validateCardExpiry(CE.val());
+            var validCardCVC = $.payment.validateCardCVC(CC.val());
+            var valid = true;
+
+            if(!validCardNumber){
+                $scope.formPay.cardNumber.$invalid = true;
+                valid = false;
+                CN.trigger("focus");
+            } else if(!validCardExpiry){
+                $scope.formPay.expirydate.$invalid = true;
+                valid = false;
+                CE.trigger("focus");
+            } else if(!validCardCVC){
+                $scope.formPay.cvv.$invalid = true;
+                valid = false;
+                CC.trigger("focus");
+            }
+            return valid;
         };
 
     });
@@ -176,7 +232,7 @@
             tipoCambio: undefined
         };
 
-        ctrlHotel.init = function(idHotel, ageMinor, estrellas) {
+        ctrlHotel.init = function (idHotel, ageMinor, estrellas) {
             ctrlHotel.formRate = {
                 idHotel: idHotel,
                 adults: "2",
@@ -196,14 +252,14 @@
 
         ctrlHotel.getRangeStars = function (estrellas) {
             var array = [];
-            for(var i = 1; i <= estrellas; i++){
+            for (var i = 1; i <= estrellas; i++) {
                 array.push(i);
             }
             ctrlHotel.arrayEstrellas = array;
         };
-        
+
         ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath, idHotel, idHabitacion,
-            idMonedaMexico, tipoCambioMexico) {
+                                          idMonedaMexico, tipoCambioMexico) {
             WebService.setContextPath(contextPath);
             ctrlHotel.ventaCompletaTO = {
                 tarifaAdulto: tarifaAdulto,
@@ -229,12 +285,12 @@
         };
 
         ctrlHotel.createRerservaHotel = function (isValidForm) {
-            if(isValidForm){
+            if (isValidForm) {
                 // Si no esta en moneda mexicana la convierte a pesos
-                if(ctrlHotel.ventaCompletaTO.idMoneda != ctrlHotel.CurrencyMexico.id){
-                    ctrlHotel.ventaCompletaTO.costoAdulto = parseFloat(Math.ceil(ctrlHotel.ventaCompletaTO.costoAdulto)*(ctrlHotel.ventaCompletaTO.tipoCambio));
-                    ctrlHotel.ventaCompletaTO.costoMenor = parseFloat(Math.ceil(ctrlHotel.ventaCompletaTO.costoMenor)*(ctrlHotel.ventaCompletaTO.tipoCambio));
-                    ctrlHotel.ventaCompletaTO.costoTotal = parseFloat(ctrlHotel.ventaCompletaTO.costoAdulto)+parseFloat(ctrlHotel.ventaCompletaTO.costoMenor);
+                if (ctrlHotel.ventaCompletaTO.idMoneda != ctrlHotel.CurrencyMexico.id) {
+                    ctrlHotel.ventaCompletaTO.costoAdulto = parseFloat(Math.ceil(ctrlHotel.ventaCompletaTO.costoAdulto) * (ctrlHotel.ventaCompletaTO.tipoCambio));
+                    ctrlHotel.ventaCompletaTO.costoMenor = parseFloat(Math.ceil(ctrlHotel.ventaCompletaTO.costoMenor) * (ctrlHotel.ventaCompletaTO.tipoCambio));
+                    ctrlHotel.ventaCompletaTO.costoTotal = parseFloat(ctrlHotel.ventaCompletaTO.costoAdulto) + parseFloat(ctrlHotel.ventaCompletaTO.costoMenor);
                 }
                 HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
 
@@ -247,12 +303,12 @@
             }
         };
 
-        ctrlHotel.findTarifasHotel = function() {
+        ctrlHotel.findTarifasHotel = function () {
             ctrlHotel.formRate.dateFrom = angular.element(document.querySelector('#dateFrom')).context.value;
             ctrlHotel.formRate.dateTo = angular.element(document.querySelector('#dateTo')).context.value;
             var isValid = ctrlHotel.validateAgeMinors();
-            if(isValid){
-                if(WebService.isRangeDateValid(ctrlHotel.formRate.dateFrom, ctrlHotel.formRate.dateTo)){
+            if (isValid) {
+                if (WebService.isRangeDateValid(ctrlHotel.formRate.dateFrom, ctrlHotel.formRate.dateTo)) {
                     return WebService.findRateRoomByHotel(ctrlHotel.formRate);
                 }
             }
@@ -260,10 +316,10 @@
 
         ctrlHotel.validateAgeMinors = function () {
             var isValid = true;
-            if(ctrlHotel.formRate.minors > 0){
+            if (ctrlHotel.formRate.minors > 0) {
                 for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
-                    var ageMinor = parseInt($("#minor_"+(i+1)).val());
-                    if(ageMinor > ctrlHotel.formRate.ageMinor){
+                    var ageMinor = parseInt($("#minor_" + (i + 1)).val());
+                    if (ageMinor > ctrlHotel.formRate.ageMinor) {
                         isValid = false;
                     }
                 }
@@ -272,11 +328,11 @@
         };
 
         ctrlHotel.displayInputsMinors = function () {
-            if(ctrlHotel.formRate.minors > 0){
+            if (ctrlHotel.formRate.minors > 0) {
                 var inputs = "<tr>";
                 for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
-                    inputs += "<td width='20%'>Edad Menor " + (i+1) + " <br>" +
-                        "<input type='text' id='minor_"+(i+1)+"' class='form-control'/></td><td>&nbsp;</td>";
+                    inputs += "<td width='20%'>Edad Menor " + (i + 1) + " <br>" +
+                        "<input type='text' id='minor_" + (i + 1) + "' class='form-control'/></td><td>&nbsp;</td>";
                 }
                 inputs += "</tr>";
                 $("#tableMenors").html(inputs);
@@ -293,36 +349,36 @@
             $("#idHabitacion").val(idHabitacion);
             $("#frmReserveHotel").submit();
         };
-        
+
     });
 
-    app.controller('WebCommonsController', function($scope, $http, WebService){
+    app.controller('WebCommonsController', function ($scope, $http, WebService) {
         var ctrlCommons = this;
         ctrlCommons.listLanguages = WebService.listLanguages;
         ctrlCommons.listCurrency = WebService.listCurrency;
         ctrlCommons.objCatalog = {
-            language : undefined,
-            currency : undefined
+            language: undefined,
+            currency: undefined
         };
 
-        ctrlCommons.initCommons = function(language, currency){
+        ctrlCommons.initCommons = function (language, currency) {
             ctrlCommons.objCatalog.language = language;
             ctrlCommons.objCatalog.currency = currency;
             WebService.findAllLanguages();
             WebService.findAllCurrency();
         };
 
-        ctrlCommons.changeCurrencyOrLanguage = function() {
-            WebService.changeCurrencyOrLanguageSession(ctrlCommons.objCatalog.language, ctrlCommons.objCatalog.currency).then(function(data){
-               if(data.data){
-                   document.location.reload (true);
-               }
+        ctrlCommons.changeCurrencyOrLanguage = function () {
+            WebService.changeCurrencyOrLanguageSession(ctrlCommons.objCatalog.language, ctrlCommons.objCatalog.currency).then(function (data) {
+                if (data.data) {
+                    document.location.reload(true);
+                }
             });
         };
 
     });
 
-    app.controller('WebPaqueteController',function($scope,WebService) {
+    app.controller('WebPaqueteController', function ($scope, WebService) {
         var paqWebVM = this;
 
         paqWebVM.habCombinaciones = undefined;
@@ -341,7 +397,7 @@
             id: undefined,
             tipoCambio: undefined
         };
-        
+
         paqWebVM.initPaquete = function (combinacionespaquete, idPackage) {
             paqWebVM.idPaquete = idPackage;
             paqWebVM.habitacion = 'doble';
@@ -363,66 +419,66 @@
             var path = angular.element(document.querySelector('#pathSimilars')).context.value;
             WebService.findItemsSimilar(path, paqWebVM.idPaquete);
         };
-        
-        paqWebVM.changeHabitacion = function(ocupacion){
-            
+
+        paqWebVM.changeHabitacion = function (ocupacion) {
+
             $(".area-package-item").slideUp("fast");
-            
-            switch(ocupacion){
+
+            switch (ocupacion) {
                 case 'sencillo':
-                        paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costosencillo');
+                    paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete, 'costosencillo');
                     paqWebVM.mensageDetallePaquete = paqWebVM.messages.sencillo;
                     break;
                 case 'doble':
-                        paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costodoble');
+                    paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete, 'costodoble');
                     paqWebVM.mensageDetallePaquete = paqWebVM.messages.doble;
                     break;
                 case 'triple':
-                        paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costotriple');
+                    paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete, 'costotriple');
                     paqWebVM.mensageDetallePaquete = paqWebVM.messages.triple;
                     break;
                 case 'cuadruple':
-                        paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete,'costocuadruple');
+                    paqWebVM.habCombinaciones = paqWebVM.armarCostos(paqWebVM.combinacionesPaquete, 'costocuadruple');
                     paqWebVM.mensageDetallePaquete = paqWebVM.messages.cuadruple;
                     break;
             }
-            
+
         };
-        paqWebVM.armarCostos = function(array,ocupacion){
-            angular.forEach(array,function(o){
-                o.costo = eval('o.'+ocupacion);
+        paqWebVM.armarCostos = function (array, ocupacion) {
+            angular.forEach(array, function (o) {
+                o.costo = eval('o.' + ocupacion);
                 o.ocupacion = ocupacion
             });
             $(".area-package-item").slideDown("fast");
             return array;
         };
         //paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe){
-        paqWebVM.initReservaPaquete= function(detailReserva,paqueteCombinacion,importe, contextPath, idPaquete, idIdioma, idMoneda, idMonedaMexico, tipoCambioMexico){
+        paqWebVM.initReservaPaquete = function (detailReserva, paqueteCombinacion, importe, contextPath, idPaquete, idIdioma, idMoneda, idMonedaMexico, tipoCambioMexico) {
             paqWebVM.detailReserva = JSON.parse(detailReserva);
             paqWebVM.importe = importe;
             var combinacion = JSON.parse(paqueteCombinacion);
-            paqWebVM.paqueteCombinacion= combinacion[0];
+            paqWebVM.paqueteCombinacion = combinacion[0];
             paqWebVM.reservar = {
-                adultos:paqWebVM.detailReserva.adultos.toString(),
-                menores:paqWebVM.menores[paqWebVM.detailReserva.menores]
+                adultos: paqWebVM.detailReserva.adultos.toString(),
+                menores: paqWebVM.menores[paqWebVM.detailReserva.menores]
             };
-            switch (parseInt( paqWebVM.detailReserva.adultos)) {
+            switch (parseInt(paqWebVM.detailReserva.adultos)) {
                 case 1:
-                        paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costosencillo;
+                    paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costosencillo;
                     break;
                 case 2:
-                        paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costodoble;
+                    paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costodoble;
                     break;
                 case 3:
-                        paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costotriple;
+                    paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costotriple;
                     break;
                 case 4:
-                        paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costocuadruple;
+                    paqWebVM.detailReserva.costo = paqWebVM.paqueteCombinacion.costocuadruple;
                     break;
             }
             paqWebVM.simbolCurrency = paqWebVM.paqueteCombinacion.simbolo;
 
-            paqWebVM.calculateCostoPaquete(paqWebVM.detailReserva.adultos,paqWebVM.detailReserva.menores);
+            paqWebVM.calculateCostoPaquete(paqWebVM.detailReserva.adultos, paqWebVM.detailReserva.menores);
             paqWebVM.findItemsSimilar();
             WebService.contextPath = contextPath;
 
@@ -451,72 +507,71 @@
         };
 
 
-
-        paqWebVM.calculateCostoPaquete = function(adultos,menores){
+        paqWebVM.calculateCostoPaquete = function (adultos, menores) {
             var costoAdultos = parseFloat(paqWebVM.detailReserva.costo) * adultos;
             var costoMenores = parseFloat(paqWebVM.paqueteCombinacion.costomenor) * menores;
             paqWebVM.importeTotal = costoAdultos + costoMenores;
         };
-        paqWebVM.ocupacionHab = function(adultos,menores){
-            adultos =  parseInt(adultos);
-            menores =  parseInt(menores);
+        paqWebVM.ocupacionHab = function (adultos, menores) {
+            adultos = parseInt(adultos);
+            menores = parseInt(menores);
             switch (adultos) {
                 case 1:
-                        
-                        paqWebVM.detailReserva.ocupacion="Sencilla";
-                        paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costosencillo);
-                        paqWebVM.menores = [
-                            {id:0,value:0,label:"0"},
-                            {id:1,value:1,label:"1"},
-                            {id:2,value:2,label:"2"},
-                        ];
-                        paqWebVM.calculateCostoPaquete(adultos,menores);
+
+                    paqWebVM.detailReserva.ocupacion = "Sencilla";
+                    paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costosencillo);
+                    paqWebVM.menores = [
+                        {id: 0, value: 0, label: "0"},
+                        {id: 1, value: 1, label: "1"},
+                        {id: 2, value: 2, label: "2"},
+                    ];
+                    paqWebVM.calculateCostoPaquete(adultos, menores);
                     break;
                 case 2:
-                        
-                        paqWebVM.detailReserva.ocupacion="Doble";
-                        paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costodoble);
-                        paqWebVM.menores = [
-                            {id:0,value:0,label:"0"},
-                            {id:1,value:1,label:"1"},
-                            {id:2,value:2,label:"2"},
-                        ];
-                        paqWebVM.calculateCostoPaquete(adultos,menores);
+
+                    paqWebVM.detailReserva.ocupacion = "Doble";
+                    paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costodoble);
+                    paqWebVM.menores = [
+                        {id: 0, value: 0, label: "0"},
+                        {id: 1, value: 1, label: "1"},
+                        {id: 2, value: 2, label: "2"},
+                    ];
+                    paqWebVM.calculateCostoPaquete(adultos, menores);
                     break;
                 case 3:
-                        paqWebVM.calculateCostoPaquete(adultos,menores);
-                        paqWebVM.detailReserva.ocupacion="Triple";
-                        paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costotriple);
-                        //if(paqWebVM.reserva.adultos==3){
-                            if(paqWebVM.reservar.menores.value>1){
-                                paqWebVM.reservar.menores=paqWebVM.menores[0];
-                            }
-                        //}
-                        paqWebVM.menores = [
-                            {id:0,value:0,label:"0"},
-                            {id:1,value:1,label:"1"}
-                        ];
-                        paqWebVM.calculateCostoPaquete(adultos,menores);           
+                    paqWebVM.calculateCostoPaquete(adultos, menores);
+                    paqWebVM.detailReserva.ocupacion = "Triple";
+                    paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costotriple);
+                    //if(paqWebVM.reserva.adultos==3){
+                    if (paqWebVM.reservar.menores.value > 1) {
+                        paqWebVM.reservar.menores = paqWebVM.menores[0];
+                    }
+                    //}
+                    paqWebVM.menores = [
+                        {id: 0, value: 0, label: "0"},
+                        {id: 1, value: 1, label: "1"}
+                    ];
+                    paqWebVM.calculateCostoPaquete(adultos, menores);
                     break;
                 case 4:
-                        paqWebVM.calculateCostoPaquete(adultos,menores);
-                        paqWebVM.detailReserva.ocupacion="Cuádruple";
-                        paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costocuadruple);
-                        if(paqWebVM.reservar.menores.value>0){
-                            paqWebVM.reservar.menores=paqWebVM.menores[0];
-                        }
-                        paqWebVM.menores = [
-                            {id:0,value:0,label:"0"}
-                        ];
-                        paqWebVM.calculateCostoPaquete(adultos,menores);
+                    paqWebVM.calculateCostoPaquete(adultos, menores);
+                    paqWebVM.detailReserva.ocupacion = "Cuádruple";
+                    paqWebVM.detailReserva.costo = parseFloat(paqWebVM.paqueteCombinacion.costocuadruple);
+                    if (paqWebVM.reservar.menores.value > 0) {
+                        paqWebVM.reservar.menores = paqWebVM.menores[0];
+                    }
+                    paqWebVM.menores = [
+                        {id: 0, value: 0, label: "0"}
+                    ];
+                    paqWebVM.calculateCostoPaquete(adultos, menores);
                     break;
                 default:
                     break;
             }
         };
-        
-        paqWebVM.reservarPackage = function(isFormValid){
-            if(isFormValid){
+
+        paqWebVM.reservarPackage = function (isFormValid) {
+            if (isFormValid) {
                 HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
                 paqWebVM.ventaCompletaTO.checkIn = $("#fechaPaquete").val();
                 paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
@@ -536,25 +591,25 @@
             }
         };
 
-        $scope.$watch('paqWebVM.reservar.menores',function(val){
-            if(val){
-                if(paqWebVM.reservar.adultos==3){
-                    paqWebVM.calculateCostoPaquete(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value);
-                    
+        $scope.$watch('paqWebVM.reservar.menores', function (val) {
+            if (val) {
+                if (paqWebVM.reservar.adultos == 3) {
+                    paqWebVM.calculateCostoPaquete(paqWebVM.reservar.adultos, paqWebVM.reservar.menores.value);
+
                 }
-                if(paqWebVM.reservar.adultos==4){
-                   paqWebVM.calculateCostoPaquete(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value);
+                if (paqWebVM.reservar.adultos == 4) {
+                    paqWebVM.calculateCostoPaquete(paqWebVM.reservar.adultos, paqWebVM.reservar.menores.value);
                 }
             }
         });
         paqWebVM.getRangeStars = function (hotel) {
             var array = [];
-            for(var i = 1; i <= hotel.estrellashotel; i++){
+            for (var i = 1; i <= hotel.estrellashotel; i++) {
                 array.push(i);
             }
             hotel.totalEstrellas = array;
         };
-        
+
         paqWebVM.enviarReserva = function (id, h) {
             $("#idPckg").val(h.id);
             $("#costoPckg").val(h.costo);
