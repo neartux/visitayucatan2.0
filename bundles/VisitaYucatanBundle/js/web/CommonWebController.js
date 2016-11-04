@@ -236,6 +236,8 @@
             tipoCambio: undefined
         };
         ctrlHotel.contextPathThis = '';
+        ctrlHotel.buttonPay = true;
+        ctrlHotel.buttonPayShow = true;
 
         ctrlHotel.init = function (idHotel, ageMinor, estrellas) {
             ctrlHotel.formRate = {
@@ -292,6 +294,7 @@
 
         ctrlHotel.createRerservaHotel = function (isValidForm) {
             if (isValidForm) {
+                ctrlHotel.buttonPay = false;
                 // Si no esta en moneda mexicana la convierte a pesos
                 if (ctrlHotel.ventaCompletaTO.idMoneda != ctrlHotel.CurrencyMexico.id) {
                     ctrlHotel.ventaCompletaTO.costoAdulto = parseFloat(Math.ceil(ctrlHotel.ventaCompletaTO.costoAdulto) * (ctrlHotel.ventaCompletaTO.tipoCambio));
@@ -345,6 +348,7 @@
 
         ctrlHotel.payProduct = function (isFormValid) {
             if (isFormValid) {
+                ctrlHotel.buttonPayShow = false;
                 if(ctrlHotel.validateCard()){
                     HoldOn.open({message: 'Por favor espere, estamos procesando su pago'});
                     var expiryDate = $.trim(ctrlHotel.card.expiryDate).split('/');
@@ -354,7 +358,7 @@
                         console.info("RESTULTADO TRANSACCION = ", data);
                         setTimeout(function () {
                             HoldOn.close();
-                            // return WebService.redirectToSuccessSale();
+                            return WebService.redirectToSuccessSaleHotel();
                         }, 3000);
                     });
                 }
@@ -436,32 +440,6 @@
 
     });
 
-    app.controller('WebCommonsController', function ($scope, $http, WebService) {
-        var ctrlCommons = this;
-        ctrlCommons.listLanguages = WebService.listLanguages;
-        ctrlCommons.listCurrency = WebService.listCurrency;
-        ctrlCommons.objCatalog = {
-            language: undefined,
-            currency: undefined
-        };
-
-        ctrlCommons.initCommons = function (language, currency) {
-            ctrlCommons.objCatalog.language = language;
-            ctrlCommons.objCatalog.currency = currency;
-            WebService.findAllLanguages();
-            WebService.findAllCurrency();
-        };
-
-        ctrlCommons.changeCurrencyOrLanguage = function () {
-            WebService.changeCurrencyOrLanguageSession(ctrlCommons.objCatalog.language, ctrlCommons.objCatalog.currency).then(function (data) {
-                if (data.data) {
-                    document.location.reload(true);
-                }
-            });
-        };
-
-    });
-
     app.controller('WebPaqueteController', function ($scope, WebService) {
         var paqWebVM = this;
 
@@ -482,6 +460,8 @@
             tipoCambio: undefined
         };
         paqWebVM.contextPathThis = '';
+        paqWebVM.buttonPay = true;
+        paqWebVM.buttonPayShow = true;
 
         paqWebVM.initPaquete = function (combinacionespaquete, idPackage) {
             paqWebVM.idPaquete = idPackage;
@@ -658,7 +638,8 @@
 
         paqWebVM.reservarPackage = function (isFormValid) {
             if (isFormValid) {
-                HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
+                paqWebVM.buttonPay = false;
+                //HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
                 paqWebVM.ventaCompletaTO.checkIn = $("#fechaPaquete").val();
                 paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
                 paqWebVM.ventaCompletaTO.fechaLlegada = $("#fechaLlegada").val();
@@ -755,16 +736,16 @@
 
         paqWebVM.payProduct = function (isFormValid) {
             if (isFormValid) {
+                paqWebVM.buttonPayShow = false;
                 if(paqWebVM.validateCard()){
                     HoldOn.open({message: 'Por favor espere, estamos procesando su pago'});
                     var expiryDate = $.trim(paqWebVM.card.expiryDate).split('/');
                     paqWebVM.card.month = $.trim(expiryDate[0]);
                     paqWebVM.card.year = $.trim(expiryDate[1]);
                     WebService.payProduct(paqWebVM.ventaCompletaTO.id, paqWebVM.card.number, paqWebVM.card.month, paqWebVM.card.year, paqWebVM.card.code, paqWebVM.ventaCompletaTO.costoTotal).success(function (data) {
-                        console.info("RESTULTADO TRANSACCION = ", data);
                         setTimeout(function () {
                             HoldOn.close();
-                            // return WebService.redirectToSuccessSale();
+                             return WebService.redirectToSuccessSalePackage();
                         }, 3000);
                     });
                 }
@@ -796,6 +777,32 @@
             }
             return valid;
         };
+    });
+
+    app.controller('WebCommonsController', function ($scope, $http, WebService) {
+        var ctrlCommons = this;
+        ctrlCommons.listLanguages = WebService.listLanguages;
+        ctrlCommons.listCurrency = WebService.listCurrency;
+        ctrlCommons.objCatalog = {
+            language: undefined,
+            currency: undefined
+        };
+
+        ctrlCommons.initCommons = function (language, currency) {
+            ctrlCommons.objCatalog.language = language;
+            ctrlCommons.objCatalog.currency = currency;
+            WebService.findAllLanguages();
+            WebService.findAllCurrency();
+        };
+
+        ctrlCommons.changeCurrencyOrLanguage = function () {
+            WebService.changeCurrencyOrLanguageSession(ctrlCommons.objCatalog.language, ctrlCommons.objCatalog.currency).then(function (data) {
+                if (data.data) {
+                    document.location.reload(true);
+                }
+            });
+        };
+
     });
 
 })();

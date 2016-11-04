@@ -4,7 +4,7 @@
 {% block section %}
 
     {% block content %}
-        <div class="container-fluid" data-ng-controller="WebPaqueteController as paqWebVM" data-ng-init="paqWebVM.initReservaPaquete('{{ detailPaquete | json_encode() }}','{{ paqueteCombinacion.combinacionesPaquete | json_encode() }}','{{importe}}', '{{ app.request.getBaseURL() }}',
+        <div class="container-fluid" data-ng-controller="WebPaqueteController as ctrlWeb" data-ng-init="ctrlWeb.initReservaPaquete('{{ detailPaquete | json_encode() }}','{{ paqueteCombinacion.combinacionesPaquete | json_encode() }}','{{importe}}', '{{ app.request.getBaseURL() }}',
         {{ paquete.id }}, {{ paquete.idIdioma }}, {{ paquete.idMoneda }}, {{ tipoCambioMexico.id }}, {{ tipoCambioMexico.tipoCambio }})">
             {#{{ dump(paquete) }}#}
             <div class="row background-gray-light">
@@ -67,7 +67,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" readonly data-ng-model="paqWebVM.ventaCompletaTO.checkIn"
+                                                    <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.checkIn"
                                                            onchange="cambiaFechaPaquete()"
                                                            id="fechaPaquete" name="fechaPaquete" class="form-control datepicker-fp"/>
                                                         </div>
@@ -87,7 +87,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" readonly data-ng-model="paqWebVM.ventaCompletaTO.checkOut" id="fechaSalida"
+                                                    <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.checkOut" id="fechaSalida"
                                                            name="fechaSalida" class="form-control datepicker-fs"/>
                                                         </div>
                                             <span ng-show="formReserva.fechaSalida.$invalid && !formReserva.fechaSalida.$pristine" class="required">
@@ -104,7 +104,7 @@
                                                     <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.nombres" required id="nombre" name="nombre" class="form-control"/>
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.nombres" required id="nombre" name="nombre" class="form-control"/>
                                             <span ng-show="formReserva.nombre.$invalid && !formReserva.nombre.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.name.required{% endtrans %}
                                             </span>
@@ -119,7 +119,7 @@
                                                     <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.apellidos" id="apellidos" name="apellidos" required class="form-control"/>
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.apellidos" id="apellidos" name="apellidos" required class="form-control"/>
                                             <span ng-show="formReserva.apellidos.$invalid && !formReserva.apellidos.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.last.name.required{% endtrans %}
                                             </span>
@@ -134,7 +134,7 @@
                                                     <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.lada" required id="lada" name="lada" class="form-control"
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.lada" required id="lada" name="lada" class="form-control"
                                                     maxlength="5"/>
                                             <span ng-show="formReserva.lada.$invalid && !formReserva.lada.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.lada.required{% endtrans %}
@@ -150,7 +150,7 @@
                                                     <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.telefono" required id="telefono" name="telefono" class="form-control"
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.telefono" required id="telefono" name="telefono" class="form-control"
                                                     maxlength="15"/>
                                             <span ng-show="formReserva.telefono.$invalid && !formReserva.telefono.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.phone.required{% endtrans %}
@@ -166,7 +166,7 @@
                                                     <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="email" data-ng-model="paqWebVM.ventaCompletaTO.email" required id="email" name="email" class="form-control"/>
+                                                    <input type="email" data-ng-model="ctrlWeb.ventaCompletaTO.email" required id="email" name="email" class="form-control"/>
                                             <span ng-show="formReserva.email.$invalid && !formReserva.email.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.email.required{% endtrans %}
                                             </span>
@@ -181,7 +181,7 @@
                                                     <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.ciudad" required id="ciudad" name="ciudad" class="form-control"/>
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.ciudad" required id="ciudad" name="ciudad" class="form-control"/>
                                             <span ng-show="formReserva.ciudad.$invalid && !formReserva.ciudad.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.city.required{% endtrans %}
                                             </span>
@@ -199,8 +199,8 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-group"></i></span>
-                                                        <select ng-model="paqWebVM.reservar.adultos" class="form-control"
-                                                                ng-change="paqWebVM.ocupacionHab(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value)">
+                                                        <select ng-model="ctrlWeb.reservar.adultos" class="form-control"
+                                                                ng-change="ctrlWeb.ocupacionHab(ctrlWeb.reservar.adultos,ctrlWeb.reservar.menores.value)">
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -220,8 +220,8 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-child"></i></span>
-                                                        <select ng-options="item as item.label for item in paqWebVM.menores track by item.id" class="form-control" id="numeroMenores"
-                                                                ng-model="paqWebVM.reservar.menores" ng-change="paqWebVM.ocupacionHab(paqWebVM.reservar.adultos,paqWebVM.reservar.menores.value)">
+                                                        <select ng-options="item as item.label for item in ctrlWeb.menores track by item.id" class="form-control" id="numeroMenores"
+                                                                ng-model="ctrlWeb.reservar.menores" ng-change="ctrlWeb.ocupacionHab(ctrlWeb.reservar.adultos,ctrlWeb.reservar.menores.value)">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -233,7 +233,7 @@
                                         <div class="col-sm-12 mt-xxl mb ml">
                                             <span class="background-element-pink color-text-white text-bold p">
                                                     {% trans %}page.web.labe.reserva.importe{% endtrans %}
-                                                <span id="totalCostTour">$ [[paqWebVM.importeTotal | myCurrency2]] [[paqWebVM.simbolCurrency]]</span>
+                                                <span id="totalCostTour">$ [[ctrlWeb.importeTotal | myCurrency2]] [[ctrlWeb.simbolCurrency]]</span>
                                             </span>
                                         </div>
 
@@ -252,14 +252,14 @@
                                             <div class="form-group mb">
                                                 <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.hotel.seleccionado{% endtrans %}:</label>
                                                 <br>
-                                                [[paqWebVM.paqueteCombinacion.nomhotel]]
+                                                [[ctrlWeb.paqueteCombinacion.nomhotel]]
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group mb">
                                                 <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.tipo.habitacion{% endtrans %}:</label>
                                                 <br>
-                                                [[paqWebVM.detailReserva.ocupacion]]
+                                                [[ctrlWeb.detailReserva.ocupacion]]
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -272,16 +272,16 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group mb">
-                                                <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.tarifa.adulto.opcion{% endtrans %} [[paqWebVM.detailReserva.ocupacion]]:</label>
+                                                <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.tarifa.adulto.opcion{% endtrans %} [[ctrlWeb.detailReserva.ocupacion]]:</label>
                                                 <br>
-                                                [[paqWebVM.detailReserva.costo | myCurrency2 ]] [[paqWebVM.simbolCurrency]]
+                                                [[ctrlWeb.detailReserva.costo | myCurrency2 ]] [[ctrlWeb.simbolCurrency]]
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group mb">
                                                 <label class="control-label text-bold mb-n">{% trans %}page.web.labe.reserva.price.per.minor{% endtrans %}:</label>
                                                 <br>
-                                                [[paqWebVM.paqueteCombinacion.costomenor | myCurrency2 ]] [[paqWebVM.simbolCurrency]]
+                                                [[ctrlWeb.paqueteCombinacion.costomenor | myCurrency2 ]] [[ctrlWeb.simbolCurrency]]
                                             </div>
                                         </div>
 
@@ -299,7 +299,7 @@
                                                     {% trans %}page.web.labe.reserva.hotel.numero.vuelo{% endtrans %}:
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.numeroVuelo" id="numeroVuelo" name="numeroVuelo" class="form-control"/>
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.numeroVuelo" id="numeroVuelo" name="numeroVuelo" class="form-control"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -309,7 +309,7 @@
                                                     {% trans %}page.web.labe.reserva.hotel.aerolinea{% endtrans %}:
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.aerolinea" id="aerolinea" name="aerolinea" class="form-control"/>
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.aerolinea" id="aerolinea" name="aerolinea" class="form-control"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -321,7 +321,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.fechaLlegada" readonly id="fechaLlegada" name="fechaLlegada" class="form-control datepicker"/>
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.fechaLlegada" readonly id="fechaLlegada" name="fechaLlegada" class="form-control datepicker"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -334,7 +334,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                                                        <input type="text" data-ng-model="paqWebVM.ventaCompletaTO.horaLlegada" readonly id="horaLlegada" name="horaLlegada" class="form-control timepicker"/>
+                                                        <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.horaLlegada" readonly id="horaLlegada" name="horaLlegada" class="form-control timepicker"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -345,8 +345,9 @@
 
                                 <div class="col-sm-12">
                                     <div class="col-sm-12 mt-xxl text-left mb-xxl ml">
-                                        <input type="button" data-ng-click="paqWebVM.reservarPackage(formReserva.$valid)"
+                                        <input type="button" data-ng-click="ctrlWeb.reservarPackage(formReserva.$valid)"
                                                data-ng-disabled="formReserva.$invalid"
+                                               data-ng-show="ctrlWeb.buttonPay"
                                                value="{% trans %}page.web.label.reserva.book.now{% endtrans %}" class="btn btn-primary p"/>
                                     </div>
                                 </div>
@@ -360,7 +361,7 @@
                                     page.web.labe.reserva.similar.package{% endtrans %}</h3>
                             </div>
                             <div class="col-sm-12 pl-n pr-n text-center"
-                                 data-ng-repeat="package in paqWebVM.listItemsSimilar.data">
+                                 data-ng-repeat="package in ctrlWeb.listItemsSimilar.data">
                                 <a href="{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/paquete/detail/id/[[package.id]]">
                                     <img src="{{ asset('[[ package.path ]]') }}" class="img-similar img-thumbnail"/></a>
                                 <br>
