@@ -328,14 +328,20 @@
             </div>
             <input type="hidden" value="{{ path('tours_find_list_similares') }}" id="toursSimilars"/>
 
+            {% include '@VisitaYucatan/web/pages/ModalPago.html.twig' %}
+
         </div>
 
     {% endblock %}
 
     {% block scripts %}
         {{ parent() }}
+        <script src="{{ asset('bundles/VisitaYucatanBundle/js/jquery.payment.min.js') }}" type="text/javascript"></script>
         <script>
             $(function(){
+                $('.cc-number').payment('formatCardNumber');
+                $('.cc-exp').payment('formatCardExpiry');
+                $('.cc-cvc').payment('formatCardCVC');
                /* $('.datepicker').datepicker({
                     autoclose: true,
                     format: 'dd/mm/yyyy',

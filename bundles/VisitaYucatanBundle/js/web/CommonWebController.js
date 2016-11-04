@@ -148,13 +148,10 @@
         };
 
         ctrlWeb.findTypeCard = function () {
-            console.info("Typed");
             var seccionCard = $("#seccionCard");
             if(ctrlWeb.card.number != undefined){
                 if(ctrlWeb.card.number.length){
-                    console.info("her");
                     var cardType = $.payment.cardType($('.cc-number').val());
-                    console.info("cardType = ", cardType);
                     seccionCard.html("");
                     if(cardType == "visa"){
                         seccionCard.html("<img src='"+ctrlWeb.contextPathThis+"/bundles/VisitaYucatanBundle/images/tarjetas/Visa.png'/>")
@@ -172,14 +169,12 @@
         };
 
         ctrlWeb.payProduct = function (isFormValid) {
-            console.info("is valid = ", isFormValid);
-            console.info("CARD = ", ctrlWeb.card);
             if (isFormValid) {
                 if(ctrlWeb.validateCard()){
                     HoldOn.open({message: 'Por favor espere, estamos procesando su pago'});
                     var expiryDate = $.trim(ctrlWeb.card.expiryDate).split('/');
-                    ctrlWeb.card.month = expiryDate[0];
-                    ctrlWeb.card.year = expiryDate[1];
+                    ctrlWeb.card.month = $.trim(expiryDate[0]);
+                    ctrlWeb.card.year = $.trim(expiryDate[1]);
                     WebService.payProduct(ctrlWeb.ventaCompletaTO.id, ctrlWeb.card.number, ctrlWeb.card.month, ctrlWeb.card.year, ctrlWeb.card.code, ctrlWeb.ventaCompletaTO.costoTotal).success(function (data) {
                         console.info("RESTULTADO TRANSACCION = ", data);
                         setTimeout(function () {
@@ -197,7 +192,7 @@
             var CE = $('.cc-exp');
             var CC = $('.cc-cvc');
             var validCardNumber = $.payment.validateCardNumber(CN.val());
-            var validCardExpiry = $.payment.validateCardExpiry(CE.val());
+            var validCardExpiry = $.payment.validateCardExpiry(CE.payment('cardExpiryVal'));
             var validCardCVC = $.payment.validateCardCVC(CC.val());
             var valid = true;
 
@@ -231,6 +226,7 @@
             id: undefined,
             tipoCambio: undefined
         };
+        ctrlHotel.contextPathThis = '';
 
         ctrlHotel.init = function (idHotel, ageMinor, estrellas) {
             ctrlHotel.formRate = {
@@ -261,6 +257,7 @@
         ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath, idHotel, idHabitacion,
                                           idMonedaMexico, tipoCambioMexico) {
             WebService.setContextPath(contextPath);
+            ctrlHotel.contextPathThis = contextPath;
             ctrlHotel.ventaCompletaTO = {
                 tarifaAdulto: tarifaAdulto,
                 costoAdulto: tarifaAdulto,
@@ -292,15 +289,93 @@
                     ctrlHotel.ventaCompletaTO.costoMenor = parseFloat(Math.ceil(ctrlHotel.ventaCompletaTO.costoMenor) * (ctrlHotel.ventaCompletaTO.tipoCambio));
                     ctrlHotel.ventaCompletaTO.costoTotal = parseFloat(ctrlHotel.ventaCompletaTO.costoAdulto) + parseFloat(ctrlHotel.ventaCompletaTO.costoMenor);
                 }
-                HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
+                // HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
 
-                WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).then(function (response) {
-                    setTimeout(function () {
-                        WebService.redirectToSuccessSaleHotel();
-                        HoldOn.close();
-                    }, 5000);
+                WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).success(function (response) {
+                    $scope.formPay.$setPristine();
+                    if (response.status) {
+                        ctrlHotel.card = {
+                            number: '',
+                            month: '01',
+                            year: '16',
+                            code: '',
+                            expiryDate: ''
+                        };
+                        ctrlHotel.ventaCompletaTO.id = response.id;
+                        $("#modalPago").modal();
+                    }
+
+                    // setTimeout(function () {
+                    //     WebService.redirectToSuccessSaleHotel();
+                    //     HoldOn.close();
+                    // }, 5000);
                 });
             }
+        };
+
+        ctrlHotel.findTypeCard = function () {
+            var seccionCard = $("#seccionCard");
+            if(ctrlHotel.card.number != undefined){
+                if(ctrlHotel.card.number.length){
+                    var cardType = $.payment.cardType($('.cc-number').val());
+                    seccionCard.html("");
+                    if(cardType == "visa"){
+                        seccionCard.html("<img src='"+ctrlHotel.contextPathThis+"/bundles/VisitaYucatanBundle/images/tarjetas/Visa.png'/>")
+                    } else if(cardType == "mastercard"){
+                        seccionCard.html("<img src='"+ctrlHotel.contextPathThis+"/bundles/VisitaYucatanBundle/images/tarjetas/MasterCard.png'/>")
+                    } else {
+                        seccionCard.html("");
+                    }
+                } else {
+                    seccionCard.html("");
+                }
+            } else {
+                seccionCard.html("");
+            }
+        };
+
+        ctrlHotel.payProduct = function (isFormValid) {
+            if (isFormValid) {
+                if(ctrlHotel.validateCard()){
+                    HoldOn.open({message: 'Por favor espere, estamos procesando su pago'});
+                    var expiryDate = $.trim(ctrlHotel.card.expiryDate).split('/');
+                    ctrlHotel.card.month = $.trim(expiryDate[0]);
+                    ctrlHotel.card.year = $.trim(expiryDate[1]);
+                    WebService.payProduct(ctrlHotel.ventaCompletaTO.id, ctrlHotel.card.number, ctrlHotel.card.month, ctrlHotel.card.year, ctrlHotel.card.code, ctrlHotel.ventaCompletaTO.costoTotal).success(function (data) {
+                        console.info("RESTULTADO TRANSACCION = ", data);
+                        setTimeout(function () {
+                            HoldOn.close();
+                            // return WebService.redirectToSuccessSale();
+                        }, 3000);
+                    });
+                }
+
+            }
+        };
+
+        ctrlHotel.validateCard = function () {
+            var CN = $('.cc-number');
+            var CE = $('.cc-exp');
+            var CC = $('.cc-cvc');
+            var validCardNumber = $.payment.validateCardNumber(CN.val());
+            var validCardExpiry = $.payment.validateCardExpiry(CE.payment('cardExpiryVal'));
+            var validCardCVC = $.payment.validateCardCVC(CC.val());
+            var valid = true;
+
+            if(!validCardNumber){
+                $scope.formPay.cardNumber.$invalid = true;
+                valid = false;
+                CN.trigger("focus");
+            } else if(!validCardExpiry){
+                $scope.formPay.expirydate.$invalid = true;
+                valid = false;
+                CE.trigger("focus");
+            } else if(!validCardCVC){
+                $scope.formPay.cvv.$invalid = true;
+                valid = false;
+                CC.trigger("focus");
+            }
+            return valid;
         };
 
         ctrlHotel.findTarifasHotel = function () {
@@ -397,6 +472,7 @@
             id: undefined,
             tipoCambio: undefined
         };
+        paqWebVM.contextPathThis = '';
 
         paqWebVM.initPaquete = function (combinacionespaquete, idPackage) {
             paqWebVM.idPaquete = idPackage;
@@ -481,6 +557,7 @@
             paqWebVM.calculateCostoPaquete(paqWebVM.detailReserva.adultos, paqWebVM.detailReserva.menores);
             paqWebVM.findItemsSimilar();
             WebService.contextPath = contextPath;
+            paqWebVM.contextPathThis = contextPath;
 
             paqWebVM.initVentaCompletaTO(idPaquete, idIdioma, idMoneda, combinacion);
 
@@ -582,11 +659,23 @@
                 paqWebVM.ventaCompletaTO.costoTotal = paqWebVM.importeTotal;
                 paqWebVM.ventaCompletaTO.costoAdulto = paqWebVM.detailReserva.costo;
 
-                WebService.createReservationPackage(paqWebVM.ventaCompletaTO).then(function (response) {
-                    setTimeout(function () {
-                        WebService.redirectToSuccessSalePackage();
-                        HoldOn.close();
-                    }, 5000);
+                WebService.createReservationPackage(paqWebVM.ventaCompletaTO).success(function (response) {
+                    $scope.formPay.$setPristine();
+                    if (response.status) {
+                        paqWebVM.card = {
+                            number: '',
+                            month: '01',
+                            year: '16',
+                            code: '',
+                            expiryDate: ''
+                        };
+                        paqWebVM.ventaCompletaTO.id = response.id;
+                        $("#modalPago").modal();
+                    }
+                    // setTimeout(function () {
+                    //     WebService.redirectToSuccessSalePackage();
+                    //     HoldOn.close();
+                    // }, 5000);
                 });
             }
         };
@@ -632,6 +721,71 @@
                     }
                 });
             });
+        };
+
+        paqWebVM.findTypeCard = function () {
+            var seccionCard = $("#seccionCard");
+            if(paqWebVM.card.number != undefined){
+                if(paqWebVM.card.number.length){
+                    var cardType = $.payment.cardType($('.cc-number').val());
+                    seccionCard.html("");
+                    if(cardType == "visa"){
+                        seccionCard.html("<img src='"+paqWebVM.contextPathThis+"/bundles/VisitaYucatanBundle/images/tarjetas/Visa.png'/>")
+                    } else if(cardType == "mastercard"){
+                        seccionCard.html("<img src='"+paqWebVM.contextPathThis+"/bundles/VisitaYucatanBundle/images/tarjetas/MasterCard.png'/>")
+                    } else {
+                        seccionCard.html("");
+                    }
+                } else {
+                    seccionCard.html("");
+                }
+            } else {
+                seccionCard.html("");
+            }
+        };
+
+        paqWebVM.payProduct = function (isFormValid) {
+            if (isFormValid) {
+                if(paqWebVM.validateCard()){
+                    HoldOn.open({message: 'Por favor espere, estamos procesando su pago'});
+                    var expiryDate = $.trim(paqWebVM.card.expiryDate).split('/');
+                    paqWebVM.card.month = $.trim(expiryDate[0]);
+                    paqWebVM.card.year = $.trim(expiryDate[1]);
+                    WebService.payProduct(paqWebVM.ventaCompletaTO.id, paqWebVM.card.number, paqWebVM.card.month, paqWebVM.card.year, paqWebVM.card.code, paqWebVM.ventaCompletaTO.costoTotal).success(function (data) {
+                        console.info("RESTULTADO TRANSACCION = ", data);
+                        setTimeout(function () {
+                            HoldOn.close();
+                            // return WebService.redirectToSuccessSale();
+                        }, 3000);
+                    });
+                }
+
+            }
+        };
+
+        paqWebVM.validateCard = function () {
+            var CN = $('.cc-number');
+            var CE = $('.cc-exp');
+            var CC = $('.cc-cvc');
+            var validCardNumber = $.payment.validateCardNumber(CN.val());
+            var validCardExpiry = $.payment.validateCardExpiry(CE.payment('cardExpiryVal'));
+            var validCardCVC = $.payment.validateCardCVC(CC.val());
+            var valid = true;
+
+            if(!validCardNumber){
+                $scope.formPay.cardNumber.$invalid = true;
+                valid = false;
+                CN.trigger("focus");
+            } else if(!validCardExpiry){
+                $scope.formPay.expirydate.$invalid = true;
+                valid = false;
+                CE.trigger("focus");
+            } else if(!validCardCVC){
+                $scope.formPay.cvv.$invalid = true;
+                valid = false;
+                CC.trigger("focus");
+            }
+            return valid;
         };
     });
 

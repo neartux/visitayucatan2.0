@@ -26,20 +26,20 @@
                     </div>
                     <br><br>
                     <div class="col-sm-6 pb-lg">
-                        <div>
+                        <div ng-class="{ 'has-error' : formPay.expirydate.$invalid && !formPay.expirydate.$pristine }">
                             <label for="expiryMonth">Fecha Expiración</label>
                             <br>
                             <div class="col-sm-8 p-n">
                                 <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="•• / ••" required
                                        data-ng-model="ctrlWeb.card.expiryDate" name="expirydate">
-                                <span ng-show="formPay.cvv.$invalid && !formPay.cvv.$pristine" class="help-block">
+                                <span ng-show="formPay.expirydate.$invalid && !formPay.expirydate.$pristine" class="help-block">
                                                 Fecha expiración Invalido
                                             </span>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 pb-lg">
-                        <div>
+                        <div ng-class="{ 'has-error' : formPay.cvv.$invalid && !formPay.cvv.$pristine }">
                             <label for="expiryYear">Cvv</label>
                             <br>
                             <div class="col-sm-8 p-n">

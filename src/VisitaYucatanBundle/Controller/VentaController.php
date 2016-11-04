@@ -189,38 +189,34 @@ class VentaController extends Controller {
      * @Method("POST")
      */
     public function process(Request $requestG) {
-        $em = $this->getDoctrine()->getManager();
-
-        $em->getConnection()->beginTransaction();
-        try {
-            $configArray = Generalkeys::getConfigurationPayment();
+        $configArray = Generalkeys::getConfigurationPayment();
 
 
-            if (array_key_exists("submit", $_POST))
-                unset($_POST["submit"]);
+        if (array_key_exists("submit", $_POST))
+            unset($_POST["submit"]);
 
-            $merchantObj = new Merchant($configArray);
-            $parserObj = new Parser($merchantObj);
+        $merchantObj = new Merchant($configArray);
+        $parserObj = new Parser($merchantObj);
 
-            if (array_key_exists("version", $_POST)) {
-                $merchantObj->SetVersion($_POST["version"]);
-                unset($_POST["version"]);
-            }
+        if (array_key_exists("version", $_POST)) {
+            $merchantObj->SetVersion($_POST["version"]);
+            unset($_POST["version"]);
+        }
 
-            $request = $parserObj->ParseRequest($merchantObj, $_POST);
+        $request = $parserObj->ParseRequest($merchantObj, $_POST);
 
-            if ($request == "")
-                die();
+        if ($request == "")
+            die();
 
 //        if ($merchantObj->GetDebug())
 //            echo $request . "<br/><br/>";
 
-            $requestUrl = $parserObj->FormRequestUrl($merchantObj);
+        $requestUrl = $parserObj->FormRequestUrl($merchantObj);
 
 //        if ($merchantObj->GetDebug())
 //            echo $requestUrl . "<br/><br/>";
 
-            $response = $parserObj->SendTransaction($merchantObj, $request);
+        $response = $parserObj->SendTransaction($merchantObj, $request);
 
 //        if ($merchantObj->GetDebug()) {
 //            // replace the newline chars with html newlines
@@ -229,79 +225,75 @@ class VentaController extends Controller {
 //            die();
 //        }
 
-            //TODO receipt.php
-            $errorMessage = "";
-            $errorCode = "";
-            $gatewayCode = "";
-            $result = "";
+        //TODO receipt.php
+        $errorMessage = "";
+        $errorCode = "";
+        $gatewayCode = "";
+        $result = "";
 
-            $responseArray = array();
+        $responseArray = array();
 
-            if (strstr($response, "cURL Error") != FALSE) {
-                print("Communication failed. Please review payment server return response (put code into debug mode).");
-                die();
-            }
-
-            if (strlen($response) != 0) {
-                $pairArray = explode("&", $response);
-                foreach ($pairArray as $pair) {
-                    $param = explode("=", $pair);
-                    $responseArray[urldecode($param[0])] = urldecode($param[1]);
-                }
-            }
-
-            if (array_key_exists("result", $responseArray))
-                $result = $responseArray["result"];
-
-            $pagado = FALSE;
-
-            if ($result == "FAILURE") {
-                $pagado = FALSE;
-                if (array_key_exists("failureExplanation", $responseArray)) {
-                    $errorMessage = rawurldecode($responseArray["failureExplanation"]);
-                }
-                else if (array_key_exists("supportCode", $responseArray)) {
-                    $errorMessage = rawurldecode($responseArray["supportCode"]);
-                }
-                else {
-                    $errorMessage = "Reason unspecified.";
-                }
-
-                if (array_key_exists("failureCode", $responseArray)) {
-                    $errorCode = "Error (" . $responseArray["failureCode"] . ")";
-                }
-                else {
-                    $errorCode = "Error (UNSPECIFIED)";
-                }
-            } else {
-                $pagado = TRUE;
-                if (array_key_exists("response.gatewayCode", $responseArray))
-                    $gatewayCode = rawurldecode($responseArray["response.gatewayCode"]);
-                else
-                    $gatewayCode = "Response not received.";
-            }
-
-            $receipt = $responseArray["transaction.receipt"];
-            $tarjeta = $responseArray["sourceOfFunds.provided.card.brand"];
-            $numAutorizacion = array_key_exists("transaction.authorizationCode", $responseArray) ? $responseArray["transaction.authorizationCode"] : Generalkeys::NUMBER_ZERO;
-            $idVenta = $requestG->getSession()->get("idVentaGenerada");
-            $this->updateDatosPago($pagado, $receipt, $tarjeta, $numAutorizacion, $idVenta);
-
-            /*if ($errorCode != "" || $errorMessage != "") {
-                echo $errorCode." = = = ".$errorMessage;
-            }else {
-                echo $gatewayCode." = =  = ".$result."<br>";
-            }
-
-            foreach ($responseArray as $field => $value) {
-                echo $field." **** ".$value."<br>";
-            }*/
-
-            return new JsonResponse(Array("successTransaction" => true));
-        } catch (\Exception $e) {
-            $em->getConnection()->rollback();
-            return new JsonResponse(Array("successTransaction" => false));
+        if (strstr($response, "cURL Error") != FALSE) {
+            print("Communication failed. Please review payment server return response (put code into debug mode).");
+            die();
         }
+
+        if (strlen($response) != 0) {
+            $pairArray = explode("&", $response);
+            foreach ($pairArray as $pair) {
+                $param = explode("=", $pair);
+                $responseArray[urldecode($param[0])] = urldecode($param[1]);
+            }
+        }
+
+        if (array_key_exists("result", $responseArray))
+            $result = $responseArray["result"];
+
+        $pagado = FALSE;
+
+        if ($result == "FAILURE") {
+            $pagado = FALSE;
+            if (array_key_exists("failureExplanation", $responseArray)) {
+                $errorMessage = rawurldecode($responseArray["failureExplanation"]);
+            }
+            else if (array_key_exists("supportCode", $responseArray)) {
+                $errorMessage = rawurldecode($responseArray["supportCode"]);
+            }
+            else {
+                $errorMessage = "Reason unspecified.";
+            }
+
+            if (array_key_exists("failureCode", $responseArray)) {
+                $errorCode = "Error (" . $responseArray["failureCode"] . ")";
+            }
+            else {
+                $errorCode = "Error (UNSPECIFIED)";
+            }
+        } else {
+            $pagado = TRUE;
+            if (array_key_exists("response.gatewayCode", $responseArray))
+                $gatewayCode = rawurldecode($responseArray["response.gatewayCode"]);
+            else
+                $gatewayCode = "Response not received.";
+        }
+//
+//        if ($errorCode != "" || $errorMessage != "") {
+//            echo $errorCode." = = = ".$errorMessage;
+//        }else {
+//            echo $gatewayCode." = =  = ".$result."<br>";
+//        }
+//
+//        foreach ($responseArray as $field => $value) {
+//            echo $field." **** ".$value."<br>";
+//        }
+
+        $receipt = array_key_exists("transaction.receipt", $responseArray) ? $responseArray["transaction.receipt"]: Generalkeys::NUMBER_ZERO;
+        $tarjeta = array_key_exists("sourceOfFunds.provided.card.brand", $responseArray) ? $responseArray["sourceOfFunds.provided.card.brand"] : "";
+        $numAutorizacion = array_key_exists("transaction.authorizationCode", $responseArray) ? $responseArray["transaction.authorizationCode"] : Generalkeys::NUMBER_ZERO;
+        $idVenta = $requestG->getSession()->get("idVentaGenerada");
+        $this->updateDatosPago($pagado, $receipt, $tarjeta, $numAutorizacion, $idVenta);
+
+        return new JsonResponse(Array("pagado" => $pagado));
 
     }
 
