@@ -17,6 +17,7 @@ button.label.go.back : Retourner
 button.label.edit : Éditer
 button.label.login : Commencer la session
 button.label.upload : Télécharger
+button.label.pay : Payer
 
 #** Properties to menu sidebar
 menu.sidebar.label.title.catalogs : Catalogues
@@ -226,3 +227,12 @@ page.web.labe.reserva.general.price.per.person.doble : Prix par personne en occu
 page.web.labe.reserva.general.price.per.person.triple : Prix par personne en occupation triple
 page.web.labe.reserva.general.price.per.person.cuadruple : Prix par personne en occupation cuadruple
 page.webo.label.reserva.hoteles.precio.habitacion.noche: Precio de habitación por noche
+
+page.web.title.pay.details : Je paie les détails
+page.web.title.pay.details.card.number : Numéro de carte
+page.web.title.pay.details.card.number.valid : Numéro Vérifier la carte
+page.web.title.pay.details.expiration.date : Date d'expiration
+page.web.title.pay.details.expiration.date.valid : Vérifier la date d'expiration
+page.web.title.pay.details.cvv : Cvv
+page.web.title.pay.details.cvv.invalid : J'invalide Cvv
+page.web.title.pay.message.cancel.pay : Etes-vous sûr d'annuler le paiement?

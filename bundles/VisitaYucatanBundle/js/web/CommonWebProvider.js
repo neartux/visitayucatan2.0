@@ -144,23 +144,10 @@
                 "sourceOfFunds.provided.card.number="+numberCard+"&sourceOfFunds.provided.card.expiry.month="+month+"&sourceOfFunds.provided.card.expiry.year="+year+"&" +
                 "sourceOfFunds.provided.card.securityCode="+code+"&order.amount="+amount+"&order.currency=MXN";
 
-            console.info("DAtos a enviar pago = ", data);
-
             return $http.post(service.contextPath+'/venta/process', data, {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
             
-        };
-
-        service.updateDatosPago = function(idVenta, pagado, numeroAutorizacion, numeroOperacion, tipoTarjeta){
-            return $http.post(service.contextPath+'/venta/upadteDatosPago', $.param({idVenta: idVenta, pagado: pagado, numeroOperacion: numeroOperacion, numeroAutorizacion: numeroAutorizacion, tipoTarjeta: tipoTarjeta}), {
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            });
-        };
-        
-        service.isPaySuccess = function (result) {
-            console.info("RESULT  = ", result);
-            return result == "SUCCESS";
         };
 
         return service;

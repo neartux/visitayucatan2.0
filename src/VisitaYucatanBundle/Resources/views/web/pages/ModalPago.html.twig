@@ -3,14 +3,14 @@
     <div class="modal-dialog" style="width: 40%;">
         <div class="modal-content">
             <div class="modal-header p">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times"></span></button>
-                <h2 class="modal-title">Detalles Pago</h2>
+                <button type="button" data-ng-click="ctrlWeb.cancelPay();" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times"></span></button>
+                <h2 class="modal-title">{% trans %}page.web.title.pay.details{% endtrans %}</h2>
             </div>
             <form class="form-horizontal row-border formPay" name="formPay" novalidate method="post" autocomplete="on">
                 <div class="modal-body" style="height: 260px;">
                     <div class="col-sm-12 pb-lg">
                         <div ng-class="{ 'has-error' : formPay.cardNumber.$invalid && !formPay.cardNumber.$pristine }">
-                            <label for="cardNumber">Card Number</label>
+                            <label for="cardNumber">{% trans %}page.web.title.pay.details.card.number{% endtrans %}</label>
                             <br>
                             <div class="col-sm-10 p-n">
                                 <input type="tel" class="form-control cardNumber cc-number" name="cardNumber" id="cardNumber" placeholder="•••• •••• •••• ••••" required
@@ -19,7 +19,7 @@
 
                                             </span>
                                 <span ng-show="formPay.cardNumber.$invalid && !formPay.cardNumber.$pristine" class="help-block">
-                                                Verifica el número de tarjeta
+                                                {% trans %}page.web.title.pay.details.card.number.valid{% endtrans %}
                                             </span>
                             </div>
                         </div>
@@ -27,26 +27,26 @@
                     <br><br>
                     <div class="col-sm-6 pb-lg">
                         <div ng-class="{ 'has-error' : formPay.expirydate.$invalid && !formPay.expirydate.$pristine }">
-                            <label for="expiryMonth">Fecha Expiración</label>
+                            <label for="expiryMonth">{% trans %}page.web.title.pay.details.expiration.date{% endtrans %}</label>
                             <br>
                             <div class="col-sm-8 p-n">
                                 <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="•• / ••" required
                                        data-ng-model="ctrlWeb.card.expiryDate" name="expirydate">
                                 <span ng-show="formPay.expirydate.$invalid && !formPay.expirydate.$pristine" class="help-block">
-                                                Fecha expiración Invalido
+                                                {% trans %}page.web.title.pay.details.expiration.date.valid{% endtrans %}
                                             </span>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 pb-lg">
                         <div ng-class="{ 'has-error' : formPay.cvv.$invalid && !formPay.cvv.$pristine }">
-                            <label for="expiryYear">Cvv</label>
+                            <label for="expiryYear">{% trans %}page.web.title.pay.details.cvv{% endtrans %}</label>
                             <br>
                             <div class="col-sm-8 p-n">
                                 <input type="password" class="form-control cc-cvc" name="cvv" id="cvv" required autocomplete="off" placeholder="•••"
                                        data-ng-model="ctrlWeb.card.code"/>
                                 <span ng-show="formPay.cvv.$invalid && !formPay.cvv.$pristine" class="help-block">
-                                                Cvv Invalido
+                                                {% trans %}page.web.title.pay.details.cvv.valid{% endtrans %}
                                             </span>
                             </div>
                         </div>
@@ -60,12 +60,14 @@
                 </div>
                 <div class="modal-footer">
                     <a href="javascript:;" class="btn btn-primary" data-ng-click="ctrlWeb.payProduct(formPay.$valid);"
-                       data-ng-disabled="formPay.$invalid">Pagar</a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                       data-ng-disabled="formPay.$invalid"
+                        data-ng-show="ctrlWeb.buttonPayShow">{% trans %}button.label.pay{% endtrans %}</a>
+                    <button type="button" class="btn btn-default" data-ng-click="ctrlWeb.cancelPay();">
                         <span class="fa fa-times-circle-o"></span> &nbsp;
-                        Cerrar
+                        {% trans %}button.label.cancel{% endtrans %}
                     </button>
                 </div>
+                <input type="hidden" value="{% trans %}page.web.title.pay.message.cancel.pay{% endtrans %}" id="cancelPay">
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

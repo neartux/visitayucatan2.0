@@ -28,6 +28,8 @@
             tipoCambio: undefined
         };
         ctrlWeb.contextPathThis = '';
+        ctrlWeb.buttonPay = true;
+        ctrlWeb.buttonPayShow = true;
 
 
         ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate, idTour) {
@@ -109,6 +111,7 @@
 
         ctrlWeb.reservarTour = function (isFormValid) {
             if (isFormValid) {
+                ctrlWeb.buttonPay = false;
                 ctrlWeb.ventaCompletaTO.costoTotal = ctrlWeb.calculateCost();
                 if (parseInt(ctrlWeb.totalPersons.numeroMenores) > 0) {
                     if (ctrlWeb.soloAdultos != undefined && ctrlWeb.soloAdultos) {
@@ -170,16 +173,16 @@
 
         ctrlWeb.payProduct = function (isFormValid) {
             if (isFormValid) {
+                ctrlWeb.buttonPayShow = false;
                 if(ctrlWeb.validateCard()){
                     HoldOn.open({message: 'Por favor espere, estamos procesando su pago'});
                     var expiryDate = $.trim(ctrlWeb.card.expiryDate).split('/');
                     ctrlWeb.card.month = $.trim(expiryDate[0]);
                     ctrlWeb.card.year = $.trim(expiryDate[1]);
                     WebService.payProduct(ctrlWeb.ventaCompletaTO.id, ctrlWeb.card.number, ctrlWeb.card.month, ctrlWeb.card.year, ctrlWeb.card.code, ctrlWeb.ventaCompletaTO.costoTotal).success(function (data) {
-                        console.info("RESTULTADO TRANSACCION = ", data);
                         setTimeout(function () {
                             HoldOn.close();
-                            // return WebService.redirectToSuccessSale();
+                                return WebService.redirectToSuccessSale();
                         }, 3000);
                     });
                 }
@@ -211,6 +214,12 @@
             }
             return valid;
         };
+
+        ctrlWeb.cancelPay = function() {
+            if(confirm($("#cancelPay").val())){
+                WebService.redirectToSuccessSale();
+            }
+        }
 
     });
 
