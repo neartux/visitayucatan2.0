@@ -284,6 +284,8 @@ class VentaController extends Controller {
 //        foreach ($responseArray as $field => $value) {
 //            echo $field." **** ".$value."<br>";
 //        }
+
+        // Obtiene los datos transaccion para guardar en BD
         $receipt = array_key_exists("transaction.receipt", $responseArray) ? $responseArray["transaction.receipt"]: Generalkeys::NUMBER_ZERO;
         $tarjeta = array_key_exists("sourceOfFunds.provided.card.brand", $responseArray) ? $responseArray["sourceOfFunds.provided.card.brand"] : "";
         $numAutorizacion = array_key_exists("transaction.authorizationCode", $responseArray) ? $responseArray["transaction.authorizationCode"] : Generalkeys::NUMBER_ZERO;
