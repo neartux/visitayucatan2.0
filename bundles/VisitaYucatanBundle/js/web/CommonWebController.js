@@ -123,6 +123,7 @@
                     alert("El minimo de personas para este paquete es " + ctrlWeb.minimoPersonas);
                     return
                 }
+                HoldOn.open({message: 'Por favor espere un momento'});
                 // Si no esta en moneda mexicana la convierte a pesos
                 if (ctrlWeb.ventaCompletaTO.idMoneda != ctrlWeb.CurrencyMexico.id) {
                     ctrlWeb.ventaCompletaTO.costoAdulto = parseFloat((ctrlWeb.rateAdult * parseInt(ctrlWeb.totalPersons.numeroAdultos)) * (ctrlWeb.ventaCompletaTO.tipoCambio));
@@ -142,11 +143,14 @@
                             code: '',
                             expiryDate: ''
                         };
+                        HoldOn.close();
                         ctrlWeb.ventaCompletaTO.id = response.id;
                         $("#modalPago").modal();
+                    } else{
+                        return WebService.redirectToSuccessSale();
                     }
                 });
-                //HoldOn.close();
+                HoldOn.close();
             }
         };
 
@@ -181,7 +185,6 @@
                     ctrlWeb.card.year = $.trim(expiryDate[1]);
                     WebService.payProduct(ctrlWeb.ventaCompletaTO.id, ctrlWeb.card.number, ctrlWeb.card.month, ctrlWeb.card.year, ctrlWeb.card.code, ctrlWeb.ventaCompletaTO.costoTotal).success(function (data) {
                         setTimeout(function () {
-                            HoldOn.close();
                                 return WebService.redirectToSuccessSale();
                         }, 3000);
                     });

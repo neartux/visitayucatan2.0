@@ -249,10 +249,8 @@ class VentaController extends Controller {
         if (array_key_exists("result", $responseArray))
             $result = $responseArray["result"];
 
-        $pagado = FALSE;
-
         if ($result == "FAILURE") {
-            $pagado = FALSE;
+            $pagado = Generalkeys::NUMBER_ZERO;
             if (array_key_exists("failureExplanation", $responseArray)) {
                 $errorMessage = rawurldecode($responseArray["failureExplanation"]);
             }
@@ -270,7 +268,7 @@ class VentaController extends Controller {
                 $errorCode = "Error (UNSPECIFIED)";
             }
         } else {
-            $pagado = TRUE;
+            $pagado = Generalkeys::NUMBER_ONE;
             if (array_key_exists("response.gatewayCode", $responseArray))
                 $gatewayCode = rawurldecode($responseArray["response.gatewayCode"]);
             else
@@ -286,11 +284,12 @@ class VentaController extends Controller {
 //        foreach ($responseArray as $field => $value) {
 //            echo $field." **** ".$value."<br>";
 //        }
-
         $receipt = array_key_exists("transaction.receipt", $responseArray) ? $responseArray["transaction.receipt"]: Generalkeys::NUMBER_ZERO;
         $tarjeta = array_key_exists("sourceOfFunds.provided.card.brand", $responseArray) ? $responseArray["sourceOfFunds.provided.card.brand"] : "";
         $numAutorizacion = array_key_exists("transaction.authorizationCode", $responseArray) ? $responseArray["transaction.authorizationCode"] : Generalkeys::NUMBER_ZERO;
         $idVenta = $requestG->getSession()->get("idVentaGenerada");
+
+        // Actualiza la informacion de pago, con el resultado de transaccion de pago
         $this->updateDatosPago($pagado, $receipt, $tarjeta, $numAutorizacion, $idVenta);
 
         return new JsonResponse(Array("pagado" => $pagado));
