@@ -187,8 +187,9 @@
                                 return WebService.redirectToSuccessSale();
                         }, 3000);
                     });
+                } else {
+                    ctrlHotel.buttonPayShow = false;
                 }
-
             }
         };
 
@@ -361,6 +362,8 @@
                             return WebService.redirectToSuccessSaleHotel();
                         }, 3000);
                     });
+                } else {
+                    ctrlHotel.buttonPayShow = true;
                 }
 
             }
@@ -748,6 +751,8 @@
                              return WebService.redirectToSuccessSalePackage();
                         }, 3000);
                     });
+                } else {
+                    ctrlHotel.buttonPayShow = false;
                 }
 
             }
