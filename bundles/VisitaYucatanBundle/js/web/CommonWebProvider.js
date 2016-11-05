@@ -139,10 +139,9 @@
         };
         
         service.payProduct = function (idVenta, numberCard, month, year, code, amount) {
-            console.info(idVenta, numberCard, month, year, code, amount);
             var data = "version=34&order.id=VIYUC"+idVenta+"&transaction.id="+idVenta+"&apiOperation=PAY&sourceOfFunds.type=CARD&" +
                 "sourceOfFunds.provided.card.number="+numberCard+"&sourceOfFunds.provided.card.expiry.month="+month+"&sourceOfFunds.provided.card.expiry.year="+year+"&" +
-                "sourceOfFunds.provided.card.securityCode="+code+"&order.amount="+amount+"&order.currency=MXN";
+                "sourceOfFunds.provided.card.securityCode="+code+"&order.amount="+amount.toFixed(2)+"&order.currency=MXN";
 
             return $http.post(service.contextPath+'/venta/process', data, {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

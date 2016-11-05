@@ -134,7 +134,7 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
     public function getDetailsSaleHotel($idVenta, $idContract){
         $em = $this->getEntityManager();
         $sql = "SELECT venta.id AS idventa,venta.fechaventa,venta.total,venta_detalle.numeroadultos,venta_detalle.numeromenores,venta_detalle.total AS totaldetalle
-              ,hotel_idioma.nombrehotel,datos_pago.pagado,datos_pago.numeroautorizacion,datos_pago.numerooperacion,
+              ,hotel_idioma.nombrehotel,datos_pago.pagado,datos_pago.numeroautorizacion,datos_pago.numerooperacion,datos_pago.numerovoucher,
               hotel_plan.descripcion AS plan,datos_reserva.checkin,datos_reserva.checkout,
               hotel_habitacion.nombre AS tipohabitacion,
               datos_personales.nombres,datos_personales.apellidos,

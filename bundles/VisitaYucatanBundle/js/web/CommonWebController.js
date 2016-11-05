@@ -33,7 +33,6 @@
 
 
         ctrlWeb.initTour = function (rateChild, rateAdult, exchangeRate, idTour) {
-            console.info("init");
             ctrlWeb.configureParametersInit(rateChild, rateAdult, exchangeRate);
             ctrlWeb.idTour = idTour;
             ctrlWeb.findItemsSimilar();
@@ -297,6 +296,7 @@
 
         ctrlHotel.createRerservaHotel = function (isValidForm) {
             if (isValidForm) {
+                HoldOn.open({message: 'Por favor espere un momento'});
                 ctrlHotel.buttonPay = false;
                 // Si no esta en moneda mexicana la convierte a pesos
                 if (ctrlHotel.ventaCompletaTO.idMoneda != ctrlHotel.CurrencyMexico.id) {
@@ -304,7 +304,6 @@
                     ctrlHotel.ventaCompletaTO.costoMenor = parseFloat(Math.ceil(ctrlHotel.ventaCompletaTO.costoMenor) * (ctrlHotel.ventaCompletaTO.tipoCambio));
                     ctrlHotel.ventaCompletaTO.costoTotal = parseFloat(ctrlHotel.ventaCompletaTO.costoAdulto) + parseFloat(ctrlHotel.ventaCompletaTO.costoMenor);
                 }
-                // HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
 
                 WebService.createReservationHotel(ctrlHotel.ventaCompletaTO).success(function (response) {
                     $scope.formPay.$setPristine();
@@ -319,7 +318,7 @@
                         ctrlHotel.ventaCompletaTO.id = response.id;
                         $("#modalPago").modal();
                     }
-
+                    HoldOn.close();
                     // setTimeout(function () {
                     //     WebService.redirectToSuccessSaleHotel();
                     //     HoldOn.close();
@@ -358,9 +357,7 @@
                     ctrlHotel.card.month = $.trim(expiryDate[0]);
                     ctrlHotel.card.year = $.trim(expiryDate[1]);
                     WebService.payProduct(ctrlHotel.ventaCompletaTO.id, ctrlHotel.card.number, ctrlHotel.card.month, ctrlHotel.card.year, ctrlHotel.card.code, ctrlHotel.ventaCompletaTO.costoTotal).success(function (data) {
-                        console.info("RESTULTADO TRANSACCION = ", data);
                         setTimeout(function () {
-                            HoldOn.close();
                             return WebService.redirectToSuccessSaleHotel();
                         }, 3000);
                     });

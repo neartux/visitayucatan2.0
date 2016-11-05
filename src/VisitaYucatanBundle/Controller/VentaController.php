@@ -291,6 +291,8 @@ class VentaController extends Controller {
         $numAutorizacion = array_key_exists("transaction.authorizationCode", $responseArray) ? $responseArray["transaction.authorizationCode"] : Generalkeys::NUMBER_ZERO;
         $idVenta = $requestG->getSession()->get("idVentaGenerada");
 
+        //echo "Imprimiendo datos finales: pagado = ".$pagado." receipt = ".$receipt." tarjeta = ".$tarjeta." numeroAutorizacion = ".$numAutorizacion." idVenta = ".$idVenta;
+
         // Actualiza la informacion de pago, con el resultado de transaccion de pago
         $this->updateDatosPago($pagado, $receipt, $tarjeta, $numAutorizacion, $idVenta);
 
