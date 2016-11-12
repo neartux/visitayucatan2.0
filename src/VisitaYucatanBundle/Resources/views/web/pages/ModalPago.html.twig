@@ -1,9 +1,10 @@
-<div class="modal fade in" id="modalPago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+<div class="modal fade in" id="modalPago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"
+     data-backdrop="static" data-keyboard="false">
     <div class="modal-backdrop fade in" style="height: 1037px;"></div>
     <div class="modal-dialog" style="width: 40%;">
         <div class="modal-content">
             <div class="modal-header p">
-                <button type="button" data-ng-click="ctrlWeb.cancelPay();" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times"></span></button>
+                <button type="button" data-ng-click="ctrlWeb.cancelPay();" class="close"><span class="fa fa-times"></span></button>
                 <h2 class="modal-title">{% trans %}page.web.title.pay.details{% endtrans %}</h2>
             </div>
             <form class="form-horizontal row-border formPay" name="formPay" novalidate method="post" autocomplete="on">

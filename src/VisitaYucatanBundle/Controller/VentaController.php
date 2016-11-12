@@ -268,11 +268,13 @@ class VentaController extends Controller {
                 $errorCode = "Error (UNSPECIFIED)";
             }
         } else {
-            $pagado = Generalkeys::NUMBER_ONE;
-            if (array_key_exists("response.gatewayCode", $responseArray))
+            if (array_key_exists("response.gatewayCode", $responseArray)){
+                $pagado = Generalkeys::NUMBER_ONE;
                 $gatewayCode = rawurldecode($responseArray["response.gatewayCode"]);
-            else
+            } else{
+                $pagado = Generalkeys::NUMBER_ZERO;
                 $gatewayCode = "Response not received.";
+            }
         }
 //
 //        if ($errorCode != "" || $errorMessage != "") {

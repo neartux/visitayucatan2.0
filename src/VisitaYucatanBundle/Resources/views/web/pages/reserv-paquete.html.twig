@@ -88,7 +88,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                     <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.checkOut" id="fechaSalida"
-                                                           name="fechaSalida" class="form-control"/>
+                                                           name="fechaSalida" class="form-control datepicker-fs-d"/>
                                                         </div>
                                             <span ng-show="formReserva.fechaSalida.$invalid && !formReserva.fechaSalida.$pristine" class="required">
                                                 {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
@@ -416,7 +416,7 @@
 
             function cambiaFechaPaquete() {
                 var packageDate = $("#fechaPaquete").val();
-                $(".datepicker-fs").val(moment(getDate(packageDate)).add(parseInt(diasPaquete - 1), 'day').format('DD/MM/YYYY'));
+                $(".datepicker-fs-d").val(moment(getDate(packageDate)).add(parseInt(diasPaquete - 1), 'day').format('DD/MM/YYYY'));
                 $("#fechaLlegada").val(packageDate);
             }
             function getDate(date){

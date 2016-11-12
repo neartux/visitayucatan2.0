@@ -188,7 +188,7 @@
                         }, 3000);
                     });
                 } else {
-                    ctrlHotel.buttonPayShow = false;
+                    ctrlWeb.buttonPayShow = true;
                 }
             }
         };
@@ -577,8 +577,8 @@
 
 
         paqWebVM.calculateCostoPaquete = function (adultos, menores) {
-            var costoAdultos = parseFloat(paqWebVM.detailReserva.costo) * adultos;
-            var costoMenores = parseFloat(paqWebVM.paqueteCombinacion.costomenor) * menores;
+            var costoAdultos = parseFloat(paqWebVM.detailReserva.costo).toFixed(2) * adultos;
+            var costoMenores = parseFloat(paqWebVM.paqueteCombinacion.costomenor).toFixed(2) * menores;
             paqWebVM.importeTotal = costoAdultos + costoMenores;
         };
         paqWebVM.ocupacionHab = function (adultos, menores) {
@@ -649,9 +649,15 @@
                 paqWebVM.ventaCompletaTO.horaLlegada = $("#horaLlegada").val();
                 paqWebVM.ventaCompletaTO.numeroAdultos = paqWebVM.reservar.adultos;
                 paqWebVM.ventaCompletaTO.numeroMenores = paqWebVM.reservar.menores.value;
-                paqWebVM.ventaCompletaTO.costoTotal = paqWebVM.importeTotal;
-                paqWebVM.ventaCompletaTO.costoAdulto = paqWebVM.detailReserva.costo;
-
+                paqWebVM.ventaCompletaTO.costoTotal = parseFloat(paqWebVM.importeTotal).toFixed(2);
+                paqWebVM.ventaCompletaTO.costoAdulto = parseFloat(paqWebVM.detailReserva.costo).toFixed(2);
+                paqWebVM.ventaCompletaTO.costoMenor = parseFloat(paqWebVM.ventaCompletaTO.costoMenor).toFixed(2);
+                // Si no esta en moneda mexicana la convierte a pesos
+                if (paqWebVM.ventaCompletaTO.idMoneda != paqWebVM.CurrencyMexico.id) {
+                    paqWebVM.ventaCompletaTO.costoAdulto = parseFloat(Math.ceil(paqWebVM.ventaCompletaTO.costoAdulto) * (paqWebVM.ventaCompletaTO.tipoCambio));
+                    paqWebVM.ventaCompletaTO.costoMenor = parseFloat(Math.ceil(paqWebVM.ventaCompletaTO.costoMenor) * (paqWebVM.ventaCompletaTO.tipoCambio));
+                    paqWebVM.ventaCompletaTO.costoTotal = (parseFloat(paqWebVM.ventaCompletaTO.costoTotal) * parseFloat(paqWebVM.ventaCompletaTO.tipoCambio)).toFixed(2);
+                }
                 WebService.createReservationPackage(paqWebVM.ventaCompletaTO).success(function (response) {
                     $scope.formPay.$setPristine();
                     if (response.status) {
@@ -752,7 +758,7 @@
                         }, 3000);
                     });
                 } else {
-                    ctrlHotel.buttonPayShow = false;
+                    paqWebVM.buttonPayShow = true;
                 }
 
             }
