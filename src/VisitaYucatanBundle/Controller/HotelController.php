@@ -108,7 +108,6 @@ class HotelController extends Controller {
      * @Method("POST")
      */
     public function getPricesRoom(Request $request) {
-        $serializer = $this->get('serializer');
         try {
             // obtiene los datos de session moneda e idioma
             $datos = $this->getParamsTour($request);
@@ -120,9 +119,10 @@ class HotelController extends Controller {
             //echo "adultos = ".$adults;
             //TODO path test = http://localhost/visitayucatan2.0/hotel/find/rates?adults=2&minors=3&from=08/05/2016&to=31/05/2016&idHotel=1
             $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($idHotel);
+            //echo "idcontrado activo = ".$idContract." <br>";
             $dateClosing = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->findClosingDateByContractAndHotel($idHotel, $idContract);
-
-            $costosRoom = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->getRateByRooms(DateUtil::formatDate($dateFrom), DateUtil::formatDate($dateTo), $idHotel, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
+            //echo "fechas cierre = ".print_r($dateClosing); echo " <br>";
+            $costosRoom = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->getRateByRooms(DateUtil::formatDate($dateFrom), DateUtil::formatDate($dateTo), $idHotel, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], $idContract);
 
             $costs = HotelUtils::getCotizationRoom($costosRoom, $adults, $minors, $dateClosing);
             
