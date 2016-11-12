@@ -77,6 +77,17 @@ class DateUtil {
         return $fechaParts[Generalkeys::NUMBER_TWO] . Generalkeys::STRING_DASH . $fechaParts[Generalkeys::NUMBER_ONE] . Generalkeys::STRING_DASH . $fechaParts[Generalkeys::NUMBER_ZERO];
     }
 
+    public static function subtractOneDayTodate($date){
+        //echo "original".$date."<br>";
+        $date=date_create($date);
+        //echo "data = ".$date;
+        date_sub($date,date_interval_create_from_date_string("1 days"));
+        //echo date_format($date, Generalkeys::PATTERN_DATE_MYSQL);
+        $fechaParts = explode('-', trim(date_format($date, Generalkeys::PATTERN_DATE_MYSQL)));
+        // yyyy/mm/dd
+        return $fechaParts[Generalkeys::NUMBER_ZERO] . Generalkeys::STRING_DASH . $fechaParts[Generalkeys::NUMBER_ONE] . Generalkeys::STRING_DASH . $fechaParts[Generalkeys::NUMBER_TWO];
+    }
+
     public static function isSammeDate($fecha1, $fecha2) {
         if ($fecha1 == $fecha2) {
             return true;
