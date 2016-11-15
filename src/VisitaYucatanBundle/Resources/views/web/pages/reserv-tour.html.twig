@@ -193,7 +193,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                     <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.checkIn" required id="checkIn"
-                                                           name="checkIn" class="form-control datepicker" readonly/>
+                                                           name="checkIn" class="form-control datepicker" value="{{ tour.fechaReserva }}" readonly/>
                                                         </div>
                                                     <span ng-show="formReserva.checkIn.$invalid && !formReserva.checkIn.$pristine" class="required">
                                                         {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
