@@ -138,7 +138,7 @@ class VentaRepository extends \Doctrine\ORM\EntityRepository {
               hotel_plan.descripcion AS plan,datos_reserva.checkin,datos_reserva.checkout,
               hotel_habitacion.nombre AS tipohabitacion,
               datos_personales.nombres,datos_personales.apellidos,
-            datos_ubicacion.lada,datos_ubicacion.telefono,datos_ubicacion.email,datos_ubicacion.ciudad
+            datos_ubicacion.lada,datos_ubicacion.telefono,datos_ubicacion.email,datos_ubicacion.ciudad,datos_pago.tipotarjeta
             FROM venta
             INNER JOIN venta_detalle ON venta.id = venta_detalle.id_venta AND venta_detalle.id_estatus = :estatus
             INNER JOIN idioma ON idioma.id = venta.id_idioma

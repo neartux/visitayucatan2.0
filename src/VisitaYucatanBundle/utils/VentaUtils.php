@@ -37,6 +37,7 @@ final class VentaUtils {
         $ventaCompletaTO->setTelefono($venta['telefono']);
         $ventaCompletaTO->setEmail($venta['email']);
         $ventaCompletaTO->setCiudad($venta['ciudad']);
+        $ventaCompletaTO->setTipoTarjeta($venta['tipotarjeta']);
 
         return $ventaCompletaTO;
     }
@@ -61,6 +62,7 @@ final class VentaUtils {
         $ventaCompletaTO->setNumeroVoucher($venta->getDatosPago()->getNumeroVoucher());
         $ventaCompletaTO->setNumeroOperacion($venta->getDatosPago()->getNumeroOperacion());
         $ventaCompletaTO->setNumeroAutorizacion($venta->getDatosPago()->getNumeroAutorizacion());
+        $ventaCompletaTO->setTipoTarjeta($venta->getDatosPago()->getTipoTarjeta());
         return $ventaCompletaTO;
     }
 
@@ -87,6 +89,7 @@ final class VentaUtils {
         $ventaCompletaTO->setNumeroVoucher($venta->getDatosPago()->getNumeroVoucher());
         $ventaCompletaTO->setNumeroOperacion($venta->getDatosPago()->getNumeroOperacion());
         $ventaCompletaTO->setNumeroAutorizacion($venta->getDatosPago()->getNumeroAutorizacion());
+        $ventaCompletaTO->setTipoTarjeta($venta->getDatosPago()->getTipoTarjeta());
         return $ventaCompletaTO;
     }
 

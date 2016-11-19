@@ -50,6 +50,7 @@ class VentaCompletaTO{
     private $nombreProducto;
     private $fechaReserva;
     private $numeroVoucher;
+    private $tipoTarjeta;
 
     /**
      * @return mixed
@@ -723,5 +724,19 @@ class VentaCompletaTO{
         $this->numeroVoucher = $numeroVoucher;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTipoTarjeta()
+    {
+        return $this->tipoTarjeta;
+    }
 
+    /**
+     * @param mixed $tipoTarjeta
+     */
+    public function setTipoTarjeta($tipoTarjeta)
+    {
+        $this->tipoTarjeta = $tipoTarjeta;
+    }
 }
