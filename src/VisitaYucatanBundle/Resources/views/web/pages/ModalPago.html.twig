@@ -45,7 +45,7 @@
                             <br>
                             <div class="col-sm-8 p-n">
                                 <input type="password" class="form-control cc-cvc" name="cvv" id="cvv" required autocomplete="off" placeholder="•••"
-                                       data-ng-model="ctrlWeb.card.code"/>
+                                       data-ng-model="ctrlWeb.card.code" minlength="3" maxlength="3"/>
                                 <span ng-show="formPay.cvv.$invalid && !formPay.cvv.$pristine" class="help-block">
                                                 {% trans %}page.web.title.pay.details.cvv.valid{% endtrans %}
                                             </span>
