@@ -123,7 +123,9 @@ final class VentaUtils {
                     $ventaTO->setHoraLlegada($venta->getDatosVuelo()->getHoraLlegada());
                     $ventaTO->setNumeroVuelo($venta->getDatosVuelo()->getNumeroVuelo());
                     $ventaTO->setAerolinea($venta->getDatosVuelo()->getAerolinea());
+                    $ventaTO->setHotelPickup($ventaDetalle->getHotel()->getDescripcion());
                 }
+                $ventaTO->setNumeroVoucher($venta->getDatosPago()->getNumeroVoucher());
                 $ventasTO->add($ventaTO);
             }
         }

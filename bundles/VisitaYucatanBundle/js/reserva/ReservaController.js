@@ -14,6 +14,7 @@
         ctrlReserva.file = 'VIYUC';
         ctrlReserva.idVentaActual = undefined;
         ctrlReserva.pathActual = undefined;
+        ctrlReserva.datoVuelo = {};
 
         ctrlReserva.init = function (contextPath) {
             ctrlReserva.contextPath = contextPath;
@@ -42,6 +43,18 @@
                     });
                 }
             }
+        };
+
+        ctrlReserva.viewDatosVuelo = function (idVenta, aerolinea, numeroVuelo, fechaLLegada, horaLlegada, hotelPickup) {
+            ctrlReserva.idVentaActual = idVenta;
+            ctrlReserva.datoVuelo = {
+                aErolinea: aerolinea,
+                numeroVuelo: numeroVuelo,
+                fechaLlegada: fechaLLegada,
+                horaLlegada: horaLlegada,
+                hotelPickup:hotelPickup
+            };
+            $("#datosVueloModal").modal();
         };
 
     });

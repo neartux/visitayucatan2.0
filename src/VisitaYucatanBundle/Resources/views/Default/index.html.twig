@@ -43,50 +43,57 @@
                             {% set TPP = constant('VisitaYucatanBundle\\utils\\GeneralKeys::TIPO_PRODUCTO_PAQUETE') %}
                             {% set tipoProducto = 0 %}
                             {% for venta in ventas %}
-                                <tr>
-                                    <td>{{ venta.idVenta }}</td>
-                                    <td>
-                                        {% if(venta.tipoReserva == TPT) %}
-                                            {% set tipoProducto = 'Tour' %}
-                                            {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_TOURS') %}
-                                            Tour
-                                        {% endif %}
-                                        {% if(venta.tipoReserva == TPH) %}
-                                            {% set tipoProducto = 'Hotel' %}
-                                            {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_HOTELES') %}
-                                            Hotel
-                                        {% endif %}
-                                        {% if(venta.tipoReserva == TPP) %}
-                                            {% set tipoProducto = 'Paquete' %}
-                                            {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_PAQUETES') %}
-                                            Paquete
-                                        {% endif %}
-                                    </td>
-                                    <td> {{ venta.nombreProducto }}</td>
-                                    <td>{{ venta.nombres }}&nbsp;{{ venta.apellidos }}</td>
-                                    <td> {{ venta.fechaReserva | date('Y-M-d') }}</td>
-                                    <td>{{ venta.telefono }}</td>
-                                    <td>{{ venta.email }}</td>
-                                    <td>{{ venta.hotelPickup }}</td>
-                                    <td>{{ venta.numeroAdultos }}</td>
-                                    <td>{{ venta.numeroMenores }}</td>
-                                    <td>${{ venta.costoTotal | number_format(2) }} MXP</td>
-                                    <td>
-                                        {% if(venta.pagado) %}
-                                            <i class="text-success fa fa-check"></i>
-                                        {% else %}
-                                            <i class="text-danger fa fa-times"></i>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-success-alt" href="javascript:;" data-ng-click="ctrl.findDetalleReserva({{ venta.idVenta }}, '{{ tipoProducto }}')">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                        <a class="btn btn-success-alt" href="javascript:;" data-ng-click="ctrl.displayReservaPDF({{ venta.idVenta }}, '{{ path }}')">
-                                            <i class="fa  fa-gears"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                {% if (venta.numeroVoucher) %}
+                                    <tr>
+                                        <td>{{ venta.idVenta }}</td>
+                                        <td>
+                                            {% if(venta.tipoReserva == TPT) %}
+                                                {% set tipoProducto = 'Tour' %}
+                                                {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_TOURS') %}
+                                                Tour
+                                            {% endif %}
+                                            {% if(venta.tipoReserva == TPH) %}
+                                                {% set tipoProducto = 'Hotel' %}
+                                                {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_HOTELES') %}
+                                                Hotel
+                                            {% endif %}
+                                            {% if(venta.tipoReserva == TPP) %}
+                                                {% set tipoProducto = 'Paquete' %}
+                                                {% set path = constant('VisitaYucatanBundle\\utils\\GeneralKeys::PATH_VOUCHER_PAQUETES') %}
+                                                Paquete
+                                            {% endif %}
+                                        </td>
+                                        <td> {{ venta.nombreProducto }}</td>
+                                        <td>{{ venta.nombres }}&nbsp;{{ venta.apellidos }}</td>
+                                        <td> {{ venta.fechaReserva | date('Y-M-d') }}</td>
+                                        <td>{{ venta.telefono }}</td>
+                                        <td>{{ venta.email }}</td>
+                                        <td>{{ venta.hotelPickup }}</td>
+                                        <td>{{ venta.numeroAdultos }}</td>
+                                        <td>{{ venta.numeroMenores }}</td>
+                                        <td>${{ venta.costoTotal | number_format(2) }} MXP</td>
+                                        <td>
+                                            {% if(venta.pagado) %}
+                                                <i class="text-success fa fa-check"></i>
+                                            {% else %}
+                                                <i class="text-danger fa fa-times"></i>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if(venta.aerolinea and venta.numeroVuelo) %}
+                                                <a href="javascript:;" class="btn btn-warning-alt" data-ng-click="ctrl.viewDatosVuelo({{ venta.idVenta }}, '{{ venta.aerolinea }}', '{{ venta.numeroVuelo }}', '{{ venta.fechaLlegada | date('Y-M-d') }}', '{{ venta.horaLlegada | date('H:mm:ss') }}', '{{ venta.hotelPickup }}')">
+                                                    <i class="fa fa-plane"></i>
+                                                </a>
+                                            {% endif %}
+                                            {#<a class="btn btn-success-alt" href="javascript:;" data-ng-click="ctrl.findDetalleReserva({{ venta.idVenta }}, '{{ tipoProducto }}')">
+                                                <i class="fa fa-search"></i>
+                                            </a>#}
+                                            <a class="btn btn-success-alt" href="javascript:;" data-ng-click="ctrl.displayReservaPDF({{ venta.idVenta }}, '{{ path }}')">
+                                                <i class="fa  fa-gears"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
                             {% endfor %}
                             </tbody>
                         </table>
@@ -97,6 +104,7 @@
 
             {% include '@VisitaYucatan/Default/modaldetalle.html.twig' %}
             {% include '@VisitaYucatan/Default/ModalPdfReserva.html.twig' %}
+            {% include '@VisitaYucatan/Default/ModalDatosVuelo.html.twig' %}
         </div>
 
     </div>
