@@ -59,7 +59,7 @@
                                 <div class="col-sm-12">
                                     <div class="col-sm-7">
                                         <div class="col-sm-12 mt">
-                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.fechaPaquete.$invalid && !formReserva.fechaPaquete.$pristine }">
+                                            <div class="form-group-input">
                                                 <label for="fechaPaquete" class="col-sm-4 pl-n pr-n">
                                                     {% trans %}page.web.labe.reserva.date.tu.paquete{% endtrans %}
                                                     <span class="required">*</span>
@@ -70,7 +70,7 @@
                                                     <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.checkIn"
                                                            id="fechaPaquete" name="fechaPaquete" class="form-control datepicker-fp"/>
                                                         </div>
-                                            <span ng-show="formReserva.fechaPaquete.$invalid && !formReserva.fechaPaquete.$pristine" class="required">
+                                            <span style="display:none;" class="errorFechasPAquete required">
                                                 {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
                                             </span>
                                                 </div>
@@ -78,7 +78,7 @@
                                         </div>
 
                                         <div class="col-sm-12 mt">
-                                            <div class="form-group-input" data-ng-class="{ 'required' : formReserva.fechaSalida.$invalid && !formReserva.fechaSalida.$pristine }">
+                                            <div class="form-group-input">
                                                 <label for="fechaSalida" class="col-sm-4 pl-n pr-n">
                                                     {% trans %}page.web.labe.reserva.fecha.salida{% endtrans %}
                                                     <span class="required">*</span>
@@ -89,7 +89,7 @@
                                                     <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.checkOut" id="fechaSalida"
                                                            name="fechaSalida" class="form-control datepicker-fs-d"/>
                                                         </div>
-                                            <span ng-show="formReserva.fechaSalida.$invalid && !formReserva.fechaSalida.$pristine" class="required">
+                                            <span style="display:none;" class="errorFechasPAquete required">
                                                 {% trans %}page.web.labe.reserva.tour.tour.date.required{% endtrans %}
                                             </span>
                                                 </div>
@@ -344,7 +344,7 @@
 
                                 <div class="col-sm-12">
                                     <div class="col-sm-12 mt-xxl text-left mb-xxl ml">
-                                        <input type="button" data-ng-click="ctrlWeb.reservarPackage(formReserva.$valid)"
+                                        <input type="button" data-ng-click="ctrlWeb.reservarPackage(formReserva.$valid);"
                                                data-ng-disabled="formReserva.$invalid"
                                                data-ng-show="ctrlWeb.buttonPay"
                                                value="{% trans %}page.web.label.reserva.book.now{% endtrans %}" class="btn btn-primary p"/>
@@ -444,6 +444,7 @@
                     var packageDate = $("#fechaPaquete").val();
                     $(".datepicker-fs-d").val(moment(getDate(packageDate)).add(parseInt(diasPaquete - 1), 'day').format('DD/MM/YYYY'));
                     $("#fechaLlegada").val(packageDate);
+                    $(".errorFechasPAquete").hide();
                 }
 
             }

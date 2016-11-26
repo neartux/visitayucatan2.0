@@ -441,6 +441,12 @@
             $("#frmReserveHotel").submit();
         };
 
+        ctrlHotel.cancelPay = function() {
+            if(confirm($("#cancelPay").val())){
+                WebService.redirectToSuccessSaleHotel();
+            }
+        }
+
     });
 
     app.controller('WebPaqueteController', function ($scope, WebService) {
@@ -465,6 +471,7 @@
         paqWebVM.contextPathThis = '';
         paqWebVM.buttonPay = true;
         paqWebVM.buttonPayShow = true;
+        paqWebVM.activaErroresFechas = false;
 
         paqWebVM.initPaquete = function (combinacionespaquete, idPackage) {
             paqWebVM.idPaquete = idPackage;
@@ -642,42 +649,52 @@
         };
 
         paqWebVM.reservarPackage = function (isFormValid) {
+            $(".errorFechasPAquete").hide();
+            paqWebVM.ventaCompletaTO.checkIn = $("#fechaPaquete").val();
+            paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
             if (isFormValid) {
-                paqWebVM.buttonPay = false;
-                //HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
-                paqWebVM.ventaCompletaTO.checkIn = $("#fechaPaquete").val();
-                paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
-                paqWebVM.ventaCompletaTO.fechaLlegada = $("#fechaLlegada").val();
-                paqWebVM.ventaCompletaTO.horaLlegada = $("#horaLlegada").val();
-                paqWebVM.ventaCompletaTO.numeroAdultos = paqWebVM.reservar.adultos;
-                paqWebVM.ventaCompletaTO.numeroMenores = paqWebVM.reservar.menores.value;
-                paqWebVM.ventaCompletaTO.costoTotal = parseFloat(paqWebVM.importeTotal).toFixed(2);
-                paqWebVM.ventaCompletaTO.costoAdulto = parseFloat(paqWebVM.detailReserva.costo).toFixed(2);
-                paqWebVM.ventaCompletaTO.costoMenor = parseFloat(paqWebVM.ventaCompletaTO.costoMenor).toFixed(2);
-                // Si no esta en moneda mexicana la convierte a pesos
-                if (paqWebVM.ventaCompletaTO.idMoneda != paqWebVM.CurrencyMexico.id) {
-                    paqWebVM.ventaCompletaTO.costoAdulto = parseFloat(Math.ceil(paqWebVM.ventaCompletaTO.costoAdulto) * (paqWebVM.ventaCompletaTO.tipoCambio));
-                    paqWebVM.ventaCompletaTO.costoMenor = parseFloat(Math.ceil(paqWebVM.ventaCompletaTO.costoMenor) * (paqWebVM.ventaCompletaTO.tipoCambio));
-                    paqWebVM.ventaCompletaTO.costoTotal = (parseFloat(paqWebVM.ventaCompletaTO.costoTotal) * parseFloat(paqWebVM.ventaCompletaTO.tipoCambio)).toFixed(2);
-                }
-                WebService.createReservationPackage(paqWebVM.ventaCompletaTO).success(function (response) {
-                    $scope.formPay.$setPristine();
-                    if (response.status) {
-                        paqWebVM.card = {
-                            number: '',
-                            month: '01',
-                            year: '16',
-                            code: '',
-                            expiryDate: ''
-                        };
-                        paqWebVM.ventaCompletaTO.id = response.id;
-                        $("#modalPago").modal();
+                if(paqWebVM.ventaCompletaTO.checkIn == undefined || paqWebVM.ventaCompletaTO.checkIn == ''){
+                    $(".errorFechasPAquete").show();
+                } else if(paqWebVM.ventaCompletaTO.checkOut == undefined || paqWebVM.ventaCompletaTO.checkOut == ''){
+                    $(".errorFechasPAquete").show();
+                } else {
+                    paqWebVM.buttonPay = false;
+                    //HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
+                    //paqWebVM.ventaCompletaTO.checkIn = $("#fechaPaquete").val();
+                    //paqWebVM.ventaCompletaTO.checkOut = $("#fechaSalida").val();
+                    paqWebVM.ventaCompletaTO.fechaLlegada = $("#fechaLlegada").val();
+                    paqWebVM.ventaCompletaTO.horaLlegada = $("#horaLlegada").val();
+                    paqWebVM.ventaCompletaTO.numeroAdultos = paqWebVM.reservar.adultos;
+                    paqWebVM.ventaCompletaTO.numeroMenores = paqWebVM.reservar.menores.value;
+                    paqWebVM.ventaCompletaTO.costoTotal = parseFloat(paqWebVM.importeTotal).toFixed(2);
+                    paqWebVM.ventaCompletaTO.costoAdulto = parseFloat(paqWebVM.detailReserva.costo).toFixed(2);
+                    paqWebVM.ventaCompletaTO.costoMenor = parseFloat(paqWebVM.ventaCompletaTO.costoMenor).toFixed(2);
+                    // Si no esta en moneda mexicana la convierte a pesos
+                    if (paqWebVM.ventaCompletaTO.idMoneda != paqWebVM.CurrencyMexico.id) {
+                        paqWebVM.ventaCompletaTO.costoAdulto = parseFloat(Math.ceil(paqWebVM.ventaCompletaTO.costoAdulto) * (paqWebVM.ventaCompletaTO.tipoCambio));
+                        paqWebVM.ventaCompletaTO.costoMenor = parseFloat(Math.ceil(paqWebVM.ventaCompletaTO.costoMenor) * (paqWebVM.ventaCompletaTO.tipoCambio));
+                        paqWebVM.ventaCompletaTO.costoTotal = (parseFloat(paqWebVM.ventaCompletaTO.costoTotal) * parseFloat(paqWebVM.ventaCompletaTO.tipoCambio)).toFixed(2);
                     }
-                    // setTimeout(function () {
-                    //     WebService.redirectToSuccessSalePackage();
-                    //     HoldOn.close();
-                    // }, 5000);
-                });
+                    WebService.createReservationPackage(paqWebVM.ventaCompletaTO).success(function (response) {
+                        $scope.formPay.$setPristine();
+                        if (response.status) {
+                            paqWebVM.card = {
+                                number: '',
+                                month: '01',
+                                year: '16',
+                                code: '',
+                                expiryDate: ''
+                            };
+                            paqWebVM.ventaCompletaTO.id = response.id;
+                            $("#modalPago").modal();
+                        }
+                        // setTimeout(function () {
+                        //     WebService.redirectToSuccessSalePackage();
+                        //     HoldOn.close();
+                        // }, 5000);
+                    });
+                }
+
             }
         };
 
@@ -790,6 +807,13 @@
             }
             return valid;
         };
+
+        paqWebVM.cancelPay = function() {
+            if(confirm($("#cancelPay").val())){
+                WebService.redirectToSuccessSalePackage();
+            }
+        }
+
     });
 
     app.controller('WebCommonsController', function ($scope, $http, WebService) {
