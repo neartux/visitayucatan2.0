@@ -113,7 +113,8 @@ class HotelUtils {
                 $hotelTO->setId($hotel['id']);
                 $hotelTO->setNombreHotel($hotel['nombrehotel']);
                 $hotelTO->setDescripcion(StringUtils::cutText($hotel['descripcion'], Generalkeys::NUMBER_ZERO, Generalkeys::NUMBER_TWO_HUNDRED, Generalkeys::COLILLA_TEXT, Generalkeys::CIERRE_HTML_P));
-                $hotelTO->setTarifa(number_format(ceil($hotel['tarifa'])));
+                $tarifa = self::getTotalRate($hotel['tarifa'], $hotel['ish'], $hotel['markup'], $hotel['iva'], $hotel['fee'], $hotel['aplicaimpuesto']);
+                $hotelTO->setTarifa(number_format(ceil($tarifa)));
                 $hotelTO->setSimboloMoneda($hotel['simbolo']);
                 $hotelTO->setEstrellas($hotel['estrellas']);
                 // Valida imagen hotel si es null coloca imagen not found de lo contrario coloca la imagen
@@ -277,6 +278,7 @@ class HotelUtils {
         
         return $habitacionTarifaTO;
     }
+
     // TODO la tarifa es con respecto al numero de personas que reservan, se calcula por la habitacion ocupada
     private static function getTotalRate($tarifa, $ish, $markup, $iva, $fee, $appyTax){
         $finalyRate = floatval($tarifa);
