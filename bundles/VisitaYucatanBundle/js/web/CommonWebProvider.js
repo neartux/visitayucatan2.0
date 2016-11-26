@@ -149,6 +149,13 @@
             
         };
 
+        service.findFechasCerradasHotel = function(idHotel){
+            return $http.get(service.contextPath+'/hotel/find/fechasCierreHotel/'+idHotel).then(function(data){
+                console.info("data.data = ", data.data);
+                arrayFechasCierres = data.data;
+            });
+        };
+
         return service;
     });
 })();

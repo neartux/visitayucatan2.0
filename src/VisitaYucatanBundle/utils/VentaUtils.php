@@ -112,6 +112,18 @@ final class VentaUtils {
                 $ventaTO->setNombreProducto(self::getDescripcionProducto($ventaDetalle));
                 $ventaTO->setFechaReserva(get_object_vars($venta->getDatosReserva()->getCheckIn())['date']);
                 $ventaTO->setHotelPickup($venta->getDatosReserva()->getHotelPickup());
+                if(is_null($venta->getDatosVuelo())){
+                    $ventaTO->setFechaLlegada(0);
+                    $ventaTO->setFechaLlegada(0);
+                    $ventaTO->setHoraLlegada(0);
+                    $ventaTO->setNumeroVuelo(0);
+                    $ventaTO->setAerolinea(0);
+                } else {
+                    $ventaTO->setFechaLlegada($venta->getDatosVuelo()->getFechaLlegada());
+                    $ventaTO->setHoraLlegada($venta->getDatosVuelo()->getHoraLlegada());
+                    $ventaTO->setNumeroVuelo($venta->getDatosVuelo()->getNumeroVuelo());
+                    $ventaTO->setAerolinea($venta->getDatosVuelo()->getAerolinea());
+                }
                 $ventasTO->add($ventaTO);
             }
         }

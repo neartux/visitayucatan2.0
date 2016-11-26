@@ -68,7 +68,6 @@
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                     <input type="text" readonly data-ng-model="ctrlWeb.ventaCompletaTO.checkIn"
-                                                           onchange="cambiaFechaPaquete()"
                                                            id="fechaPaquete" name="fechaPaquete" class="form-control datepicker-fp"/>
                                                         </div>
                                             <span ng-show="formReserva.fechaPaquete.$invalid && !formReserva.fechaPaquete.$pristine" class="required">
@@ -393,7 +392,9 @@
 
         <script>
             var diasPaquete = '{{ paquete.dias }}';
+            var variableControl = 1;
             $(function(){
+                var arrayFechasCierres = ["30/11/2016"];
 
                 $('.cc-number').payment('formatCardNumber');
                 $('.cc-exp').payment('formatCardExpiry');
@@ -402,9 +403,16 @@
                 $('.datepicker-fp').datepicker({
                     autoclose: true,
                     format: 'dd/mm/yyyy',
-                    startDate: '+3d',
-                    setDate: new Date()
+                    startDate: '+3d'
+                }).on('changeDate', function (e) {
+                    if(variableControl == 1){
+                        variableControl ++;
+                        cambiaFechaPaquete();
+                    } else if(variableControl == 2){
+                        variableControl = 1;
+                    }
                 });
+
                 $('.datepicker-fs').datepicker({format: 'dd/mm/yyyy'});
                 $('.datepicker').datepicker({format: 'dd/mm/yyyy', setDate: new Date()});
                 $('.timepicker').timepicker({
@@ -412,17 +420,64 @@
                     showInputs: false,
                     disableFocus: true
                 });
+
             });
 
-            function cambiaFechaPaquete() {
-                var packageDate = $("#fechaPaquete").val();
-                $(".datepicker-fs-d").val(moment(getDate(packageDate)).add(parseInt(diasPaquete - 1), 'day').format('DD/MM/YYYY'));
-                $("#fechaLlegada").val(packageDate);
+            function validaFechasPaquete() {
+                var dateGeneral = $("#fechaPaquete").val();
+                var fecha = getDate(dateGeneral);
+                var hayFechaCierreEnPaquete = false;
+                for(var i = 1; i <= diasPaquete; i++){
+                    if(! hayFechaCierreEnPaquete){
+                        if(existeFechaEnArray(fecha)){
+                            hayFechaCierreEnPaquete = true;
+                        }
+                        fecha = moment(getDate(dateGeneral)).add(parseInt(i), 'day').format('YYYY-MM-DD');
+                    }
+                }
+                if(arrayNuevo.length > 0){
+                    alert("Favor de verificar que los dias del paquete no este entre estos dias de cierre "+arrayNuevo.toString());
+                    $("#fechaPaquete").val('');
+                    $("#fechaLlegada").val('');
+                    $(".datepicker-fs-d").val('');
+                } else {
+                    var packageDate = $("#fechaPaquete").val();
+                    $(".datepicker-fs-d").val(moment(getDate(packageDate)).add(parseInt(diasPaquete - 1), 'day').format('DD/MM/YYYY'));
+                    $("#fechaLlegada").val(packageDate);
+                }
+
             }
+
+            var arrayNuevo = [];
+
+            function existeFechaEnArray(fechaCompara) {
+                arrayNuevo = [];
+
+                var contFechas = 1;
+
+                for(var i= 0; i <= arrayFechasCierres.length; i++){
+                    var fecha = arrayFechasCierres[i];
+                    if(fecha == fechaCompara){
+                        if(contFechas <=5){
+                            arrayNuevo.push(fecha);
+                            contFechas++;
+                        }
+                    } else if(contFechas > 1 && contFechas <= 5){
+                        arrayNuevo.push(fecha);
+                    }
+                }
+                return contFechas > 1;
+            }
+
+            function cambiaFechaPaquete() {
+                validaFechasPaquete();
+            }
+
             function getDate(date){
                 var arrayDate = date.split('/');
                 return arrayDate[2]+'-'+arrayDate[1]+'-'+arrayDate[0];
             }
+
         </script>
 
     {% endblock %}

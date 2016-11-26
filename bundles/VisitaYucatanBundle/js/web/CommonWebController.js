@@ -557,6 +557,8 @@
                 id: idMonedaMexico,
                 tipoCambio: tipoCambioMexico
             };
+
+            WebService.findFechasCerradasHotel(parseInt(combinacion[0].id_hotel));
         };
 
         paqWebVM.initVentaCompletaTO = function (idPaquete, idIdioma, idMoneda, combinacion) {

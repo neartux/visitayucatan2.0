@@ -100,7 +100,21 @@
         </tbody>
     </table>
 </div>
-
+<br>
+{% if ventaCompleta.pagado == 0 %}
+<div>
+    <table>
+        <tr>
+            <td colspan="4">
+                <span style="font-size: 12px !important;color: #A00;text-decoration: underline;">
+                    Su tarjeta de crédito ha sido declinada. Por favor, verifique sus datos con el banco. Si usted cree que es un error o requiere de otra opción
+                de pago, marque al (52) 999 289-5644. Tenga a la mano su número de referencia VIYUC{{ ventaCompleta.idVenta }}
+                </span>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endif %}
 
 </body>
 </html>

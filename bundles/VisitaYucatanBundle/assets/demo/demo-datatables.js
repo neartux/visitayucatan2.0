@@ -6,7 +6,8 @@ $(document).ready(function() {
     $('#example').dataTable({
     	"language": {
     		"lengthMenu": "_MENU_"
-    	}
+    	},
+		"order": []
     });
     $('.dataTables_filter input').attr('placeholder','Search...');
 

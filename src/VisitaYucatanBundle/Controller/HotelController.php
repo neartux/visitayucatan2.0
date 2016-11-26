@@ -152,6 +152,16 @@ class HotelController extends Controller {
         }
     }
 
+    /**
+     * @Route("/hotel/find/fechasCierreHotel/{idHotel}", name="find_fechas_cierre_hotel")
+     * @Method("GET")
+     */
+    public function findFechasCierresByHotel($idHotel){
+        $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($idHotel);
+        $dateClosing = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->findClosingDateByContractAndHotel($idHotel, $idContract);
+        return new Response($this->get('serializer')->serialize(HotelUtils::getArrayClosingDates($dateClosing), Generalkeys::JSON_STRING));
+    }
+
     private function getParamsTour($request){
         // Obtiene la session del request para obtener moneda e idioma
         $session = $request->getSession();
