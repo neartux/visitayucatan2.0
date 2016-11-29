@@ -112,7 +112,7 @@
                                             <label class="oswaldo color-text-pink">{% trans %}page.web.label.hotels.price.since{% endtrans %}:</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                <input type="text" value="{{ dateFrom }}" id="dateFrom"
+                                                <input type="text" value="{{ dateFrom }}" id="dateFrom" onChange="cambiaFechaPaquete()"
                                                        ng-model="ctrlWeb.formRate.dateFrom" readonly class="datepicker form-control"/>
                                             </div>
                                         </div>
@@ -242,6 +242,15 @@
                     startDate: '+2d'
                 });
             });
+
+            function cambiaFechaPaquete() {
+                var date = $("#dateFrom").val();
+                $("#dateTo").val(moment(getDate(date)).add(1, 'day').format('DD/MM/YYYY'));
+            }
+            function getDate(date){
+                var arrayDate = date.split('/');
+                return arrayDate[2]+'-'+arrayDate[1]+'-'+arrayDate[0];
+            }
 
             function preViewMap() {
                 $("#modalMapa").modal();
