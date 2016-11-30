@@ -47,8 +47,8 @@ class HotelController extends Controller {
         $idContract = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findIdContractActiveByHotel($id);
         $planAlimentos = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findPlanAlimentosByContract($idContract);
         return $this->render('VisitaYucatanBundle:web/pages:detalle-hotel.html.twig', array('hotel' => HotelUtils::getDetailHotel($hotel, $images),
-            'dateFrom' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_ONE)),
-            'dateTo' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_TWO)),
+            'dateFrom' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_ZERO)),
+            'dateTo' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_ONE)),
             'ageMinor' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findAgeMinorByContract($idContract),
             'planAlimentos' => $planAlimentos));
     }
