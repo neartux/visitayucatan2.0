@@ -20,8 +20,8 @@ class HotelContratoRepository extends \Doctrine\ORM\EntityRepository {
         $sql = "SELECT hotel_contrato.id
                 FROM hotel_contrato
                 WHERE hotel_contrato.id_hotel = :hotel
-                AND hotel_contrato.fechainicio <= now()
-                AND hotel_contrato.fechafin >= now()
+                AND hotel_contrato.fechainicio <= DATE(now())
+                AND hotel_contrato.fechafin >= DATE(now())
                 AND hotel_contrato.id_estatus = :estatus
                 ORDER BY hotel_contrato.id DESC LIMIT 1;";
         $params['hotel'] = $idHotel;
