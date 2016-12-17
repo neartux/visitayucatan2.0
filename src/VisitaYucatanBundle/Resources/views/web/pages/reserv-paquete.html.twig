@@ -393,8 +393,9 @@
         <script>
             var diasPaquete = '{{ paquete.dias }}';
             var variableControl = 1;
+            var arrayFechasCierres = [];
+
             $(function(){
-                var arrayFechasCierres = ["30/11/2016"];
 
                 $('.cc-number').payment('formatCardNumber');
                 $('.cc-exp').payment('formatCardExpiry');
@@ -405,9 +406,10 @@
                     format: 'dd/mm/yyyy',
                     startDate: '+3d'
                 }).on('changeDate', function (e) {
+                    console.info("df");
                     if(variableControl == 1){
                         variableControl ++;
-                        cambiaFechaPaquete();
+                        validaFechasPaquete();
                     } else if(variableControl == 2){
                         variableControl = 1;
                     }
@@ -468,10 +470,6 @@
                     }
                 }
                 return contFechas > 1;
-            }
-
-            function cambiaFechaPaquete() {
-                validaFechasPaquete();
             }
 
             function getDate(date){

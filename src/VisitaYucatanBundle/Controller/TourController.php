@@ -53,7 +53,7 @@ class TourController extends Controller {
 
         return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 
             'claseImg' => Generalkeys::CLASS_HEADER_TOUR_DETAIL,
-            'fechaReserva' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), 3)) ));
+            'fechaReserva' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_TWO)) ));
     }
 
     /**

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace VisitaYucatanBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,7 +10,6 @@ use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\PaqueteUtils;
 use VisitaYucatanBundle\utils\StringUtils;
 use VisitaYucatanBundle\utils\to\ResponseTO;
-use VisitaYucatanBundle\utils\TourUtils;
 
 class PaqueteController extends Controller {
 
@@ -29,7 +28,7 @@ class PaqueteController extends Controller {
             'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta));
 	}
 
-	private function getParamsPaquete($request){
+	private function getParamsPaquete(Request $request){
         // Obtiene la session del request para obtener moneda e idioma
         $session = $request->getSession();
         // Obtiene el idioma de la sesion
@@ -75,33 +74,33 @@ class PaqueteController extends Controller {
      * @Method("POST")
     */
     public function reservaPaqueteAction(Request $request){
-         $id= $request->get('id');
-         $idPackage = $request->get('idPackage');
-         $ocupacion = $request->get('typeocupacion'); 
-         $costo = $request->get('costo');
-         $namePaquete = $request->get('namepaquete');
-         $datos = $this->getParamsPaquete($request);
+        $id= $request->get('id');
+        $idPackage = $request->get('idPackage');
+        $ocupacion = $request->get('typeocupacion');
+        $costo = $request->get('costo');
+        $namePaquete = $request->get('namepaquete');
+        $datos = $this->getParamsPaquete($request);
 
-         $menores = 0;
+        $menores = 0;
         $adultos = 0;
-         switch($ocupacion){
-             case 'costosencillo':
-                $ocupacion = 'Sencilla';
-                $adultos = 1;
-                break;
-             case 'costodoble':
-                $ocupacion = 'Doble';
+        switch($ocupacion){
+            case 'costosencillo':
+               $ocupacion = 'Sencilla';
+               $adultos = 1;
+               break;
+            case 'costodoble':
+               $ocupacion = 'Doble';
                 $adultos = 2;
-                break;
-             case 'costotriple':
-                $ocupacion = 'Triple';
-                $adultos = 3;
-                break;
-             case 'costocuadruple':
-                $ocupacion = 'Cuadruple';
-                $adultos = 4;
-                break;
-         }
+               break;
+            case 'costotriple':
+               $ocupacion = 'Triple';
+               $adultos = 3;
+               break;
+            case 'costocuadruple':
+               $ocupacion = 'Cuadruple';
+               $adultos = 4;
+               break;
+        }
 
          $detailPaquete = array(
            'costo'=>$costo,
@@ -110,6 +109,7 @@ class PaqueteController extends Controller {
            'menores' =>$menores,
            'ocupacion'=> $ocupacion
          );
+        print_r($detailPaquete);
         $paquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->getPaqueteById($idPackage, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
          $importeTotal = $costo * $adultos;
          $paqueteCombinacion = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findCombinacionPaqueteById((int)$id,$datos[Generalkeys::NUMBER_ONE]);
