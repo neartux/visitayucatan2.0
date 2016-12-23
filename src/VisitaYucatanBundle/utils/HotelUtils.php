@@ -331,7 +331,11 @@ class HotelUtils {
         return $hotelTO;
     }
 
-    public static function getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores, $hotel, $tarifa) {
+    public static function getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores, $hotel, $tarifa, $dateClosing) {
+
+        $closingDates = self::getArrayClosingDates($dateClosing);
+
+
         $reserva = new HotelReservaTO();
         $reserva->setNombreHotel($hotel['nombrehotel']);
         $reserva->setTipoHabitacion($tarifa['nombre']);
@@ -348,6 +352,9 @@ class HotelUtils {
         $reserva->setTarifaAdulto(number_format($costoTotal, 2));
         $reserva->setTarifaMenor(floatval(0));
         $dias = DateUtil::diffDays(DateUtil::formatDate($fechaInicio), DateUtil::formatDate($fechaFin));
+
+
+
         $reserva->setEstadiaDias($dias);
         $reserva->setCostoTotal(ceil($costoTotal * ($dias-1)));
         $reserva->setEstadiaNoches($dias - Generalkeys::NUMBER_ONE);
