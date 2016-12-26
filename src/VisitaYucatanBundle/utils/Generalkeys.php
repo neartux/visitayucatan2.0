@@ -13,7 +13,7 @@ class Generalkeys{
     const RESPONSE_TRUE = true;
     const RESPONSE_FALSE = false;
     const RESPONSE_INFO = "info";
-    const RESPONSE_SUCCESS = "success";
+    const RESPONSE_SUCCESS = "Éxito";
     const RESPONSE_ERROR = "error";
     const RESPONSE_CODE_OK = "OK";
     const USER_IN_SESSION = true;
