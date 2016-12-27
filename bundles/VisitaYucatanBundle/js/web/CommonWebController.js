@@ -142,14 +142,14 @@
                             code: '',
                             expiryDate: ''
                         };
-                        HoldOn.close();
                         ctrlWeb.ventaCompletaTO.id = response.id;
                         $("#modalPago").modal();
+                        HoldOn.close();
                     } else{
                         return WebService.redirectToSuccessSale();
                     }
                 });
-                HoldOn.close();
+                //HoldOn.close();
             }
         };
 

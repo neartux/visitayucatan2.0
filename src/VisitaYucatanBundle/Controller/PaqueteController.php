@@ -109,7 +109,6 @@ class PaqueteController extends Controller {
            'menores' =>$menores,
            'ocupacion'=> $ocupacion
          );
-        print_r($detailPaquete);
         $paquete = $this->getDoctrine()->getRepository('VisitaYucatanBundle:Paquete')->getPaqueteById($idPackage, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE]);
          $importeTotal = $costo * $adultos;
          $paqueteCombinacion = $this->getDoctrine()->getRepository('VisitaYucatanBundle:PaqueteCombinacionHotel')->findCombinacionPaqueteById((int)$id,$datos[Generalkeys::NUMBER_ONE]);
