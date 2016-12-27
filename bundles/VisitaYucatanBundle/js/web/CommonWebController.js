@@ -269,7 +269,7 @@
         };
 
         ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath, idHotel, idHabitacion,
-                                          idMonedaMexico, tipoCambioMexico) {
+                                          idMonedaMexico, tipoCambioMexico, costoFinal) {
             WebService.setContextPath(contextPath);
             ctrlHotel.contextPathThis = contextPath;
             ctrlHotel.ventaCompletaTO = {
@@ -280,7 +280,7 @@
                 idIdioma: idIdioma,
                 idMoneda: idMoneda,
                 tipoCambio: tipoCambio,
-                costoTotal: costoTotal,
+                costoTotal: costoFinal,
                 checkIn: checkIn,
                 checkOut: checkOut,
                 numeroMenores: menores,
@@ -438,6 +438,7 @@
             $("#adultsHidden").val(ctrlHotel.formRate.adults);
             $("#minorsHidden").val(ctrlHotel.formRate.minors);
             $("#idHabitacion").val(idHabitacion);
+            $("#finalCost").val(ctrlHotel.habitacion.totalCostoHabitacion);
             $("#frmReserveHotel").submit();
         };
 

@@ -27,6 +27,7 @@ class HotelReservaTO{
     private $tipoCambio;
     private $idHotel;
     private $idHabitacion;
+    private $finalCost;
 
     /**
      * @return mixed
@@ -299,6 +300,20 @@ class HotelReservaTO{
     {
         $this->idHabitacion = $idHabitacion;
     }
-       
-           
+
+    /**
+     * @return mixed
+     */
+    public function getFinalCost()
+    {
+        return $this->finalCost;
+    }
+
+    /**
+     * @param mixed $finalCost
+     */
+    public function setFinalCost($finalCost)
+    {
+        $this->finalCost = $finalCost;
+    }
 }

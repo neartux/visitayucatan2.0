@@ -7,7 +7,7 @@
         <div class="container-fluid" data-ng-controller="WebHotelController as ctrlWeb" data-ng-init="ctrlWeb.initReserva({{ reserva.tarifaAdulto }}, {{ reserva.tarifaMenor }}, {{ reserva.idIdioma }},
         {{ reserva.idMoneda }}, {{ reserva.tipoCambio }}, {{ reserva.costoTotal }}, '{{ reserva.fechaInicio }}', '{{ reserva.fechaFin }}', '{{ reserva.adultos }}',
         '{{ reserva.menores }}', '{{ app.request.getBaseURL() }}', {{ reserva.idHotel }}, {{ reserva.idHabitacion }},
-        {{ tipoCambioMexico.id }}, {{ tipoCambioMexico.tipoCambio }})">
+        {{ tipoCambioMexico.id }}, {{ tipoCambioMexico.tipoCambio }}, {{ reserva.finalCost }})">
 
             {#{{ dump(reserva) }}#}
 
