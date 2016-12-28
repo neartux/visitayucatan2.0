@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form action="https://banamex.dialectpayments.com/api/nvp/version/40" method="post">
+    apiUsername: <input type="text" name="apiUsername" value="merchant.TEST1032478HPP"> <br>
+    apiPassword: <input type="text" name="apiPassword" value="acf4097b7dcc175966aa9f279448d93e"> <br>
+    3DSecure.authenticationRedirect: <input type="text" name="3DSecure.authenticationRedirect" value="localhost/return">
+    <br>
+    3DSecure.authenticationRedirect.responseUrl: <input type="text" name="3DSecure.authenticationRedirect.responseUrl" value="localhost/response">
+    <br>
+    apiOperation: <input type="text" name="apiOperation" value="CHECK_3DS_ENROLLMENT"> <br>
+    merchant: <input type="text" name="merchant" value="TEST1032478HPP"> <br>
+    order.amount: <input type="text" name="order.amount" value="125.20"> <br>
+    order.currency: <input type="text" name="order.currency" value="MXN"> <br>
+    <hr>
+    <br>
+    <input type="submit" value="Enviar">
+</form>
+*****************************************************************************************************************************************
+</body>
+</html>
