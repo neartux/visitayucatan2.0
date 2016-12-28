@@ -218,6 +218,8 @@ class VentaController extends Controller {
 
         $response = $parserObj->SendTransaction($merchantObj, $request);
 
+        echo "RESPONSE = ".$response;
+
 //        if ($merchantObj->GetDebug()) {
 //            // replace the newline chars with html newlines
 //            $response = str_replace("\n", "<br/>", $response);
