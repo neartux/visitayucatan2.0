@@ -20,7 +20,7 @@ class TourRepository extends \Doctrine\ORM\EntityRepository {
     public function getTours($idioma, $idMoneda, $offset, $limit){
         $em = $this->getEntityManager();
 
-        $sql = "SELECT tour.id, tour.descripcion AS nombre,tour_idioma.circuito,tour_idioma.descripcion,
+        $sql = "SELECT tour.id, tour_idioma.nombretour AS nombre,tour_idioma.circuito,tour_idioma.descripcion,
                 (tour_origen.tarifaadulto/moneda.tipo_cambio) AS tarifaadulto,(tour_origen.tarifamenor/moneda.tipo_cambio) AS tarifamenor,
                 tour_imagen.path AS imagen,moneda.simbolo AS simbolomoneda
                 FROM tour
