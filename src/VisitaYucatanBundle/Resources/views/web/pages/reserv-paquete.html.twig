@@ -404,7 +404,20 @@
                 $('.datepicker-fp').datepicker({
                     autoclose: true,
                     format: 'dd/mm/yyyy',
-                    startDate: '+3d'
+                    startDate: '+3d',
+                    // TODO hay que probar esto solo se codifico, no es probado
+                    beforeShowDay: function (date) {
+                        cosole.info("DATE = ", date);
+                        var year = date.getYear(), month = date.getMonth() + 1, day = date.getDay();
+                        var newDate = year+"-"+month+"-"+day;
+                        if($.inArray(newDate, arrayFechasCierres) != -1) {
+                            console.info("La fecha no esta disponible si esta entre las fechas cierre");
+                            return [false, "","Available"];
+                        } else {
+                            console.info("La fecha si esta disponible");
+                            return [true,"","unAvailable"];
+                        }
+                    }
                 }).on('changeDate', function (e) {
 
                     if(variableControl == 1){
