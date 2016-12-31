@@ -83,7 +83,7 @@ class HotelController extends Controller {
         $reserva = HotelUtils::getHotelReserva($fechaInicio, $fechaFin, $adultos, $menores,$hotel, $tarifa, $dateClosing);
         $reserva->setIdHotel((int)$idHotel);
         $reserva->setIdHabitacion((int)$idHabitacion);
-        $reserva->setFinalCost($finalCost);
+        $reserva->setFinalCost(ereg_replace("[^0-9.]", "", $finalCost));
         return $this->render('VisitaYucatanBundle:web/pages:reserv-hotel.html.twig', array('dateFrom' => $fechaInicio, 'dateTo' => $fechaFin, 'reserva' => $reserva,
             'tipoCambioMexico' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findMonedaMexico()));
     }
