@@ -8,7 +8,7 @@
         {{ reserva.idMoneda }}, {{ reserva.tipoCambio }}, {{ reserva.costoTotal }}, '{{ reserva.fechaInicio }}', '{{ reserva.fechaFin }}', '{{ reserva.adultos }}',
         '{{ reserva.menores }}', '{{ app.request.getBaseURL() }}', {{ reserva.idHotel }}, {{ reserva.idHabitacion }},
         {{ tipoCambioMexico.id }}, {{ tipoCambioMexico.tipoCambio }}, {{ reserva.finalCost }})">
-
+            {% set typePackage = 3 %}
             {#{{ dump(reserva) }}#}
 
             <div class="row background-gray-light">

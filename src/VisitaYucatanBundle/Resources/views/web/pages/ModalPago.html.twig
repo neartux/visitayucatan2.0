@@ -75,3 +75,22 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+<!-- FORM PARA ENVIAR AL ACS EMULATOR DEL BANCO-->
+<form action="{{ path('procesa_acs_emulator') }}" method="post" id="formACS" style="display: none;">
+    <input type="text" name="version" value="34" size="8" maxlength="80" readonly/>
+    <input type="text" name="3DSecureId" id="3DSecureId" size="20" maxlength="60"/>
+    {% if( typePackage == 1 ) %}
+        <input type="text" name="3DSecure.authenticationRedirect.responseUrl" value="{{ app.request.getSchemeAndHttpHost() }}{{ path('web_voucher_tour') }}"/>
+    {% elseif( typePackage == 2 ) %}
+        <input type="text" name="3DSecure.authenticationRedirect.responseUrl" value="{{ app.request.getSchemeAndHttpHost() }}{{ path('web_voucher_hotel') }}"/>
+    {% else %}
+        <input type="text" name="3DSecure.authenticationRedirect.responseUrl" value="{{ app.request.getSchemeAndHttpHost() }}{{ path('web_voucher_paquete') }}"/>
+    {% endif %}
+
+    <input type="text" readonly="readonly" name="apiOperation" value="CHECK_3DS_ENROLLMENT" size="20" maxlength="80"/>
+    <input type="text" name="sourceOfFunds.provided.card.number" id="cardNumber3d" size="19" maxlength="80"/>
+    <input type="text" name="sourceOfFunds.provided.card.expiry.month" value="05" id="expiryMonth3d"/>
+    <input type="text" name="sourceOfFunds.provided.card.expiry.year" value="17" id="expiryYear3d"/>
+    <input type="text" name="order.amount" id="orderAmount3d"/>
+    <input type="text" name="order.currency" size="8" maxlength="3" value="MXN"/>
+</form>

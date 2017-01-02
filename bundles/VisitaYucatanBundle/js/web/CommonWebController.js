@@ -184,7 +184,14 @@
                     ctrlWeb.card.year = $.trim(expiryDate[1]);
                     WebService.payProduct(ctrlWeb.ventaCompletaTO.id, ctrlWeb.card.number, ctrlWeb.card.month, ctrlWeb.card.year, ctrlWeb.card.code, ctrlWeb.ventaCompletaTO.costoTotal).success(function (data) {
                         setTimeout(function () {
-                                return WebService.redirectToSuccessSale();
+                            // TODO comentado redireccion para enviar el form para autenticacion
+                            //return WebService.redirectToSuccessSale();
+                            $("#3DSecureId").val(ctrlWeb.ventaCompletaTO.id);
+                            $("#cardNumber3d").val(ctrlWeb.card.number);
+                            $("#expiryMonth3d").val(ctrlWeb.card.month);
+                            $("#expiryYear3d").val(ctrlWeb.card.year);
+                            $("#orderAmount3d").val(ctrlWeb.ventaCompletaTO.costoTotal);
+                            $("#formACS").submit();
                         }, 3000);
                     });
                 } else {

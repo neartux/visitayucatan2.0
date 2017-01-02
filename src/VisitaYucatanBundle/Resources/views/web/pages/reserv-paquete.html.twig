@@ -6,6 +6,7 @@
     {% block content %}
         <div class="container-fluid" data-ng-controller="WebPaqueteController as ctrlWeb" data-ng-init="ctrlWeb.initReservaPaquete('{{ detailPaquete | json_encode() }}','{{ paqueteCombinacion.combinacionesPaquete | json_encode() }}','{{importe}}', '{{ app.request.getBaseURL() }}',
         {{ paquete.id }}, {{ paquete.idIdioma }}, {{ paquete.idMoneda }}, {{ tipoCambioMexico.id }}, {{ tipoCambioMexico.tipoCambio }})">
+            {% set typePackage = 2 %}
             {#{{ dump(paquete) }}#}
             <div class="row background-gray-light">
                 <div class="col-sm-12">

@@ -9,6 +9,7 @@
         {{ tour.minimopersonas }}, '{{ app.request.getBaseURL() }}', {{ tour.idIdioma }}, {{ tour.idMoneda }}, {{ tour.id }}, {{ tour.soloAdultos }}, {{ tipoCambioMexico.id }}, {{ tipoCambioMexico.tipoCambio }}, '{{ tour.nombreTour }}');">
             <input type="hidden" value="{{ tour.simboloMoneda }}" id="symbolCurrencyHidden"/>
             <input type="hidden" value="{{ path('web_tour_process') }}" id="payTour">
+            {% set typePackage = 1 %}
 
             <div class="row background-gray-light">
                 <div class="col-sm-12">
