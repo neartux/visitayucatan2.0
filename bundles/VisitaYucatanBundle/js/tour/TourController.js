@@ -1,6 +1,7 @@
 /**
  * Created by ricardo on 8/01/16.
  */
+var IDIOMA_DEFAULT = 1;
 (function () {
     var app = angular.module('Tour', ['TourProvider']).config(['$interpolateProvider', function ($interpolateProvider) {
         $interpolateProvider.startSymbol('[[');
@@ -102,9 +103,12 @@
             ctrlTour.nameTourTitle = tour.descripcion;
             ctrlTour.idTourGlobal = tour.id;
             ctrlTour.configTour = true;
-            ctrlTour.tourIdiomaTo.data = undefined;
+            ctrlTour.tourIdiomaTo.data = {
+                idIdioma: IDIOMA_DEFAULT.toString()
+            };
             $(".summernote").code('');
             ctrlTour.findImagesByTour();
+            ctrlTour.findTourByIdAndLanguage();
         };
 
         ctrlTour.returnListTour = function(){

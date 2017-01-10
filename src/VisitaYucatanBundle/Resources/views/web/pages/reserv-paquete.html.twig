@@ -395,6 +395,7 @@
             var diasPaquete = '{{ paquete.dias }}';
             var variableControl = 1;
             var arrayFechasCierres = [];
+            var isFirs = true;
 
             $(function(){
 
@@ -405,20 +406,7 @@
                 $('.datepicker-fp').datepicker({
                     autoclose: true,
                     format: 'dd/mm/yyyy',
-                    startDate: '+3d',
-                    // TODO hay que probar esto solo se codifico, no es probado
-                    beforeShowDay: function (date) {
-                        cosole.info("DATE = ", date);
-                        var year = date.getYear(), month = date.getMonth() + 1, day = date.getDay();
-                        var newDate = year+"-"+month+"-"+day;
-                        if($.inArray(newDate, arrayFechasCierres) != -1) {
-                            console.info("La fecha no esta disponible si esta entre las fechas cierre");
-                            return [false, "","Available"];
-                        } else {
-                            console.info("La fecha si esta disponible");
-                            return [true,"","unAvailable"];
-                        }
-                    }
+                    startDate: '+3d'
                 }).on('changeDate', function (e) {
 
                     if(variableControl == 1){
@@ -436,8 +424,36 @@
                     showInputs: false,
                     disableFocus: true
                 });
-
             });
+
+            function initDatePackage() {
+                var dateSuggest = moment(new Date()).add(4, 'day').format('YYYY-MM-DD');
+                for(var i = 1; i <= diasPaquete; i++){
+                    if($.inArray(dateSuggest, arrayFechasCierres) != -1){
+                        dateSuggest = moment(dateSuggest).add(1, 'day').format('YYYY-MM-DD');
+                        i = 1;
+                    } else {
+                        var fechaFinalSugerida = dateSuggest;
+                        var controlFechaFinal = 1;
+                        for(var j = 1; j <= diasPaquete - 1; j++) {
+                            fechaFinalSugerida = moment(fechaFinalSugerida).add(1, 'day').format('YYYY-MM-DD');
+                            if($.inArray(fechaFinalSugerida, arrayFechasCierres) != -1) {
+                                i = 1;
+                                dateSuggest = moment(fechaFinalSugerida).add(1, 'day').format('YYYY-MM-DD');
+                                break;
+                            } else {
+                                controlFechaFinal++;
+                            }
+                            if(diasPaquete == controlFechaFinal) {
+                                $('#fechaPaquete').datepicker("update", moment(dateSuggest).format('DD/MM/YYYY'));
+                                //$("#fechaPaquete").val(moment(dateSuggest).format('DD/MM/YYYY'));
+                                $(".datepicker-fs-d").val(moment(fechaFinalSugerida).format('DD/MM/YYYY'));
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
 
             function validaFechasPaquete() {
                 var dateGeneral = $("#fechaPaquete").val();

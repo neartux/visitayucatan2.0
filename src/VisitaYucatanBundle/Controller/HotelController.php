@@ -172,7 +172,7 @@ class HotelController extends Controller {
         return new Response($this->get('serializer')->serialize(HotelUtils::getArrayClosingDates($dateClosing), Generalkeys::JSON_STRING));
     }
 
-    private function getParamsTour($request){
+    private function getParamsTour(Request $request){
         // Obtiene la session del request para obtener moneda e idioma
         $session = $request->getSession();
         // Obtiene el idioma de la sesion

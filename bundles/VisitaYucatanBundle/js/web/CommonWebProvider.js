@@ -151,7 +151,8 @@
 
         service.findFechasCerradasHotel = function(idHotel){
             return $http.get(service.contextPath+'/hotel/find/fechasCierreHotel/'+idHotel).success(function(data){
-                arrayFechasCierres = data.data;
+                arrayFechasCierres = data;
+                initDatePackage();
             });
         };
 

@@ -34,16 +34,16 @@ function pNotifyView(textMsj, type) {
     PNotify.removeAll();
     switch (type){
         case "success":
-            displayNotify("Success", textMsj, type, "ti ti-check");
+            displayNotify("Éxito", textMsj, type, "ti ti-check");
             break;
         case "info":
-            displayNotify("Info", textMsj, type, "ti ti-info");
+            displayNotify("Información", textMsj, type, "ti ti-info");
             break;
         case "error":
             displayNotify("Error", textMsj, type, "ti ti-close");
             break;
         case "warning":
-            displayNotify("Warning", textMsj, type, "ti ti-close");
+            displayNotify("Alerta", textMsj, type, "ti ti-close");
             break;
     }
 }
