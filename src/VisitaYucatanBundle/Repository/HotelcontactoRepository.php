@@ -6,6 +6,7 @@ use VisitaYucatanBundle\Entity\Datospersonales;
 use VisitaYucatanBundle\Entity\Datosubicacion;
 use VisitaYucatanBundle\Entity\Hotelcontacto;
 use VisitaYucatanBundle\utils\Estatuskeys;
+use VisitaYucatanBundle\utils\to\ContactoTO;
 
 /**
  * HotelcontactoRepository
@@ -49,6 +50,26 @@ class HotelcontactoRepository extends \Doctrine\ORM\EntityRepository {
         $hotelContacto->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', Estatuskeys::ESTATUS_ACTIVO));
 
         $em->persist($hotelContacto);
+        $em->flush();
+    }
+
+    public function updateHotelContacto(ContactoTO $contactoTO){
+
+        $contacto = $this->find($contactoTO->getId());
+        if (!$contacto) {
+            throw new EntityNotFoundException('El contacto con id ' . $contactoTO->getId() . " no se encontro");
+        }
+
+
+        $em = $this->getEntityManager();
+
+
+        $contacto->getDatosPersonales()->setNombres($contactoTO->getNombres());
+        $contacto->getDatosPersonales()->setApellidos($contactoTO->getApellidos());
+
+        $contacto->getDatosUbicacion()->setEmail($contactoTO->getEmail());
+
+        $em->persist($contacto);
         $em->flush();
     }
 

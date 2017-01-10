@@ -146,6 +146,9 @@
 
 
         ctrlHotel.createContactHotel = function () {
+            if(ctrlHotel.isEdit) {
+                return ctrlHotel.updateContactoHotel();
+            }
             if(ctrlHotel.validateContactHotel()){
                 ctrlHotel.hotelContacto.idHotel = ctrlHotel.idHotelGlobal;
                 return HotelService.createContactHotel(ctrlHotel.hotelContacto).then(function(data){
@@ -155,6 +158,28 @@
                         ctrlHotel.isNewContact = false;
                         ctrlHotel.cleanFormContact();
                     }
+                });
+            }
+        };
+
+        ctrlHotel.viewEditaContactoHotel = function (contact) {
+            ctrlHotel.hotelContacto = angular.copy(contact);
+            ctrlHotel.isNewContact = true;
+            ctrlHotel.isEdit = true;
+        };
+
+        ctrlHotel.updateContactoHotel = function () {
+            if(ctrlHotel.validateContactHotel()){
+                ctrlHotel.hotelContacto.idHotel = ctrlHotel.idHotelGlobal;
+                return HotelService.updateContactHotel(ctrlHotel.hotelContacto).then(function(data){
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                    if(data.data.status){
+                        HotelService.findContactsHotel(ctrlHotel.hotelContacto.idHotel);
+                        ctrlHotel.isNewContact = false;
+                        ctrlHotel.cleanFormContact();
+                    }
+                    ctrlHotel.isEdit = false;
+                    ctrlHotel.hotelContacto = undefined;
                 });
             }
         };

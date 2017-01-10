@@ -9,6 +9,7 @@ namespace VisitaYucatanBundle\utils\to;
 
 
 class ContactoTO {
+    private $id;
     private $idHotel;
     private $nombres;
     private $apellidos;
@@ -76,6 +77,22 @@ class ContactoTO {
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 

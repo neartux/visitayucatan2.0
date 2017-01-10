@@ -188,6 +188,13 @@
             });
         };
 
+        service.updateContactHotel = function(hotelContacto){
+            var path = $("#pathContactUpdate").val();
+            return $http.post(path, $.param({hotelContacto : JSON.stringify(hotelContacto)}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
         service.deleteContactHotel = function(idHotelContacto){
             var path = $("#pathContactDelete").val();
             return $http.post(path, $.param({idHotelContacto : idHotelContacto}), {

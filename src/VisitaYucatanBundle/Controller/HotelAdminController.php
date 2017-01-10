@@ -154,6 +154,26 @@ class HotelAdminController extends Controller {
     }
 
     /**
+     * @Route("/admin/hotel/update/contact", name="hotel_contact_update")
+     * @Method("POST")
+     */
+    public function updateHotelContactAction(Request $request) {
+        $serializer = $this->get('serializer');
+        try {
+            $hotelContactoTO = $serializer->deserialize($request->get('hotelContacto'), 'VisitaYucatanBundle\utils\to\ContactoTO', Generalkeys::JSON_STRING);
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:Hotelcontacto')->updateHotelContacto($hotelContactoTO);
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Contacto Actualizado', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+
+        } catch (\Exception $e) {
+
+            $response = new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode());
+            return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
      * @Route("/admin/hotel/contacto/delete", name="hotel_contacto_delete")
      * @Method("POST")
      */

@@ -87,7 +87,8 @@
                                             <td>[[ contacto.nombres ]]&nbsp;[[ contacto.apellidos ]]</td>
                                             <td>[[ contacto.email ]]</td>
                                             <td>
-                                                <a class="btn btn-danger-alt" data-ng-click="ctrlHotel.deleteContactHotel(contacto.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
+                                                <a class="btn btn-success-alt" title="Editar Contacto" data-ng-click="ctrlHotel.viewEditaContactoHotel(contacto)" href="javascript:;"><i class="fa fa-pencil"></i></a>
+                                                <a class="btn btn-danger-alt" title="Eliminar Contacto" data-ng-click="ctrlHotel.deleteContactHotel(contacto.id)" href="javascript:;"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         </tbody>
