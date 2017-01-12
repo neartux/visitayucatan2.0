@@ -406,7 +406,7 @@
                 $('.datepicker-fp').datepicker({
                     autoclose: true,
                     format: 'dd/mm/yyyy',
-                    startDate: '+3d'
+                    startDate: '+2d'
                 }).on('changeDate', function (e) {
 
                     if(variableControl == 1){
@@ -427,7 +427,7 @@
             });
 
             function initDatePackage() {
-                var dateSuggest = moment(new Date()).add(4, 'day').format('YYYY-MM-DD');
+                var dateSuggest = moment(new Date()).add(3, 'day').format('YYYY-MM-DD');
                 for(var i = 1; i <= diasPaquete; i++){
                     if($.inArray(dateSuggest, arrayFechasCierres) != -1){
                         dateSuggest = moment(dateSuggest).add(1, 'day').format('YYYY-MM-DD');
@@ -445,8 +445,8 @@
                                 controlFechaFinal++;
                             }
                             if(diasPaquete == controlFechaFinal) {
-                                $('#fechaPaquete').datepicker("update", moment(dateSuggest).format('DD/MM/YYYY'));
-                                //$("#fechaPaquete").val(moment(dateSuggest).format('DD/MM/YYYY'));
+                                var arrayFecha = dateSuggest.split("-");
+                                $('#fechaPaquete').datepicker('update', new Date(parseInt(arrayFecha[0]), parseInt(arrayFecha[1])-1, parseInt(arrayFecha[2])));
                                 $(".datepicker-fs-d").val(moment(fechaFinalSugerida).format('DD/MM/YYYY'));
                                 break;
                             }
