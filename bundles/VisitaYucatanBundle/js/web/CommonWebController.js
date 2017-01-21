@@ -408,9 +408,29 @@
             var isValid = ctrlHotel.validateAgeMinors();
             if (isValid) {
                 if (WebService.isRangeDateValid(ctrlHotel.formRate.dateFrom, ctrlHotel.formRate.dateTo)) {
-                    return WebService.findRateRoomByHotel(ctrlHotel.formRate);
+                    return WebService.findRateRoomByHotel(ctrlHotel.formRate).then(function () {
+                        console.info("aqui");
+                        desactivaInputs(true);
+                    });
                 }
             }
+        };
+        function desactivaInputs(boolean) {
+            console.info("boolean = ", boolean);
+            if( boolean ) {
+                $(".forminhabilitar").prop("disabled", true);
+            } else {
+                $(".forminhabilitar").prop("disabled", false);
+            }
+            /*if(valor == 1) {
+                valor = 2;
+                $(".forminhabilitar").prop("disabled", false);
+            }*/
+        }
+
+        ctrlHotel.checaBotones = function () {
+            desactivaInputs(false);
+            ctrlHotel.listRoomsHotelToSale.data = [];
         };
 
         ctrlHotel.validateAgeMinors = function () {
@@ -441,6 +461,7 @@
         };
 
         ctrlHotel.confirmReservaHotel = function (habitacion, idHabitacion, finalCost) {
+            $(".forminhabilitar").prop("disabled", false);
             $("#fechaInicio").val(ctrlHotel.formRate.dateFrom);
             $("#fechaFin").val(ctrlHotel.formRate.dateTo);
             $("#adultsHidden").val(ctrlHotel.formRate.adults);

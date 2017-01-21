@@ -78,7 +78,8 @@
                                             <label class="oswaldo color-text-pink">{% trans %}page.web.labe.reserva.tour.adults{% endtrans %}:</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-group"></i></span>
-                                                <select data-ng-model="ctrlWeb.formRate.adults" class="form-control">
+                                                <select data-ng-model="ctrlWeb.formRate.adults"
+                                                        class="form-control forminhabilitar">
                                                     <option value='0'>0</option>
                                                     <option value='1'>1</option>
                                                     <option value='2' selected>2</option>
@@ -91,7 +92,8 @@
                                             <label class="oswaldo color-text-pink">{% trans %}page.web.labe.reserva.tour.minors{% endtrans %}:</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-child"></i></span>
-                                                <select data-ng-model="ctrlWeb.formRate.minors" ng-change="ctrlWeb.displayInputsMinors()" class="form-control">
+                                                <select data-ng-model="ctrlWeb.formRate.minors" ng-change="ctrlWeb.displayInputsMinors()"
+                                                        class="form-control forminhabilitar">
                                                     <option value='0'>0</option>
                                                     <option value='1'>1</option>
                                                     <option value='2'>2</option>
@@ -113,7 +115,7 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 <input type="text" value="{{ dateFrom }}" id="dateFrom" onChange="cambiaFechaPaquete()"
-                                                       ng-model="ctrlWeb.formRate.dateFrom" readonly class="datepicker form-control"/>
+                                                       ng-model="ctrlWeb.formRate.dateFrom" readonly class="datepicker form-control forminhabilitar"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-4 mt">
@@ -121,14 +123,17 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 <input type="text" value="{{ dateTo }}" id="dateTo"
-                                                       ng-model="ctrlWeb.formRate.dateTo" readonly class="datepicker form-control"/>
+                                                       ng-model="ctrlWeb.formRate.dateTo" readonly class="datepicker form-control forminhabilitar"/>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 mt">
-                                            <button data-ng-click="ctrlWeb.findTarifasHotel()" class="btn btn-primary" style="margin-top: 28px">
-                                                {% trans %}button.label.search{% endtrans %}
-                                            </button>
-                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 ml">
+                                        <button data-ng-click="ctrlWeb.findTarifasHotel()" class="btn btn-primary" style="margin-top: 28px">
+                                            {% trans %}button.label.search{% endtrans %}
+                                        </button>
+                                        <button data-ng-click="ctrlWeb.checaBotones()" class="btn btn-primary" style="margin-top: 28px">
+                                            {% trans %}button.label.search.nuevo{% endtrans %}
+                                        </button>
                                     </div>
                             </div>
                             <div class="col-sm-12"><hr style="border-top: 1px solid rgb(239, 182, 78) !important;"></div>

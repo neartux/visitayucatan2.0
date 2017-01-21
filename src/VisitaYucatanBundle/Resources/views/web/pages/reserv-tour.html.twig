@@ -235,7 +235,7 @@
                                                     <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.numeroMenores" id="numeroMenores" class="form-control"
                                                             data-ng-change="ctrlWeb.recalculateCostTour()">
                                                         <option value='0'>0</option>
-                                                        {% if tour.soloAdultos != 0 %}
+                                                        {% if tour.soloAdultos == 0 %}
                                                             <option value='1'>1</option>
                                                             <option value='2'>2</option>
                                                             <option value='3'>3</option>

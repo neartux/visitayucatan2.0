@@ -32,6 +32,24 @@ class HotelContratoRepository extends \Doctrine\ORM\EntityRepository {
         return $stmt->fetchColumn(Generalkeys::NUMBER_ZERO);
     }
 
+    public function esFechaEnRangoDeContrato($idContrato, $fechaInicio, $fechaFin){
+        $em = $this->getEntityManager();
+        $sql = "SELECT *
+FROM hotel_contrato
+WHERE hotel_contrato.id = :contrato
+      AND hotel_contrato.fechainicio <= :fechaInicio
+      AND hotel_contrato.fechafin >= :fechaFin
+      AND hotel_contrato.id_estatus = 1";
+        $params['contrato'] = $idContrato;
+        $params['fechaInicio'] = $fechaInicio;
+        $params['fechaFin'] = $fechaFin;
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        $valor =  $stmt->fetchColumn(0);
+        return $valor != null && ! empty($valor) && $valor > 0;
+    }
+
     public function findAgeMinorByContract($idContract) {
         $em = $this->getEntityManager();
         $sql = "SELECT hotel_contrato.edadmenor
@@ -65,10 +83,8 @@ class HotelContratoRepository extends \Doctrine\ORM\EntityRepository {
         $em = $this->getEntityManager();
         $sql = "SELECT hotel_contrato.id, hotel_contrato.descripcion
                 FROM hotel_contrato
-                WHERE hotel_contrato.id_hotel = :hotel
-                AND hotel_contrato.id_estatus =  :estatus ";
+                WHERE hotel_contrato.id_hotel = :hotel";
         $params['hotel'] = $idHotel;
-        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();
@@ -123,6 +139,7 @@ class HotelContratoRepository extends \Doctrine\ORM\EntityRepository {
         $contrato->setMarkup($contractTO->getMarkup());
         $contrato->setIva($contractTO->getIva());
         $contrato->setFee($contractTO->getFee());
+        $contrato->setEstatus($em->getReference('VisitaYucatanBundle:Estatus', $contractTO->getIdEstatus()));
 
         $em->persist($contrato);
         $em->flush($contrato);

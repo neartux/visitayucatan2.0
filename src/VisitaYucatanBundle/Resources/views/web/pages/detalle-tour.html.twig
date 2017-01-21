@@ -55,6 +55,12 @@
                             <div class="col-sm-12 color-text-gray-primary mt fnt-sz-12 contenedor-description">
                                 {{ tour.descripcionTour | raw }}
                             </div>
+                            <div class="col-sm-12 text-right">
+                                {{ tour.soloAdultos }} {#TODO aqui pendiente#}
+                                {% if tour.soloAdultos != 0 %}
+                                    Solo adultos
+                                {% endif %}
+                            </div>
                             <div class="col-sm-12 background-element-pink mt-lg">
                                 <span class="fnt-sz-20 text-bold text-italic color-text-white">{% trans %}page.web.label.reserva.book.now{% endtrans %}</span>
 
@@ -98,7 +104,7 @@
                                             <span class="input-group-addon"><i class="fa fa-child"></i></span>
                                             <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.numeroMenores" ng-change="ctrlWeb.recalculateCostTour()" class="form-control">
                                                 <option value='0'>0</option>
-                                                {% if tour.soloAdultos != 0 %}
+                                                {% if tour.soloAdultos == 0 %}
                                                     <option value='1'>1</option>
                                                     <option value='2'>2</option>
                                                     <option value='3'>3</option>

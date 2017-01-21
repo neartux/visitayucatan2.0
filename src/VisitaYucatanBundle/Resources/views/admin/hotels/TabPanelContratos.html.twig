@@ -26,6 +26,17 @@
                         <input type="text" id="nombreContrato" ng-model="ctrlHotel.hotelContract.descripcion" class="form-control field-contract-hotel"/>
                     </div>
                 </div>
+                <div class="form-group" ng-show="! ctrlHotel.isNewContract">
+                    <label class="col-sm-4 control-label text-bold text-uppercase">
+                        Estatus <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <select ng-model="ctrlHotel.hotelContract.idEstatus" class="form-control">
+                            <option value="1">Activo</option>
+                            <option value="2">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label text-bold text-uppercase">
                         Fecha Inicial <span class="required">*</span>

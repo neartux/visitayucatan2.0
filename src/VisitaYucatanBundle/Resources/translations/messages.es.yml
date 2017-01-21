@@ -14,7 +14,7 @@ button.label.search : Buscar
 button.label.cancel : Cancelar
 button.label.close : Cerrar
 button.label.go.back : Regresar
-button.label.edit : Editar
+button.label.edit : Guardar
 button.label.login : Iniciar Sesión
 button.label.upload : Subir
 button.label.pay : Pagar
@@ -247,3 +247,4 @@ page.web.title.pay.details.cvv : Cvv
 page.web.title.pay.details.cvv.invalid : Invalid Cvv
 page.web.title.pay.message.cancel.pay : ¿Esta seguro de cancelar el pago?
 page.web.title.pay.details.cvv.valid: Cvv Requerido
+button.label.search.nuevo: Nueva Busqueda

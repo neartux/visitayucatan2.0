@@ -86,6 +86,8 @@
                     $(".datepickerInicio").datepicker("update", data.data.fechaInicio);
                     $(".datepickerFin").datepicker("update", data.data.fechaFin);
                     ctrlHotel.hotelContract = data.data;
+                    console.info(ctrlHotel.hotelContract.idEstatus);
+                    ctrlHotel.hotelContract.idEstatus = ctrlHotel.hotelContract.idEstatus+'';
                     ctrlHotel.isNewContract = false;
                     ctrlHotel.displayFormContract = true;
                 });

@@ -577,10 +577,15 @@ class HotelAdminController extends Controller {
         try {
             $hotelTarifaJson = $request->get('hotelTarifaTO');
             $hotelTarifaTO = $serializer->deserialize($hotelTarifaJson, 'VisitaYucatanBundle\utils\to\HotelTarifaTO', Generalkeys::JSON_STRING);
-            $em->getRepository('VisitaYucatanBundle:HotelTarifa')->saveRate($hotelTarifaTO);
-            $em->getConnection()->commit();
-            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha guardado correctamente las tarifas de las fechas seleccionadas ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
-            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+            $idContrato = $hotelTarifaTO->getIdContrato();
+            if ($em->getRepository('VisitaYucatanBundle:HotelContrato')->esFechaEnRangoDeContrato($idContrato, $hotelTarifaTO->getFechaInicio(), $hotelTarifaTO->getFechaFin())) {
+                $em->getRepository('VisitaYucatanBundle:HotelTarifa')->saveRate($hotelTarifaTO);
+                $em->getConnection()->commit();
+                $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha guardado correctamente las tarifas de las fechas seleccionadas ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+                return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+            } else {
+                return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, "Las fechas estan fuera de rango en el contrato", Generalkeys::RESPONSE_ERROR, 0), Generalkeys::JSON_STRING));
+            }
         } catch (\Exception $e) {
             $em->getConnection()->rollback();
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
