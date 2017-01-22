@@ -249,6 +249,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-sm-12 text-right mt-lg text-info text-bold">
+                                            {% if tour.soloAdultos != 0 %}
+                                                {% trans %}label.only.adults{% endtrans %}
+                                            {% endif %}
+                                        </div>
                                         <div class="col-sm-12 mt-xxl text-right mb">
                                             <input type="button" data-ng-click="ctrlWeb.reservarTour(formReserva.$valid)"
                                                    data-ng-show="ctrlWeb.buttonPay"

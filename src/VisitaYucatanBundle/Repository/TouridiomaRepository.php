@@ -43,15 +43,25 @@ class TouridiomaRepository extends \Doctrine\ORM\EntityRepository {
         $tourIdioma->setDescripcion($tourIdiomaTO->getDescripcion());
         // Valida que slo adultos no sea null
         if(is_null($tourIdiomaTO->getSoloadultos()) || $tourIdiomaTO->getSoloadultos() == Generalkeys::BOOLEAN_FALSE){
-            $tourIdioma->setSoloadultos(Generalkeys::BOOLEAN_FALSE);
+            //$tourIdioma->setSoloadultos(Generalkeys::BOOLEAN_FALSE);
+            $this->updateSoloAdultosTour($tourIdiomaTO->getIdTour(), Generalkeys::BOOLEAN_FALSE);
         }else{
-            $tourIdioma->setSoloadultos(Generalkeys::BOOLEAN_TRUE);
+            $this->updateSoloAdultosTour($tourIdiomaTO->getIdTour(), Generalkeys::BOOLEAN_TRUE);
         }
 
         $em->persist($tourIdioma);
         $em->flush();
 
         return $isNew;
+    }
+
+    public function updateSoloAdultosTour($idTour, $soloAdultos){
+        $sql = "UPDATE tour_idioma SET soloadultos = :soloadultos WHERE id_tour = :idtour";
+        $params = array('soloadultos'=> $soloAdultos, 'idtour'=> $idTour);
+
+        $em = $this->getEntityManager();
+        $stmt = $em->getConnection()->prepare($sql);
+        return $stmt->execute($params);
     }
 
 }

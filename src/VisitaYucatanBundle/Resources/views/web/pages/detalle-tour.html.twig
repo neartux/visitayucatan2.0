@@ -55,13 +55,12 @@
                             <div class="col-sm-12 color-text-gray-primary mt fnt-sz-12 contenedor-description">
                                 {{ tour.descripcionTour | raw }}
                             </div>
-                            <div class="col-sm-12 text-right">
-                                {{ tour.soloAdultos }} {#TODO aqui pendiente#}
+                            <div class="col-sm-12 text-right mt-lg text-info text-bold">
                                 {% if tour.soloAdultos != 0 %}
-                                    Solo adultos
+                                    {% trans %}label.only.adults{% endtrans %}
                                 {% endif %}
                             </div>
-                            <div class="col-sm-12 background-element-pink mt-lg">
+                            <div class="col-sm-12 background-element-pink">
                                 <span class="fnt-sz-20 text-bold text-italic color-text-white">{% trans %}page.web.label.reserva.book.now{% endtrans %}</span>
 
                                 {% if(tour.mapa) %}

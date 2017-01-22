@@ -248,3 +248,4 @@ page.web.title.pay.details.cvv.invalid : Invalid Cvv
 page.web.title.pay.message.cancel.pay : ¿Esta seguro de cancelar el pago?
 page.web.title.pay.details.cvv.valid: Cvv Requerido
 button.label.search.nuevo: Nueva Busqueda
+label.only.adults: Solo Adultos
