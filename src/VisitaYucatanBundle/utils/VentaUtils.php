@@ -126,6 +126,7 @@ final class VentaUtils {
                     $ventaTO->setHotelPickup($ventaDetalle->getHotel()->getDescripcion());
                 }
                 $ventaTO->setNumeroVoucher($venta->getDatosPago()->getNumeroVoucher());
+                $ventaTO->setCiudad($venta->getDatosUbicacion()->getCiudad());
                 $ventasTO->add($ventaTO);
             }
         }
