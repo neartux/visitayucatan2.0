@@ -239,3 +239,5 @@ page.web.title.pay.message.cancel.pay : Are you sure to cancel pay?
 page.web.title.pay.details.cvv.valid: Cvv Required
 button.label.search.nuevo: New Search
 label.only.adults: Only Adults
+label.reserva.tour.codigo.pais: Country Code
+label.reserva.tour.codigo.pais.required: Country code is required
