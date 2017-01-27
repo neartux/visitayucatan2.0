@@ -238,3 +238,5 @@ page.web.title.pay.details.cvv.invalid : I invalido Cvv
 page.web.title.pay.message.cancel.pay : Sei sicuro di voler annullare il pagamento?
 button.label.search.nuevo: New Search
 label.only.adults: Only Adults
+label.reserva.tour.codigo.pais: Country Code
+label.reserva.tour.codigo.pais.required: Country code is required
