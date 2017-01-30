@@ -43,7 +43,7 @@ class TouridiomaRepository extends \Doctrine\ORM\EntityRepository {
         $tourIdioma->setDescripcion($tourIdiomaTO->getDescripcion());
         // Valida que slo adultos no sea null
         if(is_null($tourIdiomaTO->getSoloadultos()) || $tourIdiomaTO->getSoloadultos() == Generalkeys::BOOLEAN_FALSE){
-            //$tourIdioma->setSoloadultos(Generalkeys::BOOLEAN_FALSE);
+            $tourIdioma->setSoloadultos(Generalkeys::BOOLEAN_FALSE);
             $this->updateSoloAdultosTour($tourIdiomaTO->getIdTour(), Generalkeys::BOOLEAN_FALSE);
         }else{
             $this->updateSoloAdultosTour($tourIdiomaTO->getIdTour(), Generalkeys::BOOLEAN_TRUE);
