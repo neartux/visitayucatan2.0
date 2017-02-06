@@ -514,7 +514,7 @@
 
 </head>
 
-<body>
+<body data-ng-app="Web">
 
 <div id="contenedor">
     <div id="img-prueba">
@@ -701,9 +701,26 @@
                         <p class="social2">{% trans %}page.web.commons.label.twitter{% endtrans %}</p></a>
                 </div>
             </div>
-            <div class="renglon4">
-                <div>
+            <div class="renglon4" ng-controller="WebCommonsController as ctrlCommons"
+                 ng-init="ctrlCommons.initCommons('{{ app.session.get('_locale') }}', '{{ app.session.get('_currency') }}')">
+                <input type="hidden" value="{{ path('web_get_languages') }}" id="web_get_languages_path"/>
+                <input type="hidden" value="{{ path('web_get_currency') }}" id="web_get_currency_path"/>
+                {#<div>
                     <img src="{{ asset('bundles/VisitaYucatanBundle/img/web/logo-pie.png') }}"/>
+                </div>#}
+                <div class="mt">
+                    <input type="hidden" id="pathCatalogsReload" value="{{ path('web_configure_select') }}"/>
+                    {#<h4 class="label-currency">{% trans %}page.web.commons.label.currency{% endtrans %}</h4>
+                    <select ng-model="ctrlCommons.objCatalog.currency" class="select-currency"
+                            ng-change="ctrlCommons.changeCurrencyOrLanguage()">
+                        <option value="[[ currency.id ]]" data-ng-repeat="currency in ctrlCommons.listCurrency.data">[[ currency.descripcion ]]</option>
+                    </select>#}
+
+                    <h4 class="label-language">{% trans %}page.web.commons.label.language{% endtrans %}</h4>
+                    <select ng-model="ctrlCommons.objCatalog.language" class="select-language"
+                            ng-change="ctrlCommons.changeCurrencyOrLanguage()">
+                        <option value="[[ language.abreviatura ]]" data-ng-repeat="language in ctrlCommons.listLanguages.data">[[ language.descripcion ]]</option>
+                    </select>
                 </div>
             </div>
             <div class="limpiar"></div>
