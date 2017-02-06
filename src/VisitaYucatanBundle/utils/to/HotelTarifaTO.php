@@ -30,6 +30,8 @@ class HotelTarifaTO {
     private $isAvailable;
     private $costo;
     private $smallDate;
+    private $maximoMenores;
+    private $maximoAdultos;
 
     /**
      * @return mixed
@@ -383,4 +385,37 @@ class HotelTarifaTO {
     {
         $this->smallDate = $smallDate;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMaximoMenores()
+    {
+        return $this->maximoMenores;
+    }
+
+    /**
+     * @param mixed $maximoMenores
+     */
+    public function setMaximoMenores($maximoMenores)
+    {
+        $this->maximoMenores = $maximoMenores;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMaximoAdultos()
+    {
+        return $this->maximoAdultos;
+    }
+
+    /**
+     * @param mixed $maximoAdultos
+     */
+    public function setMaximoAdultos($maximoAdultos)
+    {
+        $this->maximoAdultos = $maximoAdultos;
+    }
+
 }

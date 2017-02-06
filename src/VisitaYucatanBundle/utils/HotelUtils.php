@@ -185,6 +185,11 @@ class HotelUtils {
                 if($tarifaTO->getCapacidadMaxima() < ($numAdults + $numMinors)){
                     continue;
                 }
+
+                // Valida que el maximo de menores sea permitido
+                if ($tarifaTO->getMaximoMenores() < $numMinors) {
+                    continue;
+                }
                 
                 // si es el primer registro 
                 if ($idRoomTmp == Generalkeys::NUMBER_ZERO) {
@@ -275,7 +280,9 @@ class HotelUtils {
         $habitacionTarifaTO->setCapacidadMaxima($cost["capacidadmaxima"]);
         $habitacionTarifaTO->setAllotment($cost["allotment"]);
         $habitacionTarifaTO->setIdHabitacion($cost["idhabitacion"]);
-        
+        $habitacionTarifaTO->setMaximoMenores($cost["maximomenores"]);
+        $habitacionTarifaTO->setMaximoAdultos($cost["maximoadultos"]);
+
         return $habitacionTarifaTO;
     }
 

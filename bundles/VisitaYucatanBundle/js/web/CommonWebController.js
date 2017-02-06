@@ -288,7 +288,6 @@
 
         ctrlHotel.initReserva = function (tarifaAdulto, tarifaMenor, idIdioma, idMoneda, tipoCambio, costoTotal, checkIn, checkOut, adultos, menores, contextPath, idHotel, idHabitacion,
                                           idMonedaMexico, tipoCambioMexico, costoFinal) {
-            console.info("costoFinal = "+costoFinal);
             WebService.setContextPath(contextPath);
             ctrlHotel.contextPathThis = contextPath;
             ctrlHotel.ventaCompletaTO = {
@@ -414,20 +413,28 @@
         };
 
         ctrlHotel.findTarifasHotel = function () {
+            var edadMaximaMenor = ctrlHotel.formRate.ageMinor;
+            for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
+                var edadMenor = $("#minor_"+(i+1)).val();
+                if(isNaN(parseInt(edadMenor)) || parseInt(edadMenor) > edadMaximaMenor) {
+                    alert("La edad maxima del menor es "+edadMaximaMenor);
+                    $("#minor_"+(i+1)).trigger("focus");
+                    return;
+                }
+            }
+
             ctrlHotel.formRate.dateFrom = angular.element(document.querySelector('#dateFrom')).context.value;
             ctrlHotel.formRate.dateTo = angular.element(document.querySelector('#dateTo')).context.value;
             var isValid = ctrlHotel.validateAgeMinors();
             if (isValid) {
                 if (WebService.isRangeDateValid(ctrlHotel.formRate.dateFrom, ctrlHotel.formRate.dateTo)) {
                     return WebService.findRateRoomByHotel(ctrlHotel.formRate).then(function () {
-                        console.info("aqui");
                         desactivaInputs(true);
                     });
                 }
             }
         };
         function desactivaInputs(boolean) {
-            console.info("boolean = ", boolean);
             if( boolean ) {
                 $(".forminhabilitar").prop("disabled", true);
             } else {
