@@ -255,12 +255,15 @@
                                             {% endif %}
                                         </div>
                                         <div class="col-sm-12 mt-xxl text-right mb">
-                                            <input type="button" data-ng-click="ctrlWeb.reservarTour(formReserva.$valid)"
-                                                   data-ng-show="ctrlWeb.buttonPay"
-                                                   data-ng-disabled="formReserva.$invalid"
-                                                   value="{% trans %}page.web.label.reserva.book.now{% endtrans %}" class="btn btn-primary"/>
+                                            <input type="button" ng-click="ctrlWeb.reservarTour(formReserva.$valid)"
+                                                   ng-show="ctrlWeb.buttonPay"
+                                                   value="{% trans %}page.web.label.reserva.book.now{% endtrans %}" class="btn btn-warning"/>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="col-sm-12 mt-xl mb-xl">
+                                    <span class="required">*</span> = {% trans %}label.reserva.tour.general.required.information{% endtrans %}
                                 </div>
 
 
@@ -277,7 +280,7 @@
                                     <img src="{{ asset('[[ tourDetail.imagen ]]') }}" class="img-similar img-thumbnail"/>
                                 </a>
                                 <br>
-                                <span class="text-center">[[ tourDetail.nombre ]] [[tourDetail.id]]</span> <br>
+                                <span class="text-center">[[ tourDetail.nombre ]]</span> <br>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>
                                 <i class="fa fa-star color-text-white"></i>

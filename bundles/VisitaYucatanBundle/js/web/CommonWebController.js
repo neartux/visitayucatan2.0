@@ -115,11 +115,13 @@
                 if (parseInt(ctrlWeb.totalPersons.numeroMenores) > 0) {
                     if (ctrlWeb.soloAdultos != undefined && ctrlWeb.soloAdultos) {
                         alert("este tour es solo para adultos");
+                        ctrlWeb.buttonPay = true;
                         return;
                     }
                 }
                 if (parseInt(ctrlWeb.minimoPersonas) > (parseInt(ctrlWeb.totalPersons.numeroAdultos) + parseInt(ctrlWeb.totalPersons.numeroMenores))) {
                     alert("El minimo de personas para este paquete es " + ctrlWeb.minimoPersonas);
+                    ctrlWeb.buttonPay = true;
                     return
                 }
                 HoldOn.open({message: 'Por favor espere un momento'});
@@ -150,6 +152,15 @@
                     }
                 });
                 //HoldOn.close();
+            } else {
+                $scope.formReserva.nombres.$setDirty();
+                $scope.formReserva.apellidos.$setDirty();
+                $scope.formReserva.lada.$setDirty();
+                $scope.formReserva.telefono.$setDirty();
+                $scope.formReserva.email.$setDirty();
+                $scope.formReserva.hotelPickUp.$setDirty();
+                $scope.formReserva.ciudad.$setDirty();
+                $scope.formReserva.checkIn.$setDirty();
             }
         };
 
