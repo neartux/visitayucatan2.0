@@ -27,12 +27,12 @@ class ContactoController extends Controller {
         $message->setSubject('TEST(ZV) Se ha generado un nuevo prospecto | Visita Yucatan‏');
         $message->setFrom(Generalkeys::from_email_contact);
         // TODO desconmentar la siguiente linea cuando ya este en produccion
-        //$message->setTo(Generalkeys::gabino_martinez_email);
+        $message->setTo(Generalkeys::gabino_martinez_email);
         // TODO eliminar la siguiente linea cuando este en produccion
-        $message->setTo(Generalkeys::gabriel_email);
+        //$message->setTo(Generalkeys::gabriel_email);
         $message->setReplyTo(Generalkeys::no_responder_email);
         // TODO desconmentar la siguiente linea cuando ya este en produccion
-        //$message->setCc(Generalkeys::getMailsCcContact());
+        $message->setCc(Generalkeys::getMailsCcContact());
         $message->setBcc(Generalkeys::bcc_email);
         $message->setBody(
             $this->renderView('@VisitaYucatan/web/pages/mail/contacto.html.twig',

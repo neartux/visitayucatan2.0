@@ -111,9 +111,9 @@ class Generalkeys{
         $configArray["certificateVerifyPeer"] = TRUE;
         $configArray["certificateVerifyHost"] = 2;
         $configArray["gatewayUrl"] = "https://banamex.dialectpayments.com/api/nvp";
-        $configArray["merchantId"] = "TEST1032478HPP";
-        $configArray["apiUsername"] = "merchant.TEST1032478HPP";
-        $configArray["password"] = "acf4097b7dcc175966aa9f279448d93e";
+        $configArray["merchantId"] = "1032478HPP";
+        $configArray["apiUsername"] = "merchant.1032478HPP";
+        $configArray["password"] = "f69999890046c142358f034ee23ce5c4";
         $configArray["debug"] = FALSE;
         $configArray["version"] = "13";
         
