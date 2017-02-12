@@ -113,7 +113,7 @@ class Generalkeys{
         $configArray["gatewayUrl"] = "https://banamex.dialectpayments.com/api/nvp";
         $configArray["merchantId"] = "1032478HPP";
         $configArray["apiUsername"] = "merchant.1032478HPP";
-        $configArray["password"] = "f69999890046c142358f034ee23ce5c4";
+        $configArray["password"] = "f131c5501139762b2e5350081c6fc306";
         $configArray["debug"] = FALSE;
         $configArray["version"] = "13";
         

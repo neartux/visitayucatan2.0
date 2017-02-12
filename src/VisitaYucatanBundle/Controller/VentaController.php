@@ -149,9 +149,9 @@ class VentaController extends Controller {
         $message->setSubject('TEST(ZV) Informe de su reservacion‏');
         $message->setFrom(Generalkeys::from_email_contact);
         // TODO desconmentar la siguiente linea cuando ya este en produccion
-        $message->setTo(Generalkeys::gabino_martinez_email);
+        //$message->setTo(Generalkeys::gabino_martinez_email);
         // TODO eliminar la siguiente linea cuando este en produccion
-        //$message->setTo($email);
+        $message->setTo($email);
         $message->setReplyTo(Generalkeys::no_responder_email);
         // TODO desconmentar la siguiente linea cuando ya este en produccion
         $message->setCc(Generalkeys::getMailsCcSale());
