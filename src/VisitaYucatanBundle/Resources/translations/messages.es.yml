@@ -252,3 +252,6 @@ label.only.adults: Solo Adultos
 label.reserva.tour.codigo.pais: Código País
 label.reserva.tour.codigo.pais.required: Código país es requerido
 label.reserva.tour.general.required.information: Información requerida
+label.home.aviso.privacidad: Aviso de privacidad
+label.home.cancellation.policies: Politicas de cancelación
+label.reser.tour.hotel: Hotel donde está hospedado

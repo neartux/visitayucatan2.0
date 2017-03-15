@@ -105,7 +105,7 @@ class TourController extends Controller {
         }
     }
 
-    private function getParamsTour($request){
+    private function getParamsTour(Request $request){
         // Obtiene la session del request para obtener moneda e idioma
         $session = $request->getSession();
         // Obtiene el idioma de la sesion

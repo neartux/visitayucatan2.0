@@ -100,11 +100,10 @@
                                         <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.lada.$invalid && !formReserva.lada.$pristine }">
                                                 <label for="lada" class="col-sm-4">
-                                                    {% trans %}label.reserva.tour.codigo.pais{% endtrans %}
-                                                    <span class="required">*</span>
+                                                    {% trans %}page.web.labe.reserva.tour.lada{% endtrans %}
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.lada" required id="lada" name="lada"
+                                                    <input type="text" data-ng-model="ctrlWeb.ventaCompletaTO.lada" id="lada" name="lada"
                                                            class="form-control" maxlength="5"/>
                                             <span ng-show="formReserva.lada.$invalid && !formReserva.lada.$pristine" class="required">
                                                 {% trans %}label.reserva.tour.codigo.pais.required{% endtrans %}
@@ -172,7 +171,7 @@
                                         <div class="col-sm-12 mt pl-n pr-n">
                                             <div class="form-group-input" data-ng-class="{ 'required' : formReserva.hotelPickUp.$invalid && !formReserva.hotelPickUp.$pristine }">
                                                 <label for="hotelPickUp" class="col-sm-4">
-                                                    {% trans %}page.web.labe.reserva.tour.hotel{% endtrans %}
+                                                    {% trans %}label.reser.tour.hotel{% endtrans %}
                                                     <span class="required">*</span>
                                                 </label>
                                                 <div class="col-sm-8">

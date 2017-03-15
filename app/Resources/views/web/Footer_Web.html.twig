@@ -13,14 +13,16 @@
                     <li><a href="{{ path('web_paquetes') }}">{% trans %}page.web.menu.label.packages{% endtrans %}</a>
                     </li>
                     <li><a href="{{ path('web_tours') }}">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_avisoDePrivacidad') }}">{% trans %}label.home.aviso.privacidad{% endtrans %}</a></li>
                 </ul>
             </div>
             <div class="renglon2 text-to-uppercase">
                 <ul class="menu-footer">
                     <li><a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">{% trans %}
                             page.web.menu.label.hotels{% endtrans %}</a></li>
-                    <li><a href="yucatan-mexico">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_peninsula') }}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
                     <li><a href="{{ path('web_contacto') }}">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_politicasDeCancelacion') }}">{% trans %}label.home.cancellation.policies{% endtrans %}</a></li>
                 </ul>
             </div>
             <div class="renglon3">

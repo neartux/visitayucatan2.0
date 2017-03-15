@@ -280,7 +280,7 @@
             position: relative;
             display: block;
             width: 100%;
-            height: 140px;
+            height: 180px;
             background: #5492d1;
         }
         .wrap-pie{
@@ -681,6 +681,7 @@
                     <li><a href="{{ path('web_home') }}">{% trans %}page.web.menu.label.start{% endtrans %}</a></li>
                     <li><a href="{{ path('web_paquetes') }}">{% trans %}page.web.menu.label.packages{% endtrans %}</a></li>
                     <li><a href="{{ path('web_tours') }}">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_avisoDePrivacidad') }}">{% trans %}label.home.aviso.privacidad{% endtrans %}</a></li>
                 </ul>
             </div>
             <div class="renglon2">
@@ -688,6 +689,7 @@
                     <li><a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">{% trans %}page.web.menu.label.hotels{% endtrans %}</a></li>
                     <li><a href="{{ path('web_peninsula') }}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
                     <li><a href="{{ path('web_contacto') }}">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
+                    <li><a href="{{ path('web_politicasDeCancelacion') }}">{% trans %}label.home.cancellation.policies{% endtrans %}</a></li>
                 </ul>
             </div>
             <div class="renglon3 text-to-uppercase">

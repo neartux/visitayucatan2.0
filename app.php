@@ -20,7 +20,7 @@ $apcLoader->register(true);
 
 require_once __DIR__.'/app/AppCache.php';
 // prod y desaparece la barra de symfony
-$kernel = new AppKernel('dev', true);
+$kernel = new AppKernel('prod', true);
 $kernel->loadClassCache();
 //$kernel = new AppCache($kernel);
 
