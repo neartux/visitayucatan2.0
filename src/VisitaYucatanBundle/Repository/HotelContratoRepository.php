@@ -83,7 +83,7 @@ WHERE hotel_contrato.id = :contrato
         $em = $this->getEntityManager();
         $sql = "SELECT hotel_contrato.id, hotel_contrato.descripcion
                 FROM hotel_contrato
-                WHERE hotel_contrato.id_hotel = :hotel";
+                WHERE hotel_contrato.id_hotel = :hotel AND hotel_contrato.id_estatus = 1";
         $params['hotel'] = $idHotel;
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
