@@ -144,4 +144,23 @@ WHERE hotel_contrato.id = :contrato
         $em->persist($contrato);
         $em->flush($contrato);
     }
+
+    public function isHotelNameAvailableByHotel($idHotel, $descripcion) {
+        $em = $this->getEntityManager();
+        $sql = "SELECT hotel_contrato.id
+                FROM hotel_contrato
+                WHERE hotel_contrato.id_estatus = :estatus
+                AND hotel_contrato.descripcion = ".$descripcion."
+                AND hotel_contrato.id_hotel != :idHotel;";
+        $params['idHotel'] = $idHotel;
+        $params['estatus'] = Estatuskeys::ESTATUS_ACTIVO;
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        $valor =  $stmt->fetchColumn(Generalkeys::NUMBER_ZERO);
+        if(is_null($valor) || is_nan($valor) || !$valor) {
+            return true;
+        }
+        return false;
+    }
 }
