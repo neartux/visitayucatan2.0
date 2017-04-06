@@ -155,7 +155,7 @@
                                              class="col-sm-2 text-center" data-ng-repeat="tarifa in habitacion.hotelTarifasTOCollection">
                                             <span class="lafecha">[[ tarifa.smallDate ]]</span> <br>
                                             <span class="elprecio" ng-if="! tarifa.isAvailable">[[ tarifa.msjAvailable ]]</span>
-                                            <span class="elprecio" ng-if="tarifa.isAvailable">$ [[ tarifa.costo | myCurrency2 ]] <br>[[ctrlWeb.symbolCurrency]]</span>
+                                            <span class="elprecio" ng-if="tarifa.isAvailable">$ [[ tarifa.costo ]] <br>[[ctrlWeb.symbolCurrency]]</span>
                                         </div>
                                     </div>
 
