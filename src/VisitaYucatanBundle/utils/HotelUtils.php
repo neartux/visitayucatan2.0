@@ -246,8 +246,8 @@ class HotelUtils {
                     // Obtiene el costo de la habitacion
                     $rate = self::getRateByPersons($numAdults, $tarifaTO->getSencillo(), $tarifaTO->getDoble(), $tarifaTO->getTriple(), $tarifaTO->getCuadruple());
                     // Calcula impuestos y suma a gran total
-                    $total = number_format(self::getTotalRate($rate, $tarifaTO->getIsh(), $tarifaTO->getMarkup(), $tarifaTO->getIva(), $tarifaTO->getFee(), $tarifaTO->getAplicaImpuesto()), 2);
-                    $tarifaTO->setCosto($total);
+                    $total = self::getTotalRate($rate, $tarifaTO->getIsh(), $tarifaTO->getMarkup(), $tarifaTO->getIva(), $tarifaTO->getFee(), $tarifaTO->getAplicaImpuesto());
+                    $tarifaTO->setCosto(number_format(ceil($total), Generalkeys::NUMBER_TWO));
                     $grandTotal += $total;
                     
                 }
