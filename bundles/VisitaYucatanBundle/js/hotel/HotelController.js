@@ -420,11 +420,13 @@
                     pNotifyView('Captura la fecha', 'info');
                     $("#daterangepicker").trigger('focus');
                 }else{
+                    startLoading("Espere un momento por favor");
                     var fechaArray = fecha.split('-');
                     return HotelService.createOrUpdateFechaCierre(idFecha.val(), ctrlHotel.idHotelGlobal, $.trim(fechaArray[0]), $.trim(fechaArray[1])).then(function (data) {
                         ctrlHotel.findFechasCierreByHotel();
                         pNotifyView(data.data.message, data.data.typeStatus);
                         idFecha.val(0);
+                        stopLoading();
                     });
                 }
            }
@@ -445,6 +447,7 @@
 
         ctrlHotel.createContractHotel = function(){
             if(validateContractHotelForm()){
+                startLoading("Espere un momento por favor");
                 if(ctrlHotel.isNewContract){
                     ctrlHotel.hotelContract.idHotel = ctrlHotel.idHotelGlobal;
                     return HotelService.createContract(ctrlHotel.hotelContract).then(function(data){
@@ -453,6 +456,7 @@
                             ctrlHotel.displayFormContract = false;
                         }
                         pNotifyView(data.data.message, data.data.typeStatus);
+                        stopLoading();
                     });
                 }else{
                     return HotelService.updateContract(ctrlHotel.hotelContract).then(function(data){
@@ -461,6 +465,7 @@
                             ctrlHotel.displayFormContract = false;
                         }
                         pNotifyView(data.data.message, data.data.typeStatus);
+                        stopLoading();
                     });
                 }
             }
@@ -468,6 +473,7 @@
 
         ctrlHotel.createHabitacionHotel = function(){
             if(validateHabitacionHotelForm()){
+                startLoading("Espere un momento por favor");
                 ctrlHotel.hotelHabitacionTO.descripcion = $(".summernoteHab").code();
                 if(ctrlHotel.isNewHabitacion){
                     ctrlHotel.hotelHabitacionTO.idHotel = ctrlHotel.idHotelGlobal;
@@ -477,6 +483,7 @@
                             ctrlHotel.displayFormHabitacion = false;
                         }
                         pNotifyView(data.data.message, data.data.typeStatus);
+                        stopLoading();
                     });
                 }else{
                     return HotelService.updateHabitacion(ctrlHotel.hotelHabitacionTO).then(function(data){
@@ -485,6 +492,7 @@
                             ctrlHotel.displayFormHabitacion = false;
                         }
                         pNotifyView(data.data.message, data.data.typeStatus);
+                        stopLoading();
                     });
                 }
             }
@@ -513,6 +521,7 @@
         };
 
         ctrlHotel.saveHotelHabitacionIdioma = function(){
+            startLoading("Espere un momento por favor");
             ctrlHotel.hotelHabitacionIdiomaTO.descripcion = $("#descripcionHotelHabitacionIdioma").code();
             return HotelService.saveHabitacionIdioma(ctrlHotel.hotelHabitacionIdiomaTO).then(function(data){
                 pNotifyView(data.data.message, data.data.typeStatus);
@@ -522,6 +531,7 @@
                     id: "",
                     idIdioma: ""
                 };
+                stopLoading();
             });
         };
 
@@ -547,6 +557,7 @@
         };
 
         ctrlHotel.findListRateHotel = function(){
+            startLoading("Buscando tarifas");
             ctrlHotel.showEditRate = false;
             var fecha = $("#datePickerTarifas").val().split("-");
             //var fechasFormated = ctrlHotel.convertDates(fecha[0], fecha[1]);
@@ -555,10 +566,12 @@
                     if(ctrlHotel.listaTarifasHotel.data.length == 0){
                         pNotifyView("No se encontraron tarifas en esa fecha", "info");
                     }
+                    stopLoading();
                 });
         };
 
         ctrlHotel.saveHotelTarifaTO = function(){
+            startLoading("Espere un momento por favor");
             var fechas = $("#datePickerTarifas").val().split("-");
             var fechasParts = ctrlHotel.convertDates(fechas[0], fechas[1]);
             ctrlHotel.tarifaHabitacionTO.idHotel = ctrlHotel.idHotelGlobal;
@@ -567,6 +580,7 @@
             return HotelService.saveTarifaHotel(ctrlHotel.tarifaHabitacionTO).then(function(data){
                 pNotifyView(data.data.message, data.data.typeStatus);
                 ctrlHotel.showEditRate = false;
+                stopLoading();
             });
         };
 
