@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\to\ResponseTO;
 use VisitaYucatanBundle\utils\VentaUtils;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use VisitaYucatanBundle\Resources\captcha\ReCaptcha\ReCaptcha;
 
 class LoginController extends Controller {
 
@@ -66,6 +68,27 @@ class LoginController extends Controller {
 
         }
         return new Response($serializer->serialize($response, Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/admin/captchaVerify", name="admin_login_captcha")
+     * @Method("GET")
+     */
+    public function captchaVerify(Request $request) {
+        $captcha = $request->query->get('g-recaptcha-response');
+        $response = false;
+        if($captcha != ""){
+            $secret = '6LcTpB4UAAAAAMGNX7kD8ACEYvUabEGzb8uZy4mZ';
+            $recaptcha = new ReCaptcha($secret);
+
+            $resp = $recaptcha->verify($captcha, $_SERVER['REMOTE_ADDR']);
+
+            if ($resp->isSuccess()) {
+                $response = true;
+            }
+        }
+
+        return new JsonResponse($response);
     }
 
     /**

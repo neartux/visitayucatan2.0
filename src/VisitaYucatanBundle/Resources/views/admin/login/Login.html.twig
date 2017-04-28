@@ -27,6 +27,7 @@
                     <h2>Pantalla de Inicio de Sesión</h2>
                 </div>
                 <div class="panel-body">
+                <input type="hidden" id="urlCaptcha" value="{{ path('admin_login_captcha') }}">
 
                     <form action="{{ path('admin_login_check') }}" class="form-horizontal" id="validate-form">
                         <div class="form-group mb-md">
@@ -50,6 +51,10 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="g-recaptcha" data-sitekey="6LcTpB4UAAAAALiTRks4g_DDAk55rkmc6KUWm060"></div>
+
+
                     </form>
                 </div>
                 <div class="panel-footer">
@@ -63,8 +68,11 @@
 </div>
 
     {% include 'Lib_JS.html.twig' %}
+    <script type="text/javascript" src="https://www.google.com/recaptcha/api.js?hl=en"></script>
 
 <script>
+var captchaValido = false;
+
     $(document).ready(function() {
         setTimeout(function(){
             $("#username").val('').focus();
@@ -85,8 +93,13 @@
         if(user.val() != "" || password.val() != ""){
             if(user.val() != ""){
                 if(password.val() != ""){
-                    startLoading('{% trans %}general.message.loading{% endtrans %}');
-                    validateInfo(user.val(), password.val());
+                    //startLoading('{% trans %}general.message.loading{% endtrans %}');
+                    if (!captchaValido) {
+                        var responseCaptcha = captchaValidate(validateInfo(user.val(), password.val()));
+                        console.info("responseCaptcha = ", responseCaptcha);
+                    } else {
+                        validateInfo(user.val(), password.val());
+                    }
                 }else{
                     pNotifyView('{% trans %}login.validate.message.pass.isrequired{% endtrans %}', 'info');
                     $("#password").focus();
@@ -117,6 +130,29 @@
             pNotifyView('{% trans %}catalog.currency.report.message.error{% endtrans %}', 'error');
             stopLoading();
         });
+    }
+    function captchaValidate(functionVar){
+        var key = $("#g-recaptcha-response").val();
+
+        $.ajax({
+            url: $ ("#urlCaptcha").val(),
+            type: 'get',
+            dataType: 'json',
+            data: { "g-recaptcha-response" : key},
+            success: function (response) {
+                console.info("RESPONSE = "+response);
+                if(response){
+                    captchaValido = true;
+                    functionVar();
+                }else{
+                    alert("Verifica el captcha");
+                }
+            }
+        }).fail(function() {
+            pNotifyView('Intenta de nuevo', 'error');
+            stopLoading();
+        });
+
     }
 </script>
 
