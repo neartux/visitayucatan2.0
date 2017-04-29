@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use VisitaYucatanBundle\Entity\Tourimagen;
+use VisitaYucatanBundle\utils\DateUtil;
 use VisitaYucatanBundle\utils\Generalkeys;
 use VisitaYucatanBundle\utils\to\ResponseTO;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -248,6 +249,65 @@ class TourAdminController extends Controller {
             $idTour = $request->get('idTour');
             $this->getDoctrine()->getRepository('VisitaYucatanBundle:Tourimagen')->setPrincipalImageTour($idTour, $idImageTour);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Nueva imagen principal asignada', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
+     * @Route("/admin/tour/find/fechas", name="tour_find_fechas_cierre")
+     * @Method("POST")
+     */
+    public function findFechasCierreAction(Request $request) {
+        $idHotel = $request->get('idTour');
+        $fechas = $this->getDoctrine()->getRepository('VisitaYucatanBundle:TourFechaCierre')->findFechasCierreByTour($idHotel);
+        return new Response($this->get('serializer')->serialize($fechas, Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/admin/tour/create/fechacierre", name="tour_create_fechacierre")
+     * @Method("POST")
+     */
+    public function createFechaCierreAction(Request $request) {
+        try {
+            $idHotel = $request->get('idTour');
+            $fechas = DateUtil::getDates($request->get('fechaInicio'), $request->get('fechaFin'));
+
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:TourFechaCierre')->createFechaCierre($idHotel, $fechas[Generalkeys::NUMBER_ZERO], $fechas[Generalkeys::NUMBER_ONE]);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha creado la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
+     * @Route("/admin/tour/update/fechacierre", name="tour_update_fechacierre")
+     * @Method("POST")
+     */
+    public function updateFechaCierreAction(Request $request) {
+        try {
+            $idFechaCierre = $request->get('idFechaCierre');
+            $fechas = DateUtil::getDates($request->get('fechaInicio'), $request->get('fechaFin'));
+
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:TourFechaCierre')->updateFechaCierre($idFechaCierre, $fechas[Generalkeys::NUMBER_ZERO], $fechas[Generalkeys::NUMBER_ONE]);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha modificado la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
+            return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
+        } catch (\Exception $e) {
+            return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));
+        }
+    }
+
+    /**
+     * @Route("/admin/tour/delete/fechacierre", name="tour_delete_fechacierre")
+     * @Method("POST")
+     */
+    public function deleteFechaCierreAction(Request $request) {
+        try {
+            $idFechaCierre = $request->get('idFechaCierre');
+            $this->getDoctrine()->getRepository('VisitaYucatanBundle:TourFechaCierre')->deleteFechaCierre($idFechaCierre);
+            $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, 'Se ha eliminado correctamente la fecha de cierre ', Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
             return new Response($this->get('serializer')->serialize($response, Generalkeys::JSON_STRING));
         } catch (\Exception $e) {
             return new Response($this->get('serializer')->serialize(new ResponseTO(Generalkeys::RESPONSE_FALSE, $e->getMessage(), Generalkeys::RESPONSE_ERROR, $e->getCode()), Generalkeys::JSON_STRING));

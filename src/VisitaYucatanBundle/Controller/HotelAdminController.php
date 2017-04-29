@@ -409,6 +409,29 @@ class HotelAdminController extends Controller {
     }
 
     /**
+     * @Route("/admin/hotel/find/contratosAll", name="hotel_find_all_contratos")
+     * @Method("POST")
+     */
+    public function findAllContractByHotelAction(Request $request) {
+        $idHotel = $request->get('idHotel');
+        $contratos = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->findAllContracts($idHotel);
+        return new Response($this->get('serializer')->serialize($contratos, Generalkeys::JSON_STRING));
+    }
+
+    /**
+     * @Route("/admin/hotel/isContratoDescripcionDisponible", name="hotel_available_contrato")
+     * @Method("POST")
+     */
+    public function isDescriptionContractAvailable(Request $request) {
+        $idHotel = $request->get('idHotel');
+        $idContrato = $request->get('idContrato');
+        $descripcion = $request->get('descripcion');
+        $disponible = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelContrato')->isDescriptionContractAvailable($idHotel, $idContrato, $descripcion);
+        //echo "disponible = ".$disponible;
+        return new Response($this->get('serializer')->serialize($disponible, Generalkeys::JSON_STRING));
+    }
+
+    /**
      * @Route("/admin/hotel/find/planes", name="hotel_find_planes")
      * @Method("POST")
      */

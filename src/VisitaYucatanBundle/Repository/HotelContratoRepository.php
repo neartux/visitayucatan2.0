@@ -83,11 +83,43 @@ WHERE hotel_contrato.id = :contrato
         $em = $this->getEntityManager();
         $sql = "SELECT hotel_contrato.id, hotel_contrato.descripcion
                 FROM hotel_contrato
-                WHERE hotel_contrato.id_hotel = :hotel AND hotel_contrato.id_estatus = 1";
+                WHERE hotel_contrato.id_hotel = :hotel AND hotel_contrato.id_estatus = 1;
+                WHERE hotel_contrato.id_hotel = :hotel
+                AND hotel_contrato.id_estatus = :estatusActivo";
+        $params['hotel'] = $idHotel;
+        $params['estatusActivo'] = Estatuskeys::ESTATUS_ACTIVO;
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
+
+    public function findAllContracts($idHotel) {
+        $em = $this->getEntityManager();
+        $sql = "SELECT hotel_contrato.id, hotel_contrato.descripcion
+                FROM hotel_contrato
+                WHERE hotel_contrato.id_hotel = :hotel";
         $params['hotel'] = $idHotel;
         $stmt = $em->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();
+    }
+
+    public function isDescriptionContractAvailable($idHotel, $idContrato, $description) {
+        $em = $this->getEntityManager();
+        $sql = "SELECT *
+                FROM hotel_contrato
+                WHERE hotel_contrato.id_hotel = :hotel
+                AND hotel_contrato.id != :contrato
+                AND hotel_contrato.descripcion = '".$description."';";
+        $params['hotel'] = $idHotel;
+        $params['contrato'] = $idContrato;
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        $numRows =  $stmt->fetchAll();
+        if(count($numRows) > 0) {
+            return false;
+        }
+        return true;
     }
 
     public function getContractTOById($idContract){

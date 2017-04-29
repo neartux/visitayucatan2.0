@@ -5,12 +5,12 @@ namespace VisitaYucatanBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * HotelFechaCierre
+ * TourFechaCierre
  *
- * @ORM\Table(name="hotel_fecha_cierre")
- * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\HotelFechaCierreRepository")
+ * @ORM\Table(name="tour_fecha_cierre")
+ * @ORM\Entity(repositoryClass="VisitaYucatanBundle\Repository\TourFechaCierreRepository")
  */
-class HotelFechaCierre
+class TourFechaCierre
 {
     /**
      * @var int
@@ -24,28 +24,29 @@ class HotelFechaCierre
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechainicio", type="date")
+     * @ORM\Column(name="fechaInicio", type="date")
      */
     private $fechaInicio;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechafin", type="date")
+     * @ORM\Column(name="fechaFin", type="date")
      */
     private $fechaFin;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Hotel", inversedBy="hotelFechaCierre")
-     * @ORM\JoinColumn(name="id_hotel", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Tour", inversedBy="tourFechaCierre")
+     * @ORM\JoinColumn(name="id_tour", referencedColumnName="id", nullable=false)
      */
-    private $hotel;
+    private $tour;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="hotelFechaCierre")
+     * @ORM\ManyToOne(targetEntity="Estatus", inversedBy="tourFechaCierre")
      * @ORM\JoinColumn(name="id_estatus", referencedColumnName="id", nullable=false)
      */
     private $estatus;
+
 
     /**
      * Get id
@@ -62,7 +63,7 @@ class HotelFechaCierre
      *
      * @param \DateTime $fechaInicio
      *
-     * @return HotelFechaCierre
+     * @return TourFechaCierre
      */
     public function setFechaInicio($fechaInicio)
     {
@@ -86,7 +87,7 @@ class HotelFechaCierre
      *
      * @param \DateTime $fechaFin
      *
-     * @return HotelFechaCierre
+     * @return TourFechaCierre
      */
     public function setFechaFin($fechaFin)
     {
@@ -106,27 +107,27 @@ class HotelFechaCierre
     }
 
     /**
-     * Set hotel
+     * Set tour
      *
-     * @param \VisitaYucatanBundle\Entity\Hotel $hotel
+     * @param \VisitaYucatanBundle\Entity\Tour $tour
      *
-     * @return HotelFechaCierre
+     * @return TourFechaCierre
      */
-    public function setHotel(\VisitaYucatanBundle\Entity\Hotel $hotel)
+    public function setTour(\VisitaYucatanBundle\Entity\Tour $tour)
     {
-        $this->hotel = $hotel;
+        $this->tour = $tour;
 
         return $this;
     }
 
     /**
-     * Get hotel
+     * Get tour
      *
-     * @return \VisitaYucatanBundle\Entity\Hotel
+     * @return \VisitaYucatanBundle\Entity\Tour
      */
-    public function getHotel()
+    public function getTour()
     {
-        return $this->hotel;
+        return $this->tour;
     }
 
     /**
@@ -134,7 +135,7 @@ class HotelFechaCierre
      *
      * @param \VisitaYucatanBundle\Entity\Estatus $estatus
      *
-     * @return HotelFechaCierre
+     * @return TourFechaCierre
      */
     public function setEstatus(\VisitaYucatanBundle\Entity\Estatus $estatus)
     {

@@ -19,6 +19,9 @@
         service.imagesTourList = {
             data: undefined
         };
+        service.listaFechas = {
+            data: []
+        };
 
         service.findToursActives= function(){
             var path = $("#pathListTour").val();
@@ -107,6 +110,43 @@
             var path = $("#pathRemovePromoveTour").val();
             return $http.post(path, $.param({idTour : idTour}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.deleteFechaCierreTour = function(idFechaCierre){
+            var path = $("#pathDeleteFechaCierreTour").val();
+            return $http.post(path, $.param({idFechaCierre : idFechaCierre}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
+        service.createOrUpdateFechaCierre = function(idFecha, idTour, fechaInicio, fechaFin){
+            if(parseInt(idFecha) == 0){
+                return $http.post($("#pathFechaCierreCreate").val(), $.param({idTour: idTour, fechaInicio : fechaInicio, fechaFin : fechaFin}), {
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }else{
+                return $http.post($("#pathFechaCierreUpdate").val(), $.param({idFechaCierre : idFecha, fechaInicio : fechaInicio, fechaFin : fechaFin}), {
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }
+        };
+
+        service.findFechasByTour = function (idTour){
+            var path = $("#pathFechaCierreFind").val();
+            service.listaFechas.data = [];
+            return $http.post(path, $.param({idTour : idTour}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                service.listaFechas.data = data.data;
+            });
+        };
+
+        service.listaResetTour = function(){
+            angular.forEach(service.listaFechas.data, function(valor, indice) {
+                if (valor.classDanger != "") {
+                    valor.classDanger = "";
+                }
             });
         };
 

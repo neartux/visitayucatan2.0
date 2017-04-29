@@ -1,1 +1,1 @@
-1.- Por problemas de tiempo no se asigna a tiempo las fechas de cierre en reserva paquete
+1.- Hay que crear nueva table en produccion (tour_fecha_cierre)

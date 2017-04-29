@@ -117,4 +117,30 @@ class TourUtils {
 
         return $tourTO;
     }
+
+    public static function getArrayClosingDates($fechasCierre){
+        $closingDate = new ArrayCollection();
+        // Trato la información si tiene fechas
+        if (count($fechasCierre) > Generalkeys::NUMBER_ZERO){
+
+            foreach($fechasCierre as $fecha){
+                $fechaInicio = $fecha['fechaInicio'];
+                $fechaFin = $fecha['fechaFin'];
+                $isLastDate = false;
+
+                while(! $isLastDate){
+
+                    $closingDate->add($fechaInicio);
+
+                    if(DateUtil::isSammeDate($fechaInicio, $fechaFin)){
+                        $isLastDate = true;
+                    }else{
+                        $fechaInicio = DateUtil::summOneDayToDate($fechaInicio);
+                    }
+                }
+            }
+        }
+
+        return $closingDate;
+    }
 }

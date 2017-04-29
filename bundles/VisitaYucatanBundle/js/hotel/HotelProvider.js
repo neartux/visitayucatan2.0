@@ -239,11 +239,27 @@
         };
 
         service.findListContracts = function(idHotel){
+            var path = $("#pathContratosAll").val();
+            return $http.post(path, $.param({idHotel : idHotel}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (data){
+                service.listaContratos.data = data.data;
+            });
+        };
+
+        service.findListContractsActivos = function(idHotel){
             var path = $("#pathContratos").val();
             return $http.post(path, $.param({idHotel : idHotel}), {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (data){
                 service.listaContratos.data = data.data;
+            });
+        };
+
+        service.isAvailableContrato = function(idHotel, idContrato, descripcion){
+            var path = $("#pathContratodisponible").val();
+            return $http.post(path, $.param({idHotel : idHotel, idContrato: idContrato, descripcion: descripcion}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
         };
 

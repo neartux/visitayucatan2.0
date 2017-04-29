@@ -15,6 +15,7 @@ var IDIOMA_DEFAULT = 1;
         ctrlTour.listLanguage = TourService.listLanguage;
         ctrlTour.tourIdiomaTo = TourService.tourIdiomaTO;
         ctrlTour.imagesTour = TourService.imagesTourList;
+        ctrlTour.listaFechas = TourService.listaFechas;
         ctrlTour.titleCreate = '';
         ctrlTour.titleEdit = '';
         ctrlTour.msjLoading = '';
@@ -109,6 +110,8 @@ var IDIOMA_DEFAULT = 1;
             $(".summernote").code('');
             ctrlTour.findImagesByTour();
             ctrlTour.findTourByIdAndLanguage();
+
+            ctrlTour.findFechasCierreByTour();
         };
 
         ctrlTour.returnListTour = function(){
@@ -201,6 +204,62 @@ var IDIOMA_DEFAULT = 1;
             $("#description").val("");
             $("#symbolo").val("");
             $("#tipoCambio").val("");
+        };
+
+        ctrlTour.findFechasCierreByTour = function () {
+            return TourService.findFechasByTour(ctrlTour.idTourGlobal);
+        };
+
+        ctrlTour.createFechaCierre = function(){
+            if(confirm('¿Desea guardar fecha de cierre?')){
+                var idFecha = $("#idFechaHotel");
+                var fecha = $("#daterangepicker").val();
+
+
+                if(fecha.length == 0){
+                    pNotifyView('Captura la fecha', 'info');
+                    $("#daterangepicker").trigger('focus');
+                }else{
+                    var fechaArray = fecha.split('-');
+                    return TourService.createOrUpdateFechaCierre(idFecha.val(), ctrlTour.idTourGlobal, $.trim(fechaArray[0]), $.trim(fechaArray[1])).then(function (data) {
+                        ctrlTour.findFechasCierreByTour();
+                        pNotifyView(data.data.message, data.data.typeStatus);
+                        idFecha.val(0);
+                    });
+                }
+            }
+        };
+
+        ctrlTour.setFechaEdit = function(fecha) {
+            TourService.listaResetTour();
+            if (fecha.classDanger == " ") {
+                fecha.classDanger='danger';
+            }
+
+            var fechas = ctrlTour.getDate(fecha.fechaInicio, fecha.fechaFin);
+            $('#daterangepicker').data('daterangepicker').setStartDate(fechas[0]);
+            $('#daterangepicker').data('daterangepicker').setEndDate(fechas[1]);
+            $("#idFechaHotel").val(fecha.id);
+
+        };
+
+        ctrlTour.getDate = function(fechaInicio, fechaFin){
+            var fechaInicioParts = fechaInicio.split('-');
+            var fechaFinParts = fechaFin.split('-');
+            var fechas = [];
+            fechas[0] = $.trim(fechaInicioParts[2])+'/'+ $.trim(fechaInicioParts[1])+'/'+ $.trim(fechaInicioParts[0]);
+            fechas[1] = $.trim(fechaFinParts[2])+'/'+ $.trim(fechaFinParts[1])+'/'+ $.trim(fechaFinParts[0]);
+
+            return fechas;
+        };
+
+        ctrlTour.deleteTourFechaCierre = function(idFechaCierre){
+            if(confirm('¿Estas seguro de eliminar la fecha?')){
+                return TourService.deleteFechaCierreTour(idFechaCierre).then(function (data) {
+                    ctrlTour.findFechasCierreByTour();
+                    pNotifyView(data.data.message, data.data.typeStatus);
+                });
+            }
         };
 
     });

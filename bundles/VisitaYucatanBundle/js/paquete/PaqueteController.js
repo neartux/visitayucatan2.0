@@ -155,13 +155,23 @@
             $(".summernote").code('');
             ctrlPaquete.findImagesByTour();*/
         };
-        paquetesVM.promovedPaquete = function (idPaquete) {
-            return PaqueteService.promovedPaquete(paquetesVM.paths.promovedPaquete,idPaquete).then(function (data) {
+        paquetesVM.promovedPaquete = function (paquete) {
+            if(paquete.promovido == "0") {
+                paquete.promovido = "1";
+            } else {
+                paquete.promovido = "0";
+            }
+            return PaqueteService.promovedPaquete(paquetesVM.paths.promovedPaquete, paquete.id).then(function (data) {
                 pNotifyView(data.data.message, data.data.typeStatus);
             });
         };
-        paquetesVM.removePromovedPaquete = function (idPaquete) {
-            return PaqueteService.removePromovedPaquete(paquetesVM.paths.removePromovedPaquete,idPaquete).then(function (data) {
+        paquetesVM.removePromovedPaquete = function (paquete) {
+            if(paquete.promovido == "0") {
+                paquete.promovido = "1";
+            } else {
+                paquete.promovido = "0";
+            }
+            return PaqueteService.removePromovedPaquete(paquetesVM.paths.removePromovedPaquete, paquete.id).then(function (data) {
                 pNotifyView(data.data.message, data.data.typeStatus);
             });
         };

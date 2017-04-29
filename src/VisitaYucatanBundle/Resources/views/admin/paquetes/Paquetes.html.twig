@@ -66,10 +66,10 @@
                                                     </td>
                                                     <td>
                                                         <span data-ng-if="p.promovido == 0">
-                                                            <input type="checkbox" data-ng-click="paquetesVM.promovedPaquete(p.id);"/>
+                                                            <input type="checkbox" data-ng-click="paquetesVM.promovedPaquete(p);"/>
                                                         </span>
                                                         <span data-ng-if="p.promovido == 1">
-                                                            <input type="checkbox" checked data-ng-click="paquetesVM.removePromovedPaquete(p.id);"/>
+                                                            <input type="checkbox" checked data-ng-click="paquetesVM.removePromovedPaquete(p);"/>
                                                         </span>
                                                     </td>
                                                 </tr>

@@ -169,6 +169,11 @@ class Estatus {
     private $ventaDetalle;
 
     /**
+     * @ORM\OneToMany(targetEntity="TourFechaCierre", mappedBy="estatus")
+     */
+    private $tourFechaCierre;
+
+    /**
      * Constructor
      */
     public function __construct($id){
@@ -1183,5 +1188,39 @@ class Estatus {
     public function getPaqueteImagen()
     {
         return $this->paqueteImagen;
+    }
+
+    /**
+     * Add tourFechaCierre
+     *
+     * @param \VisitaYucatanBundle\Entity\TourFechaCierre $tourFechaCierre
+     *
+     * @return Estatus
+     */
+    public function addTourFechaCierre(\VisitaYucatanBundle\Entity\TourFechaCierre $tourFechaCierre)
+    {
+        $this->tourFechaCierre[] = $tourFechaCierre;
+
+        return $this;
+    }
+
+    /**
+     * Remove tourFechaCierre
+     *
+     * @param \VisitaYucatanBundle\Entity\TourFechaCierre $tourFechaCierre
+     */
+    public function removeTourFechaCierre(\VisitaYucatanBundle\Entity\TourFechaCierre $tourFechaCierre)
+    {
+        $this->tourFechaCierre->removeElement($tourFechaCierre);
+    }
+
+    /**
+     * Get tourFechaCierre
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTourFechaCierre()
+    {
+        return $this->tourFechaCierre;
     }
 }

@@ -28,6 +28,9 @@
                         <li><a href="#images-tour" data-toggle="tab" data-ng-click="ctrlFile.setIdApplication(ctrlTour.idTourGlobal, 'tours')">
                                 <i class="fa fa-image text-info"></i>&nbsp;&nbsp;Fotografías</a>
                         </li>
+                        <li><a href="#cierres-tour" data-toggle="tab">
+                                <i class="fa fa-calendar-o text-info"></i>&nbsp;&nbsp;Fechas Cierre</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -43,6 +46,13 @@
                         {% include '@VisitaYucatan/admin/tours/TabPaneImagesTourLanguage.html.twig' %}
 
                     </div>
+
+                    <div class="tab-pane" id="cierres-tour">
+
+                        {% include '@VisitaYucatan/admin/tours/TabPanelCierresTour.html.twig' %}
+
+                    </div>
+
                 </div>
             </div>
         </div>
