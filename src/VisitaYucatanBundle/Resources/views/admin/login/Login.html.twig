@@ -95,8 +95,7 @@ var captchaValido = false;
                 if(password.val() != ""){
                     //startLoading('{% trans %}general.message.loading{% endtrans %}');
                     if (!captchaValido) {
-                        var responseCaptcha = captchaValidate(validateInfo(user.val(), password.val()));
-                        console.info("responseCaptcha = ", responseCaptcha);
+                        var responseCaptcha = captchaValidate(user.val(), password.val());
                     } else {
                         validateInfo(user.val(), password.val());
                     }
@@ -131,7 +130,7 @@ var captchaValido = false;
             stopLoading();
         });
     }
-    function captchaValidate(functionVar){
+    function captchaValidate(user, password){
         var key = $("#g-recaptcha-response").val();
 
         $.ajax({
@@ -140,10 +139,9 @@ var captchaValido = false;
             dataType: 'json',
             data: { "g-recaptcha-response" : key},
             success: function (response) {
-                console.info("RESPONSE = "+response);
                 if(response){
                     captchaValido = true;
-                    functionVar();
+                    validateInfo(user, password);
                 }else{
                     alert("Verifica el captcha");
                 }
