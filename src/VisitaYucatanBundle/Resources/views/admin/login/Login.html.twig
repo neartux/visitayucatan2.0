@@ -95,7 +95,7 @@ var captchaValido = false;
                 if(password.val() != ""){
                     //startLoading('{% trans %}general.message.loading{% endtrans %}');
                     if (!captchaValido) {
-                        var responseCaptcha = captchaValidate(user.val(), password.val());
+                        captchaValidate(user.val(), password.val());
                     } else {
                         validateInfo(user.val(), password.val());
                     }
@@ -113,6 +113,7 @@ var captchaValido = false;
         }
     }
     function validateInfo(user, password){
+        startLoading("Espere un momento");
         $.ajax({
             url: $("#validate-form").attr("action"),
             type: 'get',
