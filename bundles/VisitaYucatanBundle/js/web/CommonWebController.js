@@ -259,6 +259,8 @@
         ctrlHotel.contextPathThis = '';
         ctrlHotel.buttonPay = true;
         ctrlHotel.buttonPayShow = true;
+        ctrlHotel.isFirstTime = true;
+        ctrlHotel.showMessageRoomsNotFound = false;
 
         ctrlHotel.init = function (idHotel, ageMinor, estrellas) {
             ctrlHotel.formRate = {
@@ -413,6 +415,7 @@
         };
 
         ctrlHotel.findTarifasHotel = function () {
+            ctrlHotel.showMessageRoomsNotFound = false;
             var edadMaximaMenor = ctrlHotel.formRate.ageMinor;
             for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
                 var edadMenor = $("#minor_"+(i+1)).val();
@@ -428,12 +431,23 @@
             var isValid = ctrlHotel.validateAgeMinors();
             if (isValid) {
                 if (WebService.isRangeDateValid(ctrlHotel.formRate.dateFrom, ctrlHotel.formRate.dateTo)) {
+                    console.info("5");
                     return WebService.findRateRoomByHotel(ctrlHotel.formRate).then(function () {
                         desactivaInputs(true);
+                        if (ctrlHotel.isFirstTime){
+                            ctrlHotel.isFirstTime = false;
+                        } else {
+                            if (ctrlHotel.listRoomsHotelToSale.data.length <= 0) {
+                                ctrlHotel.showMessageRoomsNotFound = true;
+                            } else {
+                                ctrlHotel.showMessageRoomsNotFound = false;
+                            }
+                        }
                     });
                 }
             }
         };
+
         function desactivaInputs(boolean) {
             if( boolean ) {
                 $(".forminhabilitar").prop("disabled", true);
