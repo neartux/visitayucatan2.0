@@ -56,7 +56,10 @@
                             <div class="col-sm-12 color-text-gray-primary mt fnt-sz-12 contenedor-description">
                                 {{ hotel.descripcion | raw }}
                             </div>
-                            <div class="col-sm-12 background-element-pink mt-lg">
+                            <div class="col-sm-12 text-right mt-lg text-bold">
+                                Los precios ya incluyen Iva e impuestos
+                            </div>
+                            <div class="col-sm-12 background-element-pink">
                                 <span class="fnt-sz-20 text-bold text-italic color-text-white text-uppercase">
                                     {% trans %}page.web.labe.reserva.tarifas{% endtrans %}
                                 </span>
@@ -115,7 +118,7 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 <input type="text" value="{{ dateFrom }}" id="dateFrom" onChange="cambiaFechaPaquete()"
-                                                       ng-model="ctrlWeb.formRate.dateFrom" readonly class="datepicker form-control forminhabilitar"/>
+                                                       ng-model="ctrlWeb.formRate.dateFrom" class="datepicker form-control forminhabilitar"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-4 mt">
@@ -123,7 +126,7 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 <input type="text" value="{{ dateTo }}" id="dateTo"
-                                                       ng-model="ctrlWeb.formRate.dateTo" readonly class="datepicker form-control forminhabilitar"/>
+                                                       ng-model="ctrlWeb.formRate.dateTo" class="datepicker form-control forminhabilitar"/>
                                             </div>
                                         </div>
                                     </div>
@@ -170,7 +173,7 @@
                                 <div class="row">
                                     <div class="col-sm-12" data-ng-repeat="habitacion in ctrlWeb.listRoomsHotelToSale.data">
                                         <div class="col-sm-12"><h4 class="mb-n">{% trans %}page.web.labe.reserva.tour.habitacion{% endtrans %} [[ habitacion.nombre ]]</h4></div>
-                                        <div class="col-sm-12 mt-n"><div ng-bind-html="habitacion.descripcion"></div></div>
+                                        <div class="col-sm-12 mt-n ml-xl"><div ng-bind-html="habitacion.descripcion"></div></div>
                                         <div class="col-sm-12">
                                             <span class="text-bold">{% trans %}page.web.labe.reserva.ocupacion.maxima{% endtrans %}:</span> [[ habitacion.capacidadMaxima ]]
                                             {% trans %}page.web.labe.reserva.include.minors{% endtrans %}
