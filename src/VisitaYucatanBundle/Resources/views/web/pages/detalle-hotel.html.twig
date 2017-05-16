@@ -131,15 +131,39 @@
                                         <button data-ng-click="ctrlWeb.findTarifasHotel()" class="btn btn-primary" style="margin-top: 28px">
                                             {% trans %}button.label.search{% endtrans %}
                                         </button>
-                                        <button data-ng-click="ctrlWeb.checaBotones()" class="btn btn-primary" style="margin-top: 28px">
+                                        {#<button data-ng-click="ctrlWeb.checaBotones()" class="btn btn-primary" style="margin-top: 28px">
                                             {% trans %}button.label.search.nuevo{% endtrans %}
-                                        </button>
+                                        </button>#}
                                     </div>
                             </div>
 
+                            <div class="col-sm-12"><hr style="border-top: 1px solid rgb(239, 182, 78) !important;"></div>
+
+                            <div class="row mb">
+
+                                <div class="col-sm-12 text-bold">
+
+                                    <div class="col-sm-3">
+                                        <span class="text-info">{% trans %}page.web.labe.reserva.tour.adults{% endtrans %}: [[ ctrlWeb.formRate2.adults ]]</span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <span class="text-info">{% trans %}page.web.labe.reserva.tour.minors{% endtrans %}: [[ ctrlWeb.formRate2.minors ]]</span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <span class="text-info">{% trans %}page.web.label.hotels.price.since{% endtrans %}: [[ ctrlWeb.formRate2.dateFrom ]]</span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <span class="text-info">Hasta: [[ ctrlWeb.formRate2.dateTo ]]</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                             <div data-ng-show="!ctrlWeb.showMessageRoomsNotFound">
-                                <div class="col-sm-12"><hr style="border-top: 1px solid rgb(239, 182, 78) !important;"></div>
-                                <div style="cursor: default;" class="btn btn-warning ml"><span><b>{% trans %}page.web.labe.reserva.tipo.plan{% endtrans %}:
+
+                                <div style="cursor: default;" class="btn btn-warning ml" data-ng-show="ctrlWeb.listRoomsHotelToSale.data.length">
+                                    <span><b>{% trans %}page.web.labe.reserva.tipo.plan{% endtrans %}:
                                     </b> {{ planAlimentos }}</span>
                                 </div>
 

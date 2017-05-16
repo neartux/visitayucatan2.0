@@ -247,6 +247,7 @@
     app.controller("WebHotelController", function ($scope, $http, WebService) {
         var ctrlHotel = this;
         ctrlHotel.formRate = {};
+        ctrlHotel.formRate2 = {};
         ctrlHotel.listRoomsHotelToSale = WebService.listRoomsHotelToSale;
         ctrlHotel.listItemsSimilar = WebService.listItemsSimilar;
         ctrlHotel.symbolCurrency = 'MXP';
@@ -273,6 +274,7 @@
             ctrlHotel.findTarifasHotel();
             ctrlHotel.getRangeStars(estrellas);
             ctrlHotel.findItemsSimilar();
+            ctrlHotel.asignTitlesSearchRates();
         };
 
         ctrlHotel.findItemsSimilar = function () {
@@ -414,8 +416,16 @@
             return valid;
         };
 
+        ctrlHotel.asignTitlesSearchRates = function () {
+            ctrlHotel.formRate2.adults = ctrlHotel.formRate.adults;
+            ctrlHotel.formRate2.minors = ctrlHotel.formRate.minors;
+            ctrlHotel.formRate2.dateFrom = ctrlHotel.formRate.dateFrom;
+            ctrlHotel.formRate2.dateTo = ctrlHotel.formRate.dateTo;
+        };
+
         ctrlHotel.findTarifasHotel = function () {
             ctrlHotel.showMessageRoomsNotFound = false;
+            ctrlHotel.asignTitlesSearchRates();
             var edadMaximaMenor = ctrlHotel.formRate.ageMinor;
             for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
                 var edadMenor = $("#minor_"+(i+1)).val();
@@ -433,8 +443,8 @@
                 if (WebService.isRangeDateValid(ctrlHotel.formRate.dateFrom, ctrlHotel.formRate.dateTo)) {
                     console.info("5");
                     return WebService.findRateRoomByHotel(ctrlHotel.formRate).then(function () {
-                        desactivaInputs(true);
-                        if (ctrlHotel.isFirstTime){
+                        //desactivaInputs(true);
+                        /*if (ctrlHotel.isFirstTime){
                             ctrlHotel.isFirstTime = false;
                         } else {
                             if (ctrlHotel.listRoomsHotelToSale.data.length <= 0) {
@@ -442,6 +452,11 @@
                             } else {
                                 ctrlHotel.showMessageRoomsNotFound = false;
                             }
+                        }*/
+                        if (ctrlHotel.listRoomsHotelToSale.data.length <= 0) {
+                            ctrlHotel.showMessageRoomsNotFound = true;
+                        } else {
+                            ctrlHotel.showMessageRoomsNotFound = false;
                         }
                     });
                 }
@@ -460,10 +475,10 @@
             }*/
         }
 
-        ctrlHotel.checaBotones = function () {
+        /*ctrlHotel.checaBotones = function () {
             desactivaInputs(false);
             ctrlHotel.listRoomsHotelToSale.data = [];
-        };
+        };*/
 
         ctrlHotel.validateAgeMinors = function () {
             var isValid = true;
