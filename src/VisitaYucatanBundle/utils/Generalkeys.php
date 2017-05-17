@@ -75,7 +75,7 @@ class Generalkeys{
     const RATE_QUADRUPLE = 4;
     const NOT_AVAILABLE_MSJ = "No disponible";
     const EMPTY_STRING = "";
-    const ID_USER_ADMIN = 4;
+    const ID_USER_ADMIN = 9;
     const CITY_MERIDA=1;
     const CITY_TELCHAC=2;
     const CITY_VALLADOLID=3;
