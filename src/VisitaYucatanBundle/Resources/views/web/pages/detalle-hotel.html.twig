@@ -56,9 +56,6 @@
                             <div class="col-sm-12 color-text-gray-primary mt fnt-sz-12 contenedor-description">
                                 {{ hotel.descripcion | raw }}
                             </div>
-                            <div class="col-sm-12 text-right mt-lg text-bold">
-                                Los precios ya incluyen Iva e impuestos
-                            </div>
                             <div class="col-sm-12 background-element-pink">
                                 <span class="fnt-sz-20 text-bold text-italic color-text-white text-uppercase">
                                     {% trans %}page.web.labe.reserva.tarifas{% endtrans %}
@@ -177,6 +174,9 @@
                                         <div class="col-sm-12">
                                             <span class="text-bold">{% trans %}page.web.labe.reserva.ocupacion.maxima{% endtrans %}:</span> [[ habitacion.capacidadMaxima ]]
                                             {% trans %}page.web.labe.reserva.include.minors{% endtrans %}
+                                        </div>
+                                        <div class="col-sm-12 text-bold">
+                                            *Los precios ya incluyen Iva e impuestos y no incluye propinas
                                         </div>
 
                                         <div class="col-sm-12">
