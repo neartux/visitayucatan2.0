@@ -509,10 +509,10 @@
 
         ctrlHotel.confirmReservaHotel = function (habitacion, idHabitacion, finalCost) {
             $(".forminhabilitar").prop("disabled", false);
-            $("#fechaInicio").val(ctrlHotel.formRate.dateFrom);
-            $("#fechaFin").val(ctrlHotel.formRate.dateTo);
-            $("#adultsHidden").val(ctrlHotel.formRate.adults);
-            $("#minorsHidden").val(ctrlHotel.formRate.minors);
+            $("#fechaInicio").val(ctrlHotel.formRate2.dateFrom);
+            $("#fechaFin").val(ctrlHotel.formRate2.dateTo);
+            $("#adultsHidden").val(ctrlHotel.formRate2.adults);
+            $("#minorsHidden").val(ctrlHotel.formRate2.minors);
             $("#idHabitacion").val(idHabitacion);
             $("#finalCost").val(finalCost);
             $("#frmReserveHotel").submit();

@@ -24,6 +24,11 @@
                                 <li>
                                    <a href="{{ path('idioma_display_list') }}">Idiomas</a> 
                                 </li>
+                                {% if (app.session.get('user') == 'superuser') %}
+                                    <li>
+                                        <a href="{{ path('parameters_list') }}">Configuración Parámetros</a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </li>
                         <li><a href="{{ path('tour_display_list') }}"><i class="fa fa-cab"></i><span>Tours</span></a></li>

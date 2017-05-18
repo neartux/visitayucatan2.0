@@ -1,0 +1,90 @@
+{% extends '::BaseTemplate.html.twig' %}
+
+{% block breadcrumb %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="content-main">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-bluegray" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                    <div class="panel-heading">
+                        <h2>
+                            Parametros
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+                        <form action="{{ path('parameters_create') }}" method="get">
+                            <input type="hidden" name="id" id="id">
+                        <div class="col-md-12">
+                                <div class="col-sm-3">
+                                    Clave: <input type="text" name="clave" class="form-control" id="clave">
+                                </div>
+                                <div class="col-sm-3">
+                                    Valor: <input type="text" name="valor" class="form-control" id="valor">
+                                </div>
+                                <div class="col-sm-3">
+                                    <button class="btn btn-primary">Guardar</button>
+                                </div>
+                        </div>
+                        </form>
+                        <br><br><br>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead class="text-uppercase text-bold">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>CLAVE</th>
+                                        <th>VALOR</th>
+                                        <th>PANEL</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for parameter in parameters %}
+                                        <tr>
+                                            <td>
+                                                {{ parameter.id }}
+                                            </td>
+                                            <td>
+                                                {{ parameter.clave }}
+                                            </td>
+                                            <td>
+                                                {{ parameter.valor }}
+                                            </td>
+                                            <td>
+                                                <Button class="btn btn-sm btn-info" onclick="showEditar('{{ parameter.id }}', '{{ parameter.clave }}', '{{ parameter.valor }}')">Editar</Button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        function showEditar(id, clave, valor) {
+            $("#id").val(id);
+            $("#clave").val(clave);
+            $("#valor").val(valor);
+        }
+    </script>
+{% endblock %}

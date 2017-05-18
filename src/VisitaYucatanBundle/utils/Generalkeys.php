@@ -97,7 +97,13 @@ class Generalkeys{
     const NAME_VENTA_FILE = 'VIYUC-';
     const NAME_VENTA_VOUCHER = 'VOUCHER-';
     const NAME_VENTA_DETALLE = 'DETALLE-';
-    
+    const KEY_MERCHANT_ID_BMX = 'merchantId';
+    const KEY_API_USER_NAME_BMX = 'apiUsername';
+    const KEY_API_GATEWAY_BMX = 'gatewayUrl';
+    const KEY_API_PASSWORD_BMX = 'password';
+    const KEY_SITE_KEY_RECAPTCHA = 'sitekey';
+    const KEY_SECRET_KEY_RECAPTCHA = 'secretkey';
+
     public static function getMailsCcContact(){
         return Array(self::director_viyuc_email, self::f_capetillo_email, self::faustino_pech_email);
     }
