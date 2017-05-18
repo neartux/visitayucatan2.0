@@ -35,7 +35,8 @@ class LoginController extends Controller {
         if($request->getSession()->get(Generalkeys::LABEL_STATUS)){
             return $this->redirectToRoute('page_home_admin');
         }
-        return $this->render('VisitaYucatanBundle:admin/login:Login.html.twig');
+        $siteKeyRecaptcha = $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->findParameterValueByKey(Generalkeys::KEY_SITE_KEY_RECAPTCHA);
+        return $this->render('VisitaYucatanBundle:admin/login:Login.html.twig', array("siteKey" => $siteKeyRecaptcha));
     }
 
 
@@ -78,8 +79,8 @@ class LoginController extends Controller {
         $captcha = $request->query->get('g-recaptcha-response');
         $response = false;
         if($captcha != ""){
-            $secret = '6LcTpB4UAAAAAMGNX7kD8ACEYvUabEGzb8uZy4mZ';
-            $recaptcha = new ReCaptcha($secret);
+            $secretKey = $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->findParameterValueByKey(Generalkeys::KEY_SECRET_KEY_RECAPTCHA);
+            $recaptcha = new ReCaptcha($secretKey);
 
             $resp = $recaptcha->verify($captcha, $_SERVER['REMOTE_ADDR']);
 
