@@ -243,3 +243,6 @@ WHERE hotel_idioma.id_hotel = 2 ;
 INSERT INTO datos_ubicacion(direccion, codigopostal, telefono, celular) VALUES ('Acanceh', '97380', '9993599516', '9993599516');
 INSERT INTO datos_personales(nombres, apellidos) VALUES ('Ricardo', 'Dzul');
 INSERT INTO usuario(id_estatus, id_datospersonales, id_datosubicacion, username, password) VALUES (1, 249,272,'superuser', md5('superuser'));
+
+
+ALTER TABLE configuration_var CHANGE valor valor LONGTEXT NOT NULL;
