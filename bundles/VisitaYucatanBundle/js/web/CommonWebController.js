@@ -425,7 +425,6 @@
 
         ctrlHotel.findTarifasHotel = function () {
             ctrlHotel.showMessageRoomsNotFound = false;
-            ctrlHotel.asignTitlesSearchRates();
             var edadMaximaMenor = ctrlHotel.formRate.ageMinor;
             for (var i = 0; i < ctrlHotel.formRate.minors; i++) {
                 var edadMenor = $("#minor_"+(i+1)).val();
@@ -458,6 +457,7 @@
                         } else {
                             ctrlHotel.showMessageRoomsNotFound = false;
                         }
+                        ctrlHotel.asignTitlesSearchRates();
                     });
                 }
             }

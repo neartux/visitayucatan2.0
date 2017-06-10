@@ -285,7 +285,7 @@
                                                     {% endif %}
                                                     :</label>
                                                 <br>
-                                                $ {{ reserva.tarifaAdulto | round(0, 'ceil') }} {{ reserva.simboloMoneda }}
+                                                $ {{ reserva.tarifaAdulto | round(0, 'ceil') | number_format(2, '.', ',') }} {{ reserva.simboloMoneda }}
                                             </div>
                                         </div>
                                         <div class="col-sm-12">

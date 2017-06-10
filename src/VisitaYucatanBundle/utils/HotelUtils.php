@@ -356,7 +356,7 @@ class HotelUtils {
         $reserva->setMenores($menores);
         $costo = self::getRateByPersons($adultos, $tarifa['costosencillo'], $tarifa['costodoble'], $tarifa['costotriple'], $tarifa['costocuadruple']);
         $costoTotal = self::getTotalRate($costo, $tarifa['ish'], $tarifa['markup'], $tarifa['iva'], $tarifa['fee'], $tarifa['aplicaimpuesto']);
-        $reserva->setTarifaAdulto(number_format($costoTotal, 2));
+        $reserva->setTarifaAdulto($costoTotal);
         $reserva->setTarifaMenor(floatval(0));
         $dias = DateUtil::diffDays(DateUtil::formatDate($fechaInicio), DateUtil::formatDate($fechaFin));
 
