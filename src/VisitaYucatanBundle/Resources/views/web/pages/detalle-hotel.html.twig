@@ -123,7 +123,7 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 <input type="text" value="{{ dateTo }}" id="dateTo"
-                                                       ng-model="ctrlWeb.formRate.dateTo" class="datepicker form-control forminhabilitar"/>
+                                                       ng-model="ctrlWeb.formRate.dateTo" class="form-control forminhabilitar"/>
                                             </div>
                                         </div>
                                     </div>
@@ -285,11 +285,16 @@
                     autoclose: true,
                     format: 'dd/mm/yyyy',
                 });
+
+                $('#dateTo').datepicker({
+                    autoclose: true,
+                    format: 'dd/mm/yyyy'
+                });
             });
 
             function cambiaFechaPaquete() {
                 var date = $("#dateFrom").val();
-                $("#dateTo").val(moment(getDate(date)).add(1, 'day').format('DD/MM/YYYY'));
+                $("#dateTo").datepicker("setDate", moment(getDate(date)).add(1, 'day').format('DD/MM/YYYY'));
             }
             function getDate(date){
                 var arrayDate = date.split('/');
