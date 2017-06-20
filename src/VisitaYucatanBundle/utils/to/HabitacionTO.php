@@ -22,6 +22,7 @@ class HabitacionTO {
     private $hotelTarifasTOCollection;
     private $totalCostoHabitacion;
     private $habitacionesRequeridas;
+    private $hasSomeDateClosing;
 
     /**
      * @return mixed
@@ -240,5 +241,23 @@ class HabitacionTO {
     {
         $this->habitacionesRequeridas = $habitacionesRequeridas;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getHasSomeDateClosing()
+    {
+        return $this->hasSomeDateClosing;
+    }
+
+    /**
+     * @param mixed $hasSomeDateClosing
+     */
+    public function setHasSomeDateClosing($hasSomeDateClosing)
+    {
+        $this->hasSomeDateClosing = $hasSomeDateClosing;
+    }
+
+
           
 }

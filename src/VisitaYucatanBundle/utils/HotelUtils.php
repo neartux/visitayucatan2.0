@@ -236,6 +236,7 @@ class HotelUtils {
                         $habitacionTO->setTotalCostoHabitacion(number_format(ceil($grandTotal), Generalkeys::NUMBER_TWO));
                         $finaliCost->add($habitacionTO);
                     }
+                    $habitacionTO->setHasSomeDateClosing(Generalkeys::BOOLEAN_TRUE);
                     continue;
                 }
                 // si esta disponible la fecha
