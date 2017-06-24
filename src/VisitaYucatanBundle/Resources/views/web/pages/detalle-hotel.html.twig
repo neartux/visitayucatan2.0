@@ -174,8 +174,12 @@
                                         <div data-ng-show="habitacion.hasSomeDateClosing" class="col-sm-12 mt-lg mb-lg">
                                             {% trans %}label.message.hotel.clossing.date{% endtrans %}
                                         </div>
+
+                                        <div data-ng-show="!habitacion.hasSomeDateClosing && habitacion.exceedRoom" class="col-sm-12 mt-lg mb-lg">
+                                            {% trans %}label.messsage.exceed.minors{% endtrans %}
+                                        </div>
                                         
-                                        <div data-ng-show="! habitacion.hasSomeDateClosing">
+                                        <div data-ng-show="! habitacion.hasSomeDateClosing && ! habitacion.exceedRoom">
 
                                                 <div class="col-sm-12 mt-n ml-xl"><div ng-bind-html="habitacion.descripcion"></div></div>
                                             <div class="col-sm-12">
@@ -183,7 +187,7 @@
                                                 {% trans %}page.web.labe.reserva.include.minors{% endtrans %}
                                             </div>
                                             <div class="col-sm-12 text-bold">
-                                                *Los precios ya incluyen Impuestos y no incluye propinas
+                                                * {% trans %}label.message.taxes{% endtrans %}
                                             </div>
 
                                             <div class="col-sm-12">

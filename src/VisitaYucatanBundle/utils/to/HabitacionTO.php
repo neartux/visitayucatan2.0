@@ -23,6 +23,8 @@ class HabitacionTO {
     private $totalCostoHabitacion;
     private $habitacionesRequeridas;
     private $hasSomeDateClosing;
+    private $exceedRoom;
+    private $exceedMinors;
 
     /**
      * @return mixed
@@ -258,6 +260,39 @@ class HabitacionTO {
         $this->hasSomeDateClosing = $hasSomeDateClosing;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getExceedRoom()
+    {
+        return $this->exceedRoom;
+    }
 
-          
+    /**
+     * @param mixed $exceedRoom
+     */
+    public function setExceedRoom($exceedRoom)
+    {
+        $this->exceedRoom = $exceedRoom;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getExceedMinors()
+    {
+        return $this->exceedMinors;
+    }
+
+    /**
+     * @param mixed $exceedMinors
+     */
+    public function setExceedMinors($exceedMinors)
+    {
+        $this->exceedMinors = $exceedMinors;
+    }
+
+
 }

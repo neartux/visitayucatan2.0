@@ -183,12 +183,13 @@ class HotelUtils {
                 $numRooms = ceil(($numAdults + $numMinors) / $tarifaTO->getCapacidadMaxima());
                 // Si la capacidad maxima de la habitacion es menor al total de personas a ocupar continua con el siguiente TODO verificar si esta condicion aplica cuando es mas de una habitacion
                 if($tarifaTO->getCapacidadMaxima() < ($numAdults + $numMinors)){
-                    continue;
+                    $habitacionTO->setExceedRoom(true);
                 }
 
                 // Valida que el maximo de menores sea permitido
                 if ($tarifaTO->getMaximoMenores() < $numMinors) {
-                    continue;
+                    $habitacionTO->setExceedRoom(true); // todo este hay que analizar para quitar
+                    $habitacionTO->setExceedMinors(true);
                 }
                 
                 // si es el primer registro 
