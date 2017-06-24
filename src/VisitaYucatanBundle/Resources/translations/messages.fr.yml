@@ -245,3 +245,6 @@ label.home.aviso.privacidad: Mentions lÃgales
 label.home.cancellation.policies: Politiques d'annulation
 label.reser.tour.hotel: Hotel donde está hospedado
 label.message.hotel.clossing.date: Toutes les dates entrées sont disponibles dans cet hôtel, s'il vous plaît choisir d'autres dates ou autre hôtel.
+label.messsage.exceed.minors: Número de personas indicadas en la selección, rebasa el máximo permito en la habitación.
+label.message.taxes: Los precios ya incluyen Impuestos y no incluye propinas
+page.web.labe.reserva.date.entry: Pickup Date

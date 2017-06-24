@@ -220,7 +220,7 @@ page.web.labe.reserva.paquete.seleccionado : Paquete seleccionado
 page.web.labe.reserva.hotel.seleccionado : Hotel seleccionado
 page.web.labe.reserva.tipo.habitacion : Tipo habitación
 page.web.labe.reserva.tipo.estadia : Estadia
-page.web.labe.reserva.tarifa.adulto.opcion : Tarifa por adulto en ocupación
+page.web.labe.reserva.tarifa.adulto.opcion : Tarifa por habitación en ocupación
 page.web.labe.reserva.ciudad.origen : Ciudad de origen
 page.web.labe.reserva.date.tu.paquete : Seleccione la fecha para su paquete
 page.web.labe.reserva.fecha.salida : Fecha salida
@@ -256,3 +256,6 @@ label.home.aviso.privacidad: Aviso de privacidad
 label.home.cancellation.policies: Politicas de cancelación
 label.reser.tour.hotel: Hotel donde está hospedado
 label.message.hotel.clossing.date:  No todas las fechas ingresadas están disponibles en este Hotel, favor de seleccionar otras fechas u otro hotel.
+label.messsage.exceed.minors: Número de personas indicadas en la selección, rebasa el máximo permito en la habitación.
+label.message.taxes: Los precios ya incluyen Impuestos y no incluye propinas
+page.web.labe.reserva.date.entry: Seleccione la Fecha de Entrada

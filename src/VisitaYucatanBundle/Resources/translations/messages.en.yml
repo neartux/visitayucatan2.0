@@ -203,7 +203,7 @@ page.web.labe.reserva.paquete.seleccionado : Selected package
 page.web.labe.reserva.hotel.seleccionado : Selected hotel
 page.web.labe.reserva.tipo.habitacion : Room type
 page.web.labe.reserva.tipo.estadia : Stay
-page.web.labe.reserva.tarifa.adulto.opcion : Adult occupancy rate
+page.web.labe.reserva.tarifa.adulto.opcion : Room occupancy rate
 page.web.labe.reserva.ciudad.origen : Hometown
 page.web.labe.reserva.date.tu.paquete : Select the date for your package
 page.web.labe.reserva.fecha.salida : Departure date
@@ -246,3 +246,6 @@ label.home.aviso.privacidad: Privacy Notice
 label.home.cancellation.policies: Cancellation policies
 label.reser.tour.hotel: Hotel donde está hospedado
 label.message.hotel.clossing.date: Not all the dates entered are available in this Hotel, please select other dates or another hotel.
+label.messsage.exceed.minors: Número de personas indicadas en la selección, rebasa el máximo permito en la habitación.
+label.message.taxes: Los precios ya incluyen Impuestos y no incluye propinas
+page.web.labe.reserva.date.entry: Pickup Date
