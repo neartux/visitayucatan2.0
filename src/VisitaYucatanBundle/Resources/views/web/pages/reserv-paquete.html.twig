@@ -447,6 +447,7 @@
                             if(diasPaquete == controlFechaFinal) {
                                 var arrayFecha = dateSuggest.split("-");
                                 $('#fechaPaquete').datepicker('update', new Date(parseInt(arrayFecha[0]), parseInt(arrayFecha[1])-1, parseInt(arrayFecha[2])));
+                                $('#fechaLlegada').datepicker("setDate", new Date(parseInt(arrayFecha[0]), parseInt(arrayFecha[1])-1, parseInt(arrayFecha[2])) );
                                 $(".datepicker-fs-d").val(moment(fechaFinalSugerida).format('DD/MM/YYYY'));
                                 break;
                             }
