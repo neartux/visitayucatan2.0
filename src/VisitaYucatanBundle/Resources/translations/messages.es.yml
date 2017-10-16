@@ -172,7 +172,7 @@ page.web.label.contact.enviar : Enviar
 page.web.labe.reserva.prepare.reservation : Preparemos su reservación
 page.web.labe.reserva.tour.name : Nombres
 page.web.labe.reserva.tour.last.name : Apellidos
-page.web.labe.reserva.tour.lada : Lada
+page.web.labe.reserva.tour.lada : Código de País
 page.web.labe.reserva.tour.phone : Teléfono
 page.web.labe.reserva.tour.email : Correo
 page.web.labe.reserva.tour.city : Ciudad
@@ -182,7 +182,7 @@ page.web.labe.reserva.tour.minors : Menores
 page.web.labe.reserva.tour.adults : Adultos
 page.web.labe.reserva.tour.name.required : Escribe nombres
 page.web.labe.reserva.tour.last.name.required : Escribe apellidos
-page.web.labe.reserva.tour.lada.required : Lada es requerido
+page.web.labe.reserva.tour.lada.required : Código de país es requerido
 page.web.labe.reserva.tour.phone.required : El teléfono es requerido
 page.web.labe.reserva.tour.email.required : El correo es requerido
 page.web.labe.reserva.tour.city.required : La ciudad es requerido
@@ -220,7 +220,7 @@ page.web.labe.reserva.paquete.seleccionado : Paquete seleccionado
 page.web.labe.reserva.hotel.seleccionado : Hotel seleccionado
 page.web.labe.reserva.tipo.habitacion : Tipo habitación
 page.web.labe.reserva.tipo.estadia : Estadia
-page.web.labe.reserva.tarifa.adulto.opcion : Tarifa por habitación en ocupación
+page.web.labe.reserva.tarifa.adulto.opcion : Tarifa por persona en ocupación
 page.web.labe.reserva.ciudad.origen : Ciudad de origen
 page.web.labe.reserva.date.tu.paquete : Seleccione la fecha para su paquete
 page.web.labe.reserva.fecha.salida : Fecha salida
@@ -259,3 +259,4 @@ label.message.hotel.clossing.date:  No todas las fechas ingresadas están dispon
 label.messsage.exceed.minors: Número de personas indicadas en la selección, rebasa el máximo permito en la habitación.
 label.message.taxes: Los precios ya incluyen Impuestos y no incluye propinas
 page.web.labe.reserva.date.entry: Seleccione la Fecha de Entrada
+page.web.message.no.valid.tour: La fecha seleccionada no esta disponible, por favor seleccione otra fecha

@@ -248,3 +248,4 @@ label.message.hotel.clossing.date: Toutes les dates entrées sont disponibles da
 label.messsage.exceed.minors: Número de personas indicadas en la selección, rebasa el máximo permito en la habitación.
 label.message.taxes: Los precios ya incluyen Impuestos y no incluye propinas
 page.web.labe.reserva.date.entry: Pickup Date
+page.web.message.no.valid.tour: Date selected is not available, please select another date
