@@ -25,6 +25,8 @@ class HabitacionTO {
     private $hasSomeDateClosing;
     private $exceedRoom;
     private $exceedMinors;
+    private $isPeriodRatesComplete;
+    private $ningunaHabitacionDisponible;
 
     /**
      * @return mixed
@@ -294,5 +296,36 @@ class HabitacionTO {
         $this->exceedMinors = $exceedMinors;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIsPeriodRatesComplete()
+    {
+        return $this->isPeriodRatesComplete;
+    }
+
+    /**
+     * @param mixed $isPeriodRatesComplete
+     */
+    public function setIsPeriodRatesComplete($isPeriodRatesComplete)
+    {
+        $this->isPeriodRatesComplete = $isPeriodRatesComplete;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNingunaHabitacionDisponible()
+    {
+        return $this->ningunaHabitacionDisponible;
+    }
+
+    /**
+     * @param mixed $ningunaHabitacionDisponible
+     */
+    public function setNingunaHabitacionDisponible($ningunaHabitacionDisponible)
+    {
+        $this->ningunaHabitacionDisponible = $ningunaHabitacionDisponible;
+    }
 
 }
