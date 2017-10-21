@@ -260,5 +260,17 @@ class TourController extends Controller {
 
         return new Response($this->get('serializer')->serialize($responseArray, Generalkeys::JSON_STRING));
     }
+
+    /**
+     * @Route("/tours/isFechaEnCierre", name="tour_isFechaInCierre")
+     * @Method("POST")
+     */
+    public function findFechasCierre(Request $request) {
+        $fecha = $request->get('fecha');
+        $idTour = $request->get('idTour');
+        $fechasCierre = $this->getDoctrine()->getRepository('VisitaYucatanBundle:TourFechaCierre')->findFechasCierreByTour($idTour);
+        $isAvailable = TourUtils::isFechaInCierre(DateUtil::formatDateMysql($fecha), $fechasCierre);
+        return new Response($this->get('serializer')->serialize($isAvailable, Generalkeys::JSON_STRING));
+    }
     
 }

@@ -260,6 +260,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-12 mt">
+                                    <div class="col-sm-12 mt text-bold text-danger msjFechasCerradas" style="font-size: 16px;display: none;">
+                                        {% trans %}page.web.message.no.valid.tour{% endtrans %}
+                                    </div>
+                                </div>
 
                                 <div class="col-sm-12 mt-xl mb-xl">
                                     <span class="required">*</span> = {% trans %}label.reserva.tour.general.required.information{% endtrans %}
@@ -298,6 +303,8 @@
                 </div>
             </div>
             <input type="hidden" value="{{ path('tours_find_list_similares') }}" id="toursSimilars"/>
+            <input type="hidden" value="{{ path('tour_isFechaInCierre') }}" id="pathIsAvailableDate"/>
+            <input type="hidden" value="{% trans %}page.web.message.no.valid.tour{% endtrans %}" id="messageValitation"/>
 
             {% include '@VisitaYucatan/web/pages/ModalPago.html.twig' %}
 

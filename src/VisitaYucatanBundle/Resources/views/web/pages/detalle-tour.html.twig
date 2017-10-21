@@ -55,11 +55,6 @@
                             <div class="col-sm-12 color-text-gray-primary mt fnt-sz-12 contenedor-description">
                                 {{ tour.descripcionTour | raw }}
                             </div>
-                            <div class="col-sm-12 text-right mt-lg text-info text-bold">
-                                {% if tour.soloAdultos != 0 %}
-                                    {% trans %}label.only.adults{% endtrans %}
-                                {% endif %}
-                            </div>
                             <div class="col-sm-12 background-element-pink">
                                 <span class="fnt-sz-20 text-bold text-italic color-text-white">{% trans %}page.web.label.reserva.book.now{% endtrans %}</span>
 
@@ -74,7 +69,7 @@
                                 {% endif %}
 
                             </div>
-                            <form action="{{ path('web_tour_reserva') }}" method="POST">
+                            <form action="{{ path('web_tour_reserva') }}" method="POST" id="frmTour">
                             <div class="col-sm-12 mt-xxl">
                                     <input type="hidden" value="{{ tour.id }}" name="idTour"/>
 
@@ -82,7 +77,7 @@
                                         <label class="oswaldo color-text-pink">{% trans %}page.web.labe.reserva.tour.del.tour.date{% endtrans %}:</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <input type="text" name="fechaReserva" value="{{ fechaReserva }}" class="datepicker form-control" readonly/>
+                                            <input type="text" name="fechaReserva" id="fechaReservaD" value="{{ fechaReserva }}" class="datepicker form-control" readonly/>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -103,21 +98,25 @@
                                             <span class="input-group-addon"><i class="fa fa-child"></i></span>
                                             <select name="numeroMenores" data-ng-model="ctrlWeb.totalPersons.numeroMenores" ng-change="ctrlWeb.recalculateCostTour()" class="form-control">
                                                 <option value='0'>0</option>
-                                                {% if tour.soloAdultos == 0 %}
                                                     <option value='1'>1</option>
                                                     <option value='2'>2</option>
                                                     <option value='3'>3</option>
                                                     <option value='4'>4</option>
-                                                {% endif %}
                                             </select>
                                         </div>
                                     </div>
                             </div>
 
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12 mt text-bold text-danger msjFechasCerradas" style="font-size: 16px;display: none;">
+                                        {% trans %}page.web.message.no.valid.tour{% endtrans %}
+                                    </div>
+                                </div>
+
                             <div class="col-sm-12 mt-xxl text-right">
-                                <button class="btn btn-warning">
+                                <a href="javascript:;" data-ng-click="ctrlWeb.isFechaAvailableDetalleTour();" class="btn btn-warning">
                                     {% trans %}page.web.label.reserva.book.now{% endtrans %}
-                                </button>
+                                </a>
                                 <h2 class="text-bold mb-n reserva-now-tour">
 
                                 </h2>
@@ -126,9 +125,9 @@
                                     <label class="text-italic mb-n"><span>2</span> {% trans %}page.web.labe.reserva.tour.adults{% endtrans %},
                                         {% trans %}page.web.labe.reserva.included.taxes{% endtrans %}</label>
                                     <h4 class="text-bold mb-n mt-n">{% trans %}page.web.labe.reserva.transportation.from{% endtrans %} {{ tour.origen }}</h4>
-                                    <button type="submit" class="btn btn-warning" id="totalCostTour">
+                                    <a href="javascript:;" data-ng-click="ctrlWeb.isFechaAvailableDetalleTour();" class="btn btn-warning" id="totalCostTour">
                                         ${{ tour.costTwoAdults }} {{ tour.simboloMoneda }}
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                             </form>
@@ -165,6 +164,8 @@
                 </div>
             </div>
             <input type="hidden" value="{{ path('tours_find_list_similares') }}" id="toursSimilars"/>
+            <input type="hidden" value="{{ path('tour_isFechaInCierre') }}" id="pathIsAvailableDate"/>
+            <input type="hidden" value="{% trans %}page.web.message.no.valid.tour{% endtrans %}" id="messageValitation"/>
 
         </div>
 
@@ -192,6 +193,7 @@
     {% block scripts %}
         {{ parent() }}
         <script>
+            var onlyAdults = '{{ tour.soloAdultos }}';
             $(function(){
                 $('.datepicker').datepicker({
                     autoclose: true,
