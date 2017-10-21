@@ -156,6 +156,13 @@
             });
         };
 
+        service.isFechaAvailable = function (idTour, fecha) {
+            var path = $("#pathIsAvailableDate").val();
+            return $http.post(path, $.param({idTour : idTour, fecha : fecha}), {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        };
+
         return service;
     });
 })();

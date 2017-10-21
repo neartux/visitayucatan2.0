@@ -77,6 +77,28 @@
 
         };
 
+        ctrlWeb.isFechaAvailableDetalleTour = function () {
+            if (ctrlWeb.totalPersons.numeroMenores > 0 && (onlyAdults == 1 || onlyAdults == "1")){
+                alert("Este tour es solo para adultos");
+                return;
+            }
+            $(".msjFechasCerradas").hide();
+            var fecha = $("#fechaReservaD").val();
+            return WebService.isFechaAvailable(ctrlWeb.idTour, fecha).then(function (data) {
+                if(data.data == false || data.data == "false"){
+                    $(".msjFechasCerradas").show();
+                } else {
+                    $("#frmTour").submit();
+                }
+            });
+        };
+
+        ctrlWeb.isFechaAvailable = function (idtour, fecha) {
+            return WebService.isFechaAvailable(idtour, fecha).then(function(data){
+                return data.data;
+            });
+        };
+
         ctrlWeb.configureParametersInit = function (rateChild, rateAdult, exchangeRate, minimoPerson) {
             ctrlWeb.symbolCurrency = angular.element(document.querySelector('#symbolCurrencyHidden')).context.value;
             ctrlWeb.exchangeRate = parseFloat(exchangeRate);
@@ -109,12 +131,13 @@
         };
 
         ctrlWeb.reservarTour = function (isFormValid) {
+            $(".msjFechasCerradas").hide();
             if (isFormValid) {
                 ctrlWeb.buttonPay = false;
                 ctrlWeb.ventaCompletaTO.costoTotal = ctrlWeb.calculateCost();
                 if (parseInt(ctrlWeb.totalPersons.numeroMenores) > 0) {
                     if (ctrlWeb.soloAdultos != undefined && ctrlWeb.soloAdultos) {
-                        alert("este tour es solo para adultos");
+                        alert("Este tour es solo para adultos");
                         ctrlWeb.buttonPay = true;
                         return;
                     }
@@ -124,33 +147,48 @@
                     ctrlWeb.buttonPay = true;
                     return
                 }
-                HoldOn.open({message: 'Por favor espere un momento'});
-                // Si no esta en moneda mexicana la convierte a pesos
-                if (ctrlWeb.ventaCompletaTO.idMoneda != ctrlWeb.CurrencyMexico.id) {
-                    ctrlWeb.ventaCompletaTO.costoAdulto = parseFloat((ctrlWeb.rateAdult * parseInt(ctrlWeb.totalPersons.numeroAdultos)) * (ctrlWeb.ventaCompletaTO.tipoCambio));
-                    ctrlWeb.ventaCompletaTO.costoMenor = parseFloat((ctrlWeb.rateChild * parseInt(ctrlWeb.totalPersons.numeroMenores)) * (ctrlWeb.ventaCompletaTO.tipoCambio));
-                    ctrlWeb.ventaCompletaTO.costoTotal = parseFloat(ctrlWeb.ventaCompletaTO.costoAdulto) + parseFloat(ctrlWeb.ventaCompletaTO.costoMenor);
-                }
-                ctrlWeb.ventaCompletaTO.numeroMenores = ctrlWeb.totalPersons.numeroMenores;
-                ctrlWeb.ventaCompletaTO.numeroAdultos = ctrlWeb.totalPersons.numeroAdultos;
-                //HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
-                WebService.createReservationTour(ctrlWeb.ventaCompletaTO).success(function (response) {
-                    $scope.formPay.$setPristine();
-                    if (response.status) {
-                        ctrlWeb.card = {
-                            number: '',
-                            month: '01',
-                            year: '16',
-                            code: '',
-                            expiryDate: ''
-                        };
-                        ctrlWeb.ventaCompletaTO.id = response.id;
-                        $("#modalPago").modal();
-                        HoldOn.close();
-                    } else{
-                        return WebService.redirectToSuccessSale();
+
+                var fecha = $("#checkIn").val();
+                return WebService.isFechaAvailable(ctrlWeb.ventaCompletaTO.idTour, fecha).success(function (data) {
+                    if (data == false || data == "false") {
+                        ctrlWeb.buttonPay = true;
+                        $(".msjFechasCerradas").show();
+                        return;
                     }
+
+
+                    HoldOn.open({message: 'Por favor espere un momento'});
+                    // Si no esta en moneda mexicana la convierte a pesos
+                    if (ctrlWeb.ventaCompletaTO.idMoneda != ctrlWeb.CurrencyMexico.id) {
+                        ctrlWeb.ventaCompletaTO.costoAdulto = parseFloat((ctrlWeb.rateAdult * parseInt(ctrlWeb.totalPersons.numeroAdultos)) * (ctrlWeb.ventaCompletaTO.tipoCambio));
+                        ctrlWeb.ventaCompletaTO.costoMenor = parseFloat((ctrlWeb.rateChild * parseInt(ctrlWeb.totalPersons.numeroMenores)) * (ctrlWeb.ventaCompletaTO.tipoCambio));
+                        ctrlWeb.ventaCompletaTO.costoTotal = parseFloat(ctrlWeb.ventaCompletaTO.costoAdulto) + parseFloat(ctrlWeb.ventaCompletaTO.costoMenor);
+                    }
+                    ctrlWeb.ventaCompletaTO.numeroMenores = ctrlWeb.totalPersons.numeroMenores;
+                    ctrlWeb.ventaCompletaTO.numeroAdultos = ctrlWeb.totalPersons.numeroAdultos;
+                    //HoldOn.open({message: 'Por favor espere, estamos procesando su reservación... será reenviado a un portal de pagos seguro online de Banamex'});
+                    WebService.createReservationTour(ctrlWeb.ventaCompletaTO).success(function (response) {
+                        $scope.formPay.$setPristine();
+                        if (response.status) {
+                            ctrlWeb.card = {
+                                number: '',
+                                month: '01',
+                                year: '16',
+                                code: '',
+                                expiryDate: ''
+                            };
+                            ctrlWeb.ventaCompletaTO.id = response.id;
+                            $("#modalPago").modal();
+                            HoldOn.close();
+                        } else{
+                            return WebService.redirectToSuccessSale();
+                        }
+                    });
+
                 });
+
+
+
                 //HoldOn.close();
             } else {
                 $scope.formReserva.nombres.$setDirty();
@@ -460,6 +498,17 @@
                         ctrlHotel.asignTitlesSearchRates();
                     });
                 }
+            }
+        };
+
+        ctrlHotel.verifyPlanAlimentos = function (bol) {
+            if(bol == true || bol == 'true'){
+                $(".tipo-plan-field").hide();
+                ctrlHotel.showMessageRoomsNotFound = true;
+            }else {
+                $(".tipo-plan-field").show();
+                $(".show-message-no-hotels").hide();
+                ctrlHotel.showMessageRoomsNotFound = false;
             }
         };
 
