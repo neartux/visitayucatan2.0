@@ -143,4 +143,10 @@ class TourUtils {
 
         return $closingDate;
     }
+
+    public static function isFechaInCierre($fecha, $fechasCierreT){
+        $fechasCierre = self::getArrayClosingDates($fechasCierreT);
+        $isAvailable = $fechasCierre->contains($fecha);
+        return $isAvailable == false;
+    }
 }
