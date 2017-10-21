@@ -162,56 +162,59 @@
 
                             <div data-ng-show="!ctrlWeb.showMessageRoomsNotFound">
 
-                                <div style="cursor: default;" class="btn btn-warning ml" data-ng-show="ctrlWeb.listRoomsHotelToSale.data.length">
+                                <div class="btn btn-warning ml tipo-plan-field" data-ng-if="ctrlWeb.listRoomsHotelToSale.data.length">
                                     <span><b>{% trans %}page.web.labe.reserva.tipo.plan{% endtrans %}:
                                     </b> {{ planAlimentos }}</span>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12" data-ng-repeat="habitacion in ctrlWeb.listRoomsHotelToSale.data">
-                                        <div class="col-sm-12"><h4 class="mb-n">{% trans %}page.web.labe.reserva.tour.habitacion{% endtrans %} [[ habitacion.nombre ]]</h4></div>
+                                    <div class="col-sm-12" data-ng-repeat="habitacion in ctrlWeb.listRoomsHotelToSale.data" data-ng-init="ctrlWeb.verifyPlanAlimentos(habitacion.ningunaHabitacionDisponible);">
 
-                                        <div data-ng-show="habitacion.hasSomeDateClosing" class="col-sm-12 mt-lg mb-lg">
-                                            {% trans %}label.message.hotel.clossing.date{% endtrans %}
-                                        </div>
+                                        <div data-ng-show="habitacion.isPeriodRatesComplete">
+                                            <div class="col-sm-12"><h4 class="mb-n">{% trans %}page.web.labe.reserva.tour.habitacion{% endtrans %} [[ habitacion.nombre ]]</h4></div>
 
-                                        <div data-ng-show="!habitacion.hasSomeDateClosing && habitacion.exceedRoom" class="col-sm-12 mt-lg mb-lg">
-                                            {% trans %}label.messsage.exceed.minors{% endtrans %}
-                                        </div>
-                                        
-                                        <div data-ng-show="! habitacion.hasSomeDateClosing && ! habitacion.exceedRoom">
+                                            <div data-ng-show="habitacion.hasSomeDateClosing" class="col-sm-12 mt-lg mb-lg">
+                                                {% trans %}label.message.hotel.clossing.date{% endtrans %}
+                                            </div>
+
+                                            <div data-ng-show="!habitacion.hasSomeDateClosing && habitacion.exceedRoom" class="col-sm-12 mt-lg mb-lg">
+                                                {% trans %}label.messsage.exceed.minors{% endtrans %}
+                                            </div>
+
+                                            <div data-ng-show="! habitacion.hasSomeDateClosing && ! habitacion.exceedRoom">
 
                                                 <div class="col-sm-12 mt-n ml-xl"><div ng-bind-html="habitacion.descripcion"></div></div>
-                                            <div class="col-sm-12">
-                                                <span class="text-bold">{% trans %}page.web.labe.reserva.ocupacion.maxima{% endtrans %}:</span> [[ habitacion.capacidadMaxima ]]
-                                                {% trans %}page.web.labe.reserva.include.minors{% endtrans %}
-                                            </div>
-                                            <div class="col-sm-12 text-bold">
-                                                * {% trans %}label.message.taxes{% endtrans %}
-                                            </div>
-
-                                            <div class="col-sm-12">
-                                                <div ng-class-odd="'day-hotel'" ng-class-even="'day-hotel-change'"
-                                                     class="col-sm-2 text-center" data-ng-repeat="tarifa in habitacion.hotelTarifasTOCollection">
-                                                    <span class="lafecha">[[ tarifa.smallDate ]]</span> <br>
-                                                    <span class="elprecio" ng-if="! tarifa.isAvailable">[[ tarifa.msjAvailable ]]</span>
-                                                    <span class="elprecio" ng-if="tarifa.isAvailable">$ [[ tarifa.costo ]] <br>[[ctrlWeb.symbolCurrency]]</span>
+                                                <div class="col-sm-12">
+                                                    <span class="text-bold">{% trans %}page.web.labe.reserva.ocupacion.maxima{% endtrans %}:</span> [[ habitacion.capacidadMaxima ]]
+                                                    {% trans %}page.web.labe.reserva.include.minors{% endtrans %}
                                                 </div>
-                                            </div>
+                                                <div class="col-sm-12 text-bold">
+                                                    * {% trans %}label.message.taxes{% endtrans %}
+                                                </div>
 
-                                            <div class="col-sm-12">
-                                                <span class="text-bold">{% trans %}page.web.labe.reserva.required.room{% endtrans %}:</span> [[ habitacion.habitacionesRequeridas ]]
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <span class="text-bold">{% trans %}page.web.labe.reserva.age.maxima{% endtrans %}:</span> [[ ctrlWeb.formRate.ageMinor ]]
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <button data-ng-click="ctrlWeb.confirmReservaHotel(habitacion, habitacion.id, habitacion.totalCostoHabitacion)" data-ng-if="habitacion.totalCostoHabitacion != '0.00'" type="button"
-                                                        class="btn btn-warning">
-                                                    {% trans %}page.web.labe.reserva.por.solo{% endtrans %}: $ [[ habitacion.totalCostoHabitacion ]] [[ ctrlWeb.symbolCurrency ]]
-                                                </button>
-                                            </div>
+                                                <div class="col-sm-12">
+                                                    <div ng-class-odd="'day-hotel'" ng-class-even="'day-hotel-change'"
+                                                         class="col-sm-2 text-center" data-ng-repeat="tarifa in habitacion.hotelTarifasTOCollection">
+                                                        <span class="lafecha">[[ tarifa.smallDate ]]</span> <br>
+                                                        <span class="elprecio" ng-if="! tarifa.isAvailable">[[ tarifa.msjAvailable ]]</span>
+                                                        <span class="elprecio" ng-if="tarifa.isAvailable">$ [[ tarifa.costo ]] <br>[[ctrlWeb.symbolCurrency]]</span>
+                                                    </div>
+                                                </div>
 
+                                                <div class="col-sm-12">
+                                                    <span class="text-bold">{% trans %}page.web.labe.reserva.required.room{% endtrans %}:</span> [[ habitacion.habitacionesRequeridas ]]
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <span class="text-bold">{% trans %}page.web.labe.reserva.age.maxima{% endtrans %}:</span> [[ ctrlWeb.formRate.ageMinor ]]
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <button data-ng-click="ctrlWeb.confirmReservaHotel(habitacion, habitacion.id, habitacion.totalCostoHabitacion)" data-ng-if="habitacion.totalCostoHabitacion != '0.00'" type="button"
+                                                            class="btn btn-warning">
+                                                        {% trans %}page.web.labe.reserva.por.solo{% endtrans %}: $ [[ habitacion.totalCostoHabitacion ]] [[ ctrlWeb.symbolCurrency ]]
+                                                    </button>
+                                                </div>
+
+                                            </div>
                                         </div>
 
                                     </div>

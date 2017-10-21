@@ -157,8 +157,10 @@ class HotelUtils {
         return $closingDate;
     }
     
-     public static function getCotizationRoom($roomsCosts, $numAdults, $numMinors, $fechasCierre ){
+     public static function getCotizationRoom($roomsCosts, $numAdults, $numMinors, $fechasCierre, $numDays){
         $finaliCost = new ArrayCollection();
+         // Contador para manejar tarifas disponibles
+         $numHabitacionesAvailable = 0;
         if (count($roomsCosts) > Generalkeys::NUMBER_ZERO){
             // Variable para sumar costo de todos los dias de habitacion
             $grandTotal = Generalkeys::NUMBER_ZERO;
@@ -172,6 +174,7 @@ class HotelUtils {
             $cont = Generalkeys::NUMBER_ZERO;
             // Objeto habitacion
             $habitacionTO = new HabitacionTO();
+            $habitacionTO->setIsPeriodRatesComplete(true);
             // Itera las fechas y sus costos
             foreach ($roomsCosts as $cost) {
                 $cont ++;
@@ -210,10 +213,17 @@ class HotelUtils {
                     // reinicia el gran total para la siguiente habitacion
                     $grandTotal = Generalkeys::NUMBER_ZERO;
 
+                    // Valida que todas las fechas solicitadas tenga tarifas
+                    if ($numDays != count($dateCostTmp)){
+                        $habitacionTO->setIsPeriodRatesComplete(false);
+                        $numHabitacionesAvailable ++;
+                    }
+
                     // agrega al array general
                     $finaliCost->add($habitacionTO);
 
                     $habitacionTO = new HabitacionTO();
+                    $habitacionTO->setIsPeriodRatesComplete(true);
                     $habitacionTO->setId($tarifaTO->getIdHabitacion());
                     $habitacionTO->setNombre($nameRoom);
                     $habitacionTO->setDescripcion($descriptionRoom);
@@ -235,6 +245,13 @@ class HotelUtils {
                     if(count($roomsCosts) == $cont) {
                         $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
                         $habitacionTO->setTotalCostoHabitacion(number_format(ceil($grandTotal), Generalkeys::NUMBER_TWO));
+
+                        // Valida que todas las fechas solicitadas tenga tarifas
+                        if ($numDays != count($dateCostTmp)){
+                            $habitacionTO->setIsPeriodRatesComplete(false);
+                            $numHabitacionesAvailable ++;
+                        }
+
                         $finaliCost->add($habitacionTO);
                     }
                     $habitacionTO->setHasSomeDateClosing(Generalkeys::BOOLEAN_TRUE);
@@ -259,11 +276,31 @@ class HotelUtils {
                 if(count($roomsCosts) == $cont) {
                     $habitacionTO->setHotelTarifasTOCollection($dateCostTmp);
                     $habitacionTO->setTotalCostoHabitacion(number_format(ceil($grandTotal), Generalkeys::NUMBER_TWO));
+
+                    // Valida que todas las fechas solicitadas tenga tarifas
+                    if ($numDays != count($dateCostTmp)){
+                        $habitacionTO->setIsPeriodRatesComplete(false);
+                        $numHabitacionesAvailable ++;
+                    }
+
                     $finaliCost->add($habitacionTO);
                 }
             }
         }
+
+        if ($numHabitacionesAvailable > 0){
+            self::verificaHabitacionesDisponibles($finaliCost, $numHabitacionesAvailable);
+        }
+
         return $finaliCost;
+    }
+
+    private static function verificaHabitacionesDisponibles($rooms, $cont){
+         if (count($rooms) == $cont){
+             foreach ($rooms as $room){
+                 $room->setNingunaHabitacionDisponible(true);
+             }
+         }
     }
 
     private static function getDetailCost($cost){

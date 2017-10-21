@@ -133,8 +133,8 @@ class HotelController extends Controller {
             $dateClosing = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelFechaCierre')->findClosingDateByContractAndHotel($idHotel, $idContract);
             //echo "fechas cierre = ".print_r($dateClosing); echo " <br>";
             $costosRoom = $this->getDoctrine()->getRepository('VisitaYucatanBundle:HotelTarifa')->getRateByRooms(DateUtil::formatDate($dateFrom), DateUtil::subtractOneDayTodate(DateUtil::formatDate($dateTo)), $idHotel, $datos[Generalkeys::NUMBER_ZERO], $datos[Generalkeys::NUMBER_ONE], $idContract);
-
-            $costs = HotelUtils::getCotizationRoom($costosRoom, $adults, $minors, $dateClosing);
+            $numberDays = DateUtil::diffDays(DateUtil::formatDate($dateFrom), DateUtil::formatDate($dateTo)) - Generalkeys::NUMBER_ONE;
+            $costs = HotelUtils::getCotizationRoom($costosRoom, $adults, $minors, $dateClosing, $numberDays);
             
             //print_r($costs);
             $response = new ResponseTO(Generalkeys::RESPONSE_TRUE, Generalkeys::EMPTY_STRING, Generalkeys::RESPONSE_SUCCESS, Generalkeys::RESPONSE_CODE_OK);
