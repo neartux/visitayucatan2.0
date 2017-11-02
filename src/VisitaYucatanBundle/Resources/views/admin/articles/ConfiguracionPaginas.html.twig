@@ -1,0 +1,59 @@
+{% extends '::BaseTemplate.html.twig' %}
+
+{% block breadcrumb %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="content-main">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-bluegray" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                    <div class="panel-heading">
+                        <h2>
+                            Configuración Páginas
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+
+                        <form action="{{ path('utilidades_change_page') }}" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <label for="verhoteles">Ver Hoteles</label>
+                                        <input type="checkbox" id="verhoteles" value="1" name="verhoteles" {{ isVisibleHotel == 1 ? 'checked' : '' }}>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+
+        });
+
+
+    </script>
+
+{% endblock %}

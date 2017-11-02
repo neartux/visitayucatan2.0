@@ -187,4 +187,28 @@ class ArticleAdminController extends Controller {
         echo "page = ",$descriptionPage;
         return new JsonResponse($descriptionPage);
     }
+
+    /**
+     * @Route("/admin/verpaginas", name="utilidades_verpaginas")
+     * @Method("GET")
+     */
+    public function verpaginas(Request $request){
+        if (!$request->getSession()->get(Generalkeys::LABEL_STATUS)) {
+            return $this->redirectToRoute('admin_login');
+        }
+        $isVisibleHotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels();
+        return $this->render('VisitaYucatanBundle:admin/articles:ConfiguracionPaginas.html.twig', array('isVisibleHotel' => $isVisibleHotel));
+    }
+
+    /**
+     * @Route("/admin/changeValue", name="utilidades_change_page")
+     * @Method("POST")
+     */
+    public function changeValue(Request $request) {
+        $view = $request->get('verhoteles');
+        $view = $view != 1 ? 0 : $view;
+        $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotelsUpdate($view);
+        $isVisibleHotel = $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels();
+        return $this->render('VisitaYucatanBundle:admin/articles:ConfiguracionPaginas.html.twig', array('isVisibleHotel' => $isVisibleHotel));
+    }
 }
