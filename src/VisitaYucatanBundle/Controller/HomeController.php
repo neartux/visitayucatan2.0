@@ -18,7 +18,7 @@ class HomeController extends Controller {
      * @Method("GET")
      */
     public function indexAction() {
-        return $this->render('VisitaYucatanBundle:web/pages:home.html.twig');
+        return $this->render('VisitaYucatanBundle:web/pages:home.html.twig', array('isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
     }
 
     /**
