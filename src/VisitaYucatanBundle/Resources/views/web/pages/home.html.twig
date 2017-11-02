@@ -536,6 +536,7 @@
                         <li><a href="{{ path('web_home') }}">{% trans %}page.web.menu.label.start{% endtrans %}</a></li>
                         <li><a href="{{ path('web_paquetes') }}">{% trans %}page.web.menu.label.packages{% endtrans %}</a></li>
                         <li><a href="{{ path('web_tours') }}">{% trans %}page.web.menu.label.tours{% endtrans %}</a></li>
+                        {% if(isVisibleHotels) %}
                         <li class="">
                             <a href="">{% trans %}page.web.menu.label.hotels{% endtrans %}</a>
                             <ul class="sub-menu">
@@ -594,6 +595,7 @@
                                 </li>
                             </ul>
                         </li>
+                        {% endif %}
                         <li><a href="{{ path('web_peninsula') }}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
                         <li class="ultimo"><a href="{{ path('web_contacto') }}">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
                         <li class="mapas text-to-lowercase"><a href="{{ path('web_mapas') }}" target="_self" title="{% trans %}page.web.menu.label.maps{% endtrans %}">{% trans %}page.web.menu.label.maps{% endtrans %}</a></li>
@@ -627,7 +629,7 @@
                         </div>
                     </div>
                 </a>
-
+                {% if(isVisibleHotels) %}
                 <a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">
                     <div class="productos producto-hoteles">
                         <div>
@@ -636,9 +638,10 @@
                         </div>
                     </div>
                 </a>
+                {% endif %}
 
                 <a href="{{ path('web_peninsula') }}">
-                    <div class="productos margen-top producto-peninsula first">
+                    <div class="productos {{ isVisibleHotels ? 'margen-top' : '' }} producto-peninsula first">
                         <div>
                             <p class="texto-title text-to-uppercase">{% trans %}page.web.label.home.peninsula.title{% endtrans %}</p>
                         </div>
@@ -687,7 +690,9 @@
             </div>
             <div class="renglon2">
                 <ul class="menu-footer text-to-uppercase">
+                    {% if(isVisibleHotels) %}
                     <li><a href="{{ path('web_hoteles_merida', { 'city': constant('VisitaYucatanBundle\\utils\\Generalkeys::CITY_MERIDA') }) }}">{% trans %}page.web.menu.label.hotels{% endtrans %}</a></li>
+                    {% endif %}
                     <li><a href="{{ path('web_peninsula') }}">{% trans %}page.web.menu.label.peninsula{% endtrans %}</a></li>
                     <li><a href="{{ path('web_contacto') }}">{% trans %}page.web.menu.label.contact{% endtrans %}</a></li>
                     <li><a href="{{ path('web_politicasDeCancelacion') }}">{% trans %}label.home.cancellation.policies{% endtrans %}</a></li>
