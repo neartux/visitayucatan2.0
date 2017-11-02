@@ -32,7 +32,8 @@ class HotelController extends Controller {
         // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:hotels.html.twig', array('hotels' => HotelUtils::getHotels($hotels),
             'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta,
-            'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL));
+            'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL,
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
     }
 
     /**
@@ -57,7 +58,8 @@ class HotelController extends Controller {
             'dateFrom' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_ONE)),
             'dateTo' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_TWO)),
             'ageMinor' => $edadMenor,
-            'planAlimentos' => $planAlimentos));
+            'planAlimentos' => $planAlimentos,
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
     }
 
     /**
@@ -85,7 +87,8 @@ class HotelController extends Controller {
         $reserva->setIdHabitacion((int)$idHabitacion);
         $reserva->setFinalCost(ereg_replace("[^0-9.]", "", $finalCost));
         return $this->render('VisitaYucatanBundle:web/pages:reserv-hotel.html.twig', array('dateFrom' => $fechaInicio, 'dateTo' => $fechaFin, 'reserva' => $reserva,
-            'tipoCambioMexico' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findMonedaMexico()));
+            'tipoCambioMexico' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findMonedaMexico(),
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
     }
 
     /**

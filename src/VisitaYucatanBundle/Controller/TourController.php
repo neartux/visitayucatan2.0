@@ -39,7 +39,8 @@ class TourController extends Controller {
         // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:tours.html.twig', array('tours' => TourUtils::getTours($tours),
             'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta, 'monedas' => $currency,
-            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR));
+            'idiomas' => $idiomas, 'claseImg' => Generalkeys::CLASS_HEADER_TOUR, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_TOUR,
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
     }
 
     /**
@@ -53,7 +54,8 @@ class TourController extends Controller {
 
         return $this->render('VisitaYucatanBundle:web/pages:detalle-tour.html.twig', array('tour' => TourUtils::getTourTO($tour, $imagesTour), 
             'claseImg' => Generalkeys::CLASS_HEADER_TOUR_DETAIL,
-            'fechaReserva' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_TWO)) ));
+            'fechaReserva' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_TWO)),
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
     }
 
     /**
@@ -73,7 +75,8 @@ class TourController extends Controller {
         $tourTO->setTotalAdultos($numeroAdultos);
         $tourTO->setTotalMenores($numeroMenores);
         $costoTotal = ($tourTO->getTotalAdultos() * $tourTO->getTarifaadulto()) + ($tourTO->getTotalMenores() * $tourTO->getTarifamenor());
-        return $this->render('VisitaYucatanBundle:web/pages:reserv-tour.html.twig', array('tour' => $tourTO, 'costoTotal' => number_format($costoTotal), 'tipoCambioMexico' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findMonedaMexico()));
+        return $this->render('VisitaYucatanBundle:web/pages:reserv-tour.html.twig', array('tour' => $tourTO, 'costoTotal' => number_format($costoTotal), 'tipoCambioMexico' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findMonedaMexico(),
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
     }
 
     /**
