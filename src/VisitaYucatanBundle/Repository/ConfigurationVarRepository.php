@@ -37,4 +37,24 @@ class ConfigurationVarRepository extends \Doctrine\ORM\EntityRepository {
         }
         return $parameter->getValor();
     }
+
+    public function isVisibleHotels(){
+        $parameter = parent::findOneBy(array('clave' => 'show_hotels'));
+        if(!$parameter){
+            return false;
+        }
+        return $parameter->getValor() == 1 ? true : false;
+    }
+
+    public function isVisibleHotelsUpdate($value){
+        $parameter = parent::findOneBy(array('clave' => 'show_hotels'));
+        $em = $this->getEntityManager();
+        if(!$parameter){
+            new NotFoundHttpException("No se encontro el elemento");
+        }
+        $parameter->setValor($value);
+
+        $em->persist($parameter);
+        $em->flush();
+    }
 }
