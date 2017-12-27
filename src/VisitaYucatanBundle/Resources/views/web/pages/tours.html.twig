@@ -42,7 +42,7 @@
                                 <h2 class="titulo-top">{{ tour.nombreTour }}</h2>
                                 <figure class="img1 view">
                                     <a href="{{ path('web_tour_detail', {'id': tour.id}) }}">
-                                        <img src="{{ asset(tour.principalImage) }}">
+                                        <img src="{{ asset(tour.principalImage) }}" alt="{{ tour.nombreTour }}" title="{{ tour.nombreTour }}">
                                     </a>
 
                                     <div class="mask">

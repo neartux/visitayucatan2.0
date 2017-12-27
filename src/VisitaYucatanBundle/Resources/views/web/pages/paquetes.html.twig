@@ -40,7 +40,7 @@
                                 <h2 class="titulo-top">{{ paquete.nombrePaquete }}</h2>
                                 <figure class="img1 view">
                                     <a href="{{ path('web_paquete_detail', {'id': paquete.id}) }}">
-                                        <img src="{{ asset(paquete.principalImage) }}">
+                                        <img src="{{ asset(paquete.principalImage) }}" alt="{{ paquete.nombrePaquete }}" title="{{ paquete.nombrePaquete }}">
                                     </a>
 
                                     <div class="mask">

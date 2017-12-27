@@ -41,7 +41,7 @@
                                 <h2 class="titulo-top">{{ hotel.nombreHotel }}</h2>
                                 <div class="img1 view">
                                     <a href="{{ path('web_hotel_detail', {'id': hotel.id}) }}">
-                                        <img src="{{ asset(hotel.principalImage) }}"/>
+                                        <img src="{{ asset(hotel.principalImage) }}" alt="{{ hotel.nombreHotel }}" title="{{ hotel.nombreHotel }}"/>
                                     </a>
                                     <div class="mask">
                                         <a href="{{ path('web_hotel_detail', {'id': hotel.id}) }}"><h2>{% trans %}page.web.label.tours.book.now{% endtrans %}</h2></a>
