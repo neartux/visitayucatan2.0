@@ -1,0 +1,62 @@
+{% extends '::BaseTemplate.html.twig' %}
+
+{% block breadcrumb %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="content-main">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-bluegray" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" style="visibility: visible; opacity: 1; display: block; transform: translateY(0px);">
+                    <div class="panel-heading">
+                        <h2>
+                            SEO TOURS
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+
+                        <form action="{{ path('seo_tours_change') }}" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <label for="verhoteles">Descripción</label>
+                                        <input type="text" class="form-control" value="{{ metaDescription }}" minlength="70" maxlength="145" name="description">
+                                        <span><strong>De 70 a 145 caracteres</strong></span>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div>
+                                        <button class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+
+        });
+
+
+    </script>
+
+{% endblock %}
