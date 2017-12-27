@@ -25,7 +25,8 @@ class ArticleController extends Controller{
       // renderiza la vista y manda la informacion
         return $this->render('VisitaYucatanBundle:web/pages:peninsulas.html.twig',  array('peninsulas' => $peninsulas,
              'claseImg' => Generalkeys::CLASS_HEADER_TOUR,
-            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels(),
+            'metaDescription' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->findParameterValueByKey(Generalkeys::META_DESCRIPTION_TOUR)));
 
      }
 
@@ -34,7 +35,8 @@ class ArticleController extends Controller{
      * @Method("GET")
      */
     public function mapas(){
-        return $this->render('VisitaYucatanBundle:web/pages:mapas.html.twig', array('isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
+        return $this->render('VisitaYucatanBundle:web/pages:mapas.html.twig', array('isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels(),
+            'metaDescription' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->findParameterValueByKey(Generalkeys::META_DESCRIPTION_TOUR)));
 
     }
 
