@@ -49,7 +49,8 @@ class HomeController extends Controller {
      */
     public function displayPoliticasCancelacion() {
         // renderiza la vista y manda la informacion
-        return $this->render('VisitaYucatanBundle:web/pages:politicasCancelacion.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR));
+        return $this->render('VisitaYucatanBundle:web/pages:politicasCancelacion.html.twig', array('claseImg' => Generalkeys::CLASS_HEADER_TOUR,
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
     }
 
     /**
