@@ -33,7 +33,8 @@ class HotelController extends Controller {
         return $this->render('VisitaYucatanBundle:web/pages:hotels.html.twig', array('hotels' => HotelUtils::getHotels($hotels),
             'pageDescription' => $descripcion, 'descripcionCorta' => $descripcionCorta,
             'claseImg' => Generalkeys::CLASS_HEADER_HOTEL, 'logoSection' => Generalkeys::IMG_NAME_SECCION_WEB_HOTEL,
-            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels(),
+            'metaDescription' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->findParameterValueByKey(Generalkeys::META_DESCRIPTION_HOTEL)));
     }
 
     /**
@@ -59,7 +60,8 @@ class HotelController extends Controller {
             'dateTo' => DateUtil::formatDateToString(DateUtil::summDayToDate(DateUtil::Now(), Generalkeys::NUMBER_TWO)),
             'ageMinor' => $edadMenor,
             'planAlimentos' => $planAlimentos,
-            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels(),
+            'metaDescription' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->findParameterValueByKey(Generalkeys::META_DESCRIPTION_HOTEL)));
     }
 
     /**
@@ -88,7 +90,8 @@ class HotelController extends Controller {
         $reserva->setFinalCost(ereg_replace("[^0-9.]", "", $finalCost));
         return $this->render('VisitaYucatanBundle:web/pages:reserv-hotel.html.twig', array('dateFrom' => $fechaInicio, 'dateTo' => $fechaFin, 'reserva' => $reserva,
             'tipoCambioMexico' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:Moneda')->findMonedaMexico(),
-            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels()));
+            'isVisibleHotels' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->isVisibleHotels(),
+            'metaDescription' => $this->getDoctrine()->getRepository('VisitaYucatanBundle:ConfigurationVar')->findParameterValueByKey(Generalkeys::META_DESCRIPTION_HOTEL)));
     }
 
     /**
